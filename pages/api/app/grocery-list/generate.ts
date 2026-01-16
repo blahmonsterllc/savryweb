@@ -8,6 +8,7 @@ import { verify } from 'jsonwebtoken'
 import { prisma } from '@/lib/prisma'
 import { generateGroceryList } from '@/lib/openai'
 import { z } from 'zod'
+import { Recipe } from '@prisma/client'
 
 const generateGroceryListSchema = z.object({
   mealPlanId: z.string().optional(),
@@ -45,7 +46,7 @@ export default async function handler(
       return res.status(400).json({ message: 'Either mealPlanId or recipeIds must be provided' })
     }
 
-    let recipes = []
+    let recipes: Recipe[] = []
 
     if (params.mealPlanId) {
       // Get recipes from meal plan

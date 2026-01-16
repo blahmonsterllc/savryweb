@@ -1,0 +1,617 @@
+/**
+ * Savry Design System
+ * Unified styles across iOS and Web
+ */
+
+:root {
+  /* ========== Colors ========== */
+  
+  /* Primary Colors */
+  --primary-teal: #4ECDC4;
+  --primary-teal-light: #7FE3DB;
+  --primary-teal-dark: #44A08D;
+  
+  /* Accent Colors */
+  --accent-orange: #FF6B6B;
+  --accent-orange-light: #FF8E8E;
+  --accent-orange-dark: #E85555;
+  
+  /* Success/Healthy */
+  --success-green: #4CAF50;
+  --success-green-light: #81C784;
+  --success-green-dark: #388E3C;
+  
+  /* Background Colors */
+  --background-primary: #FFFFFF;
+  --background-secondary: #F7F9FB;
+  --background-tertiary: #F0F4F8;
+  
+  /* Text Colors */
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+  --text-inverse: #FFFFFF;
+  
+  /* Border Colors */
+  --border-light: #E5E7EB;
+  --border-medium: #D1D5DB;
+  --border-dark: #9CA3AF;
+  
+  /* Status Colors */
+  --status-info: #3B82F6;
+  --status-warning: #F59E0B;
+  --status-error: #EF4444;
+  --status-success: #10B981;
+  
+  /* Semantic Colors - Meal Types */
+  --breakfast-yellow: #FFA726;
+  --lunch-blue: #42A5F5;
+  --dinner-purple: #AB47BC;
+  --snack-green: #66BB6A;
+  --dessert-pink: #EC407A;
+  
+  /* ========== Typography ========== */
+  
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  
+  /* Font Sizes */
+  --font-size-display: 56px;
+  --font-size-large-title: 34px;
+  --font-size-title-1: 28px;
+  --font-size-title-2: 22px;
+  --font-size-title-3: 20px;
+  --font-size-headline: 17px;
+  --font-size-body: 17px;
+  --font-size-callout: 16px;
+  --font-size-subheadline: 15px;
+  --font-size-footnote: 13px;
+  --font-size-caption-1: 12px;
+  --font-size-caption-2: 11px;
+  
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  
+  /* ========== Spacing ========== */
+  
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  
+  /* ========== Border Radius ========== */
+  
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  
+  /* ========== Shadows ========== */
+  
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.10);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-2xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  
+  /* Colored Shadows */
+  --shadow-orange: 0 8px 16px rgba(255, 107, 107, 0.3);
+  --shadow-teal: 0 8px 16px rgba(78, 205, 196, 0.3);
+  --shadow-green: 0 8px 16px rgba(76, 175, 80, 0.3);
+  
+  /* ========== Transitions ========== */
+  
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* ========== Breakpoints ========== */
+  
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* ========== Base Styles ========== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background: var(--background-secondary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========== Typography Classes ========== */
+
+.large-title {
+  font-size: var(--font-size-large-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.title-1 {
+  font-size: var(--font-size-title-1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.title-2 {
+  font-size: var(--font-size-title-2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.title-3 {
+  font-size: var(--font-size-title-3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+}
+
+.headline {
+  font-size: var(--font-size-headline);
+  font-weight: var(--font-weight-semibold);
+}
+
+.body {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+}
+
+.callout {
+  font-size: var(--font-size-callout);
+  font-weight: var(--font-weight-regular);
+}
+
+.subheadline {
+  font-size: var(--font-size-subheadline);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-secondary);
+}
+
+.footnote {
+  font-size: var(--font-size-footnote);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-tertiary);
+}
+
+.caption {
+  font-size: var(--font-size-caption-1);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-tertiary);
+}
+
+/* ========== Buttons ========== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 14px 24px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-headline);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: var(--font-family);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 100%);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-orange);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(255, 107, 107, 0.4);
+}
+
+.btn-secondary {
+  background: var(--primary-teal);
+  color: var(--text-inverse);
+}
+
+.btn-secondary:hover {
+  background: var(--primary-teal-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-teal);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-teal);
+  border: 2px solid var(--primary-teal);
+}
+
+.btn-outline:hover {
+  background: var(--primary-teal);
+  color: var(--text-inverse);
+}
+
+.btn-pill {
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-footnote);
+  background: rgba(78, 205, 196, 0.15);
+  color: var(--primary-teal);
+}
+
+/* ========== Cards ========== */
+
+.card {
+  background: var(--background-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========== Recipe Cards ========== */
+
+.recipe-card {
+  background: var(--background-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  cursor: pointer;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.recipe-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.recipe-content {
+  padding: var(--space-4);
+}
+
+.recipe-title {
+  font-size: var(--font-size-title-3);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
+}
+
+.recipe-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-subheadline);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.recipe-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.recipe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ========== Tags/Badges ========== */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-caption-1);
+  font-weight: var(--font-weight-semibold);
+}
+
+.tag-breakfast {
+  background: rgba(255, 167, 38, 0.15);
+  color: #F57C00;
+}
+
+.tag-lunch {
+  background: rgba(66, 165, 245, 0.15);
+  color: #1976D2;
+}
+
+.tag-dinner {
+  background: rgba(171, 71, 188, 0.15);
+  color: #7B1FA2;
+}
+
+.tag-snack {
+  background: rgba(102, 187, 106, 0.15);
+  color: #388E3C;
+}
+
+.tag-dessert {
+  background: rgba(236, 64, 122, 0.15);
+  color: #C2185B;
+}
+
+.tag-easy {
+  background: rgba(76, 175, 80, 0.15);
+  color: var(--success-green-dark);
+}
+
+.tag-medium {
+  background: rgba(255, 167, 38, 0.15);
+  color: #F57C00;
+}
+
+.tag-hard {
+  background: rgba(239, 68, 68, 0.15);
+  color: #DC2626;
+}
+
+/* ========== Layouts ========== */
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .page-container {
+    padding: 0 var(--space-10);
+  }
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .recipe-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-8);
+  }
+}
+
+/* ========== Empty States ========== */
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-16) var(--space-5);
+}
+
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: var(--space-5);
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: var(--font-size-title-2);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-2);
+}
+
+.empty-description {
+  color: var(--text-secondary);
+  font-size: var(--font-size-subheadline);
+  margin-bottom: var(--space-6);
+}
+
+/* ========== Animations ========== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in-up {
+  animation: slideInUp 0.4s ease;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ========== Loading States ========== */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--background-tertiary) 0%,
+    var(--border-light) 50%,
+    var(--background-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ========== Status Messages ========== */
+
+.message {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-subheadline);
+  font-weight: var(--font-weight-medium);
+}
+
+.message-success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border-left: 4px solid var(--status-success);
+}
+
+.message-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+  border-left: 4px solid var(--status-error);
+}
+
+.message-warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #D97706;
+  border-left: 4px solid var(--status-warning);
+}
+
+.message-info {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563EB;
+  border-left: 4px solid var(--status-info);
+}
+
+/* ========== Input Fields ========== */
+
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-headline);
+  font-family: var(--font-family);
+  transition: all var(--transition-fast);
+  background: var(--background-primary);
+  color: var(--text-primary);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-teal);
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+}
+
+.input-field::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* ========== Utility Classes ========== */
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+
+.p-4 { padding: var(--space-4); }
+.p-5 { padding: var(--space-5); }
+.p-6 { padding: var(--space-6); }
+
+
+
+

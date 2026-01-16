@@ -1,4 +1,4 @@
-i # Savry - Smart Recipe & Meal Planning Website
+# Savry - Smart Recipe & Meal Planning Website
 
 A comprehensive web platform for the Savry iOS app, featuring intelligent recipe generation, meal planning, and grocery list creation.
 

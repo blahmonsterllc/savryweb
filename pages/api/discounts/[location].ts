@@ -33,9 +33,8 @@ export default async function handler(
       return res.status(400).json({ message: 'Invalid location' })
     }
 
-    const discounts = await supermarketScraper.getDiscounts(location, category)
-
-    return res.status(200).json(discounts)
+    // Discounts are disabled for now; return empty list
+    return res.status(200).json([])
   } catch (error) {
     console.error('Get discounts error:', error)
     return res.status(500).json({ message: 'Failed to fetch discounts' })

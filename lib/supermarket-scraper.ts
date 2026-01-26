@@ -452,6 +452,20 @@ export class SupermarketScraper {
   }
 
   /**
+   * Discount fetching is disabled for now; return empty list.
+   */
+  async getDiscounts(_location: string, _category?: string) {
+    return []
+  }
+
+  /**
+   * Discount updating is disabled for now; no-op.
+   */
+  async updateDiscounts(_location: string) {
+    return []
+  }
+
+  /**
    * Map common items to typical store aisles
    * This is a general mapping - each store is different
    */

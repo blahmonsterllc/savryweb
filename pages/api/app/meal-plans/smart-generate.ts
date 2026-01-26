@@ -83,30 +83,17 @@ export default async function handler(
     // ========================================
     // 3. FIND DEALS FROM USER'S STORES
     // ========================================
-    console.log(`🔍 Finding deals from ${preferredStores.join(', ')} in ${zipCode}...`)
+    console.log(`🔍 Deal lookup disabled; generating without store deals.`)
     
-    const dealsSnapshot = await db
-      .collection('supermarketDiscounts')
-      .where('zipCode', '==', zipCode)
-      .where('storeName', 'in', preferredStores.slice(0, 10)) // Firestore limit
-      .where('validUntil', '>', new Date())
-      .orderBy('validUntil')
-      .orderBy('discountPercent', 'desc')
-      .limit(50)
-      .get()
-
-    const deals = dealsSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }))
-
-    const dealsAvailable = deals.length > 0
+    const deals: any[] = []
+    const dealsAvailable = false
     if (!dealsAvailable && !allowNoDeals) {
+      // allowNoDeals defaults true; keep behavior for completeness
       return res.status(200).json({
         success: true,
         dealsAvailable: false,
         message:
-          'No active deals were found for your ZIP + selected stores. Set allowNoDeals=true to generate a plan without deals.',
+          'Deal lookup is currently disabled; generation continues without deals.',
         mealPlan: null,
         shoppingList: null,
         metadata: {
@@ -118,7 +105,7 @@ export default async function handler(
       })
     }
 
-    console.log(dealsAvailable ? `✅ Found ${deals.length} deals!` : '⚠️ No deals found; generating without deals.')
+    console.log('⚠️ Generating without deals.')
 
     // Filter to meal-relevant categories (if we have deals)
     const relevantDeals = dealsAvailable

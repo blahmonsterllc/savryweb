@@ -16,7 +16,12 @@ export default async function handler(
 
   try {
     // Verify JWT token
-    const payload = verifyJWT(req)
+    const authHeader = req.headers.authorization
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: 'Unauthorized' })
+    }
+    const token = authHeader.substring(7)
+    const payload = await verifyJWT(token)
     if (!payload) {
       return res.status(401).json({ message: 'Unauthorized' })
     }

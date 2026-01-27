@@ -14,7 +14,8 @@ import { db } from '@/lib/firebase'
  */
 
 // Rate limits
-const FREE_TIER_MONTHLY_LIMIT = 2
+// TESTFLIGHT: Generous limits for testing (change to 2 for production)
+const FREE_TIER_MONTHLY_LIMIT = 999
 const PRO_TIER_MONTHLY_LIMIT = 999999 // Effectively unlimited
 
 // Keywords that indicate recipe complexity

@@ -1,4 +1,5 @@
 import OpenAI from 'openai'
+import { trackAPIUsage } from './openai-tracker'
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error('Missing OPENAI_API_KEY environment variable')
@@ -36,6 +37,16 @@ export async function generateRecipe(params: RecipeGenerationParams) {
     response_format: { type: 'json_object' },
     temperature: 0.8,
   })
+
+  // Track usage
+  if (completion.usage) {
+    trackAPIUsage(
+      'gpt-4o-mini',
+      completion.usage.prompt_tokens,
+      completion.usage.completion_tokens,
+      'generateRecipe'
+    )
+  }
 
   const response = completion.choices[0].message.content
   if (!response) throw new Error('No response from OpenAI')
@@ -81,6 +92,16 @@ export async function generateSmartRecipe(params: SmartRecipeParams) {
     max_tokens: 2000,
   })
 
+  // Track usage
+  if (completion.usage) {
+    trackAPIUsage(
+      'gpt-4o',
+      completion.usage.prompt_tokens,
+      completion.usage.completion_tokens,
+      'generateSmartRecipe'
+    )
+  }
+
   const response = completion.choices[0].message.content
   if (!response) throw new Error('No response from OpenAI')
   
@@ -111,6 +132,16 @@ export async function generateMealPlan(params: {
     temperature: 0.7,
   })
 
+  // Track usage
+  if (completion.usage) {
+    trackAPIUsage(
+      'gpt-4o-mini',
+      completion.usage.prompt_tokens,
+      completion.usage.completion_tokens,
+      'generateMealPlan'
+    )
+  }
+
   const response = completion.choices[0].message.content
   if (!response) throw new Error('No response from OpenAI')
   
@@ -137,6 +168,16 @@ export async function generateGroceryList(recipes: any[]) {
     response_format: { type: 'json_object' },
     temperature: 0.5,
   })
+
+  // Track usage
+  if (completion.usage) {
+    trackAPIUsage(
+      'gpt-4o-mini',
+      completion.usage.prompt_tokens,
+      completion.usage.completion_tokens,
+      'generateGroceryList'
+    )
+  }
 
   const response = completion.choices[0].message.content
   if (!response) throw new Error('No response from OpenAI')

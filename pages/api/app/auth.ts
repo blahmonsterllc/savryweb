@@ -8,7 +8,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { compare } from 'bcryptjs'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
-import { sign } from 'jsonwebtoken'
+import { generateJWT } from '@/lib/auth'
 
 const authSchema = z.object({
   email: z.string().email(),
@@ -47,19 +47,14 @@ export default async function handler(
       return res.status(401).json({ message: 'Invalid credentials' })
     }
 
-    // Generate JWT token for iOS app
-    const token = sign(
-      {
-        userId: user.id,
-        email: user.email,
-        tier: user.tier,
-      },
-      process.env.NEXTAUTH_SECRET || 'your-secret-key',
-      { expiresIn: '30d' }
-    )
+    // Generate JWT token for iOS app using JWT_SECRET
+    const token = generateJWT(user.id, user.email, user.tier as 'FREE' | 'PRO' | 'PREMIUM')
+
+    console.log(`✅ User authenticated: ${user.email} (${user.tier})`)
 
     return res.status(200).json({
-      token,
+      success: true,
+      accessToken: token, // iOS app expects 'accessToken'
       user: {
         id: user.id,
         email: user.email,

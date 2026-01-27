@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 export interface JWTPayload {
   userId: string
   email: string
-  tier: 'FREE' | 'PRO' | 'PREMIUM'
+  tier: 'FREE' | 'PRO' | 'PREMIUM' // User subscription tier
   iat?: number
   exp?: number
 }

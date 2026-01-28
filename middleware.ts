@@ -36,11 +36,16 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
+  // Always allow public auth endpoints (Apple Sign In, etc.)
+  if (pathname.startsWith('/api/auth')) {
+    return NextResponse.next()
+  }
+
   // Only protect admin and health pages - everything else is public
   const needsAdmin =
     pathname === '/health' ||
     (pathname.startsWith('/admin') && pathname !== '/admin/login') ||
-    (pathname.startsWith('/api') && !pathname.startsWith('/api/app') && !pathname.startsWith('/api/admin'))
+    (pathname.startsWith('/api') && !pathname.startsWith('/api/app') && !pathname.startsWith('/api/admin') && !pathname.startsWith('/api/auth'))
 
   if (!needsAdmin) {
     return NextResponse.next()

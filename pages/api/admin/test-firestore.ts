@@ -7,17 +7,28 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    console.log('Testing Firestore write...')
+    console.log('Testing Firestore write with proper AI request structure...')
     
-    // Try to write a simple test document
+    // Try to write a properly formatted AI request document
     const testDoc = {
-      test: true,
-      message: 'Test write',
-      timestamp: Timestamp.now(),
-      createdAt: new Date()
+      userId: 'test-user',
+      userTier: 'FREE' as const,
+      model: 'gpt-4o-mini',
+      promptTokens: 50,
+      completionTokens: 100,
+      totalTokens: 150,
+      costUSD: 0.000225,
+      inputCostUSD: 0.0000075,
+      outputCostUSD: 0.00021,
+      requestType: 'generate',
+      promptLength: 100,
+      success: true,
+      responseTimeMs: 2000,
+      endpoint: '/api/admin/test-firestore',
+      createdAt: Timestamp.now()
     }
     
-    console.log('Writing test document:', testDoc)
+    console.log('Writing test AI request:', testDoc)
     const docRef = await db.collection('ai_requests').add(testDoc)
     console.log('Document written successfully! ID:', docRef.id)
     

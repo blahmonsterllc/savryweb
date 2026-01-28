@@ -106,7 +106,19 @@ export default async function handler(
     console.log(`🤖 ChatGPT request from user ${userId} (${userTier})`)
 
     // ============================================
-    // STEP 2: Check Rate Limits
+    // STEP 2: Get Request Data Early
+    // ============================================
+    const { prompt, systemMessage, maxTokens, model: requestedModel, appVersion } = req.body
+
+    if (!prompt) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Missing required field: prompt' 
+      })
+    }
+
+    // ============================================
+    // STEP 3: Check Rate Limits
     // ============================================
     const currentMonth = new Date().toISOString().substring(0, 7) // "2026-01"
     
@@ -137,7 +149,7 @@ export default async function handler(
         model: 'gpt-4o-mini',
         usage: { promptTokens: 0, completionTokens: 0, totalTokens: 0 },
         requestType: 'generate',
-        promptLength: prompt?.length || 0,
+        promptLength: prompt.length,
         success: false,
         errorMessage: 'Rate limit exceeded',
         responseTimeMs: Date.now() - startTime,
@@ -155,17 +167,9 @@ export default async function handler(
     }
 
     // ============================================
-    // STEP 3: Smart Model Selection
+    // STEP 4: Smart Model Selection
     // ============================================
-    const { prompt, systemMessage, maxTokens, model: requestedModel, appVersion } = req.body
-
-    if (!prompt) {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'Missing required field: prompt' 
-      })
-    }
-
+    
     // PRIORITY 1: Use client-specified model (iOS app knows best)
     let selectedModel = requestedModel
     
@@ -192,7 +196,7 @@ export default async function handler(
     console.log('🎯 Final model:', selectedModel)
 
     // ============================================
-    // STEP 4: Call OpenAI
+    // STEP 5: Call OpenAI
     // ============================================
     const completion = await openai.chat.completions.create({
       model: selectedModel,
@@ -234,7 +238,7 @@ export default async function handler(
     console.log('💰 Request cost:', `$${requestCost.toFixed(4)}`)
 
     // ============================================
-    // STEP 5: Update Usage Counter & Log Request
+    // STEP 6: Update Usage Counter & Log Request
     // ============================================
     usageData.count += 1
     usageData.lastUsed = new Date()
@@ -262,7 +266,7 @@ export default async function handler(
     })
 
     // ============================================
-    // STEP 6: Return Response
+    // STEP 7: Return Response
     // ============================================
     return res.status(200).json({
       success: true,

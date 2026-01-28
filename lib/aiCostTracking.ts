@@ -190,14 +190,16 @@ export async function getTotalCosts(
     // Only count successful requests
     if (data.success === true) {
       successCount++
-      totalCost += data.costUSD || 0
+      const cost = typeof data.costUSD === 'number' ? data.costUSD : 0
+      totalCost += cost
       
-      if (!costByModel[data.model]) {
-        costByModel[data.model] = 0
-        tokensByModel[data.model] = 0
+      const model = data.model || 'unknown'
+      if (!costByModel[model]) {
+        costByModel[model] = 0
+        tokensByModel[model] = 0
       }
-      costByModel[data.model] += data.costUSD || 0
-      tokensByModel[data.model] += data.totalTokens || 0
+      costByModel[model] += cost
+      tokensByModel[model] += (data.totalTokens || 0)
     }
   })
   
@@ -274,14 +276,15 @@ export async function getDailyCosts(
   snapshot.forEach(doc => {
     const data = doc.data()
     
-    if (data.success === true) {
+    if (data.success === true && data.createdAt) {
       const date = data.createdAt.toDate().toISOString().split('T')[0]
       
       if (!dailyData[date]) {
         dailyData[date] = { cost: 0, requests: 0 }
       }
       
-      dailyData[date].cost += data.costUSD || 0
+      const cost = typeof data.costUSD === 'number' ? data.costUSD : 0
+      dailyData[date].cost += cost
       dailyData[date].requests += 1
     }
   })

@@ -300,7 +300,8 @@ export default async function handler(
         const decoded = await verifyJWT(token)
         if (decoded) {
           userId = decoded.userId
-          userTier = decoded.tier || 'FREE'
+          const decodedTier = decoded.tier || 'FREE'
+          userTier = (decodedTier === 'PREMIUM' || decodedTier === 'PRO') ? 'PRO' : 'FREE'
         }
       }
       

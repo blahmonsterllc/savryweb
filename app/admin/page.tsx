@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import OpenAIUsageChart from '@/components/OpenAIUsageChart'
+import AICostTracker from '@/components/AICostTracker'
 
 type HealthPayload = {
   ok: boolean
@@ -89,6 +90,11 @@ export default function AdminHomePage() {
       {/* OpenAI Usage Chart */}
       <div className="mt-6">
         <OpenAIUsageChart />
+      </div>
+
+      {/* AI Cost Tracking */}
+      <div className="mt-6">
+        <AICostTracker />
       </div>
     </div>
   )

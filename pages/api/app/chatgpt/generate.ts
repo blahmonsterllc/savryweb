@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { openai } from '@/lib/openai'
 import { verifyJWT } from '@/lib/auth'
 import { trackAPIUsage } from '@/lib/openai-tracker'
+import { logAIRequest } from '@/lib/aiCostTracking'
 import { db } from '@/lib/firebase'
 
 /**
@@ -66,6 +67,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const startTime = Date.now()
+  
   // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ 
@@ -127,6 +130,21 @@ export default async function handler(
 
     // Check rate limit for free users
     if (userTier === 'FREE' && usageData.count >= FREE_TIER_MONTHLY_LIMIT) {
+      // Log rate limit hit
+      await logAIRequest({
+        userId,
+        userTier,
+        model: 'gpt-4o-mini',
+        usage: { promptTokens: 0, completionTokens: 0, totalTokens: 0 },
+        requestType: 'generate',
+        promptLength: prompt?.length || 0,
+        success: false,
+        errorMessage: 'Rate limit exceeded',
+        responseTimeMs: Date.now() - startTime,
+        endpoint: '/api/app/chatgpt/generate',
+        appVersion
+      })
+      
       return res.status(403).json({ 
         success: false, 
         error: `You've used ${FREE_TIER_MONTHLY_LIMIT} free AI recipes this month. Upgrade to Pro for unlimited access!`,
@@ -139,7 +157,7 @@ export default async function handler(
     // ============================================
     // STEP 3: Smart Model Selection
     // ============================================
-    const { prompt, systemMessage, maxTokens, model: requestedModel } = req.body
+    const { prompt, systemMessage, maxTokens, model: requestedModel, appVersion } = req.body
 
     if (!prompt) {
       return res.status(400).json({ 
@@ -225,25 +243,23 @@ export default async function handler(
 
     console.log(`📈 Usage updated: ${usageData.count}/${userTier === 'PRO' ? '∞' : FREE_TIER_MONTHLY_LIMIT}`)
 
-    // Log detailed request data for analytics and cost tracking
-    try {
-      await db.collection('ai_requests').add({
-        userId: userId,
-        model: selectedModel,
-        promptLength: prompt.length,
-        tokensUsed: completion.usage?.total_tokens || 0,
+    // Log request with enhanced cost tracking
+    await logAIRequest({
+      userId,
+      userTier,
+      model: selectedModel,
+      usage: {
         promptTokens: completion.usage?.prompt_tokens || 0,
         completionTokens: completion.usage?.completion_tokens || 0,
-        cost: requestCost,
-        success: true,
-        userTier: userTier,
-        createdAt: new Date()
-      })
-      console.log('📝 Request logged to ai_requests collection')
-    } catch (logError) {
-      // Don't fail the request if logging fails
-      console.error('⚠️ Failed to log request:', logError)
-    }
+        totalTokens: completion.usage?.total_tokens || 0
+      },
+      requestType: 'generate',
+      promptLength: prompt.length,
+      success: true,
+      responseTimeMs: Date.now() - startTime,
+      endpoint: '/api/app/chatgpt/generate',
+      appVersion
+    })
 
     // ============================================
     // STEP 6: Return Response
@@ -267,6 +283,38 @@ export default async function handler(
 
   } catch (error: any) {
     console.error('❌ ChatGPT endpoint error:', error)
+
+    // Log failed request
+    try {
+      const authHeader = req.headers.authorization
+      let userId = 'unknown'
+      let userTier: 'FREE' | 'PRO' = 'FREE'
+      
+      if (authHeader) {
+        const token = authHeader.substring(7)
+        const decoded = await verifyJWT(token)
+        if (decoded) {
+          userId = decoded.userId
+          userTier = decoded.tier || 'FREE'
+        }
+      }
+      
+      await logAIRequest({
+        userId,
+        userTier,
+        model: req.body.model || 'gpt-4o-mini',
+        usage: { promptTokens: 0, completionTokens: 0, totalTokens: 0 },
+        requestType: 'generate',
+        promptLength: req.body.prompt?.length || 0,
+        success: false,
+        errorMessage: error.message,
+        responseTimeMs: Date.now() - startTime,
+        endpoint: '/api/app/chatgpt/generate',
+        appVersion: req.body.appVersion
+      })
+    } catch (logError) {
+      console.error('⚠️ Failed to log error:', logError)
+    }
 
     // Handle specific OpenAI errors
     if (error.response) {

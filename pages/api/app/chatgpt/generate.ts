@@ -101,7 +101,8 @@ export default async function handler(
     }
 
     const userId = decoded.userId
-    const userTier = decoded.tier || 'FREE' // "FREE" or "PRO"
+    const decodedTier = decoded.tier || 'FREE'
+    const userTier: 'FREE' | 'PRO' = (decodedTier === 'PREMIUM' || decodedTier === 'PRO') ? 'PRO' : 'FREE'
 
     console.log(`🤖 ChatGPT request from user ${userId} (${userTier})`)
 

@@ -43,10 +43,9 @@ export default async function handler(
     // Get daily breakdown for charts
     const dailyCosts = await getDailyCosts(startDate, now)
 
-    // Get top users by cost
+    // Get top users by cost (query without success filter)
     const requestsSnapshot = await db.collection('ai_requests')
       .where('createdAt', '>=', startDate)
-      .where('success', '==', true)
       .get()
 
     // Aggregate by user
@@ -57,20 +56,24 @@ export default async function handler(
       email?: string 
     }> = {}
 
+    // Filter for successful requests in memory
     requestsSnapshot.forEach(doc => {
       const data = doc.data()
-      const userId = data.userId
       
-      if (!userCostMap[userId]) {
-        userCostMap[userId] = {
-          cost: 0,
-          requests: 0,
-          tier: data.userTier || 'FREE'
+      if (data.success === true) {
+        const userId = data.userId
+        
+        if (!userCostMap[userId]) {
+          userCostMap[userId] = {
+            cost: 0,
+            requests: 0,
+            tier: data.userTier || 'FREE'
+          }
         }
+        
+        userCostMap[userId].cost += data.costUSD || 0
+        userCostMap[userId].requests += 1
       }
-      
-      userCostMap[userId].cost += data.costUSD || 0
-      userCostMap[userId].requests += 1
     })
 
     // Get user emails for top users

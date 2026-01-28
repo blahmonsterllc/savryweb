@@ -166,32 +166,39 @@ export async function getTotalCosts(
   costByModel: Record<string, number>
   tokensByModel: Record<string, number>
 }> {
+  // Query with only createdAt filter (no composite index needed)
   const snapshot = await db.collection('ai_requests')
     .where('createdAt', '>=', Timestamp.fromDate(startDate))
     .where('createdAt', '<=', Timestamp.fromDate(endDate))
-    .where('success', '==', true)
     .get()
   
   let totalCost = 0
+  let successCount = 0
   const costByModel: Record<string, number> = {}
   const tokensByModel: Record<string, number> = {}
   
+  // Filter for success in memory
   snapshot.forEach(doc => {
     const data = doc.data()
-    totalCost += data.costUSD || 0
     
-    if (!costByModel[data.model]) {
-      costByModel[data.model] = 0
-      tokensByModel[data.model] = 0
+    // Only count successful requests
+    if (data.success === true) {
+      successCount++
+      totalCost += data.costUSD || 0
+      
+      if (!costByModel[data.model]) {
+        costByModel[data.model] = 0
+        tokensByModel[data.model] = 0
+      }
+      costByModel[data.model] += data.costUSD || 0
+      tokensByModel[data.model] += data.totalTokens || 0
     }
-    costByModel[data.model] += data.costUSD || 0
-    tokensByModel[data.model] += data.totalTokens || 0
   })
   
   return {
     totalCost,
-    requestCount: snapshot.size,
-    avgCostPerRequest: snapshot.size > 0 ? totalCost / snapshot.size : 0,
+    requestCount: successCount,
+    avgCostPerRequest: successCount > 0 ? totalCost / successCount : 0,
     costByModel,
     tokensByModel
   }
@@ -209,29 +216,35 @@ export async function getUserCosts(
   requestCount: number
   costByType: Record<string, number>
 }> {
+  // Query without success filter (no composite index needed)
   const snapshot = await db.collection('ai_requests')
     .where('userId', '==', userId)
     .where('createdAt', '>=', Timestamp.fromDate(startDate))
     .where('createdAt', '<=', Timestamp.fromDate(endDate))
-    .where('success', '==', true)
     .get()
   
   let totalCost = 0
+  let successCount = 0
   const costByType: Record<string, number> = {}
   
+  // Filter for success in memory
   snapshot.forEach(doc => {
     const data = doc.data()
-    totalCost += data.costUSD || 0
     
-    if (!costByType[data.requestType]) {
-      costByType[data.requestType] = 0
+    if (data.success === true) {
+      successCount++
+      totalCost += data.costUSD || 0
+      
+      if (!costByType[data.requestType]) {
+        costByType[data.requestType] = 0
+      }
+      costByType[data.requestType] += data.costUSD || 0
     }
-    costByType[data.requestType] += data.costUSD || 0
   })
   
   return {
     totalCost,
-    requestCount: snapshot.size,
+    requestCount: successCount,
     costByType
   }
 }
@@ -243,24 +256,28 @@ export async function getDailyCosts(
   startDate: Date,
   endDate: Date
 ): Promise<Array<{ date: string; cost: number; requests: number }>> {
+  // Query without success filter (no composite index needed)
   const snapshot = await db.collection('ai_requests')
     .where('createdAt', '>=', Timestamp.fromDate(startDate))
     .where('createdAt', '<=', Timestamp.fromDate(endDate))
-    .where('success', '==', true)
     .get()
   
   const dailyData: Record<string, { cost: number; requests: number }> = {}
   
+  // Filter for success in memory
   snapshot.forEach(doc => {
     const data = doc.data()
-    const date = data.createdAt.toDate().toISOString().split('T')[0]
     
-    if (!dailyData[date]) {
-      dailyData[date] = { cost: 0, requests: 0 }
+    if (data.success === true) {
+      const date = data.createdAt.toDate().toISOString().split('T')[0]
+      
+      if (!dailyData[date]) {
+        dailyData[date] = { cost: 0, requests: 0 }
+      }
+      
+      dailyData[date].cost += data.costUSD || 0
+      dailyData[date].requests += 1
     }
-    
-    dailyData[date].cost += data.costUSD || 0
-    dailyData[date].requests += 1
   })
   
   return Object.entries(dailyData)

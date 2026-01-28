@@ -118,8 +118,13 @@ export async function logAIRequest(data: {
   appVersion?: string
 }): Promise<void> {
   try {
+    console.log('📝 Starting AI request logging...')
+    console.log(`   User: ${data.userId}, Tier: ${data.userTier}`)
+    console.log(`   Model: ${data.model}, Tokens: ${data.usage.totalTokens}`)
+    
     // Calculate costs
     const cost = calculateAICost(data.model, data.usage)
+    console.log(`   Cost calculated: $${cost.totalCost.toFixed(6)}`)
     
     // Create log entry
     const logEntry: AIRequestLog = {
@@ -142,13 +147,16 @@ export async function logAIRequest(data: {
       createdAt: Timestamp.now()
     }
     
+    console.log('   Writing to Firestore ai_requests collection...')
     // Save to Firestore
-    await db.collection('ai_requests').add(logEntry)
+    const docRef = await db.collection('ai_requests').add(logEntry)
+    console.log(`✅ AI Cost logged successfully! Doc ID: ${docRef.id}`)
+    console.log(`💰 ${formatCost(cost.totalCost)} (${data.model}, ${data.usage.totalTokens} tokens)`)
     
-    console.log(`💰 AI Cost logged: ${formatCost(cost.totalCost)} (${data.model}, ${data.usage.totalTokens} tokens)`)
-    
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Failed to log AI cost:', error)
+    console.error('   Error details:', error.message)
+    console.error('   Stack:', error.stack)
     // Don't throw - logging failures shouldn't break API
   }
 }

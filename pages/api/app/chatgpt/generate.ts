@@ -18,14 +18,42 @@ import { db } from '@/lib/firebase'
 const FREE_TIER_MONTHLY_LIMIT = 999
 const PRO_TIER_MONTHLY_LIMIT = 999999 // Effectively unlimited
 
-// Keywords that indicate recipe complexity
+// Keywords that indicate recipe complexity or modifications
 const COMPLEX_KEYWORDS = [
+  // Dietary restrictions
   'gluten-free', 'vegan', 'vegetarian', 'keto', 'paleo', 'dairy-free',
   'nut-free', 'allergen', 'allergy', 'dietary', 'restriction',
   'kosher', 'halal', 'low-carb', 'sugar-free', 'diabetic',
+  // Complex cuisines
   'french', 'thai', 'indian', 'japanese', 'molecular', 'gourmet',
-  'advanced', 'complicated', 'multi-step', 'technique'
+  'advanced', 'complicated', 'multi-step', 'technique',
+  // Modifications (key use case for GPT-4o)
+  'modify', 'change', 'substitute', 'replace', 'adapt', 'make it',
+  'without', 'instead of', 'swap', 'alter', 'adjust'
 ]
+
+// Helper function to calculate API costs
+function calculateCost(model: string, usage: any): number {
+  if (!usage) return 0
+
+  const pricing: Record<string, { input: number; output: number }> = {
+    'gpt-4o': {
+      input: 5.00 / 1_000_000,    // $5 per 1M input tokens
+      output: 20.00 / 1_000_000   // $20 per 1M output tokens
+    },
+    'gpt-4o-mini': {
+      input: 0.15 / 1_000_000,    // $0.15 per 1M input tokens
+      output: 0.60 / 1_000_000    // $0.60 per 1M output tokens
+    }
+  }
+
+  const modelPricing = pricing[model] || pricing['gpt-4o-mini']
+  
+  const inputCost = (usage.prompt_tokens || 0) * modelPricing.input
+  const outputCost = (usage.completion_tokens || 0) * modelPricing.output
+  
+  return inputCost + outputCost
+}
 
 interface UsageRecord {
   userId: string
@@ -111,7 +139,7 @@ export default async function handler(
     // ============================================
     // STEP 3: Smart Model Selection
     // ============================================
-    const { prompt, systemMessage, maxTokens } = req.body
+    const { prompt, systemMessage, maxTokens, model: requestedModel } = req.body
 
     if (!prompt) {
       return res.status(400).json({ 
@@ -120,32 +148,36 @@ export default async function handler(
       })
     }
 
-    // Detect complexity from prompt
-    const promptLower = prompt.toLowerCase()
-    const isComplex = COMPLEX_KEYWORDS.some(keyword => 
-      promptLower.includes(keyword)
-    )
-
-    // Choose model based on tier and complexity
-    let model = 'gpt-4o-mini' // Default: fast and cheap
+    // PRIORITY 1: Use client-specified model (iOS app knows best)
+    let selectedModel = requestedModel
     
-    if (userTier === 'PRO' && isComplex) {
-      model = 'gpt-4o' // Premium model for complex requests
-      console.log(`✨ Using GPT-4o (Pro user + complex recipe)`)
-    } else if (userTier === 'PRO') {
-      console.log(`⚡ Using GPT-4o-mini (Pro user + simple recipe)`)
+    if (!selectedModel) {
+      // PRIORITY 2: Server-side intelligence for auto-detection
+      const promptLower = prompt.toLowerCase()
+      const isComplex = COMPLEX_KEYWORDS.some(keyword => 
+        promptLower.includes(keyword)
+      )
+
+      // Choose model based on complexity
+      // Use GPT-4o for modifications and complex requests, GPT-4o-mini for simple
+      selectedModel = isComplex ? 'gpt-4o' : 'gpt-4o-mini'
+    }
+
+    // Log model selection reasoning
+    if (requestedModel) {
+      console.log(`📱 Client requested: ${requestedModel}`)
     } else {
-      console.log(`🆓 Using GPT-4o-mini (Free user)`)
+      console.log(`🤖 Server selected: ${selectedModel} (auto-detected)`)
     }
 
     console.log('📝 Prompt length:', prompt.length)
-    console.log('🎯 Model:', model)
+    console.log('🎯 Final model:', selectedModel)
 
     // ============================================
     // STEP 4: Call OpenAI
     // ============================================
     const completion = await openai.chat.completions.create({
-      model: model,
+      model: selectedModel,
       messages: [
         {
           role: 'system',
@@ -166,10 +198,13 @@ export default async function handler(
       throw new Error('OpenAI returned empty response')
     }
 
+    // Calculate actual cost for this request
+    const requestCost = calculateCost(selectedModel, completion.usage)
+
     // Track usage for admin dashboard
     if (completion.usage) {
       trackAPIUsage(
-        model,
+        selectedModel,
         completion.usage.prompt_tokens,
         completion.usage.completion_tokens,
         'chatgpt/generate'
@@ -178,9 +213,10 @@ export default async function handler(
 
     console.log('✅ OpenAI response received')
     console.log('📊 Tokens used:', completion.usage?.total_tokens)
+    console.log('💰 Request cost:', `$${requestCost.toFixed(4)}`)
 
     // ============================================
-    // STEP 5: Update Usage Counter
+    // STEP 5: Update Usage Counter & Log Request
     // ============================================
     usageData.count += 1
     usageData.lastUsed = new Date()
@@ -188,6 +224,26 @@ export default async function handler(
     await usageRef.set(usageData)
 
     console.log(`📈 Usage updated: ${usageData.count}/${userTier === 'PRO' ? '∞' : FREE_TIER_MONTHLY_LIMIT}`)
+
+    // Log detailed request data for analytics and cost tracking
+    try {
+      await db.collection('ai_requests').add({
+        userId: userId,
+        model: selectedModel,
+        promptLength: prompt.length,
+        tokensUsed: completion.usage?.total_tokens || 0,
+        promptTokens: completion.usage?.prompt_tokens || 0,
+        completionTokens: completion.usage?.completion_tokens || 0,
+        cost: requestCost,
+        success: true,
+        userTier: userTier,
+        createdAt: new Date()
+      })
+      console.log('📝 Request logged to ai_requests collection')
+    } catch (logError) {
+      // Don't fail the request if logging fails
+      console.error('⚠️ Failed to log request:', logError)
+    }
 
     // ============================================
     // STEP 6: Return Response
@@ -201,7 +257,7 @@ export default async function handler(
         totalTokens: completion.usage?.total_tokens
       },
       meta: {
-        model: model,
+        model: selectedModel,  // Tell client which model was used
         tier: userTier,
         usageCount: usageData.count,
         limit: userTier === 'PRO' ? null : FREE_TIER_MONTHLY_LIMIT,

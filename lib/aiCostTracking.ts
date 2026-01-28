@@ -117,48 +117,42 @@ export async function logAIRequest(data: {
   endpoint: string
   appVersion?: string
 }): Promise<void> {
-  try {
-    console.log('📝 Starting AI request logging...')
-    console.log(`   User: ${data.userId}, Tier: ${data.userTier}`)
-    console.log(`   Model: ${data.model}, Tokens: ${data.usage.totalTokens}`)
-    
-    // Calculate costs
-    const cost = calculateAICost(data.model, data.usage)
-    console.log(`   Cost calculated: $${cost.totalCost.toFixed(6)}`)
-    
-    // Create log entry
-    const logEntry: AIRequestLog = {
-      userId: data.userId,
-      userTier: data.userTier,
-      model: data.model,
-      promptTokens: data.usage.promptTokens,
-      completionTokens: data.usage.completionTokens,
-      totalTokens: data.usage.totalTokens,
-      costUSD: cost.totalCost,
-      inputCostUSD: cost.inputCost,
-      outputCostUSD: cost.outputCost,
-      requestType: data.requestType as any,
-      promptLength: data.promptLength,
-      success: data.success,
-      errorMessage: data.errorMessage,
-      responseTimeMs: data.responseTimeMs,
-      endpoint: data.endpoint,
-      appVersion: data.appVersion,
-      createdAt: Timestamp.now()
-    }
-    
-    console.log('   Writing to Firestore ai_requests collection...')
-    // Save to Firestore
-    const docRef = await db.collection('ai_requests').add(logEntry)
-    console.log(`✅ AI Cost logged successfully! Doc ID: ${docRef.id}`)
-    console.log(`💰 ${formatCost(cost.totalCost)} (${data.model}, ${data.usage.totalTokens} tokens)`)
-    
-  } catch (error: any) {
-    console.error('❌ Failed to log AI cost:', error)
-    console.error('   Error details:', error.message)
-    console.error('   Stack:', error.stack)
-    // Don't throw - logging failures shouldn't break API
+  // TEMPORARILY REMOVED TRY-CATCH TO SEE ACTUAL ERROR
+  console.log('📝 Starting AI request logging...')
+  console.log(`   User: ${data.userId}, Tier: ${data.userTier}`)
+  console.log(`   Model: ${data.model}, Tokens: ${data.usage.totalTokens}`)
+  
+  // Calculate costs
+  const cost = calculateAICost(data.model, data.usage)
+  console.log(`   Cost calculated: $${cost.totalCost.toFixed(6)}`)
+  
+  // Create log entry
+  const logEntry: AIRequestLog = {
+    userId: data.userId,
+    userTier: data.userTier,
+    model: data.model,
+    promptTokens: data.usage.promptTokens,
+    completionTokens: data.usage.completionTokens,
+    totalTokens: data.usage.totalTokens,
+    costUSD: cost.totalCost,
+    inputCostUSD: cost.inputCost,
+    outputCostUSD: cost.outputCost,
+    requestType: data.requestType as any,
+    promptLength: data.promptLength,
+    success: data.success,
+    errorMessage: data.errorMessage,
+    responseTimeMs: data.responseTimeMs,
+    endpoint: data.endpoint,
+    appVersion: data.appVersion,
+    createdAt: Timestamp.now()
   }
+  
+  console.log('   Writing to Firestore ai_requests collection...')
+  console.log('   Log entry:', JSON.stringify(logEntry, null, 2))
+  // Save to Firestore
+  const docRef = await db.collection('ai_requests').add(logEntry)
+  console.log(`✅ AI Cost logged successfully! Doc ID: ${docRef.id}`)
+  console.log(`💰 ${formatCost(cost.totalCost)} (${data.model}, ${data.usage.totalTokens} tokens)`)
 }
 
 /**

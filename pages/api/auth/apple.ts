@@ -46,32 +46,40 @@ export default async function handler(
 
     if (userSnapshot.empty) {
       // Create new user
-      console.log('📝 Creating new user...')
+      console.log('✨ Creating new user...')
       
       const newUser = {
         appleId: appleUserId,
         email: email || `user-${appleUserId}@apple.com`,
-        firstName: firstName || 'User',
-        lastName: lastName || '',
         name: firstName ? `${firstName} ${lastName || ''}`.trim() : 'User',
         tier: 'FREE', // All TestFlight users start as FREE
+        isPro: false,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        lastLoginAt: new Date(),
+        
+        // AI usage tracking
+        aiRecipesGenerated: 0,
+        aiRecipesThisMonth: 0,
+        hasUsedAIChef: false,
       }
 
       const userRef = await db.collection('users').add(newUser)
-      user = { id: userRef.id, ...newUser }
+      const userId = userRef.id
+      user = { id: userId, ...newUser }
       
-      console.log(`✅ New user created: ${user.id}`)
+      console.log(`✅ New user created: ${userId}`)
     } else {
-      // Existing user found
+      // Existing user found - update last login
       const userDoc = userSnapshot.docs[0]
-      user = { id: userDoc.id, ...userDoc.data() }
+      const userId = userDoc.id
+      user = { id: userId, ...userDoc.data() }
       
-      console.log(`✅ Existing user found: ${user.id}`)
+      console.log(`✅ Existing user found: ${userId}`)
 
       // Update last login timestamp
-      await db.collection('users').doc(user.id).update({
+      await db.collection('users').doc(userId).update({
+        lastLoginAt: new Date(),
         updatedAt: new Date()
       })
     }
@@ -92,18 +100,16 @@ export default async function handler(
 
     console.log(`🎫 JWT tokens generated for user: ${user.email}`)
 
-    // Return authentication response
+    // Return authentication response (format expected by iOS app)
     return res.status(200).json({
-      success: true,
       accessToken: accessToken,
       refreshToken: refreshToken,
       user: {
         id: user.id,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
         name: user.name,
-        tier: user.tier || 'FREE'
+        isPro: user.isPro || false,
+        profileImage: null
       }
     })
 
@@ -111,7 +117,6 @@ export default async function handler(
     console.error('❌ Apple Sign In error:', error)
     
     return res.status(500).json({ 
-      success: false,
       error: error.message || 'Authentication failed' 
     })
   }

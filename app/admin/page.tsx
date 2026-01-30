@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import OpenAIUsageChart from '@/components/OpenAIUsageChart'
 import AICostTracker from '@/components/AICostTracker'
 import EmailMarketingDashboard from '@/components/EmailMarketingDashboard'
+import TranscriptionDashboard from '@/components/TranscriptionDashboard'
 
 type HealthPayload = {
   ok: boolean
@@ -101,6 +102,11 @@ export default function AdminHomePage() {
       {/* Email Marketing */}
       <div className="mt-6">
         <EmailMarketingDashboard />
+      </div>
+
+      {/* Video Transcription Analytics */}
+      <div className="mt-6">
+        <TranscriptionDashboard />
       </div>
     </div>
   )

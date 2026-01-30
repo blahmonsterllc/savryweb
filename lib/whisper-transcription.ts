@@ -1,4 +1,4 @@
-import OpenAI from 'openai'
+import OpenAI, { toFile } from 'openai'
 import { db } from './firebase'
 import { Timestamp } from 'firebase-admin/firestore'
 
@@ -163,12 +163,10 @@ export async function transcribeAudioWithWhisper(
   language: string
 }> {
   try {
-    // Create a File-like object from buffer
-    const audioFile = new File([audioBuffer], filename, {
-      type: 'audio/mp4',
-    })
-
     console.log(`🎤 Transcribing audio with Whisper (${audioBuffer.length} bytes)...`)
+
+    // Use OpenAI's toFile helper to properly convert Buffer to File
+    const audioFile = await toFile(audioBuffer, filename, { type: 'audio/mp4' })
 
     const transcription = await openai.audio.transcriptions.create({
       file: audioFile,

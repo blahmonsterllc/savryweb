@@ -6,6 +6,7 @@ import OpenAIUsageChart from '@/components/OpenAIUsageChart'
 import AICostTracker from '@/components/AICostTracker'
 import EmailMarketingDashboard from '@/components/EmailMarketingDashboard'
 import TranscriptionDashboard from '@/components/TranscriptionDashboard'
+import TrafficDashboard from '@/components/TrafficDashboard'
 
 type HealthPayload = {
   ok: boolean
@@ -107,6 +108,11 @@ export default function AdminHomePage() {
       {/* Video Transcription Analytics */}
       <div className="mt-6">
         <TranscriptionDashboard />
+      </div>
+
+      {/* Traffic Analytics & Bot Protection */}
+      <div className="mt-6">
+        <TrafficDashboard />
       </div>
     </div>
   )

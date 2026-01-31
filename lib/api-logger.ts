@@ -14,7 +14,8 @@ export function withLogging(
     const startTime = Date.now()
     const ip = getClientIP(req.headers)
     const userAgent = req.headers['user-agent'] || 'unknown'
-    const path = req.url || req.headers['x-invoke-path'] || 'unknown'
+    const rawPath = req.url || req.headers['x-invoke-path'] || 'unknown'
+    const path = typeof rawPath === 'string' ? rawPath : 'unknown'
     
     // Check if IP should be blocked
     const isBlocked = await shouldBlockIP(ip)

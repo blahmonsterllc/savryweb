@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const stats = await getTrafficStats(startDate, now)
 
     // Get suspicious activity if requested
-    let suspiciousActivity = []
+    let suspiciousActivity: any[] = []
     if (includeSuspicious === 'true') {
       suspiciousActivity = await getSuspiciousActivity(20)
     }

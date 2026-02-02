@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google'
 // List of authorized admin emails
 const ADMIN_EMAILS = [
   'savryapp@gmail.com',
+  'gordonlafler@gmail.com',
   // Add more authorized admin emails here
 ]
 

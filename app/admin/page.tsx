@@ -35,8 +35,8 @@ export default function AdminHomePage() {
   }, [])
 
   const logout = async () => {
-    await fetch('/api/admin/logout', { method: 'POST' })
-    window.location.href = '/'
+    const { signOut } = await import('next-auth/react')
+    await signOut({ callbackUrl: '/' })
   }
 
   return (

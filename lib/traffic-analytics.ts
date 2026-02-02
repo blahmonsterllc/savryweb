@@ -53,11 +53,68 @@ export function detectBot(userAgent: string): boolean {
     /insomnia/i,
     /slackbot/i,
     /facebookexternalhit/i,
+    /facebookbot/i,
+    /meta-externalagent/i,
+    /metainspector/i,
     /whatsapp/i,
     /telegrambot/i,
+    /twitterbot/i,
+    /linkedinbot/i,
+    /discordbot/i,
+    /ahrefsbot/i,
+    /semrushbot/i,
+    /dotbot/i,
+    /mj12bot/i,
+    /petalbot/i,
+    /bytespider/i, // TikTok/ByteDance bot
+    /yandexbot/i,
+    /bingbot/i,
+    /baiduspider/i,
   ]
   
   return botPatterns.some(pattern => pattern.test(userAgent))
+}
+
+/**
+ * Check if bot should be allowed (for SEO purposes)
+ * Allow legitimate search engine bots on public pages only
+ */
+export function isLegitimateSearchBot(userAgent: string): boolean {
+  const searchBots = [
+    /googlebot/i,
+    /bingbot/i,
+    /slurp/i, // Yahoo
+    /duckduckbot/i,
+    /baiduspider/i,
+  ]
+  
+  return searchBots.some(pattern => pattern.test(userAgent))
+}
+
+/**
+ * Check if request should be blocked
+ * Block bots on API endpoints, allow legitimate search bots on public pages
+ */
+export function shouldBlockBot(userAgent: string, path: string): boolean {
+  const isBot = detectBot(userAgent)
+  if (!isBot) return false
+  
+  // Always allow legitimate search engines on public pages
+  if (isLegitimateSearchBot(userAgent) && !path.startsWith('/api')) {
+    return false
+  }
+  
+  // Block all bots on API endpoints
+  if (path.startsWith('/api')) {
+    return true
+  }
+  
+  // Block non-search-engine bots everywhere
+  if (isBot && !isLegitimateSearchBot(userAgent)) {
+    return true
+  }
+  
+  return false
 }
 
 /**

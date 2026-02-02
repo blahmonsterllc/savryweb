@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAdminCookieName, isValidAdminSessionToken } from '@/lib/admin-session'
+import { getToken } from 'next-auth/jwt'
+import { isAdminEmail } from '@/lib/auth-config'
+import { shouldBlockBot, getClientIP, shouldBlockIP } from '@/lib/traffic-analytics'
 
 async function isAdminAuthed(req: NextRequest): Promise<boolean> {
-  const token = req.cookies.get(getAdminCookieName())?.value
-  return await isValidAdminSessionToken(token)
+  try {
+    const token = await getToken({ 
+      req, 
+      secret: process.env.NEXTAUTH_SECRET 
+    })
+    
+    if (!token?.email) return false
+    return isAdminEmail(token.email as string)
+  } catch (error) {
+    console.error('Auth check error:', error)
+    return false
+  }
 }
 
 function redirectToAdminLogin(req: NextRequest): NextResponse {
@@ -26,7 +38,64 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  // Always allow iOS app APIs to keep working.
+  // Get user agent and IP for bot/rate limit checks
+  const userAgent = req.headers.get('user-agent') || ''
+  const clientIP = getClientIP(Object.fromEntries(req.headers))
+
+  // Check if IP is blocked
+  try {
+    const isBlocked = await shouldBlockIP(clientIP)
+    if (isBlocked) {
+      return NextResponse.json(
+        { 
+          error: 'Forbidden',
+          message: 'Your IP has been blocked due to suspicious activity'
+        },
+        { status: 403 }
+      )
+    }
+  } catch (error) {
+    // If check fails, continue (don't break the app)
+    console.error('IP block check failed:', error)
+  }
+
+  // Check if bot should be blocked (blocks Meta bots and others on APIs)
+  // NOTE: iOS APIs have additional security checks in their handlers
+  if (shouldBlockBot(userAgent, pathname)) {
+    // Allow iOS APIs to handle their own bot detection (they check JWT too)
+    if (!pathname.startsWith('/api/app')) {
+      return NextResponse.json(
+        { 
+          error: 'Forbidden',
+          message: 'Automated requests are not allowed. Please use a web browser.'
+        },
+        { status: 403 }
+      )
+    }
+  }
+
+  // iOS app APIs - Basic bot check (detailed checks in handlers)
+  // Block obvious bots even before they reach the handler
+  const obviousBotPatterns = [
+    /curl/i,
+    /wget/i,
+    /python-requests/i,
+    /postman/i,
+    /insomnia/i,
+  ]
+  const isObviousBot = obviousBotPatterns.some(pattern => pattern.test(userAgent))
+  
+  if (pathname.startsWith('/api/app') && isObviousBot) {
+    return NextResponse.json(
+      { 
+        success: false,
+        error: 'Automated requests are not allowed. Please use the official iOS app.'
+      },
+      { status: 403 }
+    )
+  }
+  
+  // Allow iOS app APIs (with JWT auth required in handlers)
   if (pathname.startsWith('/api/app')) {
     return NextResponse.next()
   }

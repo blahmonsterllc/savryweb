@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 export interface JWTPayload {
   userId: string
   email: string
-  tier: 'FREE' | 'PRO' | 'PREMIUM' // User subscription tier
+  tier: 'FREE' | 'PRO' // User subscription tier (only FREE and PRO supported)
   iat?: number
   exp?: number
 }
@@ -39,7 +39,7 @@ export async function verifyJWT(token: string): Promise<JWTPayload> {
 /**
  * Generate JWT token (for login endpoint)
  */
-export function generateJWT(userId: string, email: string, tier: 'FREE' | 'PRO' | 'PREMIUM'): string {
+export function generateJWT(userId: string, email: string, tier: 'FREE' | 'PRO' = 'FREE'): string {
   if (!process.env.JWT_SECRET) {
     throw new Error('JWT_SECRET is not configured')
   }

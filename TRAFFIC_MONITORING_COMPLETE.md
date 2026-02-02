@@ -79,31 +79,46 @@ Traffic Logging
 
 ---
 
-## 🛡️ Protection Features (ACTIVE)
+## 🛡️ Protection Features (ACTIVE + ENHANCED)
 
 ### **1. Bot Detection & Blocking**
 
-**Auto-detected bot patterns:**
-- `curl`, `wget`, `python-requests`
-- `scrapy`, `spider`, `crawler`
-- `postman`, `insomnia`
-- Generic `bot` keyword
+**Auto-detected bot patterns (25+ types):**
+- **Meta/Facebook bots:** `facebookbot`, `facebookexternalhit`, `meta-externalagent`, `metainspector`, `whatsapp`
+- **Social media bots:** `twitterbot`, `linkedinbot`, `discordbot`
+- **SEO scrapers:** `ahrefsbot`, `semrushbot`, `dotbot`, `mj12bot`
+- **Development tools:** `curl`, `wget`, `python-requests`, `postman`, `insomnia`
+- **International bots:** `bytespider` (TikTok), `yandexbot`, `baiduspider`, `petalbot`
+- **Generic crawlers:** `scrapy`, `spider`, `crawler`
+
+**Smart Bot Handling:**
+- ✅ **Legitimate search engines** (Googlebot, Bingbot): Allowed on public pages only
+- ❌ **All bots**: **BLOCKED** on API endpoints
+- ❌ **Meta bots & social crawlers**: **BLOCKED** everywhere
+- 📝 All bot requests logged
 
 **Action:**
-- ✅ Public pages: Allowed (for SEO)
-- ❌ API endpoints: **BLOCKED** with 403
+- ✅ Public pages: Only legitimate search bots allowed (for SEO)
+- ❌ API endpoints: **ALL BOTS BLOCKED** with 403
+- ❌ Meta/Facebook bots: **BLOCKED EVERYWHERE**
 - 📝 All bot requests logged
 
 **Example:**
 ```bash
-# This will be blocked:
-curl https://savryweb.vercel.app/api/app/chatgpt/generate
+# Meta bot blocked:
+curl -H "User-Agent: facebookexternalhit/1.1" \
+  https://savryweb.vercel.app/api/health
 
 # Response:
 {
   "error": "Forbidden",
-  "message": "Automated requests are not allowed"
+  "message": "Automated requests are not allowed. Please use a web browser."
 }
+
+# Any bot blocked on APIs:
+curl https://savryweb.vercel.app/api/app/chatgpt/generate
+
+# Response: 403 Forbidden
 ```
 
 ---

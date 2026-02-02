@@ -379,7 +379,7 @@ export default async function handler(
         if (decoded) {
           userId = decoded.userId
           const decodedTier = decoded.tier || 'FREE'
-          userTier = (decodedTier === 'PREMIUM' || decodedTier === 'PRO') ? 'PRO' : 'FREE'
+          userTier = ((decodedTier as string) === 'PREMIUM' || decodedTier === 'PRO') ? 'PRO' : 'FREE'
         }
       }
       

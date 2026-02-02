@@ -48,7 +48,9 @@ export default async function handler(
     }
 
     // Generate JWT token for iOS app using JWT_SECRET
-    const token = generateJWT(user.id, user.email, user.tier as 'FREE' | 'PRO' | 'PREMIUM')
+    // Map old PREMIUM tier to PRO (backward compatibility)
+    const userTier: 'FREE' | 'PRO' = (user.tier as string) === 'PRO' || (user.tier as string) === 'PREMIUM' ? 'PRO' : 'FREE'
+    const token = generateJWT(user.id, user.email, userTier)
 
     console.log(`✅ User authenticated: ${user.email} (${user.tier})`)
 

@@ -1,7 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 import { isAdminEmail } from '@/lib/auth-config'
-import { shouldBlockBot, getClientIP, shouldBlockIP } from '@/lib/traffic-analytics'
+
+// Simple bot detection (without Firebase - edge-compatible)
+function shouldBlockBot(userAgent: string, path: string): boolean {
+  const botPatterns = [
+    /bot/i, /crawler/i, /spider/i, /scraper/i,
+    /facebookbot/i, /facebookexternalhit/i, /meta-externalagent/i,
+    /twitterbot/i, /linkedinbot/i, /whatsapp/i,
+  ]
+  
+  const isBot = botPatterns.some(pattern => pattern.test(userAgent))
+  if (!isBot) return false
+  
+  // Allow legitimate search bots on public pages
+  const searchBots = [/googlebot/i, /bingbot/i]
+  const isSearchBot = searchBots.some(pattern => pattern.test(userAgent))
+  if (isSearchBot && !path.startsWith('/api')) return false
+  
+  // Block all bots on APIs
+  if (path.startsWith('/api')) return true
+  
+  // Block non-search bots everywhere
+  return !isSearchBot
+}
+
+function getClientIP(headers: Record<string, string>): string {
+  return headers['x-real-ip'] || 
+         headers['x-forwarded-for']?.split(',')[0] || 
+         'unknown'
+}
 
 async function isAdminAuthed(req: NextRequest): Promise<boolean> {
   try {
@@ -38,26 +66,11 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  // Get user agent and IP for bot/rate limit checks
+  // Get user agent for bot checks
   const userAgent = req.headers.get('user-agent') || ''
-  const clientIP = getClientIP(Object.fromEntries(req.headers))
 
-  // Check if IP is blocked
-  try {
-    const isBlocked = await shouldBlockIP(clientIP)
-    if (isBlocked) {
-      return NextResponse.json(
-        { 
-          error: 'Forbidden',
-          message: 'Your IP has been blocked due to suspicious activity'
-        },
-        { status: 403 }
-      )
-    }
-  } catch (error) {
-    // If check fails, continue (don't break the app)
-    console.error('IP block check failed:', error)
-  }
+  // Note: IP blocking is handled in API routes with Firebase (edge-compatible)
+  // Middleware only does basic bot detection to reduce load
 
   // Check if bot should be blocked (blocks Meta bots and others on APIs)
   // NOTE: iOS APIs have additional security checks in their handlers

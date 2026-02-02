@@ -47,7 +47,7 @@ export interface SecurityCheckResult {
   reason?: string
   statusCode?: number
   userId?: string
-  userTier?: string
+  userTier?: 'FREE' | 'PRO'
   ip?: string
 }
 

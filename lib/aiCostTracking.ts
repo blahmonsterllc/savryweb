@@ -116,6 +116,9 @@ export async function logAIRequest(data: {
   responseTimeMs: number
   endpoint: string
   appVersion?: string
+  cached?: boolean
+  validationType?: string
+  cost?: number
 }): Promise<void> {
   try {
     // Calculate costs
@@ -146,6 +149,15 @@ export async function logAIRequest(data: {
     }
     if (data.appVersion !== undefined) {
       logEntry.appVersion = data.appVersion
+    }
+    if (data.cached !== undefined) {
+      logEntry.cached = data.cached
+    }
+    if (data.validationType !== undefined) {
+      logEntry.validationType = data.validationType
+    }
+    if (data.cost !== undefined) {
+      logEntry.actualCost = data.cost
     }
     
     // Save to Firestore

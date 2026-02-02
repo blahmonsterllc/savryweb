@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import OpenAI from 'openai'
 import { db } from '@/lib/firebase'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../auth/[...nextauth]'
+import { authOptions } from '@/lib/auth-config'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,

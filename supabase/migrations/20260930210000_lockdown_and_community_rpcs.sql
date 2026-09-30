@@ -54,9 +54,10 @@ alter table public.profiles
 
 -- Display names: bounded and never impersonating Savry staff.
 alter table public.profiles drop constraint if exists profiles_display_name_check;
+-- Official Savry profiles (seeded, is_featured) may carry the Savry name; members may not.
 alter table public.profiles add constraint profiles_display_name_check check (
   char_length(btrim(display_name)) between 1 and 60
-  and display_name !~* '(^|\s)(savry|admin|moderator|staff|official)(\s|$)'
+  and (is_featured or display_name !~* '(^|\s)(savry|admin|moderator|staff|official)(\s|$)')
 );
 alter table public.profiles drop constraint if exists profiles_username_check;
 alter table public.profiles add constraint profiles_username_check check (

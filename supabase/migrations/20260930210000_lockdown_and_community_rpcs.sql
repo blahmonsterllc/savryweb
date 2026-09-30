@@ -55,6 +55,8 @@ alter table public.profiles
 -- Display names: bounded and never impersonating Savry staff.
 alter table public.profiles drop constraint if exists profiles_display_name_check;
 -- Official Savry profiles (seeded, is_featured) may carry the Savry name; members may not.
+-- The catalog seed created "Savry Kitchen" before the featured flag existed; mark it official.
+update public.profiles set is_featured = true where lower(btrim(display_name)) in ('savry kitchen', 'savry');
 alter table public.profiles add constraint profiles_display_name_check check (
   char_length(btrim(display_name)) between 1 and 60
   and (is_featured or display_name !~* '(^|\s)(savry|admin|moderator|staff|official)(\s|$)')

@@ -48,3 +48,7 @@ prisma/migrations
 # production secrets never go in git
 .env.production
 supabase/.temp/
+
+# Apple Sign in with Apple private keys (never commit)
+*.p8
+AuthKey_*.p8

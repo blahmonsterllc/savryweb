@@ -15,6 +15,7 @@
 import { createPrivateKey, createSign } from 'node:crypto'
 import { execSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
+import { pathToFileURL } from 'node:url'
 
 const PROJECT_REF = process.env.SUPABASE_PROJECT_REF || 'qnpekzrchqftdoaebzuf'
 
@@ -88,7 +89,9 @@ async function main() {
   console.log('  secret set; it expires in 6 months. Re-run this command before', new Date(Date.now() + 180 * 86400e3).toDateString())
 }
 
-main().catch((error) => {
-  console.error(error.message)
-  process.exit(1)
-})
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error(error.message)
+    process.exit(1)
+  })
+}

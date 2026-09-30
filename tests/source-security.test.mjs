@@ -65,7 +65,22 @@ test('nothing on the site links back to Firebase or the legacy app API', async (
   for (const file of files) {
     const text = await source(path.relative(root, file))
     assert.doesNotMatch(text, /firebase|firestore|ENABLE_LEGACY_APP_API|\/api\/app\//i, `${file} still references Firebase or the legacy API`)
+    // Media lives in the Savry Supabase project only. Cloudflare R2 belongs to a
+    // different project (the "jobsite" bucket) and must never be wired in here.
+    assert.doesNotMatch(text, /jobsite|r2\.cloudflarestorage\.com|r2\.dev|@aws-sdk\/client-s3|R2_(ACCOUNT|ACCESS|SECRET|BUCKET)/i, `${file} references Cloudflare R2 storage; Savry media stays in Supabase`)
   }
+})
+
+test('uploads go only to the Savry Supabase recipe-images bucket', async () => {
+  for (const file of ['components/RecipeComposer.tsx', 'components/RecipeDiscussion.tsx']) {
+    const text = await source(file)
+    for (const match of text.matchAll(/storage\.from\(['"]([^'"]+)['"]\)/g)) {
+      assert.equal(match[1], 'recipe-images', `${file} uploads to an unexpected bucket: ${match[1]}`)
+    }
+  }
+  const migration = await source('supabase/migrations/20260930210000_lockdown_and_community_rpcs.sql')
+  assert.match(migration, /storage_public_base', 'https:\/\/qnpekzrchqftdoaebzuf\.supabase\.co\/storage\/v1\/object\/public\/recipe-images'/, 'storage base must be the Savry Supabase bucket')
+  assert.match(migration, /requested_image_url not like storage_base \|\| '\/%'/, 'publish_recipe must reject image URLs outside the Savry bucket')
 })
 
 test('recipe pages escape JSON-LD', async () => {

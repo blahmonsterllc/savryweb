@@ -19,7 +19,7 @@ import { readFileSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 
 const PROJECT_REF = process.env.SUPABASE_PROJECT_REF || 'qnpekzrchqftdoaebzuf'
-const SMTP = { host: 'smtp.resend.com', port: 465, user: 'resend' }
+const SMTP = { host: 'smtp.resend.com', port: '465', user: 'resend' }
 
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`)

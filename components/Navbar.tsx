@@ -3,42 +3,33 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
 
 export default function Navbar() {
   const pathname = usePathname()
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const [open, setOpen] = useState(false)
 
   return (
-    <nav className="sticky top-0 z-50 bg-gradient-to-r from-primary-600 to-secondary-600 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-center h-16 items-center">
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative w-10 h-10 transform transition-transform group-hover:scale-110">
-              <Image 
-                src="/savry-logo.svg" 
-                alt="Savry Logo" 
-                width={40} 
-                height={40}
-                className="object-contain brightness-0 invert"
-              />
-            </div>
-            <h1 className="text-2xl font-bold text-white">
-              Savry
-            </h1>
-          </Link>
+    <nav className="savry-nav">
+      <div className="site-shell savry-nav__inner">
+        <Link href="/" className="savry-nav__brand" onClick={() => setOpen(false)}>
+          <Image src="/savry-logo.svg" alt="Savry" width={42} height={40} priority />
+          <span>Savry</span>
+        </Link>
+
+        <button className="savry-nav__toggle" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+          {open ? <X size={23} /> : <Menu size={23} />}
+        </button>
+
+        <div className={`savry-nav__links ${open ? 'savry-nav__links--open' : ''}`}>
+          <Link href="/recipes" onClick={() => setOpen(false)} className={pathname === '/recipes' || pathname?.startsWith('/recipes/') && pathname !== '/recipes/new' ? 'is-active' : ''}>Community recipes</Link>
+          <Link href="/recipes/new" onClick={() => setOpen(false)} className={pathname === '/recipes/new' ? 'is-active' : ''}>Add a recipe</Link>
+          <Link href="/account" onClick={() => setOpen(false)} className={pathname === '/account' ? 'is-active' : ''}>My Savry</Link>
+          <a href="/#app-coming-soon" onClick={() => setOpen(false)}>App coming soon</a>
+          <Link href="/app-login?returnTo=/account" className="savry-nav__download" onClick={() => setOpen(false)}>Join the community <span aria-hidden="true">→</span></Link>
         </div>
       </div>
     </nav>
   )
 }
-
-

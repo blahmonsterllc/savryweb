@@ -44,3 +44,7 @@ prisma/migrations
 
 
 
+
+# production secrets never go in git
+.env.production
+supabase/.temp/

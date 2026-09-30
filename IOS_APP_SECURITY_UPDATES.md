@@ -829,7 +829,7 @@ Use friendly, actionable language:
 
 **✅ GOOD:**
 - "You've used all 20 free recipes this month! Upgrade to Pro for 500 recipes/month."
-- "Free limit reached. Upgrade to Pro for just $4.99/month!"
+- "Free limit reached. Upgrade to Pro for just $3.99/month!"
 
 ### 4. Simplified Upgrade Messaging
 Since you only have 2 tiers, keep it simple:

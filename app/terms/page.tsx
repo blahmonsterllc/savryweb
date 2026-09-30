@@ -17,12 +17,13 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Description of Service</h2>
             <p className="leading-relaxed mb-4">
-              Savry is an AI-powered recipe management and meal planning application available for iOS devices 
+              Savry is a private recipe manager and community cooking service available for iOS devices
               and web browsers. The Service includes:
             </p>
             <ul className="list-disc list-inside space-y-2 leading-relaxed">
-              <li>AI-generated recipe recommendations and meal plans</li>
+              <li>On-device recipe assistance where supported</li>
               <li>Personal recipe storage and organization</li>
+              <li>Optional publishing to the Savry recipe community</li>
               <li>Shopping list generation and management</li>
               <li>Cross-device synchronization</li>
               <li>Integration with local supermarket information (where available)</li>
@@ -51,9 +52,22 @@ export default function TermsOfService() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">User Content and Conduct</h2>
             <div className="space-y-4">
               <p className="leading-relaxed">
-                You retain ownership of any content you create or upload to the Service, including recipes, 
-                meal plans, and notes. By using the Service, you grant us a license to use, store, and 
-                process your content to provide and improve the Service.
+                You retain ownership of content you create. Private recipes, meal plans, grocery lists, and notes
+                are not community content unless you explicitly publish or share them.
+              </p>
+              <p className="leading-relaxed">
+                When you choose to publish a recipe, it becomes public community content. You grant Savry a
+                non-exclusive, worldwide, royalty-free license to host, display, reproduce, and distribute that
+                content as needed to operate and promote the Service. You also allow other Savry users to view,
+                save a personal copy, cook, adapt for personal use, share a link to, and propose structured
+                improvements to the published recipe. You remain credited as the original author and control
+                which proposed improvements enter the canonical version.
+              </p>
+              <p className="leading-relaxed">
+                Publishing does not give other users permission to sell or separately sublicense your original
+                photos or written expression. You may unpublish your content, subject to reasonable backup,
+                moderation, legal, and version-history retention. Please publish only content you have the right
+                to share.
               </p>
               <p className="leading-relaxed font-medium">You agree not to:</p>
               <ul className="list-disc list-inside space-y-2 leading-relaxed">

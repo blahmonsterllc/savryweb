@@ -1,0 +1,13 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Savry's community database is reached through authenticated server API
+    // routes. The browser and iOS app never write directly to Firestore.
+    // Firebase Admin bypasses these rules after the API verifies ownership,
+    // rate limits, content safety, and contribution permissions.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

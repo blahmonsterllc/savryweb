@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 import { isAdminEmail } from '@/lib/auth-config'
+import { legacyAppApiEnabled } from '@/lib/security-policy.mjs'
 
 // Simple bot detection (without Firebase - edge-compatible)
 function shouldBlockBot(userAgent: string, path: string): boolean {
@@ -14,9 +15,14 @@ function shouldBlockBot(userAgent: string, path: string): boolean {
   if (!isBot) return false
   
   // Allow legitimate search bots on public pages
-  const searchBots = [/googlebot/i, /bingbot/i]
+  const searchBots = [/googlebot/i, /bingbot/i, /duckduckbot/i, /applebot/i]
   const isSearchBot = searchBots.some(pattern => pattern.test(userAgent))
   if (isSearchBot && !path.startsWith('/api')) return false
+
+  // Link previews (iMessage, WhatsApp, X, Facebook, Slack, Discord) may read
+  // public recipe pages so shared links get a card.
+  const previewBots = [/facebookexternalhit/i, /meta-externalagent/i, /twitterbot/i, /linkedinbot/i, /whatsapp/i, /slackbot/i, /discordbot/i, /telegrambot/i, /pinterest/i]
+  if (path.startsWith('/recipes') && previewBots.some(pattern => pattern.test(userAgent))) return false
   
   // Block all bots on APIs
   if (path.startsWith('/api')) return true
@@ -66,6 +72,15 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
+  // The previous Firebase-backed app API remains unavailable until every route
+  // has migrated to Supabase auth and has passed the connection test suite.
+  if (pathname.startsWith('/api/app') && !legacyAppApiEnabled(process.env.ENABLE_LEGACY_APP_API)) {
+    return NextResponse.json(
+      { success: false, error: 'The legacy app service is unavailable while the secure app connection is being upgraded.' },
+      { status: 503, headers: { 'Retry-After': '3600' } }
+    )
+  }
+
   // Get user agent for bot checks
   const userAgent = req.headers.get('user-agent') || ''
 
@@ -113,13 +128,13 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  // Always allow admin auth endpoints
-  if (pathname.startsWith('/api/admin')) {
+  // Always allow public auth endpoints (Apple Sign In, etc.)
+  if (pathname.startsWith('/api/auth')) {
     return NextResponse.next()
   }
 
-  // Always allow public auth endpoints (Apple Sign In, etc.)
-  if (pathname.startsWith('/api/auth')) {
+  // Public, non-secret bootstrap data for native Savry clients.
+  if (pathname === '/api/public/config') {
     return NextResponse.next()
   }
 
@@ -127,7 +142,8 @@ export async function middleware(req: NextRequest) {
   const needsAdmin =
     pathname === '/health' ||
     (pathname.startsWith('/admin') && pathname !== '/admin/login') ||
-    (pathname.startsWith('/api') && !pathname.startsWith('/api/app') && !pathname.startsWith('/api/admin') && !pathname.startsWith('/api/auth'))
+    pathname.startsWith('/api/admin') ||
+    (pathname.startsWith('/api') && !pathname.startsWith('/api/app') && !pathname.startsWith('/api/auth') && pathname !== '/api/public/config')
 
   if (!needsAdmin) {
     return NextResponse.next()
@@ -159,6 +175,4 @@ export const config = {
     '/((?!_next/static|_next/image).*)',
   ],
 }
-
-
 

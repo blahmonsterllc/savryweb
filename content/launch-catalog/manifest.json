@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-29T19:44:22.980Z",
+  "status": "candidate_review_queue",
+  "publishableRecipes": 0,
+  "candidateCount": 500,
+  "parsedCandidateCount": 3120,
+  "sourcePageCount": 3796,
+  "collections": {
+    "Dinner & mains": 140,
+    "Breakfast & brunch": 50,
+    "Lunch & handhelds": 45,
+    "Soups & stews": 45,
+    "Sides & salads": 55,
+    "Desserts & baking": 75,
+    "Sauces & staples": 35,
+    "Snacks & drinks": 55
+  },
+  "source": {
+    "name": "Wikibooks Cookbook",
+    "categoryURL": "https://en.wikibooks.org/wiki/Category:Recipes",
+    "licenseName": "Creative Commons Attribution-ShareAlike 4.0 International",
+    "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "catalogHash": "sha256:c9c415370bf0134b5c6d0ca9348eaf5b07b7079c90f9e9494b53b780d8cb548d",
+  "warning": "Candidates are drafts. Editorial and rights checks are required before database import or publication."
+}

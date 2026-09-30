@@ -56,6 +56,15 @@ export default function AdminHomePage() {
 
       <div className="mt-6 grid md:grid-cols-2 gap-4">
         <Link
+          href="/admin/security"
+          className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:border-gray-300 transition-all"
+        >
+          <div className="text-sm font-semibold text-gray-700">Security center</div>
+          <div className="text-2xl font-bold text-gray-900 mt-2">Launch checks</div>
+          <div className="text-sm text-gray-600 mt-2">Authentication, database and disabled legacy services.</div>
+        </Link>
+
+        <Link
           href="/health"
           className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:border-gray-300 transition-all"
         >
@@ -117,4 +126,3 @@ export default function AdminHomePage() {
     </div>
   )
 }
-

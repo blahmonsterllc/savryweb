@@ -28,8 +28,7 @@ export default function PrivacyPolicy() {
               <div>
                 <h3 className="text-xl font-medium text-gray-800 mb-2">Recipe and Meal Plan Data</h3>
                 <p className="leading-relaxed">
-                  We store the recipes you create or save, your meal plans, shopping lists, and dietary 
-                  preferences to provide you with personalized recommendations.
+                  Private recipes, meal plans, shopping lists, and preferences in the Savry app are stored locally and, when enabled, in your private iCloud database. Recipes and activity you deliberately publish to the Savry community are stored in our community database and shown on the website.
                 </p>
               </div>
               <div>
@@ -53,7 +52,7 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">How We Use Your Information</h2>
             <ul className="list-disc list-inside space-y-2 leading-relaxed">
               <li>To provide, maintain, and improve our services</li>
-              <li>To generate personalized recipe and meal plan recommendations using AI</li>
+              <li>To generate requested recipes using on-device Apple Foundation Models in the app or Savry’s recipe model on the website</li>
               <li>To sync your data across your devices</li>
               <li>To provide customer support and respond to your requests</li>
               <li>To send you updates, newsletters, and promotional materials (with your consent)</li>
@@ -65,9 +64,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Data Storage and Security</h2>
             <p className="leading-relaxed mb-4">
-              We use Firebase and secure cloud infrastructure to store your data. We implement industry-standard 
-              security measures including encryption, secure authentication, and regular security audits to 
-              protect your information.
+              We use Apple iCloud for private app syncing and Firebase for Savry community accounts, published recipes, and community activity. We implement security measures including encrypted transport and authenticated access to protect your information.
             </p>
             <p className="leading-relaxed">
               While we strive to protect your personal data, no method of transmission over the internet is 
@@ -81,12 +78,24 @@ export default function PrivacyPolicy() {
               We use third-party services to provide our app functionality:
             </p>
             <ul className="list-disc list-inside space-y-2 leading-relaxed">
-              <li><strong>OpenAI</strong>: To generate AI-powered recipe recommendations and meal plans</li>
+              <li><strong>Apple Foundation Models</strong>: For private, on-device recipe intelligence on supported Apple devices</li>
+              <li><strong>Savry recipe model hosting</strong>: To process recipe-generation requests you choose to send from the website</li>
               <li><strong>Firebase</strong>: For authentication, data storage, and app analytics</li>
               <li><strong>Vercel</strong>: For hosting our website and APIs</li>
+              <li><strong>Google AdSense</strong>: For clearly labeled website advertising when enabled and when you consent to advertising cookies</li>
             </ul>
             <p className="leading-relaxed mt-4">
               These services have their own privacy policies, and we encourage you to review them.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Advertising Choices</h2>
+            <p className="leading-relaxed mb-4">
+              Savry may show a limited number of clearly labeled advertisements on the website. We do not place advertising inside recipe instructions or the iOS cooking experience. Google advertising is loaded only after you allow advertising cookies; choosing not to allow them does not limit recipe or community features.
+            </p>
+            <p className="leading-relaxed">
+              You can change your choice by clearing the site data for Savry in your browser. Direct sponsorships may be displayed without tracking cookies.
             </p>
           </section>
 

@@ -3,10 +3,11 @@
 import { Suspense, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
+import { safeReturnPath } from '@/lib/security-policy.mjs'
 
 function LoginContent() {
   const sp = useSearchParams()
-  const next = sp?.get('next') || '/admin'
+  const next = safeReturnPath(sp?.get('next'), '/admin')
   const error = sp?.get('error')
 
   const [loading, setLoading] = useState(false)
@@ -88,6 +89,5 @@ export default function AdminLoginPage() {
     </Suspense>
   )
 }
-
 
 

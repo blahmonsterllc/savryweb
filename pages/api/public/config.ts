@@ -19,7 +19,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     capabilities: {
       accounts: true,
       recipePublishing: true,
-      communityContributions: false,
+      communityContributions: true, // Made Its, tweaks, reports via Supabase RPCs
       aiChef: false,
     },
   })

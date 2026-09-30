@@ -1,12 +1,8 @@
 import { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
+import { ADMIN_EMAILS, isAdminEmail } from './admin-emails'
 
-// List of authorized admin emails
-const ADMIN_EMAILS = [
-  'savryapp@gmail.com',
-  'gordonlafler@gmail.com',
-  // Add more authorized admin emails here
-]
+export { ADMIN_EMAILS, isAdminEmail }
 
 export function requireEnv(name: string): string {
   const val = process.env[name]
@@ -30,10 +26,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user }) {
       // Only allow specific admin emails
-      if (user.email && ADMIN_EMAILS.includes(user.email.toLowerCase())) {
-        return true
-      }
-      return false
+      return isAdminEmail(user.email)
     },
     async session({ session, token }) {
       if (session.user) {
@@ -53,9 +46,4 @@ export const authOptions: NextAuthOptions = {
     maxAge: 7 * 24 * 60 * 60, // 7 days
   },
   secret: process.env.NEXTAUTH_SECRET,
-}
-
-export function isAdminEmail(email: string | null | undefined): boolean {
-  if (!email) return false
-  return ADMIN_EMAILS.includes(email.toLowerCase())
 }

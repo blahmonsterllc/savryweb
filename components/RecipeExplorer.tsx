@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { Search } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
+import AdSlotClient from '@/components/AdSlotClient'
 
 type ExplorerRecipe = {
   id: string
@@ -20,6 +21,7 @@ type ExplorerRecipe = {
   dietaryTags: string[]
   ingredients: Array<{ name: string }>
   madeCount: number
+  commentCount: number
   version: number
 }
 
@@ -110,25 +112,33 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
 
       {visible.length ? (
         <ul className="recipe-index__grid">
-          {visible.map((recipe) => (
-            <li key={recipe.id} className="recipe-index-card">
-              <Link href={`/recipes/${recipe.slug}`}>
-                {recipe.imageUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={recipe.imageUrl} alt={recipe.title} loading="lazy" />
-                ) : (
-                  <div className="recipe-index-card__placeholder"><span>{recipe.title.charAt(0)}</span></div>
-                )}
-                <div className="recipe-index-card__body">
-                  <p className="recipe-index-card__kicker">{recipe.category || 'Community recipe'}</p>
-                  <h2>{recipe.title}</h2>
-                  <p className="recipe-index-card__meta">
-                    {[recipe.cuisine, recipe.totalTime ? `${recipe.totalTime} min` : null, recipe.difficulty].filter(Boolean).join(' · ')}
-                  </p>
-                  <div className="recipe-index-card__foot"><span>by {recipe.authorName}</span><span>{recipe.madeCount > 0 ? `${recipe.madeCount} made it` : 'new to Savry'}{recipe.version > 1 ? ` · v${recipe.version}` : ''}</span></div>
-                </div>
-              </Link>
-            </li>
+          {visible.map((recipe, index) => (
+            <Fragment key={recipe.id}>
+              <li className="recipe-index-card">
+                <Link href={`/recipes/${recipe.slug}`}>
+                  {recipe.imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={recipe.imageUrl} alt={recipe.title} loading="lazy" />
+                  ) : (
+                    <div className="recipe-index-card__placeholder"><span>{recipe.title.charAt(0)}</span></div>
+                  )}
+                  <div className="recipe-index-card__body">
+                    <p className="recipe-index-card__kicker">{recipe.category || 'Community recipe'}</p>
+                    <h2>{recipe.title}</h2>
+                    <p className="recipe-index-card__meta">
+                      {[recipe.cuisine, recipe.totalTime ? `${recipe.totalTime} min` : null, recipe.difficulty].filter(Boolean).join(' · ')}
+                    </p>
+                    <div className="recipe-index-card__foot">
+                      <span>by {recipe.authorName}</span>
+                      <span>{recipe.commentCount > 0 ? `${recipe.commentCount} cook note${recipe.commentCount === 1 ? '' : 's'}` : recipe.madeCount > 0 ? `${recipe.madeCount} made it` : 'new to Savry'}{recipe.version > 1 ? ` · v${recipe.version}` : ''}</span>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+              {index === Math.min(5, visible.length - 1) && visible.length > 6 && (
+                <li key="savry-feed-partner" className="recipe-feed-ad"><AdSlotClient placement="feed" checkMembership /></li>
+              )}
+            </Fragment>
           ))}
         </ul>
       ) : (

@@ -1,128 +1,49 @@
-'use client'
-
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import OpenAIUsageChart from '@/components/OpenAIUsageChart'
-import AICostTracker from '@/components/AICostTracker'
-import EmailMarketingDashboard from '@/components/EmailMarketingDashboard'
-import TranscriptionDashboard from '@/components/TranscriptionDashboard'
-import TrafficDashboard from '@/components/TrafficDashboard'
+import type { Metadata } from 'next'
 
-type HealthPayload = {
-  ok: boolean
-  timestamp: string
-  uptimeSec: number
-  node: { version: string; env: string }
-  app: { version: string }
-  memory: { rssBytes: number; heapTotalBytes: number; heapUsedBytes: number }
-  env: Record<string, boolean>
-  firestore: { ok: boolean; latencyMs?: number; details?: string }
-}
+export const metadata: Metadata = { title: 'Admin', robots: { index: false, follow: false } }
 
-export default function AdminHomePage() {
-  const [health, setHealth] = useState<HealthPayload | null>(null)
-
-  useEffect(() => {
-    let mounted = true
-    ;(async () => {
-      const res = await fetch('/api/health', { cache: 'no-store' })
-      const json = (await res.json()) as HealthPayload
-      if (mounted) setHealth(json)
-    })().catch(() => {})
-    return () => {
-      mounted = false
-    }
-  }, [])
-
-  const logout = async () => {
-    const { signOut } = await import('next-auth/react')
-    await signOut({ callbackUrl: '/' })
-  }
-
+/**
+ * Admin home. Access is enforced by middleware (admin Google accounts only).
+ * The community runs on Supabase; day-to-day work is the moderation queue.
+ */
+export default function AdminPage() {
+  const cards = [
+    {
+      href: '/admin/moderation',
+      title: 'Moderation queue',
+      body: 'Comments, tweaks, and recipes hidden after reports. Restore, remove, or ban.',
+    },
+    {
+      href: '/admin/security',
+      title: 'Security checks',
+      body: 'Environment variables and headers the site depends on.',
+    },
+    {
+      href: 'https://supabase.com/dashboard/project/qnpekzrchqftdoaebzuf',
+      title: 'Supabase dashboard',
+      body: 'Database, auth users, storage, and logs for the community.',
+    },
+    {
+      href: 'https://vercel.com',
+      title: 'Vercel',
+      body: 'Deployments, analytics, and environment variables.',
+    },
+  ]
   return (
-    <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Admin</h1>
-          <p className="text-gray-600 mt-1">Private server overview.</p>
-        </div>
-        <button
-          onClick={logout}
-          className="bg-white text-gray-900 px-4 py-2 rounded-xl text-sm font-semibold border border-gray-200 hover:border-gray-300 transition-all"
-        >
-          Logout
-        </button>
-      </div>
-
-      <div className="mt-6 grid md:grid-cols-2 gap-4">
-        <Link
-          href="/admin/security"
-          className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:border-gray-300 transition-all"
-        >
-          <div className="text-sm font-semibold text-gray-700">Security center</div>
-          <div className="text-2xl font-bold text-gray-900 mt-2">Launch checks</div>
-          <div className="text-sm text-gray-600 mt-2">Authentication, database and disabled legacy services.</div>
-        </Link>
-
-        <Link
-          href="/health"
-          className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:border-gray-300 transition-all"
-        >
-          <div className="text-sm font-semibold text-gray-700">Health dashboard</div>
-          <div className="text-2xl font-bold text-gray-900 mt-2">/health</div>
-          <div className="text-sm text-gray-600 mt-2">
-            {health ? (health.ok ? 'Healthy' : 'Degraded') : '…'}
-          </div>
-        </Link>
-
-        <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-          <div className="text-sm font-semibold text-gray-700">Quick stats</div>
-          <div className="mt-3 text-sm text-gray-800 space-y-2">
-            <div className="flex justify-between gap-4">
-              <span className="text-gray-600">Env</span>
-              <span className="font-mono">{health?.node?.env || '—'}</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span className="text-gray-600">Node</span>
-              <span className="font-mono">{health?.node?.version || '—'}</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span className="text-gray-600">Firestore</span>
-              <span className={`font-mono ${health?.firestore?.ok ? 'text-green-700' : 'text-amber-700'}`}>
-                {health ? (health.firestore.ok ? 'OK' : 'ERROR') : '—'}
-              </span>
-            </div>
-          </div>
-          <p className="text-xs text-gray-500 mt-4">
-            Traffic + OpenAI usage counters are next (we’ll add them without exposing user logins).
-          </p>
-        </div>
-      </div>
-
-      {/* OpenAI Usage Chart */}
-      <div className="mt-6">
-        <OpenAIUsageChart />
-      </div>
-
-      {/* AI Cost Tracking */}
-      <div className="mt-6">
-        <AICostTracker />
-      </div>
-
-      {/* Email Marketing */}
-      <div className="mt-6">
-        <EmailMarketingDashboard />
-      </div>
-
-      {/* Video Transcription Analytics */}
-      <div className="mt-6">
-        <TranscriptionDashboard />
-      </div>
-
-      {/* Traffic Analytics & Bot Protection */}
-      <div className="mt-6">
-        <TrafficDashboard />
-      </div>
-    </div>
+    <main className="mx-auto max-w-4xl px-4 py-10">
+      <h1 className="text-2xl font-bold text-gray-900">Savry admin</h1>
+      <p className="mt-1 text-sm text-gray-500">Signed in as an admin. Everything here changes what the public sees.</p>
+      <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+        {cards.map((card) => (
+          <li key={card.href} className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
+            <Link href={card.href} className="block">
+              <h2 className="text-lg font-semibold text-gray-900">{card.title}</h2>
+              <p className="mt-1 text-sm text-gray-600">{card.body}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </main>
   )
 }

@@ -2,8 +2,11 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getPublicRecipeBySlug, ingredientLine, recipeJsonLd } from '@/lib/community-recipes'
+import { safeJsonLd } from '@/lib/security-policy.mjs'
 import RecipeShareBar from '@/components/RecipeShareBar'
 import RecipeQuickActions from '@/components/RecipeQuickActions'
+import RecipeDiscussion from '@/components/RecipeDiscussion'
+import AdSlot from '@/components/AdSlot'
 
 export const revalidate = 300
 
@@ -11,10 +14,10 @@ type Params = { params: { slug: string } }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const recipe = await getPublicRecipeBySlug(params.slug).catch(() => null)
-  if (!recipe) return { title: 'Recipe not found – Savry' }
+  if (!recipe) return { title: 'Recipe not found' }
   const description = recipe.description ?? `${recipe.title}: ${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps.`
   return {
-    title: `${recipe.title} – Savry`,
+    title: recipe.title,
     description,
     alternates: { canonical: recipe.url },
     openGraph: {
@@ -58,7 +61,7 @@ export default async function RecipePage({ params }: Params) {
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
 
       <Link href="/recipes" className="text-sm text-primary-700 hover:underline">← All community recipes</Link>
 
@@ -144,6 +147,8 @@ export default async function RecipePage({ params }: Params) {
         </section>
       </div>
 
+      <AdSlot placement="recipe" />
+
       {n && (
         <section className="mt-10 rounded-2xl bg-white p-6 shadow">
           <h2 className="text-lg font-bold text-gray-900">Nutrition per {recipe.servingType === 'yields' ? (recipe.yieldUnit?.replace(/s$/, '') ?? 'item') : 'serving'}</h2>
@@ -178,10 +183,12 @@ export default async function RecipePage({ params }: Params) {
         </section>
       )}
 
+      <RecipeDiscussion slug={recipe.slug} initialCount={recipe.commentCount} />
+
       <section className="mt-10 rounded-3xl bg-white p-6 shadow sm:p-8">
         <span className="eyebrow">Add to the shared table</span>
         <h2 className="mt-2 text-2xl font-bold text-gray-900">Have a recipe of your own?</h2>
-        <p className="mt-2 max-w-2xl text-gray-600">Create a free Savry community account and publish a recipe you own. Comments, cook photos, and structured recipe improvements will join the preview later.</p>
+        <p className="mt-2 max-w-2xl text-gray-600">Create a free Savry community account, publish a recipe you own, and learn from focused feedback from other home cooks and bakers.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link href="/recipes/new" className="button button--coral">Share a recipe</Link>
           <Link href="/app-login?returnTo=/account" className="button button--light">Join the community</Link>

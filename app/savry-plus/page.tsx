@@ -1,27 +1,26 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Check, ShieldCheck, Sparkles } from 'lucide-react'
+import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
   title: 'Savry+ Membership',
-  description: 'Meet Savry+—the founding membership for smarter meal planning, household cooking, and a calmer grocery trip.',
+  description: 'Meet Savry+, the annual membership for unlimited recipe imports, expanded on-device recipe help, smarter weekly plans, and an ad-free Savry.',
+  alternates: { canonical: `${SITE_URL}/savry-plus` },
 }
 
 const plusFeatures = [
-  'Unlimited recipe imports from supported websites and social posts, with the original source preserved',
-  'Your own private on-device cooking profile that learns from favorites, ratings, repeat cooks, swaps, equipment, and timing',
-  'Smarter weekly meal plans shaped around your household, schedule, and budget',
-  'Expanded Savry Chef tools that adapt recipes to the way you actually cook',
-  'Household recipe, meal-plan, and grocery-list collaboration across devices',
+  'Unlimited recipe imports in the Savry app from supported websites and social posts, with the original source preserved',
+  'Expanded on-device recipe help powered by Apple Intelligence: scale, swap, and adapt recipes without your data leaving your device',
+  'Smarter weekly meal plans shaped around your schedule and budget',
   'Advanced nutrition context, dietary filters, and ingredient insights',
-  'Enhanced Apple Watch grocery tools and shopping organization',
   'An ad-free Savry website and app experience',
 ]
 
 const freeFeatures = [
   'Explore and publish community recipes',
   'Save recipes and suggest improvements',
-  'Build a core grocery list and use it on Apple Watch',
+  'Keep private recipes on your device with iCloud sync',
 ]
 
 export default function SavryPlusPage() {
@@ -31,12 +30,12 @@ export default function SavryPlusPage() {
         <div className="plus-hero__copy">
           <span className="eyebrow">Savry+ membership</span>
           <h1>More help for the kitchen you actually have.</h1>
-          <p>Bring in recipes from the web and social posts, then let Savry privately learn from what you favorite, rate, repeat, skip, and change. Explicit food restrictions stay in control and are never guessed from behavior. Every person keeps a separate cooking profile, even when recipes and grocery lists are shared.</p>
+          <p>Bring in recipes from the web and social posts, get more help adapting them on your own device, and plan the week with less friction. Explicit food restrictions stay in your control and are never guessed.</p>
           <div className="plus-hero__actions">
             <span className="plus-price"><strong>$29.99</strong><span>per year</span></span>
-            <span className="plus-badge">Founding membership</span>
+            <span className="plus-badge">Annual membership</span>
           </div>
-          <p className="plus-hero__note">Membership opens at launch. No payment is being collected yet.</p>
+          <p className="plus-hero__note">Savry+ is an auto-renewing annual subscription purchased in the Savry app through the App Store. Cancel any time in your App Store settings.</p>
         </div>
 
         <aside className="plus-card" aria-label="Savry Plus membership benefits">
@@ -46,7 +45,7 @@ export default function SavryPlusPage() {
             {plusFeatures.map((feature) => <li key={feature}><Check size={18} /> <span>{feature}</span></li>)}
           </ul>
           <Link className="button button--coral" href="/account">Create your free Savry account</Link>
-          <span className="plus-card__fine"><ShieldCheck size={16} /> Founding price stays active while the membership remains active.</span>
+          <span className="plus-card__fine"><ShieldCheck size={16} /> Your membership follows your Savry account on the web and in the app.</span>
         </aside>
       </section>
 

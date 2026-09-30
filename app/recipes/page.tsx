@@ -3,6 +3,7 @@ import { listPublicRecipes } from '@/lib/community-recipes'
 import { SITE_URL } from '@/lib/site-url'
 import RecipeExplorer from '@/components/RecipeExplorer'
 import Link from 'next/link'
+import { safeJsonLd } from '@/lib/security-policy.mjs'
 
 export const revalidate = 120
 
@@ -20,8 +21,22 @@ export default async function RecipesIndexPage() {
     console.error('recipes index: failed to load', error)
   }
 
+  const itemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Savry community recipes',
+    numberOfItems: recipes.length,
+    itemListElement: recipes.map((recipe, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: recipe.url,
+      name: recipe.title,
+    })),
+  }
+
   return (
     <main className="recipe-index site-shell">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(itemListJsonLd) }} />
       <header className="recipe-index__header">
         <span className="eyebrow">The shared table</span>
         <h1>Recipes for the<br />shared table.</h1>

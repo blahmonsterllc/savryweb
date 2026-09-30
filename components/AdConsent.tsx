@@ -2,20 +2,35 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { AD_CONSENT_EVENT, adsConfigured, detectGoogleCmp, googleCmpLoaded, readLocalAdConsent, writeLocalAdConsent } from '@/lib/ads'
 
-const adsConfigured = Boolean(process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID)
-
+/**
+ * House consent banner. When Google's certified CMP (Privacy & messaging) is
+ * loaded from the layout it owns EEA/UK consent and this banner stays hidden;
+ * it only appears as a fallback when that script is unavailable.
+ */
 export default function AdConsent() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     if (!adsConfigured) return
-    setVisible(!window.localStorage.getItem('savry_ad_consent'))
+    let cancelled = false
+    const refresh = () => {
+      if (cancelled || googleCmpLoaded()) return
+      setVisible(!readLocalAdConsent())
+    }
+    detectGoogleCmp().then((cmpPresent) => {
+      if (!cmpPresent) refresh()
+    })
+    window.addEventListener(AD_CONSENT_EVENT, refresh)
+    return () => {
+      cancelled = true
+      window.removeEventListener(AD_CONSENT_EVENT, refresh)
+    }
   }, [])
 
   function choose(value: 'granted' | 'declined') {
-    window.localStorage.setItem('savry_ad_consent', value)
-    window.dispatchEvent(new Event('savry-ad-consent-changed'))
+    writeLocalAdConsent(value)
     setVisible(false)
   }
 

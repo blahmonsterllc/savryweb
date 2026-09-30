@@ -9,7 +9,7 @@ const PUBLIC_RECIPE_SELECT = `
   prep_time_minutes, cook_time_minutes, servings, serving_type, yield_unit,
   difficulty, category, cuisine, tags, dietary_tags, allergens, equipment,
   oven_temp_f, notes, source_url, nutrition_per_serving, nutrition_source,
-  nutrition_coverage, view_count, made_count, version,
+  nutrition_coverage, view_count, made_count, comment_count, version,
   author:profiles!recipes_author_id_fkey(display_name),
   ingredients:recipe_ingredients(position, section, name, amount, unit, is_optional),
   steps:recipe_steps(position, instruction)
@@ -81,6 +81,7 @@ export function fromSupabaseRecipe(row: any): PublicRecipe {
     sourceURL: typeof row.source_url === 'string' && row.source_url.startsWith('http') ? row.source_url : null,
     viewCount: Number(row.view_count ?? 0),
     madeCount: Number(row.made_count ?? 0),
+    commentCount: Number(row.comment_count ?? 0),
     version: Number(row.version ?? 1),
   }
 }

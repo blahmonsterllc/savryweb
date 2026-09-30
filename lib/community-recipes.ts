@@ -1,17 +1,15 @@
 /**
  * Public community recipes: the documents the iOS app publishes and the
- * website renders. Supabase/PostgreSQL is the primary backend; Firestore is
+ * website renders. Supabase/PostgreSQL is the only backend; nothing is
  * retained temporarily as a migration fallback until production validation.
  */
 import { z } from 'zod'
 import { createHash } from 'node:crypto'
 import { recipePageURL } from '@/lib/site-url'
-import { isSupabaseConfigured } from '@/lib/supabase/config'
 
-export const COLLECTION = 'community_recipes'
 
 // ---------------------------------------------------------------------------
-// Payload the iOS app sends to POST /api/app/recipes/publish
+// Payload the iOS app sends to the publish_recipe_v2 database function
 // (mirrors PublishedRecipePayload in the app's SavryPublishService.swift)
 // ---------------------------------------------------------------------------
 
@@ -84,7 +82,7 @@ function searchWords(value: unknown): string[] {
     .filter((word) => word.length >= 2)
 }
 
-/** Firestore-friendly exact tokens plus short prefixes for responsive search. */
+/** Exact tokens plus short prefixes for responsive search. */
 export function buildSearchTokens(recipe: any, authorName = ''): string[] {
   const ingredients = (recipe.ingredients ?? []).map((item: any) => item?.name ?? item?.ingredient ?? item)
   const source = [
@@ -202,6 +200,7 @@ export interface PublicRecipe {
   sourceURL: string | null
   viewCount: number
   madeCount: number
+  commentCount: number
   version: number
 }
 
@@ -215,104 +214,16 @@ export function slugify(title: string): string {
     .slice(0, 60) || 'recipe'
 }
 
-function toISO(value: any): string {
-  const d = value?.toDate?.() ?? (value instanceof Date ? value : value ? new Date(value) : null)
-  return d instanceof Date ? d.toISOString() : new Date().toISOString()
-}
 
-/** Normalize a Firestore document (either the app-published shape or the older
- *  video-import shape) into what the pages render. */
-export function toPublicRecipe(id: string, data: Record<string, any>): PublicRecipe {
-  const recipe = data.recipe ?? data // older docs nest under `recipe`
-  const slug: string = data.slug ?? id
-  const ingredients = (recipe.ingredients ?? []).map((i: any) =>
-    typeof i === 'string'
-      ? { name: i, amount: null, unit: null, section: null, isOptional: false }
-      : {
-          name: i.name ?? i.ingredient ?? '',
-          amount: i.amount ?? i.quantity ?? null,
-          unit: i.unit ?? null,
-          section: i.section ?? null,
-          isOptional: !!i.isOptional,
-        }
-  )
-  const instructions = (recipe.instructions ?? []).map((s: any) => (typeof s === 'string' ? s : s.text ?? s.instruction ?? ''))
-  const prepTime = Number(recipe.prepTime ?? 0)
-  const cookTime = Number(recipe.cookTime ?? 0)
-  return {
-    id,
-    slug,
-    url: recipePageURL(slug),
-    title: recipe.title ?? recipe.name ?? 'Untitled recipe',
-    description: recipe.description ?? null,
-    imageUrl: recipe.imageUrl ?? data.imageUrl ?? null,
-    authorName: data.importedByUsername ?? data.authorName ?? 'Savry cook',
-    publishedAt: toISO(data.publishedAt ?? data.createdAt),
-    prepTime,
-    cookTime,
-    totalTime: Number(recipe.totalTime ?? prepTime + cookTime),
-    servings: Number(recipe.servings ?? 1),
-    servingType: recipe.servingType === 'yields' ? 'yields' : 'servings',
-    yieldUnit: recipe.yieldUnit ?? null,
-    difficulty: recipe.difficulty ?? 'Medium',
-    category: recipe.category ?? 'Other',
-    cuisine: recipe.cuisine ?? null,
-    tags: recipe.tags ?? [],
-    dietaryTags: recipe.dietaryTags ?? recipe.dietary ?? [],
-    allergens: recipe.allergens ?? [],
-    equipment: recipe.equipment ?? [],
-    ovenTemp: recipe.ovenTemp ?? null,
-    notes: recipe.notes ?? recipe.recipeNotes ?? null,
-    ingredients,
-    instructions,
-    nutritionPerServing: recipe.nutritionPerServing ?? null,
-    sourceURL: data.sourceUrl && String(data.sourceUrl).startsWith('http') ? data.sourceUrl : null,
-    viewCount: Number(data.viewCount ?? 0),
-    madeCount: Number(data.madeCount ?? 0),
-    version: Number(data.version ?? 1),
-  }
-}
 
 export async function getPublicRecipeBySlug(slug: string): Promise<PublicRecipe | null> {
-  if (isSupabaseConfigured() && process.env.SAVRY_DATA_BACKEND !== 'firebase') {
-    const { getSupabasePublicRecipeBySlug } = await import('@/lib/community-recipes-supabase')
-    return getSupabasePublicRecipeBySlug(slug)
-  }
-  const { db } = await import('@/lib/firebase')
-  const bySlug = await db.collection(COLLECTION).where('slug', '==', slug).where('isPublic', '==', true).limit(1).get()
-  if (!bySlug.empty) {
-    const doc = bySlug.docs[0]
-    return toPublicRecipe(doc.id, doc.data())
-  }
-  // Older documents have no slug; allow /recipes/<docId>
-  const byId = await db.collection(COLLECTION).doc(slug).get()
-  if (byId.exists && byId.data()?.isPublic) {
-    return toPublicRecipe(byId.id, byId.data()!)
-  }
-  return null
+  const { getSupabasePublicRecipeBySlug } = await import('@/lib/community-recipes-supabase')
+  return getSupabasePublicRecipeBySlug(slug)
 }
 
 export async function listPublicRecipes(limit = 24): Promise<PublicRecipe[]> {
-  if (isSupabaseConfigured() && process.env.SAVRY_DATA_BACKEND !== 'firebase') {
-    const { listSupabasePublicRecipes } = await import('@/lib/community-recipes-supabase')
-    return listSupabasePublicRecipes(limit)
-  }
-  const { db } = await import('@/lib/firebase')
-  try {
-    // Preferred path uses the composite index in firestore.indexes.json.
-    const snap = await db.collection(COLLECTION).where('isPublic', '==', true).orderBy('publishedAt', 'desc').limit(limit).get()
-    return snap.docs.map((d) => toPublicRecipe(d.id, d.data()))
-  } catch (error: any) {
-    // A new Firebase project can take time to receive its composite index.
-    // Keep the community usable with the built-in single-field index, then
-    // sort the bounded result in memory until the preferred index is ready.
-    if (error?.code !== 9 && error?.code !== 'failed-precondition') throw error
-    const fallback = await db.collection(COLLECTION).where('isPublic', '==', true).limit(Math.min(limit * 3, 150)).get()
-    return fallback.docs
-      .map((d) => toPublicRecipe(d.id, d.data()))
-      .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
-      .slice(0, limit)
-  }
+  const { listSupabasePublicRecipes } = await import('@/lib/community-recipes-supabase')
+  return listSupabasePublicRecipes(limit)
 }
 
 /** ISO 8601 duration for schema.org, e.g. 25 minutes -> PT25M */

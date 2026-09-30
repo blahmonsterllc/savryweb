@@ -1,9 +1,9 @@
 /**
  * Canonical public base URL for absolute links (JSON-LD, Open Graph, the URLs
- * we hand back to the iOS app). Set NEXT_PUBLIC_SITE_URL in Vercel when the
- * custom domain goes live; until then the Vercel URL is used.
+ * we hand back to the iOS app). www.savry.io is the live domain; set NEXT_PUBLIC_SITE_URL
+ * only to override it (previews, local dev).
  */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://savryweb.vercel.app').replace(/\/$/, '')
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.savry.io').replace(/\/$/, '')
 
 export const APP_STORE_URL = 'https://apps.apple.com/app/savry'
 

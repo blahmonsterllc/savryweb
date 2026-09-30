@@ -4,7 +4,7 @@
  * resets, email changes) at Resend, and give them Savry subjects.
  *
  *   node scripts/auth/smtp.mjs check  --key-file ~/Downloads/resend.key
- *       Lists the domains on the Resend account and whether savry.io is verified.
+ *       Confirms the sending domain's Resend DKIM record is published.
  *
  *   node scripts/auth/smtp.mjs apply  --key-file ~/Downloads/resend.key [--from hello@savry.io] [--name Savry]
  *       Writes the SMTP settings + subjects to Supabase (Authentication → SMTP).
@@ -14,6 +14,7 @@
  * The Supabase Management API token comes from `supabase login`.
  */
 import { execSync } from 'node:child_process'
+import { resolveTxt } from 'node:dns/promises'
 import { readFileSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 
@@ -66,11 +67,18 @@ export function emailSettings({ from, name }) {
   }
 }
 
-async function resendDomains(key) {
-  const res = await fetch('https://api.resend.com/domains', { headers: { Authorization: `Bearer ${key}` } })
-  const data = await res.json().catch(() => ({}))
-  if (!res.ok) throw new Error(`Resend rejected the key: ${res.status} ${data.message ?? ''}`)
-  return data.data ?? []
+/**
+ * A sending-only key (the kind we want) cannot list domains, so verification
+ * is read from DNS: Resend publishes DKIM at resend._domainkey.<domain> once
+ * the records are in place, and refuses to send until they are.
+ */
+async function domainVerified(domain) {
+  try {
+    const records = await resolveTxt(`resend._domainkey.${domain}`)
+    return records.some((chunks) => chunks.join('').startsWith('p='))
+  } catch {
+    return false
+  }
 }
 
 async function main() {
@@ -82,16 +90,14 @@ async function main() {
     process.exit(1)
   }
   const key = resendKey()
-  const domains = await resendDomains(key)
   const sendingDomain = from.split('@')[1]
-  const match = domains.find((d) => d.name === sendingDomain)
-  console.log('Resend domains:', domains.length ? domains.map((d) => `${d.name} (${d.status})`).join(', ') : 'none')
-  if (!match || match.status !== 'verified') {
-    console.error(`\n${sendingDomain} is not a verified Resend domain. Add it at https://resend.com/domains, publish the DNS records, and wait for "Verified".`)
+  if (!(await domainVerified(sendingDomain))) {
+    console.error(`${sendingDomain} has no Resend DKIM record yet. Add the domain at https://resend.com/domains, publish its DNS records, and wait for "Verified".`)
     process.exit(2)
   }
+  console.log(`${sendingDomain}: Resend DKIM record found`)
   if (command === 'check') {
-    console.log(`${sendingDomain} is verified; ready to apply.`)
+    console.log('Ready to apply.')
     return
   }
 

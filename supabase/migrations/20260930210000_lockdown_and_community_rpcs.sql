@@ -63,7 +63,7 @@ alter table public.profiles add constraint profiles_display_name_check check (
 );
 alter table public.profiles drop constraint if exists profiles_username_check;
 alter table public.profiles add constraint profiles_username_check check (
-  username is null or (char_length(username) between 3 and 30 and username ~ '^[a-z0-9][a-z0-9_.]*$')
+  username is null or (char_length(username) between 3 and 30 and username ~* '^[a-z0-9][a-z0-9_.-]*$')
 );
 
 -- One counted Made It per cook per recipe per day.

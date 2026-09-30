@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises'
 const community = await readFile(new URL('../supabase/migrations/20260928160000_savry_community.sql', import.meta.url), 'utf8')
 const publish = await readFile(new URL('../supabase/migrations/20260929193000_web_soft_launch.sql', import.meta.url), 'utf8')
 const publishV2 = await readFile(new URL('../supabase/migrations/20260930110000_publish_recipe_v2_nutrition.sql', import.meta.url), 'utf8')
+const hardening = await readFile(new URL('../supabase/migrations/20260930123000_harden_internal_functions.sql', import.meta.url), 'utf8')
 
 test('community tables use row-level security and private operational tables are revoked', () => {
   for (const table of ['profiles', 'recipes', 'recipe_ingredients', 'recipe_steps', 'recipe_versions', 'contributions', 'recipe_saves', 'profile_follows', 'reports', 'moderation_queue', 'daily_usage']) {
@@ -31,4 +32,17 @@ test('v2 publishing validates nutrition, records provenance, and remains authent
   assert.match(publishV2, /where id = target_id and author_id = actor/)
   assert.match(publishV2, /revoke all on function public\.publish_recipe_v2\(jsonb\) from public, anon/)
   assert.match(publishV2, /grant execute on function public\.publish_recipe_v2\(jsonb\) to authenticated/)
+})
+
+test('internal database helpers and storage listing are not client-callable', () => {
+  for (const signature of [
+    'handle_new_user\\(\\)',
+    'ingredient_search_trigger\\(\\)',
+    'refresh_recipe_search\\(uuid\\)',
+    'sync_membership_tier\\(\\)',
+  ]) {
+    assert.match(hardening, new RegExp(`revoke all on function public\\.${signature} from public, anon, authenticated`, 'i'))
+  }
+  assert.match(hardening, /revoke all on function public\.publish_recipe\(jsonb\) from authenticated/i)
+  assert.match(hardening, /drop policy if exists "recipe images public" on storage\.objects/i)
 })

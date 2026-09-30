@@ -178,6 +178,7 @@ export interface PublicRecipe {
   description: string | null
   imageUrl: string | null
   authorName: string
+  authorUsername: string | null
   publishedAt: string // ISO
   prepTime: number
   cookTime: number

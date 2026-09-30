@@ -64,6 +64,11 @@ test('nothing on the site links back to Firebase or the legacy app API', async (
   }))).flat()
   for (const file of files) {
     const text = await source(path.relative(root, file))
+    // The admin health check names the retired variables on purpose, to flag them if they ever come back.
+    if (file.endsWith('pages/api/admin/health.ts')) {
+      assert.match(text, /retired-env/, 'health check must keep flagging retired secrets')
+      continue
+    }
     assert.doesNotMatch(text, /firebase|firestore|ENABLE_LEGACY_APP_API|\/api\/app\//i, `${file} still references Firebase or the legacy API`)
     // Media lives in the Savry Supabase project only. Cloudflare R2 belongs to a
     // different project (the "jobsite" bucket) and must never be wired in here.

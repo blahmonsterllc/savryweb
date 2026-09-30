@@ -1,34 +1,54 @@
 'use client'
 
-import { Check, Copy, Share2 } from 'lucide-react'
-import { useState } from 'react'
+import { Check, Link2, Share2 } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 
 /**
- * Share a recipe to the networks cooks actually use. Every link is a plain
- * intent URL, so nothing loads third-party scripts. The page's Open Graph
- * card (title, photo, description) is what these networks render.
+ * One quiet "Share" button. On phones it opens the system share sheet; on
+ * desktop it opens a small menu with the networks cooks actually use plus
+ * "Copy link". Every entry is a plain intent URL, so no third-party scripts.
+ * The page's Open Graph card is what the networks render.
  */
-export default function RecipeShareBar({ title, url, imageUrl }: { title: string; url: string; imageUrl?: string | null }) {
+export default function RecipeShareBar({ title, url, imageUrl, label = 'Share' }: { title: string; url: string; imageUrl?: string | null; label?: string }) {
+  const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const root = useRef<HTMLDivElement>(null)
   const text = `${title} on Savry`
   const e = encodeURIComponent
+
+  useEffect(() => {
+    if (!open) return
+    function close(event: MouseEvent | KeyboardEvent) {
+      if (event instanceof KeyboardEvent ? event.key === 'Escape' : !root.current?.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', close)
+    document.addEventListener('keydown', close)
+    return () => {
+      document.removeEventListener('mousedown', close)
+      document.removeEventListener('keydown', close)
+    }
+  }, [open])
 
   async function copyLink() {
     try {
       await navigator.clipboard.writeText(url)
+      setCopied(true)
+      window.setTimeout(() => {
+        setCopied(false)
+        setOpen(false)
+      }, 1200)
     } catch {
-      return
+      setOpen(false)
     }
-    setCopied(true)
-    window.setTimeout(() => setCopied(false), 1800)
   }
 
   async function share() {
-    if (navigator.share) {
+    // Phones and tablets get the system sheet, which already knows Messages, Instagram, TikTok, and the rest.
+    if (navigator.share && window.matchMedia('(pointer: coarse)').matches) {
       await navigator.share({ title, text: `Cook ${title} with me on Savry.`, url }).catch(() => undefined)
       return
     }
-    await copyLink()
+    setOpen((value) => !value)
   }
 
   const networks = [
@@ -38,18 +58,26 @@ export default function RecipeShareBar({ title, url, imageUrl }: { title: string
     { name: 'Pinterest', href: `https://www.pinterest.com/pin/create/button/?url=${e(url)}&description=${e(title)}${imageUrl ? `&media=${e(imageUrl)}` : ''}` },
     { name: 'WhatsApp', href: `https://wa.me/?text=${e(`${text} ${url}`)}` },
     { name: 'Reddit', href: `https://www.reddit.com/submit?url=${e(url)}&title=${e(title)}` },
+    { name: 'Email', href: `mailto:?subject=${e(text)}&body=${e(`${title}\n${url}`)}` },
   ]
 
   return (
-    <div className="recipe-share" aria-label="Share this recipe">
-      <button type="button" onClick={share}><Share2 size={17} /> Share recipe</button>
-      <button type="button" onClick={copyLink}>{copied ? <Check size={17} /> : <Copy size={17} />} {copied ? 'Copied' : 'Copy link'}</button>
-      {networks.map((n) => (
-        <a key={n.name} href={n.href} target="_blank" rel="noopener noreferrer" aria-label={`Share on ${n.name}`}>
-          {n.name} <span aria-hidden="true">↗</span>
-        </a>
-      ))}
-      <p className="recipe-share__hint">Instagram and TikTok don’t take links from the web. Copy the link and post it with your photo, or share straight from the Savry app.</p>
+    <div className="share" ref={root}>
+      <button type="button" className="share__button" onClick={share} aria-haspopup="menu" aria-expanded={open}>
+        <Share2 size={16} /> {label}
+      </button>
+      {open && (
+        <div className="share__menu" role="menu" aria-label="Share options">
+          <button type="button" role="menuitem" onClick={copyLink}>
+            {copied ? <Check size={15} /> : <Link2 size={15} />} {copied ? 'Link copied' : 'Copy link'}
+          </button>
+          {networks.map((n) => (
+            <a key={n.name} role="menuitem" href={n.href} target={n.name === 'Email' ? undefined : '_blank'} rel="noopener noreferrer" onClick={() => setOpen(false)}>
+              {n.name}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

@@ -98,3 +98,30 @@ test('republishing and accepted tweaks keep version history', () => {
   assert.match(lockdown, /snapshot_recipe_version\(existing_id, actor, 'Republished by the author'\)/)
   assert.match(lockdown, /snapshot_recipe_version\(recipe\.id, actor, 'Accepted a community tweak', tweak\.id\)/)
 })
+
+test('profile settings: identity fields change only through the screened RPC', async () => {
+  const migration = await readFile(new URL('../supabase/migrations/20260930230000_profile_settings.sql', import.meta.url), 'utf8')
+  assert.match(migration, /revoke update on public\.profiles from authenticated/, 'clients must not update profiles directly')
+  assert.doesNotMatch(migration, /grant update[^;]*on public\.profiles/, 'no column-level update grant should come back')
+  assert.match(migration, /grant execute on function public\.update_my_profile\(jsonb\) to authenticated/)
+  assert.match(migration, /revoke all on function public\.update_my_profile\(jsonb\) from public, anon/)
+  assert.match(migration, /grant execute on function public\.username_available\(text\) to anon, authenticated/)
+  assert.match(migration, /reserved_usernames/, 'reserved handles table')
+  assert.match(migration, /public\.screen_text\(new_name\)/, 'display names are screened')
+  assert.match(migration, /public\.screen_text\(new_bio\)/, 'bios are screened')
+  assert.match(migration, /new_avatar not like actor::text \|\| '\/%'/, 'avatars must live in the cook\'s own folder')
+  assert.match(migration, /website links must start with https:\/\//i, 'only https websites')
+  // Anonymous readers only see cooks who opted into a public page or published.
+  assert.match(migration, /create policy "public read cook profiles" on public\.profiles for select to anon using \(\s*not is_banned and \(\s*username is not null/s)
+})
+
+test('admin tools are service-role only and the audit covers the core invariants', async () => {
+  const admin = await readFile(new URL('../supabase/migrations/20260930235000_admin_tools.sql', import.meta.url), 'utf8')
+  for (const fn of ['admin_stats()', 'admin_security_audit()', 'admin_members(text, integer)', 'admin_reports(integer)', 'admin_set_recipe_visibility(uuid, text)', 'admin_recipes(text, integer)']) {
+    assert.match(admin, new RegExp(`revoke all on function public\\.${fn.replace(/[()]/g, (m) => '\\' + m)} from public, anon, authenticated`), `${fn} must be revoked from clients`)
+    assert.match(admin, new RegExp(`grant execute on function public\\.${fn.replace(/[()]/g, (m) => '\\' + m)} to service_role`), `${fn} must be granted to service_role`)
+  }
+  for (const id of ['rls', 'anon-writes', 'member-writes', 'definer-path', 'admin-functions', 'storage-limit', 'banned-content', 'apple-secret']) {
+    assert.match(admin, new RegExp(`'id', '${id}'`), `audit check ${id}`)
+  }
+})

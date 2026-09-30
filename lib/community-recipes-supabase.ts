@@ -10,7 +10,7 @@ const PUBLIC_RECIPE_SELECT = `
   difficulty, category, cuisine, tags, dietary_tags, allergens, equipment,
   oven_temp_f, notes, source_url, nutrition_per_serving, nutrition_source,
   nutrition_coverage, view_count, made_count, comment_count, version,
-  author:profiles!recipes_author_id_fkey(display_name),
+  author:profiles!recipes_author_id_fkey(display_name, username),
   ingredients:recipe_ingredients(position, section, name, amount, unit, is_optional),
   steps:recipe_steps(position, instruction)
 `
@@ -49,6 +49,7 @@ export function fromSupabaseRecipe(row: any): PublicRecipe {
     description: row.description ?? null,
     imageUrl: row.image_url ?? null,
     authorName: firstRelation(row.author)?.display_name ?? 'Savry cook',
+    authorUsername: firstRelation(row.author)?.username ?? null,
     publishedAt: row.published_at ?? new Date().toISOString(),
     prepTime,
     cookTime,
@@ -106,4 +107,49 @@ export async function listSupabasePublicRecipes(limit = 24): Promise<PublicRecip
     .limit(Math.min(Math.max(limit, 1), 100))
   if (error) throw error
   return (data ?? []).map(fromSupabaseRecipe)
+}
+
+export interface PublicCook {
+  id: string
+  username: string
+  displayName: string
+  bio: string | null
+  avatarUrl: string | null
+  socialLinks: Record<string, string>
+  memberSince: string
+  recipes: PublicRecipe[]
+}
+
+/** A cook's public page: profile fields they chose plus their public recipes. */
+export async function getSupabasePublicCook(username: string): Promise<PublicCook | null> {
+  const handle = username.trim().replace(/^@/, '').toLowerCase()
+  if (!/^[a-z0-9][a-z0-9_.-]{2,29}$/.test(handle)) return null
+  const supabase = getSupabasePublic()
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('id, username, display_name, bio, avatar_path, social_links, created_at')
+    .eq('username', handle)
+    .maybeSingle()
+  if (error) throw error
+  if (!profile) return null
+  const { data: rows, error: recipesError } = await supabase
+    .from('recipes')
+    .select(PUBLIC_RECIPE_SELECT)
+    .eq('author_id', profile.id)
+    .eq('visibility', 'public')
+    .order('published_at', { ascending: false })
+    .limit(60)
+  if (recipesError) throw recipesError
+  const storageBase = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/recipe-images`
+  const links = profile.social_links && typeof profile.social_links === 'object' ? profile.social_links : {}
+  return {
+    id: profile.id,
+    username: String(profile.username),
+    displayName: profile.display_name,
+    bio: profile.bio ?? null,
+    avatarUrl: profile.avatar_path ? `${storageBase}/${profile.avatar_path}` : null,
+    socialLinks: Object.fromEntries(Object.entries(links).filter(([, v]) => typeof v === 'string')) as Record<string, string>,
+    memberSince: profile.created_at,
+    recipes: (rows ?? []).map(fromSupabaseRecipe),
+  }
 }

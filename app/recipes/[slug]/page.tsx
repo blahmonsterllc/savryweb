@@ -74,7 +74,12 @@ export default async function RecipePage({ params }: Params) {
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{recipe.title}</h1>
           {recipe.description && <p className="mt-3 text-lg text-gray-600">{recipe.description}</p>}
           <p className="mt-3 text-sm text-gray-500">
-            Shared by <span className="font-medium text-gray-700">{recipe.authorName}</span>
+            Shared by{' '}
+            {recipe.authorUsername ? (
+              <Link href={`/cooks/${recipe.authorUsername}`} className="font-medium text-gray-700 underline-offset-2 hover:underline">{recipe.authorName}</Link>
+            ) : (
+              <span className="font-medium text-gray-700">{recipe.authorName}</span>
+            )}
             {recipe.cuisine ? ` · ${recipe.cuisine}` : ''} · {recipe.difficulty}
             {recipe.madeCount > 0 ? ` · ${recipe.madeCount} cook${recipe.madeCount === 1 ? '' : 's'} made this` : ''}
             {recipe.version > 1 ? ` · v${recipe.version}` : ''}
@@ -99,7 +104,7 @@ export default async function RecipePage({ params }: Params) {
         </div>
       </header>
 
-      <RecipeQuickActions />
+      <RecipeQuickActions cooking={{ title: recipe.title, ingredients: recipe.ingredients.map(ingredientLine), steps: recipe.instructions, ovenTemp: recipe.ovenTemp }} />
 
       <div className="mt-8 grid gap-8 md:grid-cols-5">
         <section id="ingredients" className="recipe-anchor md:col-span-2">

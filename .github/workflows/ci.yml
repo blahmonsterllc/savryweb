@@ -1,0 +1,28 @@
+name: Site checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Security tests, types, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Security and source tests
+        run: node --test tests/*.test.mjs
+      - name: Type check
+        run: npx tsc --noEmit -p .
+      - name: Production build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://qnpekzrchqftdoaebzuf.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_3lpt2dqF_B0B2V4YP8RZiQ_2IOpz5Am
+          NEXT_PUBLIC_SITE_URL: https://www.savry.io

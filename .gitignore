@@ -56,3 +56,4 @@ AuthKey_*.p8
 # Resend API keys (never commit)
 resend.key
 *.key
+.claude/

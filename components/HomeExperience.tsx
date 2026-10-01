@@ -41,7 +41,7 @@ export default function HomeExperience() {
             Save what you love, cook it your way, and share the small changes that make dinner better. Every useful tweak can become part of the recipe.
           </p>
           <div className="editorial-hero__actions">
-            <Link href="/recipes" className="button button--coral">Explore community recipes <ArrowRight size={18} /></Link>
+            <Link href="/recipes" className="button button--coral button--glow">Explore community recipes <ArrowRight size={18} /></Link>
             <Link href="/recipes/new" className="button button--ghost">Share your recipe</Link>
           </div>
           <div className="editorial-hero__proof">

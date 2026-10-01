@@ -343,6 +343,15 @@ select {
   box-shadow: 0 12px 34px rgb(240 100 73 / 38%);
 }
 
+/* A soft halo for the one primary action on a dark hero. */
+.button--glow {
+  box-shadow: 0 0 0 1px rgb(255 180 159 / 22%), 0 0 30px rgb(240 100 73 / 46%), 0 9px 28px rgb(240 100 73 / 28%);
+}
+
+.button--glow:hover {
+  box-shadow: 0 0 0 1px rgb(255 180 159 / 30%), 0 0 40px rgb(240 100 73 / 60%), 0 12px 34px rgb(240 100 73 / 38%);
+}
+
 .button--coral:disabled {
   cursor: wait;
   opacity: 0.72;
@@ -457,6 +466,31 @@ select {
 .editorial-hero__image {
   object-fit: cover;
   object-position: center;
+  /* Opens slightly close on the skillet, then settles back as the page loads. */
+  transform-origin: 72% 46%;
+  animation: hero-settle 2.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes hero-settle {
+  from { transform: scale(1.1); }
+  to { transform: scale(1); }
+}
+
+/* The photo melts into the page colour instead of ending on a hard edge. */
+.editorial-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 190px;
+  background: linear-gradient(
+    to bottom,
+    rgb(247 242 232 / 0%) 0%,
+    rgb(247 242 232 / 12%) 30%,
+    rgb(247 242 232 / 46%) 62%,
+    rgb(247 242 232 / 84%) 86%,
+    var(--savry-paper) 100%
+  );
+  pointer-events: none;
 }
 
 .editorial-hero__veil {
@@ -2233,6 +2267,11 @@ select {
 
   .editorial-hero__image {
     object-position: 68% center;
+  }
+
+  /* Shorter fade so the last line of hero text stays on dark. */
+  .editorial-hero::after {
+    height: 96px;
   }
 
   .editorial-hero__veil {

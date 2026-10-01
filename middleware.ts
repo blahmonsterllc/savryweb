@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getToken } from 'next-auth/jwt'
-import { isAdminEmail } from '@/lib/admin-emails'
+import { createServerClient } from '@supabase/ssr'
+import { requireSupabasePublishableKey, requireSupabaseURL } from '@/lib/supabase/config'
 
 // Crawlers that may read every public (non-/api) page: search engines, the
 // Google ads/verification crawlers, and the link-preview fetchers used by
@@ -33,7 +33,6 @@ function shouldBlockBot(userAgent: string, path: string): boolean {
 // Public API routes that are reachable without an admin session.
 function isPublicApiRoute(pathname: string): boolean {
   return (
-    pathname.startsWith('/api/auth') ||
     pathname === '/api/public/config' ||
     // Members call this with their own Supabase token; the handler verifies it.
     pathname === '/api/account/apple-revoke' ||
@@ -41,25 +40,57 @@ function isPublicApiRoute(pathname: string): boolean {
   )
 }
 
-async function isAdminAuthed(req: NextRequest): Promise<boolean> {
-  try {
-    const token = await getToken({
-      req,
-      secret: process.env.NEXTAUTH_SECRET,
-    })
+type AdminGate = { standing: 'admin' | 'member' | 'anonymous'; response: NextResponse }
 
-    if (!token?.email) return false
-    return isAdminEmail(token.email as string)
+/**
+ * Admin access uses the member's own Savry session (Apple or email sign-in).
+ * The session is verified with Supabase Auth, then the database says whether
+ * that user is on the admin list. A refreshed session cookie is carried on
+ * `response` and passed on to the page or handler.
+ */
+async function checkAdmin(req: NextRequest): Promise<AdminGate> {
+  let response = NextResponse.next({ request: req })
+  try {
+    const supabase = createServerClient(requireSupabaseURL(), requireSupabasePublishableKey(), {
+      cookies: {
+        getAll: () => req.cookies.getAll(),
+        setAll: (cookiesToSet) => {
+          cookiesToSet.forEach(({ name, value }) => req.cookies.set(name, value))
+          response = NextResponse.next({ request: req })
+          cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options))
+        },
+      },
+    })
+    const { data, error } = await supabase.auth.getUser()
+    if (error || !data.user) return { standing: 'anonymous', response }
+    const { data: isAdmin, error: adminError } = await supabase.rpc('is_admin')
+    if (adminError || isAdmin !== true) return { standing: 'member', response }
+    return { standing: 'admin', response }
   } catch (error) {
-    console.error('Auth check error:', error)
-    return false
+    console.error('Admin check error:', error)
+    return { standing: 'anonymous', response }
   }
 }
 
-function redirectToAdminLogin(req: NextRequest): NextResponse {
+/** Keeps a refreshed session cookie when the answer is a redirect or an error. */
+function withSessionCookies(target: NextResponse, gate: AdminGate): NextResponse {
+  gate.response.cookies.getAll().forEach((cookie) => target.cookies.set(cookie))
+  return target
+}
+
+function redirectToSignIn(req: NextRequest): NextResponse {
+  const url = req.nextUrl.clone()
+  url.pathname = '/app-login'
+  url.search = ''
+  url.searchParams.set('returnTo', req.nextUrl.pathname + req.nextUrl.search)
+  return NextResponse.redirect(url)
+}
+
+function redirectToAdminDenied(req: NextRequest): NextResponse {
   const url = req.nextUrl.clone()
   url.pathname = '/admin/login'
-  url.searchParams.set('next', req.nextUrl.pathname + req.nextUrl.search)
+  url.search = ''
+  url.searchParams.set('denied', '1')
   return NextResponse.redirect(url)
 }
 
@@ -131,16 +162,17 @@ export async function middleware(req: NextRequest) {
   }
 
   // Admin check
-  const isAuthed = await isAdminAuthed(req)
-  if (!isAuthed) {
-    // For API routes, return 401 JSON instead of redirect
+  const gate = await checkAdmin(req)
+  if (gate.standing !== 'admin') {
+    // For API routes, return JSON instead of a redirect
     if (pathname.startsWith('/api')) {
-      return NextResponse.json({ message: 'Admin authorization required' }, { status: 401 })
+      const status = gate.standing === 'member' ? 403 : 401
+      return withSessionCookies(NextResponse.json({ message: 'Admin authorization required' }, { status }), gate)
     }
-    return redirectToAdminLogin(req)
+    return withSessionCookies(gate.standing === 'member' ? redirectToAdminDenied(req) : redirectToSignIn(req), gate)
   }
 
-  return NextResponse.next()
+  return gate.response
 }
 
 export const config = {

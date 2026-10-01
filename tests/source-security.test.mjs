@@ -114,13 +114,8 @@ test('member API routes are reachable through the middleware and admin routes ar
   const middleware = await source('middleware.ts')
   assert.match(middleware, /pathname === '\/api\/account\/apple-revoke'/, 'the revoke endpoint must pass the middleware to reach its own session check')
   assert.doesNotMatch(middleware, /pathname\.startsWith\('\/api\/admin'\)\s*\|\|\s*\n?\s*pathname === '\/api\/public/, 'admin routes must never be in the public allowlist')
-  const allowlist = middleware.slice(middleware.indexOf('function isPublicApiRoute'), middleware.indexOf('async function isAdminAuthed'))
+  const allowlist = middleware.slice(middleware.indexOf('function isPublicApiRoute'), middleware.indexOf('type AdminGate'))
   assert.doesNotMatch(allowlist, /admin/, 'nothing under /api/admin may be public')
-})
-
-test('admin Google credentials are trimmed before use', async () => {
-  const config = await source('lib/auth-config.ts')
-  assert.match(config, /process\.env\[name\]\?\.trim\(\)/, 'a trailing newline in GOOGLE_CLIENT_ID makes Google answer invalid_client')
 })
 
 test('no Google OAuth client secret is committed', async () => {
@@ -132,4 +127,34 @@ test('no Google OAuth client secret is committed', async () => {
     hits = ''
   }
   assert.equal(hits.trim(), '', `secret found in: ${hits}`)
+})
+
+test('admin access is a verified Savry session on the admin list, checked twice', async () => {
+  const middleware = await source('middleware.ts')
+  assert.match(middleware, /supabase\.auth\.getUser\(\)/, 'the session must be verified with Supabase Auth, not just decoded')
+  assert.match(middleware, /supabase\.rpc\('is_admin'\)/)
+  assert.match(middleware, /isAdmin !== true/, 'anything but an explicit true is not an admin')
+  assert.doesNotMatch(middleware, /getSession\(\)/, 'getSession trusts the cookie without verifying it')
+
+  const guard = await source('lib/admin-session.ts')
+  assert.match(guard, /supabase\.auth\.getUser\(\)/)
+  assert.match(guard, /rpc\('admin_is_admin', \{ target: user\.id \}\)/)
+  for (const name of ['health', 'members', 'moderation', 'recipes', 'reports', 'stats']) {
+    const handler = await source(`pages/api/admin/${name}.ts`)
+    const guardAt = handler.indexOf('if (!(await requireAdmin(req, res))) return')
+    const firstUse = handler.indexOf('getSupabaseAdmin()', handler.indexOf('export default async function handler'))
+    assert.ok(guardAt > 0, `${name} must check the admin itself`)
+    assert.ok(firstUse === -1 || guardAt < firstUse, `${name} must check the admin before using the service role`)
+  }
+
+  const migration = await source('supabase/migrations/20261001020000_admin_users.sql')
+  assert.match(migration, /alter table public\.admin_users enable row level security/)
+  assert.match(migration, /revoke all on public\.admin_users from public, anon, authenticated/)
+  assert.doesNotMatch(migration, /create policy/, 'no client may read or write the admin list')
+  assert.match(migration, /revoke all on function public\.is_admin\(\) from public, anon/)
+  assert.match(migration, /revoke all on function public\.admin_is_admin\(uuid\) from public, anon, authenticated/)
+  assert.doesNotMatch(migration, /insert into public\.admin_users/, 'admins are added by hand, never by a migration in a public repo')
+
+  const pkg = JSON.parse(await source('package.json'))
+  assert.equal(pkg.dependencies['next-auth'], undefined, 'the Google admin login is retired')
 })

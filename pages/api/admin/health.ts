@@ -1,6 +1,6 @@
 /**
- * Site health and security checks for /admin/security. middleware.ts limits
- * /api/admin/* to admin Google accounts. Nothing here returns a secret value,
+ * Site health and security checks for /admin/security. middleware.ts and requireAdmin limit
+ * /api/admin/* to Savry accounts on the admin list. Nothing here returns a secret value,
  * only whether each piece is configured and behaving.
  *
  * GET /api/admin/health → { status, checkedAt, groups: [{ id, label, checks: [{ id, label, ok, detail, pending? }] }] }
@@ -9,7 +9,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { resolveMx, resolveTxt } from 'node:dns/promises'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { SITE_URL } from '@/lib/site-url'
-import { ADMIN_EMAILS } from '@/lib/admin-emails'
+import { requireAdmin } from '@/lib/admin-session'
 
 type Check = { id: string; label: string; ok: boolean; detail?: string; pending?: boolean }
 type Group = { id: string; label: string; checks: Check[] }
@@ -34,16 +34,13 @@ async function configuration(): Promise<Group> {
       { id: 'supabase-key', label: 'Supabase publishable key', ok: Boolean(env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || env.NEXT_PUBLIC_SUPABASE_ANON_KEY) },
       { id: 'supabase-secret', label: 'Supabase secret key (server only)', ok: Boolean(env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY) },
       { id: 'site-url', label: 'Canonical site URL is savry.io', ok: SITE_URL === 'https://www.savry.io', detail: SITE_URL },
-      { id: 'admin-secret', label: 'Admin session signing secret', ok: Boolean(env.NEXTAUTH_SECRET) },
-      { id: 'admin-google', label: 'Admin Google sign-in', ok: Boolean(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET) },
-      { id: 'admin-list', label: 'Admin allowlist', ok: ADMIN_EMAILS.length > 0 && ADMIN_EMAILS.length <= 5, detail: `${ADMIN_EMAILS.length} account(s)` },
       { id: 'apple-revoke', label: 'Apple token revocation on account deletion', ok: Boolean(env.APPLE_TEAM_ID && env.APPLE_KEY_ID && env.APPLE_PRIVATE_KEY), detail: env.APPLE_PRIVATE_KEY ? 'Configured' : 'Add APPLE_TEAM_ID, APPLE_KEY_ID, and APPLE_PRIVATE_KEY in Vercel' },
       { id: 'adsense', label: 'Google AdSense publisher id', ok: Boolean(env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID), detail: env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID ? 'Ads can serve' : 'Set NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID in Vercel once AdSense approves the site', pending: !env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID },
       {
         id: 'retired-env',
         label: 'No retired secrets in the environment',
-        ok: !['FIREBASE_PROJECT_ID', 'FIREBASE_PRIVATE_KEY', 'NEXT_PUBLIC_FIREBASE_API_KEY', 'OPENAI_API_KEY', 'JWT_SECRET', 'DATABASE_URL', 'ENABLE_LEGACY_APP_API', 'R2_ACCESS_KEY_ID', 'R2_BUCKET'].some((key) => env[key]),
-        detail: 'Firebase, OpenAI, legacy JWT, Prisma database, and R2 variables should be deleted from Vercel',
+        ok: !['FIREBASE_PROJECT_ID', 'FIREBASE_PRIVATE_KEY', 'NEXT_PUBLIC_FIREBASE_API_KEY', 'OPENAI_API_KEY', 'JWT_SECRET', 'DATABASE_URL', 'ENABLE_LEGACY_APP_API', 'R2_ACCESS_KEY_ID', 'R2_BUCKET', 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'NEXTAUTH_SECRET', 'NEXTAUTH_URL'].some((key) => env[key]),
+        detail: 'Firebase, OpenAI, legacy JWT, Prisma database, R2, and the old Google admin sign-in variables should be deleted from Vercel',
       },
     ],
   }
@@ -59,6 +56,8 @@ async function database(): Promise<Group> {
       return { id: 'database', label: 'Database', checks: [{ id: 'db-reach', label: 'Supabase reachable with admin credentials', ok: false, detail: (auditError ?? statsError)?.message }] }
     }
     const checks: Check[] = [{ id: 'db-reach', label: 'Supabase reachable with admin credentials', ok: latency < 4000, detail: `${latency} ms` }]
+    const { count: adminCount } = await supabase.from('admin_users').select('user_id', { count: 'exact', head: true })
+    checks.push({ id: 'admin-list', label: 'Admin list is short and not empty', ok: (adminCount ?? 0) >= 1 && (adminCount ?? 0) <= 5, detail: `${adminCount ?? 0} account(s)` })
     for (const check of (audit?.checks ?? []) as Check[]) checks.push({ id: `db-${check.id}`, label: check.label, ok: check.ok, detail: check.detail })
     return { id: 'database', label: 'Database security audit (live)', checks }
   } catch (error) {
@@ -112,6 +111,7 @@ async function edge(): Promise<Group> {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await requireAdmin(req, res))) return
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET')
     return res.status(405).json({ error: 'Method not allowed' })

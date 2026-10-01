@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
 const NAV = [
   { href: '/admin', label: 'Overview' },
@@ -17,6 +18,12 @@ const NAV = [
 export default function AdminShell({ children }: { children: ReactNode }) {
   const pathname = usePathname() ?? ''
   if (pathname === '/admin/login') return <>{children}</>
+
+  async function signOut() {
+    await getSupabaseBrowserClient().auth.signOut()
+    window.location.assign('/')
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="border-b border-gray-200 bg-white">
@@ -34,7 +41,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
           </nav>
           <div className="ml-auto flex items-center gap-4 text-sm">
             <Link href="/" className="text-gray-600 hover:underline">View site</Link>
-            <a href="/api/auth/signout" className="text-gray-600 hover:underline">Sign out</a>
+            <button type="button" onClick={signOut} className="text-gray-600 hover:underline">Sign out</button>
           </div>
         </div>
       </header>

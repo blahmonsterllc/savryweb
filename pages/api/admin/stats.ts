@@ -1,8 +1,10 @@
 /** GET /api/admin/stats → overview numbers from admin_stats(). Admin-only via middleware.ts. */
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { requireAdmin } from '@/lib/admin-session'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await requireAdmin(req, res))) return
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET')
     return res.status(405).json({ success: false, error: 'Method not allowed' })

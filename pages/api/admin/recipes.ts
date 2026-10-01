@@ -7,10 +7,12 @@
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { requireAdmin } from '@/lib/admin-session'
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await requireAdmin(req, res))) return
   const supabase = getSupabaseAdmin()
   res.setHeader('Cache-Control', 'no-store, max-age=0')
 

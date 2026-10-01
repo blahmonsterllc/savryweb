@@ -4,10 +4,8 @@ import { FormEvent, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
+import { safeReturnPath } from '@/lib/security-policy.mjs'
 
-function safeReturnTo(value: string | null): string {
-  return value && /^\/[^/\\]/.test(value) ? value : '/account'
-}
 
 // Only fixed messages are rendered for the `?error=` query parameter so a
 // crafted link can never inject arbitrary text into the sign-in page.
@@ -35,7 +33,7 @@ function messageFor(error: { message?: string } | null): string {
 
 export default function LoginForm() {
   const params = useSearchParams()
-  const returnTo = useMemo(() => safeReturnTo(params?.get('returnTo') ?? null), [params])
+  const returnTo = useMemo(() => safeReturnPath(params?.get('returnTo') ?? null), [params])
   const [mode, setMode] = useState<'signin' | 'create'>(params?.get('error') === 'recovery' ? 'signin' : 'create')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-url'
 
-const LAST_UPDATED = 'September 30, 2026'
+const LAST_UPDATED = 'October 1, 2026'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -55,7 +55,7 @@ export default function PrivacyPolicy() {
           <li>To run Savry+ membership features, including an ad-free experience.</li>
           <li>To answer support requests and send account or service notices.</li>
           <li>To send product news only if you opt in, with an unsubscribe link in every email.</li>
-          <li>To keep the service safe: preventing spam, abuse, fraud, and unauthorized access, and enforcing our <Link href="/terms">Terms</Link>.</li>
+          <li>To keep the service safe: preventing spam, abuse, fraud, and unauthorized access, and enforcing our <Link href="/terms">Terms</Link>. This includes automated review of what you publish to the community and of your public profile, to check that it is suitable for a family site. Flagged items are reviewed by a person.</li>
           <li>To show clearly labeled advertising on the website when you consent (see below).</li>
         </ul>
       </section>
@@ -79,6 +79,7 @@ export default function PrivacyPolicy() {
           <li><strong>Apple Intelligence</strong> on-device models, for recipe help in the iOS app. Processing happens on your device.</li>
           <li><strong>Apple App Store</strong>, for Savry+ purchases and subscription management.</li>
           <li><strong>Vercel</strong>, which hosts the website and its short-lived server logs.</li>
+          <li><strong>Anthropic</strong>, whose Claude model reviews community content for us. The recipes, comments, suggestions, and photos you publish, and your profile name, username, bio, links, and photo, are sent to it to be checked against our community guidelines. Private recipes in the app are never sent.</li>
           <li><strong>Google AdSense</strong>, which serves ads on the website when you consent (details below).</li>
         </ul>
         <p>If you are outside the United States, your account and community data are transferred to and stored in the United States. Where required, we rely on standard contractual clauses and the safeguards offered by these providers. Data in transit is encrypted with TLS, and access to the database is restricted with row-level security so that only you can change your own content.</p>

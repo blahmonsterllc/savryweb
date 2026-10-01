@@ -7,6 +7,7 @@ import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
 const NAV = [
   { href: '/admin', label: 'Overview' },
+  { href: '/admin/patrol', label: 'Patrol' },
   { href: '/admin/moderation', label: 'Moderation' },
   { href: '/admin/reports', label: 'Reports' },
   { href: '/admin/members', label: 'Members' },

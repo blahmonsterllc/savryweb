@@ -158,3 +158,44 @@ test('admin access is a verified Savry session on the admin list, checked twice'
   const pkg = JSON.parse(await source('package.json'))
   assert.equal(pkg.dependencies['next-auth'], undefined, 'the Google admin login is retired')
 })
+
+test('content patrol only flags, is service-role only, and its schedule needs a secret', async () => {
+  const migration = await source('supabase/migrations/20261001030000_patrol.sql')
+  for (const fn of ['patrol_next_batch(integer)', 'patrol_record(jsonb)', 'patrol_log_run(jsonb)', 'admin_patrol_flags(integer)', 'admin_patrol_summary()', 'admin_patrol_resolve(uuid, text, uuid)']) {
+    const escaped = fn.replace(/[()]/g, (m) => '\\' + m)
+    assert.match(migration, new RegExp(`revoke all on function public\\.${escaped} from public, anon, authenticated`), `${fn} must be revoked from clients`)
+    assert.match(migration, new RegExp(`grant execute on function public\\.${escaped} to service_role`))
+  }
+  for (const table of ['patrol_reviews', 'patrol_runs']) {
+    assert.match(migration, new RegExp(`alter table public\\.${table} enable row level security`))
+    assert.match(migration, new RegExp(`revoke all on public\\.${table} from public, anon, authenticated`))
+  }
+  assert.doesNotMatch(migration, /create policy/, 'patrol tables are closed to clients')
+
+  // The automated side records verdicts and nothing else: no hiding, no bans.
+  const record = migration.slice(migration.indexOf('function public.patrol_record'), migration.indexOf('function public.patrol_log_run'))
+  assert.doesNotMatch(record, /is_banned|admin_set_ban|set hidden|set visibility/, 'patrol_record must never act on content or accounts')
+  const patrol = await source('lib/patrol.ts')
+  assert.doesNotMatch(patrol, /admin_set_ban|admin_patrol_resolve|is_banned|\.update\(|\.delete\(/, 'the reviewer must never act on content or accounts')
+  assert.match(patrol, /import 'server-only'/)
+  assert.doesNotMatch(patrol, /NEXT_PUBLIC_ANTHROPIC/)
+  assert.match(patrol, /startsWith\(base\)/, 'only photos in the Savry bucket are fetched')
+
+  const cron = await source('pages/api/cron/patrol.ts')
+  assert.match(cron, /timingSafeEqual/)
+  assert.match(cron, /if \(!secret\) return res\.status\(503\)/, 'no secret means no runs, never an open endpoint')
+  assert.ok(cron.indexOf('return res.status(401)') < cron.indexOf('runPatrol()'), 'the secret is checked before anything runs')
+
+  const admin = await source('pages/api/admin/patrol.ts')
+  assert.ok(admin.indexOf('requireAdmin(req, res)') < admin.indexOf('getSupabaseAdmin()'), 'admin check comes first')
+
+  const middleware = await source('middleware.ts')
+  assert.match(middleware, /pathname === '\/api\/cron\/patrol'/)
+  assert.doesNotMatch(middleware, /startsWith\('\/api\/cron'\)/, 'only the one cron path is public')
+
+  const terms = await source('app/terms/page.tsx')
+  assert.match(terms, /Savry is a family site/)
+  assert.match(terms, /automated reviewer/)
+  const privacy = await source('app/privacy/page.tsx')
+  assert.match(privacy, /Anthropic/)
+})

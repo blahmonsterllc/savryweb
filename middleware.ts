@@ -36,6 +36,8 @@ function isPublicApiRoute(pathname: string): boolean {
     pathname === '/api/public/config' ||
     // Members call this with their own Supabase token; the handler verifies it.
     pathname === '/api/account/apple-revoke' ||
+    // Vercel Cron calls this with the CRON_SECRET bearer token; the handler verifies it.
+    pathname === '/api/cron/patrol' ||
     pathname === '/api/email/unsubscribe'
   )
 }

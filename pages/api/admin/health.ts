@@ -35,6 +35,8 @@ async function configuration(): Promise<Group> {
       { id: 'supabase-secret', label: 'Supabase secret key (server only)', ok: Boolean(env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY) },
       { id: 'site-url', label: 'Canonical site URL is savry.io', ok: SITE_URL === 'https://www.savry.io', detail: SITE_URL },
       { id: 'apple-revoke', label: 'Apple token revocation on account deletion', ok: Boolean(env.APPLE_TEAM_ID && env.APPLE_KEY_ID && env.APPLE_PRIVATE_KEY), detail: env.APPLE_PRIVATE_KEY ? 'Configured' : 'Add APPLE_TEAM_ID, APPLE_KEY_ID, and APPLE_PRIVATE_KEY in Vercel' },
+      { id: 'patrol-key', label: 'Content patrol has a model key', ok: Boolean(env.ANTHROPIC_API_KEY), detail: env.ANTHROPIC_API_KEY ? 'Configured' : 'Add ANTHROPIC_API_KEY in Vercel to switch the patrol on', pending: !env.ANTHROPIC_API_KEY },
+      { id: 'patrol-schedule', label: 'Content patrol schedule is protected', ok: Boolean(env.CRON_SECRET), detail: env.CRON_SECRET ? 'Runs every 10 minutes' : 'Add CRON_SECRET in Vercel' },
       { id: 'adsense', label: 'Google AdSense publisher id', ok: Boolean(env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID), detail: env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID ? 'Ads can serve' : 'Set NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID in Vercel once AdSense approves the site', pending: !env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID },
       {
         id: 'retired-env',
@@ -57,6 +59,12 @@ async function database(): Promise<Group> {
     }
     const checks: Check[] = [{ id: 'db-reach', label: 'Supabase reachable with admin credentials', ok: latency < 4000, detail: `${latency} ms` }]
     const { count: adminCount } = await supabase.from('admin_users').select('user_id', { count: 'exact', head: true })
+    if (process.env.ANTHROPIC_API_KEY && process.env.CRON_SECRET) {
+      const { data: patrol } = await supabase.rpc('admin_patrol_summary')
+      const finished = patrol?.lastRun?.finishedAt ? new Date(patrol.lastRun.finishedAt).getTime() : 0
+      const minutes = finished ? Math.round((Date.now() - finished) / 60000) : null
+      checks.push({ id: 'patrol-running', label: 'Content patrol ran in the last 35 minutes', ok: minutes !== null && minutes <= 35 && !patrol?.lastRun?.note, detail: minutes === null ? 'No run recorded yet' : `${minutes} min ago${patrol?.lastRun?.note ? `: ${patrol.lastRun.note}` : ''}` })
+    }
     checks.push({ id: 'admin-list', label: 'Admin list is short and not empty', ok: (adminCount ?? 0) >= 1 && (adminCount ?? 0) <= 5, detail: `${adminCount ?? 0} account(s)` })
     for (const check of (audit?.checks ?? []) as Check[]) checks.push({ id: `db-${check.id}`, label: check.label, ok: check.ok, detail: check.detail })
     return { id: 'database', label: 'Database security audit (live)', checks }

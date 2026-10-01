@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-url'
 
-const LAST_UPDATED = 'September 30, 2026'
+const LAST_UPDATED = 'October 1, 2026'
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -32,8 +32,12 @@ export default function TermsOfService() {
 
       <section id="community-guidelines">
         <h2>3. Community guidelines</h2>
+        <p><strong>Savry is a family site.</strong> Cooks of all ages use it, often together. Everything you post must be suitable for a general audience: recipes, comments, suggestions, photos, and your name, username, bio, and profile photo.</p>
         <p>The shared table works when everyone treats it with care. When you publish, comment, suggest, or post a photo you agree to:</p>
         <ul>
+          <li><strong>Keep it family-friendly.</strong> No sexual content or nudity, no profanity, slurs, or crude language, and no graphic or violent material.</li>
+          <li><strong>Nothing illegal or harmful.</strong> No content about illegal drugs, nothing that encourages self-harm or disordered eating, and nothing that exploits or endangers children.</li>
+          <li><strong>Respect privacy and identity.</strong> Do not post another person’s private details, and do not pretend to be Savry, a brand, or someone else.</li>
           <li><strong>Be kind.</strong> Critique the dish, not the cook. No harassment, hate, threats, or personal attacks.</li>
           <li><strong>No spam or links.</strong> Do not post promotional content, affiliate links, or off-site links in recipes, comments, or suggestions. Credit a source by name instead.</li>
           <li><strong>No unsafe food advice.</strong> Do not post instructions that are dangerous to follow, such as unsafe canning, fermentation, or temperature guidance, or claims that a recipe treats or cures a medical condition.</li>
@@ -41,7 +45,8 @@ export default function TermsOfService() {
           <li><strong>Credit your sources.</strong> If a recipe is adapted from a book, site, or another cook, say so in the notes.</li>
           <li><strong>Stay on topic and honest.</strong> “Made It” photos should be of the dish you made; suggestions should be improvements you actually tested or believe in.</li>
         </ul>
-        <p>We may remove content, hide comments, or suspend accounts that break these guidelines, and we may do so without notice when needed to protect the community.</p>
+        <p><strong>How we enforce this.</strong> What you post is checked by automated filters and by an automated reviewer that reads community content and photos against these guidelines, and members can report anything they see. Flagged content is looked at by a person. We may remove content, hide comments, or suspend or permanently ban accounts that break these guidelines, and we may do so without notice when needed to protect the community. Content that sexualises or endangers a child leads to an immediate ban and is reported to the authorities where the law requires it.</p>
+        <p>If you think we got a decision wrong, write to <a href="mailto:kitchen@savry.io">kitchen@savry.io</a> and a person will review it.</p>
       </section>
 
       <section id="your-content">

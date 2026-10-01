@@ -339,7 +339,7 @@ export default function RecipeComposer() {
           {step === 0 && (
             <div className="recipe-form-section">
               <div className="recipe-form-section__title"><ChefHat /><div><span>01</span><h2>Tell us about the dish</h2></div></div>
-              <label className="recipe-field recipe-field--hero"><span>Recipe name</span><input autoFocus value={draft.title} onChange={(event) => update('title', event.target.value)} placeholder="Roasted tomato white bean skillet" maxLength={200} /></label>
+              <label className="recipe-field recipe-field--hero"><span>Recipe name</span><input autoFocus value={draft.title} onChange={(event) => update('title', event.target.value)} placeholder="Example: Roasted tomato white bean skillet" maxLength={200} /></label>
               <label className={`recipe-photo-field ${draft.imageBase64 ? 'has-photo' : ''}`}>
                 {draft.imageBase64 ? <img src={`data:image/jpeg;base64,${draft.imageBase64}`} alt="Recipe preview" /> : <><ImagePlus /><strong>Add a finished-dish photo</strong><span>Portrait or landscape works</span></>}
                 <input type="file" accept="image/*" onChange={pickImage} />

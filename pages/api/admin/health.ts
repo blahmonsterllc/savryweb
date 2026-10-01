@@ -37,6 +37,7 @@ async function configuration(): Promise<Group> {
       { id: 'admin-secret', label: 'Admin session signing secret', ok: Boolean(env.NEXTAUTH_SECRET) },
       { id: 'admin-google', label: 'Admin Google sign-in', ok: Boolean(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET) },
       { id: 'admin-list', label: 'Admin allowlist', ok: ADMIN_EMAILS.length > 0 && ADMIN_EMAILS.length <= 5, detail: `${ADMIN_EMAILS.length} account(s)` },
+      { id: 'apple-revoke', label: 'Apple token revocation on account deletion', ok: Boolean(env.APPLE_TEAM_ID && env.APPLE_KEY_ID && env.APPLE_PRIVATE_KEY), detail: env.APPLE_PRIVATE_KEY ? 'Configured' : 'Add APPLE_TEAM_ID, APPLE_KEY_ID, and APPLE_PRIVATE_KEY in Vercel' },
       { id: 'adsense', label: 'Google AdSense publisher id', ok: Boolean(env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID), detail: env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID ? 'Ads can serve' : 'Set NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID in Vercel once AdSense approves the site', pending: !env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID },
       {
         id: 'retired-env',

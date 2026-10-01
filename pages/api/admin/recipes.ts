@@ -2,6 +2,7 @@
  * Admin recipe management. Admin-only via middleware.ts.
  *
  * GET  /api/admin/recipes?q=&limit=           search by title, slug, or author
+ * GET  /api/admin/recipes?id=<uuid>           one recipe in full, drafts included
  * POST /api/admin/recipes { id, visibility }  public | unlisted | private (clears review hold)
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -14,8 +15,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   res.setHeader('Cache-Control', 'no-store, max-age=0')
 
   if (req.method === 'GET') {
+    // ?id=<uuid> returns one recipe in full (drafts included) for review.
+    if (typeof req.query.id === 'string') {
+      if (!UUID.test(req.query.id)) return res.status(400).json({ success: false, error: 'Bad request' })
+      const { data, error } = await supabase.rpc('admin_recipe_detail', { target: req.query.id })
+      if (error) return res.status(500).json({ success: false, error: error.message })
+      if (!data) return res.status(404).json({ success: false, error: 'Not found' })
+      return res.status(200).json({ success: true, recipe: data })
+    }
     const query = typeof req.query.q === 'string' ? req.query.q.slice(0, 120) : null
-    const limit = Math.min(Math.max(Number(req.query.limit) || 50, 1), 200)
+    const limit = Math.min(Math.max(Number(req.query.limit) || 50, 1), 500)
     const { data, error } = await supabase.rpc('admin_recipes', { query, page_limit: limit })
     if (error) return res.status(500).json({ success: false, error: error.message })
     return res.status(200).json({ success: true, recipes: data ?? [] })

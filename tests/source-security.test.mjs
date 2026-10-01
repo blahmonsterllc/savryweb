@@ -93,3 +93,19 @@ test('recipe pages escape JSON-LD', async () => {
   assert.match(page, /safeJsonLd\(/)
   assert.doesNotMatch(page, /__html: JSON\.stringify/)
 })
+
+test('Apple revocation endpoint authenticates the cook and never stores or returns tokens', async () => {
+  const route = await source('pages/api/account/apple-revoke.ts')
+  assert.match(route, /auth\.getUser\(token\)/, 'must verify the Supabase session before talking to Apple')
+  assert.ok(route.indexOf('auth.getUser(token)') < route.indexOf("appleForm('/auth/token'"), 'session check must come before the Apple exchange')
+  assert.match(route, /appleid\.apple\.com/, 'talks only to Apple')
+  assert.doesNotMatch(route, /res\.status\(200\)\.json\(\{[^}]*(refresh|token)/i, 'must not return tokens')
+  assert.doesNotMatch(route, /getSupabaseAdmin\(\)\.from\(|\.insert\(|\.upsert\(|\.storage\./, 'must not persist anything')
+})
+
+test('catalog batches are seeded as private drafts only', async () => {
+  const seed = await source('scripts/catalog/seed-batch.mjs')
+  assert.match(seed, /visibility: 'private', published_at: null/, 'new recipes start private')
+  assert.doesNotMatch(seed, /visibility: 'public'/, 'the seeding script must never publish')
+  assert.match(seed, /Project guard failed/, 'project guard stays in place')
+})

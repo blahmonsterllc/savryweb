@@ -117,3 +117,8 @@ test('member API routes are reachable through the middleware and admin routes ar
   const allowlist = middleware.slice(middleware.indexOf('function isPublicApiRoute'), middleware.indexOf('async function isAdminAuthed'))
   assert.doesNotMatch(allowlist, /admin/, 'nothing under /api/admin may be public')
 })
+
+test('admin Google credentials are trimmed before use', async () => {
+  const config = await source('lib/auth-config.ts')
+  assert.match(config, /process\.env\[name\]\?\.trim\(\)/, 'a trailing newline in GOOGLE_CLIENT_ID makes Google answer invalid_client')
+})

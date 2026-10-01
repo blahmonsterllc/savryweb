@@ -5,7 +5,8 @@ import { ADMIN_EMAILS, isAdminEmail } from './admin-emails'
 export { ADMIN_EMAILS, isAdminEmail }
 
 export function requireEnv(name: string): string {
-  const val = process.env[name]
+  // Trimmed because a value pasted with a trailing newline makes Google reject the client id.
+  const val = process.env[name]?.trim()
   if (!val) {
     throw new Error(`${name} environment variable is not set`)
   }

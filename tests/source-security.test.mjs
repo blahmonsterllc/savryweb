@@ -122,3 +122,14 @@ test('admin Google credentials are trimmed before use', async () => {
   const config = await source('lib/auth-config.ts')
   assert.match(config, /process\.env\[name\]\?\.trim\(\)/, 'a trailing newline in GOOGLE_CLIENT_ID makes Google answer invalid_client')
 })
+
+test('no Google OAuth client secret is committed', async () => {
+  const { execFileSync } = await import('node:child_process')
+  let hits = ''
+  try {
+    hits = execFileSync('git', ['grep', '-lE', 'GOCSPX-[A-Za-z0-9_-]{20,}', '--', '.', ':!tests'], { encoding: 'utf8' })
+  } catch {
+    hits = ''
+  }
+  assert.equal(hits.trim(), '', `secret found in: ${hits}`)
+})

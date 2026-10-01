@@ -9,7 +9,7 @@ I've extracted your credentials and added them to `.env.local`.
 ### 1. Credentials Extracted ✅
 ```
 GOOGLE_CLIENT_ID=1021651065638-ljat8g70nbhibploo7p7ts7v233lf2ob.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
+GOOGLE_CLIENT_SECRET=<removed: keep the secret in Vercel only>
 ```
 
 ### 2. Added to .env.local ✅
@@ -80,7 +80,7 @@ Value: 1021651065638-ljat8g70nbhibploo7p7ts7v233lf2ob.apps.googleusercontent.com
 Environment: Production, Preview, Development
 
 Name: GOOGLE_CLIENT_SECRET
-Value: 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
+Value: <removed: keep the secret in Vercel only>
 Environment: Production, Preview, Development
 
 Name: NEXTAUTH_URL
@@ -97,7 +97,7 @@ vercel env add GOOGLE_CLIENT_ID production
 # Paste: 1021651065638-ljat8g70nbhibploo7p7ts7v233lf2ob.apps.googleusercontent.com
 
 vercel env add GOOGLE_CLIENT_SECRET production
-# Paste: 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
+# Paste: <removed: keep the secret in Vercel only>
 
 vercel env add NEXTAUTH_URL production
 # Paste: https://your-actual-domain.com
@@ -127,7 +127,7 @@ vercel env add NEXTAUTH_URL production
 
 **Project ID:** savry-13adf  
 **Client ID:** 1021651065638-ljat8g70nbhibploo7p7ts7v233lf2ob.apps.googleusercontent.com  
-**Client Secret:** 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  
+**Client Secret:** <removed: keep the secret in Vercel only>  
 **Authorized Emails:** savryapp@gmail.com (add more in `lib/auth-config.ts`)
 
 ---

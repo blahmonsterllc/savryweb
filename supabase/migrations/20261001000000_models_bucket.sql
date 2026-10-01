@@ -3,8 +3,8 @@
 -- Only the service role (the publish script) may write here.
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('models', 'models', true, 2147483647, null)
-on conflict (id) do update set public = true, file_size_limit = 2147483647, allowed_mime_types = null;
+values ('models', 'models', true, 52428800, null)
+on conflict (id) do update set public = true, file_size_limit = 52428800, allowed_mime_types = null;
 
 drop policy if exists "models public read" on storage.objects;
 create policy "models public read" on storage.objects

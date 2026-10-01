@@ -3,22 +3,28 @@
  * Publish an exported Core AI model folder to Savry's Supabase storage so the
  * iOS 27 app can download it on demand.
  *
- *   node scripts/models/publish-chef-model.mjs --dir ./export/Qwen3-0.6B --version 2026.10.01 \
+ *   node scripts/models/publish-chef-model.mjs --dir ~/Desktop/savry-models/qwen3-0.6b-ios --version 2026.10.01 \
  *        [--name savry-chef] [--display "Savry Chef"] [--summary "..."] [--min-memory-gb 6] [--dry-run]
  *
  * Uploads every file under --dir to  models/<name>/<version>/<relative path>
- * and writes  models/<name>/manifest.json  listing them with sizes and SHA-256,
- * which the app verifies file by file. Needs NEXT_PUBLIC_SUPABASE_URL and
- * SUPABASE_SECRET_KEY (or SUPABASE_SERVICE_ROLE_KEY) in the environment, as
- * for the other server-side scripts. Public read is granted by the
- * 20261001000000_models_bucket migration.
+ * and then writes  models/<name>/manifest.json  listing them with sizes and
+ * SHA-256. Files larger than the storage upload cap are published in 40 MB
+ * parts (<path>.part000, …); the app downloads the parts, joins them, and
+ * verifies the whole file against its hash.
+ *
+ * Needs NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SECRET_KEY (or
+ * SUPABASE_SERVICE_ROLE_KEY) in the environment. Public read is granted by the
+ * 20261001000000_models_bucket migration; only the service role can write.
+ * Memory use stays under ~100 MB: files are hashed and split by streaming.
  */
 import { createHash } from 'node:crypto'
 import { createReadStream } from 'node:fs'
-import { readdir, readFile, stat } from 'node:fs/promises'
+import { open, readdir, readFile, stat } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
+
+const PART_BYTES = 40 * 1024 * 1024
 
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`)
@@ -35,11 +41,23 @@ async function walk(dir) {
   return out
 }
 
-function sha256(path) {
+function sha256File(path) {
   return new Promise((resolve, reject) => {
     const hash = createHash('sha256')
     createReadStream(path).on('data', (chunk) => hash.update(chunk)).on('end', () => resolve(hash.digest('hex'))).on('error', reject)
   })
+}
+
+/** Read one part of a file into memory (at most PART_BYTES). */
+async function readPart(path, index) {
+  const handle = await open(path, 'r')
+  try {
+    const buffer = Buffer.alloc(PART_BYTES)
+    const { bytesRead } = await handle.read(buffer, 0, PART_BYTES, index * PART_BYTES)
+    return buffer.subarray(0, bytesRead)
+  } finally {
+    await handle.close()
+  }
 }
 
 async function main() {
@@ -51,31 +69,51 @@ async function main() {
     console.error('usage: publish-chef-model.mjs --dir <export folder> --version <YYYY.MM.DD or semver> [--name savry-chef] [--dry-run]')
     process.exit(1)
   }
-  let metadata = null
+  let metadata
   try {
     metadata = JSON.parse(await readFile(join(dir, 'metadata.json'), 'utf8'))
   } catch {
     throw new Error(`${dir} has no metadata.json; point --dir at the exported model folder`)
   }
-  const files = await walk(dir)
-  const entries = []
-  for (const file of files) {
+
+  // Plan: hash every file, and split the big ones into parts.
+  const files = []
+  for (const file of await walk(dir)) {
     const rel = relative(dir, file).split(sep).join('/')
-    const info = await stat(file)
-    entries.push({ path: rel, bytes: info.size, sha256: await sha256(file) })
+    const { size } = await stat(file)
+    const entry = { local: file, path: `${version}/${rel}`, bytes: size, sha256: await sha256File(file) }
+    if (size > PART_BYTES) {
+      entry.parts = []
+      for (let index = 0; index * PART_BYTES < size; index++) {
+        const data = await readPart(file, index)
+        entry.parts.push({ path: `${entry.path}.part${String(index).padStart(3, '0')}`, bytes: data.length, sha256: createHash('sha256').update(data).digest('hex'), index })
+      }
+    }
+    files.push(entry)
   }
+  const total = files.reduce((sum, f) => sum + f.bytes, 0)
+  const uploads = files.reduce((sum, f) => sum + (f.parts ? f.parts.length : 1), 0)
+  console.log(`${files.length} files, ${(total / 1048576).toFixed(0)} MB, ${uploads} uploads → models/${name}/${version}/`)
+
   const manifest = {
     name,
     version,
     displayName: arg('display', 'Savry Chef'),
-    summary: arg('summary', `Savry's cooking model (${metadata?.name ?? 'Core AI'}), running entirely on your iPhone. Better recipes, substitutions, and plans than the general model, with nothing sent off the device.`),
+    summary: arg(
+      'summary',
+      'A cooking model that runs entirely on your iPhone. Better recipes, substitutions, and plans than the general-purpose model, with nothing sent off the device.'
+    ),
     minimumMemoryGB: Number(arg('min-memory-gb', '6')),
-    model: metadata?.name ?? null,
+    model: metadata.name ?? null,
+    source: metadata.source?.hf_model_id ?? null,
     publishedAt: new Date().toISOString(),
-    files: entries.map((e) => ({ ...e, path: `${version}/${e.path}` })),
+    files: files.map((f) => ({
+      path: f.path,
+      bytes: f.bytes,
+      sha256: f.sha256,
+      ...(f.parts ? { parts: f.parts.map(({ path, bytes, sha256 }) => ({ path, bytes, sha256 })) } : {}),
+    })),
   }
-  const total = entries.reduce((sum, e) => sum + e.bytes, 0)
-  console.log(`${entries.length} files, ${(total / 1048576).toFixed(0)} MB → models/${name}/${version}/`)
   if (dryRun) {
     console.log(JSON.stringify(manifest, null, 2))
     return
@@ -85,22 +123,39 @@ async function main() {
   const secret = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !secret) throw new Error('NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SECRET_KEY are required')
   const supabase = createClient(url, secret, { auth: { persistSession: false, autoRefreshToken: false } })
+  const bucket = supabase.storage.from('models')
 
-  for (const [index, entry] of entries.entries()) {
-    const body = await readFile(join(dir, entry.path))
-    const key = `${name}/${version}/${entry.path}`
-    const { error } = await supabase.storage.from('models').upload(key, body, { upsert: true, contentType: 'application/octet-stream', cacheControl: '31536000' })
-    if (error) throw new Error(`${key}: ${error.message}`)
-    console.log(`  [${index + 1}/${entries.length}] ${key} (${(entry.bytes / 1048576).toFixed(1)} MB)`)
+  async function put(key, body, attempt = 1) {
+    const { error } = await bucket.upload(key, body, { upsert: true, contentType: 'application/octet-stream', cacheControl: '31536000' })
+    if (!error) return
+    if (attempt < 4) {
+      await new Promise((resolve) => setTimeout(resolve, attempt * 3000))
+      return put(key, body, attempt + 1)
+    }
+    throw new Error(`${key}: ${error.message}`)
   }
+
+  let done = 0
+  for (const file of files) {
+    if (file.parts) {
+      for (const part of file.parts) {
+        await put(`${name}/${part.path}`, await readPart(file.local, part.index))
+        console.log(`  [${++done}/${uploads}] ${part.path} (${(part.bytes / 1048576).toFixed(1)} MB)`)
+      }
+    } else {
+      await put(`${name}/${file.path}`, await readFile(file.local))
+      console.log(`  [${++done}/${uploads}] ${file.path} (${(file.bytes / 1048576).toFixed(1)} MB)`)
+    }
+  }
+
   // The manifest goes last so a half-finished upload is never advertised.
-  const { error } = await supabase.storage.from('models').upload(`${name}/manifest.json`, Buffer.from(JSON.stringify(manifest, null, 2)), {
+  const { error } = await bucket.upload(`${name}/manifest.json`, Buffer.from(JSON.stringify(manifest, null, 2)), {
     upsert: true,
     contentType: 'application/json',
     cacheControl: '300',
   })
-  if (error) throw error
-  console.log(`Published ${name} ${version}. Manifest: ${url}/storage/v1/object/public/models/${name}/manifest.json`)
+  if (error) throw new Error(`manifest: ${error.message}`)
+  console.log(`Published ${name} ${version}: ${url}/storage/v1/object/public/models/${name}/manifest.json`)
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

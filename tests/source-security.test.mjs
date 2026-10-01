@@ -109,3 +109,11 @@ test('catalog batches are seeded as private drafts only', async () => {
   assert.doesNotMatch(seed, /visibility: 'public'/, 'the seeding script must never publish')
   assert.match(seed, /Project guard failed/, 'project guard stays in place')
 })
+
+test('member API routes are reachable through the middleware and admin routes are not', async () => {
+  const middleware = await source('middleware.ts')
+  assert.match(middleware, /pathname === '\/api\/account\/apple-revoke'/, 'the revoke endpoint must pass the middleware to reach its own session check')
+  assert.doesNotMatch(middleware, /pathname\.startsWith\('\/api\/admin'\)\s*\|\|\s*\n?\s*pathname === '\/api\/public/, 'admin routes must never be in the public allowlist')
+  const allowlist = middleware.slice(middleware.indexOf('function isPublicApiRoute'), middleware.indexOf('async function isAdminAuthed'))
+  assert.doesNotMatch(allowlist, /admin/, 'nothing under /api/admin may be public')
+})

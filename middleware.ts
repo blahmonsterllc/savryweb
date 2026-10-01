@@ -35,6 +35,8 @@ function isPublicApiRoute(pathname: string): boolean {
   return (
     pathname.startsWith('/api/auth') ||
     pathname === '/api/public/config' ||
+    // Members call this with their own Supabase token; the handler verifies it.
+    pathname === '/api/account/apple-revoke' ||
     pathname === '/api/email/unsubscribe'
   )
 }

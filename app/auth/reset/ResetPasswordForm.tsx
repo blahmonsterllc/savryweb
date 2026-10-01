@@ -36,8 +36,8 @@ export default function ResetPasswordForm() {
   async function onSubmit(event: FormEvent) {
     event.preventDefault()
     setError(null)
-    if (password.length < 8) {
-      setError('Use a password with at least 8 characters.')
+    if (password.length < 10) {
+      setError('Use a password with at least 10 characters.')
       return
     }
     if (password !== confirm) {
@@ -79,8 +79,8 @@ export default function ResetPasswordForm() {
   return (
     <div className="community-login__card">
       <form onSubmit={onSubmit} className="community-login__form">
-        <label>New password<input type="password" required minLength={8} autoComplete="new-password" value={password} onChange={(event) => setPassword(event.target.value)} /></label>
-        <label>Confirm new password<input type="password" required minLength={8} autoComplete="new-password" value={confirm} onChange={(event) => setConfirm(event.target.value)} /></label>
+        <label>New password<input type="password" required minLength={10} autoComplete="new-password" value={password} onChange={(event) => setPassword(event.target.value)} /></label>
+        <label>Confirm new password<input type="password" required minLength={10} autoComplete="new-password" value={confirm} onChange={(event) => setConfirm(event.target.value)} /></label>
 
         {error && <p className="community-login__error" role="alert">{error}</p>}
         {status === 'done' && <p className="community-login__info" role="status">Password updated. Taking you to your account…</p>}

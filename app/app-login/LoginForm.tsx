@@ -28,7 +28,7 @@ function messageFor(error: { message?: string } | null): string {
   if (message.includes('invalid login')) return 'Email or password is incorrect.'
   if (message.includes('already registered')) return 'There is already an account for that email. Try signing in.'
   if (message.includes('rate limit') || message.includes('too many')) return 'Too many attempts. Please wait a moment and try again.'
-  if (message.includes('password')) return 'Use a password with at least 8 characters.'
+  if (message.includes('password')) return 'Use a password with at least 10 characters.'
   if (message.includes('provider') || message.includes('apple')) return 'Apple sign-in is not available right now. Please use email.'
   return 'Something went wrong. Please try again.'
 }
@@ -126,7 +126,7 @@ export default function LoginForm() {
           <label>Your name<input type="text" autoComplete="name" value={name} onChange={(event) => setName(event.target.value)} placeholder="Shown on recipes you publish" /></label>
         )}
         <label>Email<input type="email" required autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label>
-        <label>Password<input type="password" required minLength={8} autoComplete={mode === 'create' ? 'new-password' : 'current-password'} value={password} onChange={(event) => setPassword(event.target.value)} /></label>
+        <label>Password<input type="password" required minLength={mode === 'create' ? 10 : undefined} autoComplete={mode === 'create' ? 'new-password' : 'current-password'} value={password} onChange={(event) => setPassword(event.target.value)} /></label>
 
         {error && <p className="community-login__error" role="alert">{error}</p>}
         {info && <p className="community-login__info" role="status">{info}</p>}

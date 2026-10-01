@@ -26,8 +26,8 @@ export default function HomeExperience() {
     <div className="savry-home">
       <section className="editorial-hero">
         <Image
-          src="/images/savry-editorial-hero.webp"
-          alt="An illustrated recipe notebook surrounded by tomatoes, herbs, lemons and a copper pan"
+          src="/images/savry-editorial-hero-natural.webp"
+          alt="A home-cooked skillet of roasted tomatoes and white beans beside a well-used recipe notebook"
           fill
           priority
           sizes="100vw"

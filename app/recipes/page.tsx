@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { listPublicRecipes } from '@/lib/community-recipes'
 import { SITE_URL } from '@/lib/site-url'
 import RecipeExplorer from '@/components/RecipeExplorer'
+import Image from 'next/image'
 import Link from 'next/link'
 import { safeJsonLd } from '@/lib/security-policy.mjs'
 
@@ -38,6 +39,9 @@ export default async function RecipesIndexPage() {
     <main className="recipe-index site-shell">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(itemListJsonLd) }} />
       <header className="recipe-index__header">
+        <div className="recipe-index__art" aria-hidden="true">
+          <Image src="/images/shared-table-vegetables.webp" alt="" fill priority sizes="(max-width: 760px) 100vw, 720px" />
+        </div>
         <span className="eyebrow">The shared table</span>
         <h1>Recipes for the<br />shared table.</h1>
         <p>Start with recipes from Savry Kitchen, then help fill the shared table with dishes from your own kitchen.</p>

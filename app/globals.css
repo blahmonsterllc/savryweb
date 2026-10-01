@@ -2511,20 +2511,37 @@ select {
 
 .recipe-index__header {
   position: relative;
-  max-width: 950px;
+  overflow: hidden;
   margin-bottom: 60px;
+  border: 1px solid rgb(16 29 47 / 8%);
+  border-radius: 32px;
+  background: #fbf7ee;
+  padding: clamp(36px, 5vw, 64px);
 }
 
-.recipe-index__header::after {
+/* Vegetables on a wooden board, kept to the right and washed into the card
+   colour so the heading always sits on a clean surface. */
+.recipe-index__art {
   position: absolute;
-  top: 20px;
-  right: -140px;
-  width: 180px;
-  height: 180px;
-  border: 28px solid var(--savry-saffron);
-  border-radius: 50%;
+  inset: 0 0 0 auto;
+  width: 58%;
+}
+
+.recipe-index__art img {
+  object-fit: cover;
+  object-position: 100% 50%;
+}
+
+.recipe-index__art::after {
+  position: absolute;
+  inset: 0 0 0 -2px;
+  background: linear-gradient(90deg, #fbf7ee 0%, #fbf7ee 8%, rgb(251 247 238 / 86%) 26%, rgb(251 247 238 / 36%) 54%, rgb(251 247 238 / 0%) 80%);
   content: '';
-  opacity: 0.46;
+}
+
+.recipe-index__header > :not(.recipe-index__art) {
+  position: relative;
+  z-index: 1;
 }
 
 .recipe-index__header h1 {
@@ -2846,8 +2863,13 @@ select {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .recipe-index__header::after {
-    display: none;
+  /* Narrow screens: the photo sits behind the whole card, well washed out. */
+  .recipe-index__art {
+    width: 100%;
+  }
+
+  .recipe-index__art::after {
+    background: linear-gradient(180deg, rgb(251 247 238 / 95%) 0%, rgb(251 247 238 / 90%) 62%, rgb(251 247 238 / 62%) 100%);
   }
 
   .recipe-index__empty {

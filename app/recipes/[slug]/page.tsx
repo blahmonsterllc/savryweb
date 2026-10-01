@@ -141,10 +141,10 @@ export default async function RecipePage({ params }: Params) {
           <h2 className="text-lg font-bold text-gray-900">Nutrition per {recipe.servingType === 'yields' ? (recipe.yieldUnit?.replace(/s$/, '') ?? 'item') : 'serving'}</h2>
           <dl className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
             {[
-              ['Calories', `${n.calories}`],
+              ['Energy', `${n.calories} kcal · ${Math.round(n.calories * 4.184)} kJ`],
               ['Protein', `${n.protein} g`],
               ['Carbs', `${n.carbohydrates} g`],
-              ['Fat', `${n.fat} g`],
+              ['Fat', typeof n.saturatedFat === 'number' ? `${n.fat} g (${n.saturatedFat} g saturated)` : `${n.fat} g`],
               ['Fiber', `${n.fiber} g`],
               ['Sugar', `${n.sugar} g`],
               ['Sodium', `${n.sodium} mg`],
@@ -158,7 +158,7 @@ export default async function RecipePage({ params }: Params) {
           </dl>
           <p className="mt-2 text-xs text-gray-500">
             {n.source === 'usdaFoodDataCentral'
-              ? 'Nutrition matched to USDA FoodData Central records.'
+              ? 'Calculated from the ingredients as listed, using USDA FoodData Central values (and package-label values for a few foods USDA does not list). Optional ingredients and anything listed for serving are not included. This is an estimate, not a lab analysis.'
               : n.source === 'packageLabel'
                 ? 'Nutrition entered from package labels.'
                 : n.source === 'onDeviceEstimate'

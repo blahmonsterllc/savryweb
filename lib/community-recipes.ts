@@ -56,6 +56,8 @@ export const publishPayloadSchema = z.object({
       sugar: z.number().int().min(0),
       sodium: z.number().int().min(0),
       cholesterol: z.number().int().min(0),
+      saturatedFat: z.number().int().min(0).nullish(),
+      servingGrams: z.number().int().min(0).nullish(),
       source: z.enum(['usdaFoodDataCentral', 'packageLabel', 'onDeviceEstimate', 'localReference', 'imported']).nullish(),
       ingredientCoverage: z.number().min(0).max(1).nullish(),
     })

@@ -1,0 +1,3385 @@
+[
+ {
+  "phrases": [
+   "full-fat coconut milk",
+   "coconut milk"
+  ],
+  "fdcId": 170173,
+  "cupGrams": 226,
+  "unitGrams": {
+   "can": 383
+  },
+  "basis": "USDA portion: 1 cup = 226 g; 13.5 oz can = 383 g full contents",
+  "fluidCan": true
+ },
+ {
+  "phrases": [
+   "chickpea",
+   "chickpeas"
+  ],
+  "fdcId": 173801,
+  "cupGrams": 152,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "USDA portions (canned, drained, rinsed): 1 can drained, rinsed = 254 g; 1 cup = 152 g",
+  "drainedCan": {
+   "grams": 254,
+   "ofOz": 15
+  }
+ },
+ {
+  "phrases": [
+   "black beans",
+   "black bean"
+  ],
+  "fdcId": 175237,
+  "cupGrams": 172,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "SR Legacy has no drained canned black beans (canned entry is solids+liquids), so boiled-with-salt beans stand in for drained canned; 15-oz can drains to ~255 g; USDA 1 cup = 172 g",
+  "drainedCan": {
+   "grams": 255,
+   "ofOz": 15
+  }
+ },
+ {
+  "phrases": [
+   "cannellini beans",
+   "cannellini bean",
+   "cannellini"
+  ],
+  "fdcId": 175249,
+  "cupGrams": 179,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "SR Legacy has no drained canned white beans (canned entry is solids+liquids), so boiled-with-salt white beans stand in for drained canned; 15-oz can drains to ~255 g; USDA 1 cup = 179 g",
+  "drainedCan": {
+   "grams": 255,
+   "ofOz": 15
+  }
+ },
+ {
+  "phrases": [
+   "butter beans",
+   "butter bean"
+  ],
+  "fdcId": 173802,
+  "cupGrams": 188,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "Butter beans = large lima beans; no drained canned entry in SR Legacy, so boiled-with-salt stands in for drained canned; 15-oz can drains to ~255 g; USDA 1 cup = 188 g",
+  "drainedCan": {
+   "grams": 255,
+   "ofOz": 15
+  }
+ },
+ {
+  "phrases": [
+   "crushed tomatoes",
+   "canned crushed tomatoes"
+  ],
+  "fdcId": 170501,
+  "cupGrams": 242,
+  "unitGrams": {
+   "can": 794
+  },
+  "basis": "USDA portion: 0.5 cup = 121 g; default can 28 oz = 794 g full contents"
+ },
+ {
+  "phrases": [
+   "tomato sauce"
+  ],
+  "fdcId": 170054,
+  "cupGrams": 245,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "USDA portion: 1 cup = 245 g; 15 oz can = 425 g full contents"
+ },
+ {
+  "phrases": [
+   "whole peeled tomatoes",
+   "whole peeled tomato"
+  ],
+  "fdcId": 170051,
+  "cupGrams": 240,
+  "unitGrams": {
+   "can": 411
+  },
+  "basis": "USDA portion: 1 cup = 240 g; default can 28 oz = 794 g with juices",
+  "drainedCan": {
+   "grams": 250,
+   "ofOz": 14.5
+  }
+ },
+ {
+  "phrases": [
+   "aleppo pepper",
+   "pul biber"
+  ],
+  "fdcId": 170932,
+  "cupGrams": 86.4,
+  "basis": "No Aleppo pepper in SR Legacy; closest is Spices, pepper, red or cayenne. USDA portion: 1 tsp = 1.8 g"
+ },
+ {
+  "phrases": [
+   "all-purpose flour"
+  ],
+  "fdcId": 168894,
+  "cupGrams": 125,
+  "basis": "USDA portion: 1 cup = 125 g"
+ },
+ {
+  "phrases": [
+   "bread flour"
+  ],
+  "fdcId": 168896,
+  "cupGrams": 137,
+  "basis": "USDA portion: 1 cup = 137 g"
+ },
+ {
+  "phrases": [
+   "blanched fine almond flour",
+   "blanched almond flour",
+   "almond flour"
+  ],
+  "fdcId": 170568,
+  "cupGrams": 96,
+  "basis": "No almond flour in SR Legacy; it is ground blanched almonds, so Nuts, almonds, blanched. 96 g per cup from the recipe's own weight (72 g per 3/4 cup)"
+ },
+ {
+  "phrases": [
+   "american cheese"
+  ],
+  "fdcId": 170853,
+  "cupGrams": 113,
+  "unitGrams": {
+   "slice": 21
+  },
+  "basis": "USDA portions: 1 slice (3/4 oz) = 21 g; 1 cup shredded = 113 g"
+ },
+ {
+  "phrases": [
+   "ancho chili powder",
+   "ancho chile powder"
+  ],
+  "fdcId": 169396,
+  "cupGrams": 129.6,
+  "basis": "Pure ground ancho = Peppers, ancho, dried; weight from USDA chili powder portion 1 tsp = 2.7 g"
+ },
+ {
+  "phrases": [
+   "chili powder"
+  ],
+  "fdcId": 171319,
+  "cupGrams": 129.6,
+  "basis": "USDA portion: 1 tsp = 2.7 g"
+ },
+ {
+  "phrases": [
+   "apple cider vinegar",
+   "cider vinegar"
+  ],
+  "fdcId": 173469,
+  "cupGrams": 239,
+  "basis": "USDA portion: 1 cup = 239 g"
+ },
+ {
+  "phrases": [
+   "apple cider"
+  ],
+  "fdcId": 173933,
+  "cupGrams": 248,
+  "basis": "No sweet cider in SR Legacy; unsweetened apple juice is the same product nutritionally. USDA portion: 1 cup = 248 g"
+ },
+ {
+  "phrases": [
+   "apple"
+  ],
+  "fdcId": 171688,
+  "cupGrams": 125,
+  "eachGrams": 182,
+  "basis": "USDA portions: 1 medium (3 in dia) = 182 g; 1 cup quartered or chopped = 125 g"
+ },
+ {
+  "phrases": [
+   "arborio or carnaroli rice",
+   "arborio rice",
+   "carnaroli rice",
+   "arborio",
+   "carnaroli"
+  ],
+  "fdcId": 169760,
+  "cupGrams": 195,
+  "basis": "Rice, white, medium-grain, raw. USDA portion: 1 cup = 195 g"
+ },
+ {
+  "phrases": [
+   "bomba or calasparra rice",
+   "bomba rice",
+   "calasparra rice",
+   "bomba"
+  ],
+  "fdcId": 168931,
+  "cupGrams": 200,
+  "basis": "Rice, white, short-grain, raw. USDA portion: 1 cup = 200 g"
+ },
+ {
+  "phrases": [
+   "basmati rice",
+   "basmati"
+  ],
+  "fdcId": 169756,
+  "cupGrams": 185,
+  "basis": "Rice, white, long-grain, raw. USDA portion: 1 cup = 185 g"
+ },
+ {
+  "phrases": [
+   "cold cooked jasmine rice",
+   "cooked jasmine rice"
+  ],
+  "fdcId": 168878,
+  "cupGrams": 158,
+  "basis": "Rice, white, long-grain, cooked without salt. USDA portion: 1 cup = 158 g"
+ },
+ {
+  "phrases": [
+   "asian pear"
+  ],
+  "fdcId": 168177,
+  "cupGrams": 225,
+  "eachGrams": 160,
+  "basis": "Recipe states 1/2 pear, peeled and grated = about 1/3 cup (~80 g), so 160 g edible per pear; USDA lists fruits of 122 g and 275 g"
+ },
+ {
+  "phrases": [
+   "avocado oil"
+  ],
+  "fdcId": 173573,
+  "cupGrams": 218,
+  "basis": "USDA portion: 1 cup = 218 g"
+ },
+ {
+  "phrases": [
+   "coconut oil"
+  ],
+  "fdcId": 171412,
+  "cupGrams": 218,
+  "basis": "USDA portion: 1 cup = 218 g"
+ },
+ {
+  "phrases": [
+   "baby greens"
+  ],
+  "fdcId": 169249,
+  "cupGrams": 28,
+  "basis": "Lettuce, green leaf stands in for mixed baby greens; 28 g per loosely filled cup (package standard 3 cups = 85 g; USDA shredded leaf = 36 g)"
+ },
+ {
+  "phrases": [
+   "baby spinach"
+  ],
+  "fdcId": 168462,
+  "cupGrams": 30,
+  "basis": "USDA portion: 1 cup = 30 g"
+ },
+ {
+  "phrases": [
+   "baby yellow or gold potatoes",
+   "baby yellow potatoes",
+   "baby gold potatoes",
+   "baby potatoes",
+   "baby potato"
+  ],
+  "fdcId": 170026,
+  "cupGrams": 150,
+  "eachGrams": 40,
+  "basis": "Potatoes, flesh and skin, raw. USDA portion: 0.5 cup diced = 75 g; a 1 1/2-inch baby potato weighs about 40 g"
+ },
+ {
+  "phrases": [
+   "baking powder"
+  ],
+  "fdcId": 172803,
+  "cupGrams": 220.8,
+  "basis": "USDA portion: 1 tsp = 4.6 g"
+ },
+ {
+  "phrases": [
+   "baking soda"
+  ],
+  "fdcId": 175040,
+  "cupGrams": 220.8,
+  "basis": "USDA portion: 1 tsp = 4.6 g"
+ },
+ {
+  "phrases": [
+   "balsamic vinegar"
+  ],
+  "fdcId": 172241,
+  "cupGrams": 255,
+  "basis": "USDA portion: 1 cup = 255 g"
+ },
+ {
+  "phrases": [
+   "cane vinegar",
+   "distilled white vinegar"
+  ],
+  "fdcId": 172237,
+  "cupGrams": 238,
+  "basis": "Vinegar, distilled (cane vinegar is nutritionally the same). USDA portion: 1 cup = 238 g"
+ },
+ {
+  "phrases": [
+   "bay leaf",
+   "bay leaves"
+  ],
+  "fdcId": 170917,
+  "cupGrams": 28.8,
+  "eachGrams": 0.2,
+  "basis": "USDA portion: 1 tsp crumbled = 0.6 g; one dried leaf is about 0.2 g"
+ },
+ {
+  "phrases": [
+   "bell pepper"
+  ],
+  "fdcId": 170108,
+  "cupGrams": 149,
+  "eachGrams": 119,
+  "basis": "Peppers, sweet, red, raw. USDA portions: 1 medium = 119 g (edible part); 1 cup chopped = 149 g"
+ },
+ {
+  "phrases": [
+   "berbere spice blend",
+   "berbere"
+  ],
+  "fdcId": 171329,
+  "cupGrams": 110.4,
+  "basis": "No berbere in SR Legacy; paprika is the closest salt-free dried-chile base. USDA portion: 1 tsp = 2.3 g"
+ },
+ {
+  "phrases": [
+   "bittersweet chocolate"
+  ],
+  "fdcId": 170272,
+  "cupGrams": 170,
+  "basis": "Chocolate, dark, 60-69% cacao solids; measured by weight. 1 cup chopped is about 170 g (standard kitchen reference)"
+ },
+ {
+  "phrases": [
+   "black or brown mustard seeds",
+   "black mustard seed",
+   "brown mustard seed",
+   "mustard seed"
+  ],
+  "fdcId": 170929,
+  "cupGrams": 158.4,
+  "basis": "Spices, mustard seed, ground (only mustard seed entry); whole seeds weigh about 3.3 g per tsp (USDA ground = 2 g)"
+ },
+ {
+  "phrases": [
+   "coarsely ground black pepper",
+   "ground black pepper",
+   "black pepper"
+  ],
+  "fdcId": 170931,
+  "cupGrams": 110.4,
+  "unitGrams": {
+   "pinch": 0.15
+  },
+  "basis": "USDA portion: 1 tsp ground = 2.3 g"
+ },
+ {
+  "phrases": [
+   "block feta",
+   "feta cheese",
+   "feta"
+  ],
+  "fdcId": 173420,
+  "cupGrams": 150,
+  "basis": "USDA portion: 1 cup crumbled = 150 g"
+ },
+ {
+  "phrases": [
+   "blueberries",
+   "blueberry"
+  ],
+  "fdcId": 171711,
+  "cupGrams": 148,
+  "basis": "USDA portion: 1 cup = 148 g"
+ },
+ {
+  "phrases": [
+   "bone-in pork rib chop",
+   "pork rib chop"
+  ],
+  "fdcId": 168242,
+  "eachGrams": 283,
+  "edible": 0.66,
+  "basis": "Recipe states about 10 oz (283 g) each; USDA portion: a 201 g raw bone-in chop yields 133 g without refuse (0.66)"
+ },
+ {
+  "phrases": [
+   "bone-in, skin-on chicken thighs and drumsticks",
+   "bone-in skin-on chicken thighs and drumsticks"
+  ],
+  "fdcId": 172378,
+  "eachGrams": 200,
+  "edible": 0.76,
+  "basis": "Chicken leg (thigh + drumstick), meat and skin, raw; bone is about 18% of a thigh and 30% of a drumstick, so 0.76 edible; average piece about 200 g as bought"
+ },
+ {
+  "phrases": [
+   "bone-in, skin-on chicken thigh",
+   "bone-in skin-on chicken thigh"
+  ],
+  "fdcId": 172385,
+  "eachGrams": 235,
+  "edible": 0.82,
+  "basis": "USDA portion: 1 thigh with skin = 193 g edible; bone is about 18% of a bone-in thigh, so about 235 g as bought and 0.82 edible"
+ },
+ {
+  "phrases": [
+   "boneless skinless chicken thigh",
+   "boneless, skinless chicken thigh"
+  ],
+  "fdcId": 173627,
+  "eachGrams": 130,
+  "basis": "Typical trimmed retail boneless skinless thigh is 4 to 5 oz (130 g); USDA portion for untrimmed thigh meat is 149 g"
+ },
+ {
+  "phrases": [
+   "boneless skinless chicken breast",
+   "boneless, skinless chicken breast"
+  ],
+  "fdcId": 171077,
+  "eachGrams": 272,
+  "basis": "USDA portion: 1 piece = 272 g"
+ },
+ {
+  "phrases": [
+   "chicken wing"
+  ],
+  "fdcId": 172390,
+  "eachGrams": 107,
+  "edible": 0.65,
+  "basis": "USDA portion: 1 piece = 107 g; flats and drumettes with tips removed are about 35% bone, so 0.65 edible"
+ },
+ {
+  "phrases": [
+   "boneless beef chuck roast",
+   "boneless beef chuck",
+   "beef chuck roast",
+   "beef chuck"
+  ],
+  "fdcId": 170813,
+  "basis": "Beef, chuck, under blade pot roast, boneless, lean and fat, trimmed to 0 in fat, all grades, raw; measured by weight"
+ },
+ {
+  "phrases": [
+   "boneless new york strip steak",
+   "new york strip steak",
+   "new york strip"
+  ],
+  "fdcId": 171775,
+  "eachGrams": 340,
+  "basis": "Beef top loin (New York strip) steak, boneless, lean and fat, 1/8 in trim, raw; recipe states about 12 oz (340 g) each (USDA 1 steak = 302 g)"
+ },
+ {
+  "phrases": [
+   "boneless pork shoulder",
+   "pork shoulder"
+  ],
+  "fdcId": 167849,
+  "basis": "Pork, fresh, shoulder (Boston butt), blade, lean and fat, raw; measured by weight"
+ },
+ {
+  "phrases": [
+   "boneless ribeye",
+   "ribeye"
+  ],
+  "fdcId": 173402,
+  "eachGrams": 326,
+  "basis": "Beef, rib eye steak, boneless, lean and fat, all grades, raw. USDA portion: 1 steak = 326 g"
+ },
+ {
+  "phrases": [
+   "broccoli florets",
+   "broccoli crowns",
+   "broccoli"
+  ],
+  "fdcId": 170379,
+  "cupGrams": 71,
+  "eachGrams": 304,
+  "basis": "USDA portions: 1 cup flowerets = 71 g (Broccoli, flower clusters); 1 bunch = 608 g, so one medium head is about 304 g"
+ },
+ {
+  "phrases": [
+   "brown or granulated sugar",
+   "brown sugar"
+  ],
+  "fdcId": 168833,
+  "cupGrams": 220,
+  "basis": "USDA portions: 1 cup packed = 220 g; 1 tsp packed = 4.6 g"
+ },
+ {
+  "phrases": [
+   "brown or green lentils",
+   "brown lentils",
+   "green lentils"
+  ],
+  "fdcId": 172420,
+  "cupGrams": 192,
+  "basis": "Lentils, raw. USDA portion: 1 cup = 192 g"
+ },
+ {
+  "phrases": [
+   "burger bun",
+   "hamburger bun"
+  ],
+  "fdcId": 172796,
+  "eachGrams": 50,
+  "basis": "USDA portion: 1 roll = 44 g"
+ },
+ {
+  "phrases": [
+   "cold buttermilk",
+   "buttermilk"
+  ],
+  "fdcId": 170874,
+  "cupGrams": 245,
+  "basis": "Milk, buttermilk, fluid, cultured, lowfat. USDA portion: 1 cup = 245 g"
+ },
+ {
+  "phrases": [
+   "butternut squash"
+  ],
+  "fdcId": 169295,
+  "cupGrams": 140,
+  "eachGrams": 1360,
+  "edible": 0.84,
+  "basis": "Recipe states about 3 lb (1360 g) whole; USDA refuse for butternut (rind, seeds, stem) is 16%; USDA portion: 1 cup cubes = 140 g"
+ },
+ {
+  "phrases": [
+   "canned pineapple juice",
+   "pineapple juice"
+  ],
+  "fdcId": 169947,
+  "cupGrams": 250,
+  "basis": "USDA portion: 1 cup = 250 g"
+ },
+ {
+  "phrases": [
+   "caper"
+  ],
+  "fdcId": 172238,
+  "cupGrams": 137.6,
+  "basis": "USDA portion: 1 tbsp drained = 8.6 g"
+ },
+ {
+  "phrases": [
+   "carrot"
+  ],
+  "fdcId": 170393,
+  "cupGrams": 128,
+  "eachGrams": 61,
+  "basis": "USDA portions: 1 medium = 61 g; 1 cup chopped = 128 g"
+ },
+ {
+  "phrases": [
+   "cayenne pepper",
+   "cayenne"
+  ],
+  "fdcId": 170932,
+  "cupGrams": 86.4,
+  "unitGrams": {
+   "pinch": 0.1
+  },
+  "basis": "USDA portion: 1 tsp = 1.8 g"
+ },
+ {
+  "phrases": [
+   "celery rib",
+   "celery stalk",
+   "celery"
+  ],
+  "fdcId": 169988,
+  "cupGrams": 101,
+  "eachGrams": 40,
+  "basis": "USDA portions: 1 stalk, medium = 40 g; 1 cup chopped = 101 g"
+ },
+ {
+  "phrases": [
+   "certified gluten-free old-fashioned rolled oats",
+   "gluten-free old-fashioned rolled oats",
+   "old-fashioned rolled oats",
+   "rolled oats"
+  ],
+  "fdcId": 173904,
+  "cupGrams": 90,
+  "basis": "90 g per cup, from these recipes' own stated weights (113 g per 1 1/4 cup, 270 g per 3 cups, 45 g per 1/2 cup); USDA lists 1 cup = 81 g"
+ },
+ {
+  "phrases": [
+   "certified gluten-free quick-cooking oats",
+   "gluten-free quick-cooking oats",
+   "quick-cooking oats"
+  ],
+  "fdcId": 173904,
+  "cupGrams": 81,
+  "basis": "USDA portion: 1 cup = 81 g"
+ },
+ {
+  "phrases": [
+   "cherry tomato"
+  ],
+  "fdcId": 170457,
+  "cupGrams": 149,
+  "eachGrams": 17,
+  "basis": "USDA portions: 1 cup cherry tomatoes = 149 g (1 pint = 298 g); 1 cherry = 17 g"
+ },
+ {
+  "phrases": [
+   "chia seed"
+  ],
+  "fdcId": 170554,
+  "cupGrams": 192,
+  "basis": "USDA lists only 1 oz; 12 g per tbsp is the standard package serving measure"
+ },
+ {
+  "phrases": [
+   "chipotle peppers in adobo",
+   "chipotle pepper in adobo",
+   "chipotles in adobo",
+   "chipotle in adobo",
+   "chipotle pepper"
+  ],
+  "fdcId": 170107,
+  "cupGrams": 240,
+  "eachGrams": 15,
+  "basis": "No chipotle in adobo in SR Legacy; closest is Peppers, hot chili, red, canned, solids and liquids. One canned chipotle with clinging sauce is about 15 g"
+ },
+ {
+  "phrases": [
+   "chopped fresh cilantro",
+   "chopped cilantro",
+   "cilantro leaves",
+   "cilantro"
+  ],
+  "fdcId": 169997,
+  "cupGrams": 16,
+  "unitGrams": {
+   "sprig": 2.2,
+   "bunch": 85
+  },
+  "basis": "USDA portions: 0.25 cup = 4 g; 9 sprigs = 20 g; a grocery bunch is about 85 g"
+ },
+ {
+  "phrases": [
+   "chopped fresh flat-leaf parsley",
+   "chopped fresh parsley",
+   "chopped flat-leaf parsley",
+   "chopped parsley"
+  ],
+  "fdcId": 170416,
+  "cupGrams": 60,
+  "unitGrams": {
+   "sprig": 1
+  },
+  "basis": "USDA portions: 1 cup chopped = 60 g; 10 sprigs = 10 g"
+ },
+ {
+  "phrases": [
+   "chopped fresh thyme"
+  ],
+  "fdcId": 173470,
+  "cupGrams": 38.4,
+  "unitGrams": {
+   "sprig": 0.5
+  },
+  "basis": "USDA portion: 1 tsp = 0.8 g"
+ },
+ {
+  "phrases": [
+   "chopped walnuts",
+   "chopped walnut"
+  ],
+  "fdcId": 170187,
+  "cupGrams": 117,
+  "basis": "USDA portion: 1 cup chopped = 117 g"
+ },
+ {
+  "phrases": [
+   "ciabatta"
+  ],
+  "fdcId": 174913,
+  "cupGrams": 38,
+  "unitGrams": {
+   "slice": 29
+  },
+  "basis": "No ciabatta in SR Legacy; Bread, Italian is the closest lean white loaf. Recipe states 8 oz = about 6 cups torn (38 g per cup); USDA 1 slice = 29 g"
+ },
+ {
+  "phrases": [
+   "cinnamon stick"
+  ],
+  "fdcId": 171320,
+  "eachGrams": 2.6,
+  "basis": "Spices, cinnamon, ground; a 3-inch stick weighs about 2.6 g (the same as 1 tsp ground)"
+ },
+ {
+  "phrases": [
+   "cold unsalted butter"
+  ],
+  "fdcId": 173430,
+  "cupGrams": 227,
+  "basis": "Butter, without salt. USDA portions: 1 cup = 227 g; 1 tbsp = 14.2 g"
+ },
+ {
+  "phrases": [
+   "cold water"
+  ],
+  "skip": true
+ },
+ {
+  "phrases": [
+   "collard greens",
+   "collards"
+  ],
+  "fdcId": 170406,
+  "cupGrams": 36,
+  "unitGrams": {
+   "bunch": 227
+  },
+  "edible": 0.6,
+  "basis": "Bunch = 8 oz (227 g) as purchased per recipe; stems removed, about 60% leaf yield (kitchen reference). USDA portion: 1 cup chopped = 36 g"
+ },
+ {
+  "phrases": [
+   "cooked brown or white rice",
+   "cooked brown rice"
+  ],
+  "fdcId": 169704,
+  "cupGrams": 202,
+  "basis": "USDA portion: 1 cup cooked brown long-grain rice = 202 g"
+ },
+ {
+  "phrases": [
+   "cooked jasmine or short-grain rice",
+   "cooked white rice"
+  ],
+  "fdcId": 168878,
+  "cupGrams": 158,
+  "basis": "USDA portion: 1 cup cooked long-grain white rice = 158 g (jasmine is a long-grain white rice)"
+ },
+ {
+  "phrases": [
+   "frozen corn kernels",
+   "frozen corn"
+  ],
+  "fdcId": 168398,
+  "cupGrams": 136,
+  "basis": "USDA portion: 1 cup frozen kernels = 136 g"
+ },
+ {
+  "phrases": [
+   "corn kernels"
+  ],
+  "fdcId": 169998,
+  "cupGrams": 145,
+  "basis": "USDA portion: 1 cup raw sweet corn kernels = 145 g"
+ },
+ {
+  "phrases": [
+   "corn tortillas"
+  ],
+  "fdcId": 175036,
+  "eachGrams": 24,
+  "basis": "USDA portion: 1 corn tortilla (6-inch) = 24 g"
+ },
+ {
+  "phrases": [
+   "cornstarch",
+   "corn starch"
+  ],
+  "fdcId": 169698,
+  "cupGrams": 128,
+  "basis": "USDA portion: 1 cup = 128 g"
+ },
+ {
+  "phrases": [
+   "cream of tartar"
+  ],
+  "fdcId": 175041,
+  "cupGrams": 144,
+  "basis": "USDA portion: 1 tsp = 3 g"
+ },
+ {
+  "phrases": [
+   "cremini or shiitake mushrooms",
+   "cremini mushrooms",
+   "cremini",
+   "crimini mushrooms"
+  ],
+  "fdcId": 168434,
+  "cupGrams": 72,
+  "eachGrams": 20,
+  "basis": "USDA portions: 1 cup sliced = 72 g, 1 whole mushroom = 20 g"
+ },
+ {
+  "phrases": [
+   "fresh shiitake mushrooms",
+   "shiitake mushrooms",
+   "shiitake"
+  ],
+  "fdcId": 169242,
+  "eachGrams": 19,
+  "edible": 0.85,
+  "basis": "USDA portion: 1 whole shiitake = 19 g; woody stems discarded, about 85% cap yield (kitchen reference)"
+ },
+ {
+  "phrases": [
+   "crisp lettuce leaves",
+   "lettuce leaves"
+  ],
+  "fdcId": 169248,
+  "unitGrams": {
+   "piece": 15
+  },
+  "basis": "USDA portion (iceberg/crisphead): 1 large leaf = 15 g"
+ },
+ {
+  "phrases": [
+   "cumin seeds"
+  ],
+  "fdcId": 170923,
+  "cupGrams": 100.8,
+  "basis": "USDA portion: 1 tsp whole = 2.1 g"
+ },
+ {
+  "phrases": [
+   "dairy-free jarred marinara sauce",
+   "jarred marinara sauce",
+   "marinara sauce",
+   "marinara"
+  ],
+  "fdcId": 171192,
+  "cupGrams": 264,
+  "basis": "USDA portion: 1/2 cup = 132 g"
+ },
+ {
+  "phrases": [
+   "dark soy sauce"
+  ],
+  "fdcId": 174277,
+  "cupGrams": 255,
+  "basis": "USDA portion: 1 cup = 255 g (1 tbsp = 16 g); regular shoyu used, no dark soy sauce entry in SR Legacy"
+ },
+ {
+  "phrases": [
+   "day-old challah",
+   "challah",
+   "brioche bread",
+   "brioche"
+  ],
+  "fdcId": 172673,
+  "unitGrams": {
+   "slice": 40
+  },
+  "basis": "USDA 'Bread, egg' (challah); portion: 1 slice = 40 g"
+ },
+ {
+  "phrases": [
+   "diced green chiles",
+   "diced green chilies",
+   "canned green chiles"
+  ],
+  "fdcId": 168577,
+  "cupGrams": 139,
+  "unitGrams": {
+   "can": 113
+  },
+  "basis": "USDA portion: 1 cup = 139 g; standard can is 4 oz (113 g), used undrained"
+ },
+ {
+  "phrases": [
+   "fire-roasted diced tomatoes",
+   "diced tomatoes"
+  ],
+  "fdcId": 170051,
+  "cupGrams": 240,
+  "unitGrams": {
+   "can": 411
+  },
+  "basis": "USDA portion: 1 cup = 240 g; standard can is 14.5 oz (411 g), with juices"
+ },
+ {
+  "phrases": [
+   "dijon mustard"
+  ],
+  "fdcId": 172234,
+  "cupGrams": 249,
+  "basis": "USDA portion: 1 cup = 249 g (1 tsp = 5 g); prepared yellow mustard used, no Dijon entry in SR Legacy"
+ },
+ {
+  "phrases": [
+   "dill pickle chips",
+   "dill pickle"
+  ],
+  "fdcId": 168558,
+  "cupGrams": 143,
+  "eachGrams": 135,
+  "unitGrams": {
+   "slice": 7
+  },
+  "basis": "USDA portions: 1 slice = 7 g, 1 cup chopped = 143 g, 1 large pickle = 135 g"
+ },
+ {
+  "phrases": [
+   "distilled vinegar",
+   "white vinegar"
+  ],
+  "fdcId": 172237,
+  "cupGrams": 238,
+  "basis": "USDA portion: 1 cup = 238 g"
+ },
+ {
+  "phrases": [
+   "ditalini pasta",
+   "ditalini",
+   "dried elbow macaroni",
+   "elbow macaroni",
+   "dried orzo",
+   "orzo",
+   "dried rigatoni",
+   "rigatoni"
+  ],
+  "fdcId": 169736,
+  "cupGrams": 122,
+  "basis": "USDA portion: 1 cup dry elbows (small shapes) = 122 g"
+ },
+ {
+  "phrases": [
+   "dried spaghetti",
+   "spaghetti"
+  ],
+  "fdcId": 169736,
+  "cupGrams": 91,
+  "basis": "USDA portion: 1 cup dry spaghetti = 91 g"
+ },
+ {
+  "phrases": [
+   "doubanjiang",
+   "sichuan chili bean paste",
+   "chili bean paste"
+  ],
+  "fdcId": 172442,
+  "cupGrams": 272,
+  "basis": "No doubanjiang in SR Legacy; closest equivalent is miso (salted fermented bean paste). USDA portion: 1 tbsp = 17 g"
+ },
+ {
+  "phrases": [
+   "fermented black beans"
+  ],
+  "fdcId": 172442,
+  "cupGrams": 175,
+  "basis": "No douchi in SR Legacy; closest salted fermented soybean product is miso. Weight from USDA natto (whole fermented soybeans): 1 cup = 175 g"
+ },
+ {
+  "phrases": [
+   "dried bay leaves",
+   "dried bay leaf"
+  ],
+  "fdcId": 170917,
+  "cupGrams": 28.8,
+  "eachGrams": 0.2,
+  "basis": "USDA portion: 1 tsp crumbled = 0.6 g; one whole dried leaf is about 0.2 g (kitchen reference)"
+ },
+ {
+  "phrases": [
+   "dried cranberries"
+  ],
+  "fdcId": 171723,
+  "cupGrams": 160,
+  "basis": "USDA portion: 0.25 cup = 40 g"
+ },
+ {
+  "phrases": [
+   "dried flat rice noodles",
+   "flat rice noodles",
+   "rice noodles"
+  ],
+  "fdcId": 169742,
+  "basis": "Measured by weight; USDA 'Rice noodles, dry'"
+ },
+ {
+  "phrases": [
+   "dried guajillo chiles",
+   "guajillo chiles",
+   "guajillo chile",
+   "guajillo"
+  ],
+  "fdcId": 168579,
+  "eachGrams": 6,
+  "basis": "No guajillo in SR Legacy; closest is dried pasilla (USDA: 1 pepper = 7 g). One stemmed, seeded guajillo is about 6 g"
+ },
+ {
+  "phrases": [
+   "dried oregano"
+  ],
+  "fdcId": 171328,
+  "cupGrams": 48,
+  "basis": "USDA portion: 1 tsp leaves = 1 g"
+ },
+ {
+  "phrases": [
+   "dried thyme"
+  ],
+  "fdcId": 170938,
+  "cupGrams": 48,
+  "basis": "USDA portion: 1 tsp leaves = 1 g"
+ },
+ {
+  "phrases": [
+   "dry mustard powder",
+   "dry mustard",
+   "mustard powder"
+  ],
+  "fdcId": 170929,
+  "cupGrams": 96,
+  "basis": "USDA portion: 1 tsp ground mustard seed = 2 g"
+ },
+ {
+  "phrases": [
+   "dry red or white wine",
+   "dry red wine"
+  ],
+  "fdcId": 173190,
+  "cupGrams": 235,
+  "basis": "USDA portion: 1 fl oz = 29.4 g (8 fl oz = 235 g)"
+ },
+ {
+  "phrases": [
+   "dry white wine"
+  ],
+  "fdcId": 174837,
+  "cupGrams": 235,
+  "basis": "USDA portion: 1 fl oz = 29.4 g (8 fl oz = 235 g)"
+ },
+ {
+  "phrases": [
+   "eggplant"
+  ],
+  "fdcId": 169228,
+  "cupGrams": 82,
+  "eachGrams": 548,
+  "basis": "USDA portions: 1 cup cubes = 82 g, 1 unpeeled eggplant = 548 g"
+ },
+ {
+  "phrases": [
+   "english cucumber"
+  ],
+  "fdcId": 168409,
+  "cupGrams": 104,
+  "eachGrams": 350,
+  "basis": "USDA: cucumber with peel, 0.5 cup slices = 52 g, 1 cucumber (8-1/4 in) = 301 g; an English cucumber (12-14 in) averages about 350 g (kitchen reference)"
+ },
+ {
+  "phrases": [
+   "evaporated milk"
+  ],
+  "fdcId": 171276,
+  "cupGrams": 252,
+  "unitGrams": {
+   "can": 378
+  },
+  "basis": "USDA portions: 1 cup = 252 g, 1 fl oz = 31.5 g; a 12-fl-oz can holds 378 g",
+  "fluidCan": true
+ },
+ {
+  "phrases": [
+   "extra-firm tofu",
+   "extra firm tofu"
+  ],
+  "fdcId": 174290,
+  "cupGrams": 252,
+  "basis": "Measured by weight; USDA 'Tofu, extra firm, prepared with nigari'. Cup weight from USDA firm tofu portion: 0.5 cup = 126 g"
+ },
+ {
+  "phrases": [
+   "extra-virgin olive oil",
+   "extra virgin olive oil",
+   "olive oil"
+  ],
+  "fdcId": 171413,
+  "cupGrams": 216,
+  "basis": "USDA portion: 1 cup = 216 g (1 tbsp = 13.5 g)"
+ },
+ {
+  "phrases": [
+   "fine sea salt",
+   "fine salt"
+  ],
+  "fdcId": 173468,
+  "cupGrams": 288,
+  "unitGrams": {
+   "pinch": 0.4
+  },
+  "basis": "USDA portions: 1 tsp table salt = 6 g, 1 dash = 0.4 g"
+ },
+ {
+  "phrases": [
+   "flaky sea salt",
+   "flaky salt"
+  ],
+  "fdcId": 173468,
+  "cupGrams": 120,
+  "unitGrams": {
+   "pinch": 0.2
+  },
+  "basis": "Flaky sea salt is about 2.5 g per tsp (kitchen reference); pinch = 1/16 tsp"
+ },
+ {
+  "phrases": [
+   "fresh cilantro and mint leaves",
+   "fresh cilantro"
+  ],
+  "fdcId": 169997,
+  "cupGrams": 16,
+  "unitGrams": {
+   "sprig": 2.2
+  },
+  "basis": "USDA portions: 0.25 cup = 4 g, 9 sprigs = 20 g"
+ },
+ {
+  "phrases": [
+   "fresh flat-leaf parsley",
+   "flat-leaf parsley",
+   "fresh parsley",
+   "parsley"
+  ],
+  "fdcId": 170416,
+  "cupGrams": 60,
+  "unitGrams": {
+   "sprig": 1
+  },
+  "basis": "USDA portions: 1 cup chopped = 60 g, 1 tbsp = 3.8 g, 10 sprigs = 10 g"
+ },
+ {
+  "phrases": [
+   "fresh mint leaves",
+   "fresh mint",
+   "mint leaves"
+  ],
+  "fdcId": 173475,
+  "cupGrams": 26,
+  "basis": "USDA portion for fresh mint (peppermint): 2 tbsp = 3.2 g, i.e. about 26 g per cup; USDA's spearmint line (2 tbsp = 11.4 g) is implausibly heavy for leaves and was not used"
+ },
+ {
+  "phrases": [
+   "fresh ginger (2-inch)"
+  ],
+  "fdcId": 169231,
+  "cupGrams": 96,
+  "unitGrams": {
+   "piece": 30
+  },
+  "basis": "USDA portion: 1 tsp = 2 g; a 1-inch piece of ginger is about 15 g (kitchen reference), so a 2-inch piece = 30 g"
+ },
+ {
+  "phrases": [
+   "fresh ginger",
+   "grated fresh ginger"
+  ],
+  "fdcId": 169231,
+  "cupGrams": 96,
+  "unitGrams": {
+   "piece": 15
+  },
+  "basis": "USDA portion: 1 tsp = 2 g; a 1-inch piece of ginger is about 15 g (kitchen reference)"
+ },
+ {
+  "phrases": [
+   "lemon zest"
+  ],
+  "fdcId": 167749,
+  "cupGrams": 96,
+  "basis": "USDA portion (lemon peel): 1 tsp = 2 g, 1 tbsp = 6 g",
+  "eachGrams": 4
+ },
+ {
+  "phrases": [
+   "fresh lemon juice",
+   "lemon juice"
+  ],
+  "fdcId": 167747,
+  "cupGrams": 244,
+  "basis": "USDA portion: 1 cup = 244 g",
+  "eachGrams": 48
+ },
+ {
+  "phrases": [
+   "fresh lime juice",
+   "lime juice"
+  ],
+  "fdcId": 168156,
+  "cupGrams": 242,
+  "basis": "USDA portion: 1 cup = 242 g",
+  "eachGrams": 44
+ },
+ {
+  "phrases": [
+   "parmesan cheese",
+   "parmesan"
+  ],
+  "fdcId": 170848,
+  "cupGrams": 80,
+  "basis": "Nutrients from 'Cheese, parmesan, hard' (freshly grated from a wedge); weight from USDA grated parmesan portion: 1 cup = 100 g Cup weight 80 g: between USDA canister-grated (100 g) and freshly microplaned (about 57 g)."
+ },
+ {
+  "phrases": [
+   "green cabbage"
+  ],
+  "fdcId": 169975,
+  "cupGrams": 70,
+  "eachGrams": 908,
+  "basis": "USDA portions: 1 cup shredded = 70 g, 1 medium head = 908 g"
+ },
+ {
+  "phrases": [
+   "red cabbage"
+  ],
+  "fdcId": 169977,
+  "cupGrams": 70,
+  "eachGrams": 839,
+  "basis": "USDA portions: 1 cup shredded = 70 g, 1 medium head = 839 g"
+ },
+ {
+  "phrases": [
+   "firm baking apples",
+   "baking apples"
+  ],
+  "fdcId": 171689,
+  "cupGrams": 110,
+  "eachGrams": 200,
+  "edible": 0.8,
+  "basis": "Peeled and cored: USDA medium apple = 182 g with skin after coring (about 200 g as purchased) vs 161 g peeled, so yield is about 0.8 of purchased weight. 1 cup slices = 110 g"
+ },
+ {
+  "phrases": [
+   "firm apples",
+   "apples"
+  ],
+  "fdcId": 171688,
+  "cupGrams": 125,
+  "eachGrams": 182,
+  "basis": "USDA portions (edible part, with skin, cored): 1 medium (3 in) = 182 g, 1 cup chopped = 125 g"
+ },
+ {
+  "phrases": [
+   "fish sauce"
+  ],
+  "fdcId": 174531,
+  "cupGrams": 288,
+  "basis": "USDA portion: 1 tbsp = 18 g"
+ },
+ {
+  "phrases": [
+   "flank steak"
+  ],
+  "fdcId": 169563,
+  "basis": "Measured by weight; USDA raw flank steak, lean and fat, all grades"
+ },
+ {
+  "phrases": [
+   "fresh baby spinach"
+  ],
+  "fdcId": 168462,
+  "cupGrams": 30,
+  "basis": "USDA portion: 1 cup raw spinach = 30 g"
+ },
+ {
+  "phrases": [
+   "fresh basil leaves",
+   "basil leaves"
+  ],
+  "fdcId": 172232,
+  "cupGrams": 24,
+  "eachGrams": 0.5,
+  "basis": "USDA portions: 0.25 cup whole leaves = 6 g, 5 leaves = 2.5 g"
+ },
+ {
+  "phrases": [
+   "fresh basil or parsley",
+   "fresh basil"
+  ],
+  "fdcId": 172232,
+  "cupGrams": 24,
+  "basis": "USDA portion: 2 tbsp chopped = 5.3 g"
+ },
+ {
+  "phrases": [
+   "fresh curry leaves",
+   "curry leaves",
+   "curry leaf"
+  ],
+  "fdcId": 172232,
+  "eachGrams": 0.1,
+  "basis": "No curry leaf in SR Legacy; fresh basil used as the closest fresh leaf herb. One fresh curry leaf is about 0.1 g (kitchen reference)"
+ },
+ {
+  "phrases": [
+   "fresh dill"
+  ],
+  "fdcId": 172233,
+  "cupGrams": 8.9,
+  "unitGrams": {
+   "sprig": 0.2
+  },
+  "basis": "USDA portions: 1 cup sprigs = 8.9 g, 5 sprigs = 1 g"
+ },
+ {
+  "phrases": [
+   "fresh lo mein egg noodles",
+   "lo mein egg noodles",
+   "fresh lo mein noodles",
+   "lo mein noodles"
+  ],
+  "fdcId": 169727,
+  "basis": "Measured by weight as fresh noodles; USDA 'Pasta, fresh-refrigerated, plain, as purchased' (egg pasta) is the closest fresh egg noodle"
+ },
+ {
+  "phrases": [
+   "fresh mozzarella"
+  ],
+  "fdcId": 170845,
+  "cupGrams": 112,
+  "basis": "Measured by weight; USDA 'Cheese, mozzarella, whole milk' (high-moisture). 1 cup shredded = 112 g"
+ },
+ {
+  "phrases": [
+   "fresh orange juice",
+   "orange juice"
+  ],
+  "fdcId": 169098,
+  "cupGrams": 248,
+  "basis": "USDA portion: 1 cup = 248 g"
+ },
+ {
+  "phrases": [
+   "fresh pineapple"
+  ],
+  "fdcId": 169124,
+  "cupGrams": 165,
+  "basis": "USDA portion: 1 cup chunks = 165 g"
+ },
+ {
+  "phrases": [
+   "fresh rosemary"
+  ],
+  "fdcId": 173473,
+  "cupGrams": 27.2,
+  "unitGrams": {
+   "sprig": 1.5
+  },
+  "basis": "USDA portion: 1 tbsp = 1.7 g; one sprig yields a scant tablespoon of leaves, about 1.5 g (kitchen reference)"
+ },
+ {
+  "phrases": [
+   "fresh thyme leaves",
+   "fresh thyme"
+  ],
+  "fdcId": 173470,
+  "cupGrams": 38.4,
+  "unitGrams": {
+   "sprig": 0.4
+  },
+  "basis": "USDA portion: 1 tsp = 0.8 g; one sprig yields about 1/2 tsp leaves = 0.4 g"
+ },
+ {
+  "phrases": [
+   "fresh sweet or hot italian pork sausage",
+   "sweet or hot italian pork sausage",
+   "italian pork sausage",
+   "italian sausage"
+  ],
+  "fdcId": 171631,
+  "eachGrams": 101,
+  "basis": "USDA portion: 1 raw link = 101 g"
+ },
+ {
+  "phrases": [
+   "freshly ground black pepper"
+  ],
+  "fdcId": 170931,
+  "cupGrams": 110.4,
+  "unitGrams": {
+   "pinch": 0.1
+  },
+  "basis": "USDA portions: 1 tsp ground = 2.3 g, 1 dash = 0.1 g"
+ },
+ {
+  "phrases": [
+   "frozen pearl onions",
+   "pearl onions"
+  ],
+  "fdcId": 170412,
+  "basis": "Measured by weight; USDA 'Onions, frozen, whole, unprepared'"
+ },
+ {
+  "phrases": [
+   "frozen peas and diced carrots",
+   "frozen peas and carrots",
+   "peas and diced carrots",
+   "peas and carrots"
+  ],
+  "fdcId": 170425,
+  "cupGrams": 140,
+  "basis": "USDA portion: 0.5 cup = 70 g"
+ },
+ {
+  "phrases": [
+   "frozen peas"
+  ],
+  "fdcId": 170016,
+  "cupGrams": 134,
+  "basis": "USDA portion: 1 cup = 134 g"
+ },
+ {
+  "phrases": [
+   "frozen shelled edamame",
+   "shelled edamame",
+   "frozen edamame",
+   "edamame"
+  ],
+  "fdcId": 168410,
+  "cupGrams": 118,
+  "basis": "USDA portion: 1 cup = 118 g"
+ },
+ {
+  "phrases": [
+   "frozen strawberries"
+  ],
+  "fdcId": 168173,
+  "cupGrams": 149,
+  "basis": "USDA portion: 1 cup unthawed = 149 g"
+ },
+ {
+  "phrases": [
+   "dried split red lentils",
+   "split red lentils",
+   "red lentils"
+  ],
+  "fdcId": 174284,
+  "cupGrams": 192,
+  "basis": "USDA portion: 1 cup dry = 192 g"
+ },
+ {
+  "phrases": [
+   "french green (du puy) lentils",
+   "french green lentils",
+   "du puy lentils",
+   "puy lentils"
+  ],
+  "fdcId": 172420,
+  "cupGrams": 192,
+  "basis": "USDA portion: 1 cup dry lentils = 192 g"
+ },
+ {
+  "phrases": [
+   "full-fat brick cream cheese",
+   "full-fat cream cheese",
+   "brick cream cheese",
+   "cream cheese"
+  ],
+  "fdcId": 173418,
+  "cupGrams": 232,
+  "basis": "USDA portion: 1 cup = 232 g (1 tbsp = 14.5 g)"
+ },
+ {
+  "phrases": [
+   "full-fat sour cream",
+   "sour cream"
+  ],
+  "fdcId": 171257,
+  "cupGrams": 230,
+  "basis": "USDA portion: 1 cup = 230 g"
+ },
+ {
+  "phrases": [
+   "garam masala"
+  ],
+  "fdcId": 170924,
+  "cupGrams": 96,
+  "basis": "No garam masala in SR Legacy; closest is Spices, curry powder (ground spice blend). USDA portion: 1 tsp = 2 g"
+ },
+ {
+  "phrases": [
+   "garlic powder"
+  ],
+  "fdcId": 171325,
+  "cupGrams": 148.8,
+  "basis": "USDA portion: 1 tsp = 3.1 g"
+ },
+ {
+  "phrases": [
+   "garlic"
+  ],
+  "fdcId": 169230,
+  "cupGrams": 136,
+  "unitGrams": {
+   "clove": 3
+  },
+  "basis": "USDA portions: 1 clove = 3 g, 1 cup = 136 g",
+  "eachGrams": 3
+ },
+ {
+  "phrases": [
+   "head of garlic",
+   "heads of garlic",
+   "garlic head"
+  ],
+  "fdcId": 169230,
+  "cupGrams": 136,
+  "eachGrams": 40,
+  "unitGrams": {
+   "clove": 3
+  },
+  "basis": "One medium head = 10-12 cloves; about 40 g peeled (USDA 1 clove = 3 g, supermarket cloves run slightly larger)"
+ },
+ {
+  "phrases": [
+   "ghee"
+  ],
+  "fdcId": 171314,
+  "cupGrams": 205,
+  "basis": "USDA portion for anhydrous butter oil (same product): 1 cup = 205 g, 1 tbsp = 12.8 g"
+ },
+ {
+  "phrases": [
+   "high-heat neutral oil",
+   "neutral oil"
+  ],
+  "fdcId": 172336,
+  "cupGrams": 218,
+  "basis": "Neutral oil mapped to canola oil. USDA portion: 1 cup = 218 g (1 tbsp = 14 g)"
+ },
+ {
+  "phrases": [
+   "aluminum-free baking powder"
+  ],
+  "fdcId": 172804,
+  "cupGrams": 220.8,
+  "basis": "Aluminum-free = straight phosphate baking powder. USDA portion: 1 tsp = 4.6 g"
+ },
+ {
+  "phrases": [
+   "gluten-free corn tortilla",
+   "corn tortilla"
+  ],
+  "fdcId": 175036,
+  "eachGrams": 24,
+  "basis": "USDA portion: 1 tortilla (6-inch) = 24 g",
+  "fixedSize": true
+ },
+ {
+  "phrases": [
+   "gluten-free low-sodium beef broth",
+   "low-sodium beef broth"
+  ],
+  "fdcId": 172889,
+  "cupGrams": 240,
+  "unitGrams": {
+   "can": 411
+  },
+  "basis": "Reduced-sodium beef broth entry. 1 US cup of broth = 240 g (water density; USDA lists 1 cup = 240 g for chicken broth); 14.5-oz can = 411 g",
+  "fluidCan": true
+ },
+ {
+  "phrases": [
+   "gluten-free low-sodium chicken broth",
+   "low-sodium chicken broth"
+  ],
+  "fdcId": 171609,
+  "cupGrams": 240,
+  "unitGrams": {
+   "can": 411
+  },
+  "basis": "USDA portion: 1 cup = 240 g; 14.5-oz can = 411 g",
+  "fluidCan": true
+ },
+ {
+  "phrases": [
+   "gluten-free low-sodium vegetable broth",
+   "low-sodium vegetable broth"
+  ],
+  "fdcId": 171583,
+  "cupGrams": 240,
+  "unitGrams": {
+   "can": 411
+  },
+  "basis": "SR Legacy has no low-sodium vegetable broth; regular ready-to-serve vegetable broth used (sodium will read high). 1 US cup of broth = 240 g (water density); 14.5-oz can = 411 g Sodium set to 58 mg per 100 g (140 mg per cup, the US limit for a low-sodium claim); USDA lists only regular vegetable broth.",
+  "fluidCan": true,
+  "per100g": {
+   "sodium": 58
+  }
+ },
+ {
+  "phrases": [
+   "gluten-free tamari",
+   "tamari"
+  ],
+  "fdcId": 174278,
+  "cupGrams": 288,
+  "basis": "USDA portion: 1 tbsp = 18 g, 1 tsp = 6 g"
+ },
+ {
+  "phrases": [
+   "graham cracker crumbs",
+   "graham cracker"
+  ],
+  "fdcId": 174957,
+  "cupGrams": 84,
+  "eachGrams": 14,
+  "basis": "USDA portions: 1 cup crushed = 84 g; 1 large rectangular sheet = 14 g"
+ },
+ {
+  "phrases": [
+   "granulated sugar"
+  ],
+  "fdcId": 169655,
+  "cupGrams": 200,
+  "basis": "USDA portion: 1 cup = 200 g (1 tsp = 4.2 g)"
+ },
+ {
+  "phrases": [
+   "light brown sugar"
+  ],
+  "fdcId": 168833,
+  "cupGrams": 220,
+  "basis": "USDA portion: 1 cup packed = 220 g (1 tsp packed = 4.6 g)"
+ },
+ {
+  "phrases": [
+   "green beans"
+  ],
+  "fdcId": 169961,
+  "cupGrams": 100,
+  "basis": "USDA portion: 1 cup 1/2-inch pieces = 100 g"
+ },
+ {
+  "phrases": [
+   "green bell pepper"
+  ],
+  "fdcId": 170427,
+  "cupGrams": 149,
+  "eachGrams": 119,
+  "basis": "USDA portions: 1 medium = 119 g (edible), 1 cup chopped = 149 g"
+ },
+ {
+  "phrases": [
+   "red bell pepper"
+  ],
+  "fdcId": 170108,
+  "cupGrams": 149,
+  "eachGrams": 119,
+  "basis": "USDA portions: 1 medium = 119 g (edible), 1 cup chopped = 149 g"
+ },
+ {
+  "phrases": [
+   "green cardamom pod",
+   "cardamom pod"
+  ],
+  "fdcId": 170919,
+  "cupGrams": 96,
+  "eachGrams": 0.2,
+  "basis": "One green cardamom pod weighs about 0.2 g (kitchen reference; 10 pods = about 1 tsp ground = 2 g)"
+ },
+ {
+  "phrases": [
+   "ground cardamom",
+   "cardamom"
+  ],
+  "fdcId": 170919,
+  "cupGrams": 96,
+  "basis": "USDA portion: 1 tsp ground = 2 g"
+ },
+ {
+  "phrases": [
+   "green or brown lentil",
+   "brown lentil",
+   "green lentil"
+  ],
+  "fdcId": 172420,
+  "cupGrams": 192,
+  "basis": "Dry lentils. USDA portion: 1 cup = 192 g"
+ },
+ {
+  "phrases": [
+   "green or napa cabbage"
+  ],
+  "fdcId": 169975,
+  "cupGrams": 70,
+  "eachGrams": 908,
+  "basis": "USDA portions: 1 cup shredded = 70 g; 1 medium head = 908 g"
+ },
+ {
+  "phrases": [
+   "ground allspice",
+   "allspice"
+  ],
+  "fdcId": 171315,
+  "cupGrams": 91.2,
+  "basis": "USDA portion: 1 tsp = 1.9 g"
+ },
+ {
+  "phrases": [
+   "ground beef (80% lean)"
+  ],
+  "fdcId": 174036,
+  "basis": "Raw 80/20 ground beef; measured by weight only"
+ },
+ {
+  "phrases": [
+   "ground beef (85% lean)"
+  ],
+  "fdcId": 171796,
+  "basis": "Raw 85/15 ground beef; measured by weight only"
+ },
+ {
+  "phrases": [
+   "ground cinnamon"
+  ],
+  "fdcId": 171320,
+  "cupGrams": 124.8,
+  "basis": "USDA portion: 1 tsp = 2.6 g"
+ },
+ {
+  "phrases": [
+   "ground coriander"
+  ],
+  "fdcId": 170922,
+  "cupGrams": 86.4,
+  "basis": "USDA portion (coriander seed): 1 tsp = 1.8 g"
+ },
+ {
+  "phrases": [
+   "ground cumin"
+  ],
+  "fdcId": 170923,
+  "cupGrams": 100.8,
+  "basis": "USDA portion (cumin seed): 1 tsp = 2.1 g"
+ },
+ {
+  "phrases": [
+   "ground flaxseed"
+  ],
+  "fdcId": 169414,
+  "cupGrams": 112,
+  "basis": "USDA portion: 1 tbsp ground = 7 g"
+ },
+ {
+  "phrases": [
+   "ground lamb"
+  ],
+  "fdcId": 174370,
+  "basis": "Raw ground lamb; measured by weight only"
+ },
+ {
+  "phrases": [
+   "ground nutmeg"
+  ],
+  "fdcId": 171326,
+  "cupGrams": 105.6,
+  "basis": "USDA portion: 1 tsp = 2.2 g"
+ },
+ {
+  "phrases": [
+   "ground turkey (93% lean)",
+   "ground turkey"
+  ],
+  "fdcId": 172850,
+  "basis": "Raw 93/7 ground turkey; measured by weight only"
+ },
+ {
+  "phrases": [
+   "ground turmeric"
+  ],
+  "fdcId": 172231,
+  "cupGrams": 144,
+  "basis": "USDA portion: 1 tsp = 3 g"
+ },
+ {
+  "phrases": [
+   "ground white pepper",
+   "white pepper"
+  ],
+  "fdcId": 170933,
+  "cupGrams": 115.2,
+  "basis": "USDA portion: 1 tsp ground = 2.4 g"
+ },
+ {
+  "phrases": [
+   "gruyère cheese",
+   "gruyère",
+   "gruyere cheese",
+   "gruyere"
+  ],
+  "fdcId": 171242,
+  "cupGrams": 108,
+  "basis": "USDA portion: 1 cup shredded = 108 g"
+ },
+ {
+  "phrases": [
+   "guanciale"
+  ],
+  "fdcId": 168269,
+  "basis": "No guanciale/pancetta in SR Legacy; guanciale is cured pork jowl, so raw pork jowl is used (calories/fat match guanciale labels; sodium is under-reported because the USDA entry is uncured). Measured by weight only Sodium set to 1500 mg per 100 g for the cured product; the USDA entry is fresh pork jowl.",
+  "per100g": {
+   "sodium": 1500
+  }
+ },
+ {
+  "phrases": [
+   "halloumi"
+  ],
+  "fdcId": 172224,
+  "cupGrams": 118,
+  "basis": "No halloumi in SR Legacy; closest is Cheese, white, queso blanco (310 kcal, 24 g fat, 20 g protein per 100 g vs about 320/25/21 for halloumi). Measured by weight Sodium set to 1100 mg per 100 g from typical package labels.",
+  "per100g": {
+   "sodium": 1100
+  }
+ },
+ {
+  "phrases": [
+   "head butter lettuce",
+   "butter lettuce"
+  ],
+  "fdcId": 168429,
+  "cupGrams": 55,
+  "eachGrams": 163,
+  "basis": "USDA portions: 1 head (5-inch dia) = 163 g; 1 cup shredded = 55 g"
+ },
+ {
+  "phrases": [
+   "heavy cream"
+  ],
+  "fdcId": 170859,
+  "cupGrams": 238,
+  "basis": "USDA portion: 1 cup fluid = 238 g"
+ },
+ {
+  "phrases": [
+   "hemp hearts",
+   "hemp seeds"
+  ],
+  "fdcId": 170148,
+  "cupGrams": 160,
+  "basis": "USDA portion: 3 tbsp = 30 g"
+ },
+ {
+  "phrases": [
+   "honey"
+  ],
+  "fdcId": 169640,
+  "cupGrams": 339,
+  "basis": "USDA portion: 1 cup = 339 g (1 tbsp = 21 g)"
+ },
+ {
+  "phrases": [
+   "hot cooked jasmine rice",
+   "hot steamed jasmine rice",
+   "hot steamed white rice",
+   "hot cooked white rice",
+   "steamed jasmine rice",
+   "steamed white rice"
+  ],
+  "fdcId": 168878,
+  "cupGrams": 158,
+  "basis": "Cooked long-grain white rice. USDA portion: 1 cup = 158 g"
+ },
+ {
+  "phrases": [
+   "hot cooked short-grain white rice",
+   "hot steamed short-grain rice",
+   "hot cooked short-grain rice",
+   "hot steamed short-grain white rice",
+   "cooked short-grain white rice",
+   "cooked short-grain rice",
+   "steamed short-grain rice",
+   "steamed short-grain white rice"
+  ],
+  "fdcId": 168882,
+  "cupGrams": 186,
+  "basis": "Cooked short-grain white rice. USDA portion: 1 cup = 186 g"
+ },
+ {
+  "phrases": [
+   "hot water",
+   "ice water"
+  ],
+  "skip": true
+ },
+ {
+  "phrases": [
+   "instant or active dry yeast",
+   "instant yeast",
+   "active dry yeast"
+  ],
+  "fdcId": 175043,
+  "cupGrams": 149,
+  "basis": "Standard packet = 2 1/4 tsp = 7 g (as the recipes state), so 3.1 g per tsp; USDA lists 1 packet = 7.2 g"
+ },
+ {
+  "phrases": [
+   "jalapeño",
+   "jalapeno"
+  ],
+  "fdcId": 168576,
+  "cupGrams": 90,
+  "eachGrams": 14,
+  "basis": "USDA portions: 1 pepper = 14 g; 1 cup sliced = 90 g"
+ },
+ {
+  "phrases": [
+   "japanese short-grain rice",
+   "short-grain white rice",
+   "short-grain rice"
+  ],
+  "fdcId": 168881,
+  "cupGrams": 200,
+  "basis": "Uncooked short-grain white rice. USDA portion: 1 cup = 200 g"
+ },
+ {
+  "phrases": [
+   "jasmine rice",
+   "long-grain white rice"
+  ],
+  "fdcId": 168877,
+  "cupGrams": 185,
+  "basis": "Uncooked long-grain white rice. USDA portion: 1 cup = 185 g"
+ },
+ {
+  "phrases": [
+   "long-grain parboiled (converted) rice",
+   "long-grain parboiled rice",
+   "parboiled rice",
+   "converted rice"
+  ],
+  "fdcId": 169707,
+  "cupGrams": 185,
+  "basis": "Dry parboiled long-grain white rice. USDA portion: 1 cup = 185 g"
+ },
+ {
+  "phrases": [
+   "kashmiri chili powder",
+   "kashmiri chilli powder"
+  ],
+  "fdcId": 171329,
+  "cupGrams": 110.4,
+  "basis": "Kashmiri chili powder is pure ground mild chile (no salt or cumin), so Spices, paprika is used rather than the salted American chili powder blend. USDA portion: 1 tsp = 2.3 g"
+ },
+ {
+  "phrases": [
+   "ketchup"
+  ],
+  "fdcId": 168556,
+  "cupGrams": 240,
+  "basis": "USDA portion: 1 cup = 240 g"
+ },
+ {
+  "phrases": [
+   "kidney beans"
+  ],
+  "fdcId": 175243,
+  "cupGrams": 158,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "Canned, drained and rinsed. A 15-oz can drains to about 255 g (USDA lists 1 can drained solids = 266 g); USDA portion: 1 cup rinsed solids = 158 g",
+  "drainedCan": {
+   "grams": 255,
+   "ofOz": 15
+  }
+ },
+ {
+  "phrases": [
+   "kosher salt"
+  ],
+  "fdcId": 173468,
+  "cupGrams": 144,
+  "unitGrams": {
+   "pinch": 0.2
+  },
+  "basis": "Diamond Crystal kosher salt: 3 g per tsp"
+ },
+ {
+  "phrases": [
+   "lacinato or curly kale",
+   "lacinato kale",
+   "curly kale",
+   "kale"
+  ],
+  "fdcId": 168421,
+  "cupGrams": 21,
+  "unitGrams": {
+   "bunch": 150
+  },
+  "basis": "USDA portion: 1 cup = 21 g. Bunch = 8 oz (227 g) as bought per the recipes, about 150 g of leaves once stems are removed"
+ },
+ {
+  "phrases": [
+   "large egg yolk",
+   "egg yolk"
+  ],
+  "fdcId": 172184,
+  "eachGrams": 17,
+  "fixedSize": true,
+  "cupGrams": 243,
+  "basis": "USDA portion: 1 large yolk = 17 g"
+ },
+ {
+  "phrases": [
+   "large egg",
+   "egg"
+  ],
+  "fdcId": 171287,
+  "eachGrams": 50,
+  "fixedSize": true,
+  "cupGrams": 243,
+  "basis": "USDA portion: 1 large = 50 g without shell"
+ },
+ {
+  "phrases": [
+   "head cauliflower",
+   "cauliflower"
+  ],
+  "fdcId": 169986,
+  "cupGrams": 107,
+  "eachGrams": 588,
+  "basis": "USDA portions: 1 medium head = 588 g (large = 840 g, trimmed); 1 cup chopped = 107 g"
+ },
+ {
+  "phrases": [
+   "yellow onion",
+   "red onion",
+   "white onion"
+  ],
+  "fdcId": 170000,
+  "cupGrams": 160,
+  "eachGrams": 110,
+  "basis": "USDA portions: 1 medium (2-1/2 inch) = 110 g, 1 large = 150 g; 1 cup chopped = 160 g",
+  "unitGrams": {
+   "slice": 14
+  }
+ },
+ {
+  "phrases": [
+   "ripe avocado",
+   "avocado"
+  ],
+  "fdcId": 171706,
+  "cupGrams": 150,
+  "eachGrams": 136,
+  "basis": "Hass (California) avocado. USDA portion: 1 fruit without skin and seed = 136 g; 1 cup cubes = 150 g"
+ },
+ {
+  "phrases": [
+   "ripe banana",
+   "banana"
+  ],
+  "fdcId": 173944,
+  "cupGrams": 150,
+  "eachGrams": 118,
+  "basis": "USDA portions: 1 medium = 118 g peeled (large = 136 g); 1 cup sliced = 150 g"
+ },
+ {
+  "phrases": [
+   "shallot"
+  ],
+  "fdcId": 170499,
+  "cupGrams": 160,
+  "eachGrams": 35,
+  "basis": "One medium shallot = about 3 tbsp minced; USDA portion: 1 tbsp chopped = 10 g"
+ },
+ {
+  "phrases": [
+   "large shrimp",
+   "shrimp"
+  ],
+  "fdcId": 175179,
+  "basis": "Raw shrimp, peeled weight; measured by weight only"
+ },
+ {
+  "phrases": [
+   "lemon, zest finely grated"
+  ],
+  "fdcId": 167749,
+  "cupGrams": 96,
+  "eachGrams": 4,
+  "basis": "Zest of one lemon = about 2 tsp (per the recipe); USDA portion: 1 tsp peel = 2 g"
+ },
+ {
+  "phrases": [
+   "lemon",
+   "lemon, zest finely grated and 1 tbsp juice"
+  ],
+  "fdcId": 167747,
+  "cupGrams": 244,
+  "eachGrams": 48,
+  "basis": "Whole lemons counted as their juice. USDA portions: 1 lemon yields 48 g juice; 1 cup = 244 g"
+ },
+ {
+  "phrases": [
+   "lime"
+  ],
+  "fdcId": 168156,
+  "cupGrams": 242,
+  "eachGrams": 44,
+  "basis": "Whole limes counted as their juice. USDA portions: 1 lime yields 44 g juice; 1 cup = 242 g"
+ },
+ {
+  "phrases": [
+   "lemongrass stalk",
+   "lemongrass"
+  ],
+  "fdcId": 168573,
+  "cupGrams": 67,
+  "eachGrams": 10,
+  "basis": "Trimmed tender lower part of one stalk = about 2 tbsp minced; USDA portion: 1 tbsp = 4.8 g"
+ },
+ {
+  "phrases": [
+   "long grain white rice"
+  ],
+  "fdcId": 168877,
+  "cupGrams": 185,
+  "basis": "USDA portion (raw rice): 1 cup = 185 g"
+ },
+ {
+  "phrases": [
+   "thai basil",
+   "holy basil",
+   "basil"
+  ],
+  "fdcId": 172232,
+  "cupGrams": 24,
+  "basis": "USDA portion: 0.25 cup whole leaves = 6 g (24 g per loosely packed cup)"
+ },
+ {
+  "phrases": [
+   "louisiana-style cayenne pepper hot sauce",
+   "cayenne pepper hot sauce",
+   "louisiana-style hot sauce",
+   "hot sauce"
+  ],
+  "fdcId": 174527,
+  "cupGrams": 226,
+  "basis": "USDA portion: 1 tsp = 4.7 g"
+ },
+ {
+  "phrases": [
+   "low-moisture mozzarella",
+   "low moisture mozzarella"
+  ],
+  "fdcId": 171244,
+  "cupGrams": 113,
+  "basis": "USDA portion: 1 cup shredded = 113 g. Part-skim low-moisture entry chosen (the usual retail block); recipe does not say whole-milk or part-skim"
+ },
+ {
+  "phrases": [
+   "low sodium beef broth"
+  ],
+  "fdcId": 172889,
+  "cupGrams": 240,
+  "basis": "Broth is water-density: 1 cup = 240 g (same as USDA chicken broth portion; USDA lists 219 g/cup for this entry but 923 g per 32-fl-oz carton). Only reduced-sodium beef broth exists in SR Legacy"
+ },
+ {
+  "phrases": [
+   "low sodium chicken broth"
+  ],
+  "fdcId": 171609,
+  "cupGrams": 240,
+  "basis": "USDA portion: 1 cup = 240 g. SR Legacy 'low sodium' entry (30 mg sodium/100 g); the 'less/reduced sodium' entry is 172888 (231 mg/100 g)"
+ },
+ {
+  "phrases": [
+   "low-sodium soy sauce",
+   "low sodium soy sauce"
+  ],
+  "fdcId": 172473,
+  "cupGrams": 255,
+  "basis": "USDA portion: 1 cup = 255 g"
+ },
+ {
+  "phrases": [
+   "low sodium vegetable broth"
+  ],
+  "fdcId": 171583,
+  "cupGrams": 240,
+  "basis": "Broth is water-density: 1 cup = 240 g (USDA lists 221 g/cup but 926 g per 32-fl-oz carton). No low-sodium vegetable broth in SR Legacy, so the regular entry is used and sodium is overstated"
+ },
+ {
+  "phrases": [
+   "pure maple syrup",
+   "maple syrup"
+  ],
+  "fdcId": 169661,
+  "cupGrams": 315,
+  "basis": "USDA portion: 1 cup = 315 g"
+ },
+ {
+  "phrases": [
+   "mashed very ripe banana",
+   "mashed ripe banana",
+   "mashed banana"
+  ],
+  "fdcId": 173944,
+  "cupGrams": 225,
+  "eachGrams": 118,
+  "basis": "USDA portions: 1 cup mashed = 225 g; 1 medium = 118 g (peeled)"
+ },
+ {
+  "phrases": [
+   "mayonnaise"
+  ],
+  "fdcId": 171009,
+  "cupGrams": 220,
+  "basis": "USDA portion: 1 cup = 220 g"
+ },
+ {
+  "phrases": [
+   "globe eggplant"
+  ],
+  "fdcId": 169228,
+  "cupGrams": 82,
+  "eachGrams": 454,
+  "basis": "Recipe states about 1 lb each (454 g); USDA: 1 cup cubes = 82 g (USDA unpeeled eggplant of 1-1/4 lb = 548 g)"
+ },
+ {
+  "phrases": [
+   "medium red onions, very finely chopped (about 3 cups)"
+  ],
+  "fdcId": 170000,
+  "cupGrams": 160,
+  "eachGrams": 240,
+  "basis": "Recipe states 2 onions = about 3 cups chopped; USDA 1 cup chopped = 160 g, so 240 g each"
+ },
+ {
+  "phrases": [
+   "onion"
+  ],
+  "fdcId": 170000,
+  "cupGrams": 160,
+  "eachGrams": 110,
+  "unitGrams": {
+   "slice": 14
+  },
+  "basis": "USDA portions: 1 medium (2-1/2 in dia) = 110 g; 1 cup chopped = 160 g; 1 medium slice = 14 g"
+ },
+ {
+  "phrases": [
+   "ripe mixed tomato",
+   "ripe tomato",
+   "tomato"
+  ],
+  "fdcId": 170457,
+  "cupGrams": 180,
+  "eachGrams": 123,
+  "unitGrams": {
+   "slice": 20
+  },
+  "basis": "USDA portions: 1 medium whole = 123 g; 1 cup chopped = 180 g; 1 medium slice (1/4 in) = 20 g"
+ },
+ {
+  "phrases": [
+   "medium sweet potatoes (about 1 1/4 lb)"
+  ],
+  "fdcId": 168482,
+  "cupGrams": 133,
+  "eachGrams": 284,
+  "basis": "Recipe states 2 sweet potatoes = about 1 1/4 lb (567 g), so 284 g each; scrubbed and eaten with skin"
+ },
+ {
+  "phrases": [
+   "sweet potato"
+  ],
+  "fdcId": 168482,
+  "cupGrams": 133,
+  "eachGrams": 130,
+  "basis": "USDA portions: 1 sweetpotato 5 in long = 130 g; 1 cup cubes = 133 g Peel taken off (20%) only when the recipe peels them.",
+  "peeled": 0.8
+ },
+ {
+  "phrases": [
+   "zucchini"
+  ],
+  "fdcId": 169291,
+  "cupGrams": 124,
+  "eachGrams": 196,
+  "basis": "USDA portions: 1 medium = 196 g; 1 cup chopped = 124 g"
+ },
+ {
+  "phrases": [
+   "melted butter"
+  ],
+  "fdcId": 173410,
+  "cupGrams": 227,
+  "basis": "USDA portion: 1 cup = 227 g (1 tbsp = 14.2 g). Salted butter, since the recipe does not say unsalted"
+ },
+ {
+  "phrases": [
+   "mild chili powder"
+  ],
+  "fdcId": 171319,
+  "cupGrams": 128,
+  "basis": "USDA portion: 1 tbsp = 8 g (1 tsp = 2.7 g)"
+ },
+ {
+  "phrases": [
+   "mild curry powder",
+   "curry powder"
+  ],
+  "fdcId": 170924,
+  "cupGrams": 96,
+  "basis": "USDA portion: 1 tsp = 2 g"
+ },
+ {
+  "phrases": [
+   "mild green pepper"
+  ],
+  "fdcId": 170427,
+  "cupGrams": 92,
+  "eachGrams": 75,
+  "edible": 0.85,
+  "basis": "Anaheim/cubanelle mapped to sweet green pepper (closest SR Legacy food). Whole long mild pepper about 75 g (USDA banana pepper, large 5 in = 75 g); stem and seeds about 15%. USDA 1 cup sliced = 92 g"
+ },
+ {
+  "phrases": [
+   "milk"
+  ],
+  "fdcId": 171265,
+  "cupGrams": 244,
+  "basis": "USDA portion: 1 cup = 244 g. Whole milk assumed for unspecified milk"
+ },
+ {
+  "phrases": [
+   "mirin"
+  ],
+  "fdcId": 173176,
+  "cupGrams": 277,
+  "basis": "No mirin in SR Legacy; closest is sweet dessert wine, which understates mirin's sugar (true mirin is about 240 kcal and 43 g carbohydrate per 100 g). Weight: mirin is about 17.3 g per tbsp (density about 1.17) Energy and carbohydrate from the Standard Tables of Food Composition in Japan (hon mirin); the USDA stand-in is a sweet wine.",
+  "per100g": {
+   "calories": 241,
+   "carbohydrates": 43.2,
+   "sugar": 40
+  }
+ },
+ {
+  "phrases": [
+   "mixed berries"
+  ],
+  "fdcId": 173946,
+  "cupGrams": 140,
+  "basis": "No mixed-berry entry; blackberries are closest to the average of strawberries, blueberries, raspberries and blackberries (about 46 kcal/100 g). USDA berries run 123-152 g per cup; 140 g used"
+ },
+ {
+  "phrases": [
+   "monterey jack cheese",
+   "monterey jack"
+  ],
+  "fdcId": 170844,
+  "cupGrams": 113,
+  "basis": "USDA portion: 1 cup shredded = 113 g"
+ },
+ {
+  "phrases": [
+   "mung bean sprout"
+  ],
+  "fdcId": 169957,
+  "cupGrams": 104,
+  "basis": "USDA portion: 1 cup = 104 g"
+ },
+ {
+  "phrases": [
+   "natural creamy peanut butter",
+   "creamy peanut butter",
+   "natural peanut butter",
+   "peanut butter"
+  ],
+  "fdcId": 174266,
+  "cupGrams": 258,
+  "basis": "USDA portion: 1 cup = 258 g (2 tbsp = 32 g)"
+ },
+ {
+  "phrases": [
+   "nutritional yeast"
+  ],
+  "fdcId": 175043,
+  "cupGrams": 80,
+  "basis": "No nutritional yeast in SR Legacy; closest is active dry baker's yeast (same dried yeast species, similar protein and fiber). Weight from package labels: 2 tbsp flakes = 10 g"
+ },
+ {
+  "phrases": [
+   "old-fashioned rolled oat",
+   "old fashioned rolled oat",
+   "rolled oat"
+  ],
+  "fdcId": 173904,
+  "cupGrams": 81,
+  "basis": "USDA portion: 1 cup dry = 81 g"
+ },
+ {
+  "phrases": [
+   "oyster sauce"
+  ],
+  "fdcId": 174529,
+  "cupGrams": 288,
+  "basis": "USDA portion: 1 tbsp = 18 g"
+ },
+ {
+  "phrases": [
+   "packed light brown sugar",
+   "packed brown sugar"
+  ],
+  "fdcId": 168833,
+  "cupGrams": 220,
+  "basis": "USDA portion: 1 cup packed = 220 g"
+ },
+ {
+  "phrases": [
+   "flat leaf parsley"
+  ],
+  "fdcId": 170416,
+  "cupGrams": 60,
+  "unitGrams": {
+   "sprig": 1
+  },
+  "basis": "USDA portions: 1 cup chopped = 60 g; 10 sprigs = 10 g"
+ },
+ {
+  "phrases": [
+   "paneer"
+  ],
+  "fdcId": 172224,
+  "cupGrams": 118,
+  "basis": "No paneer in SR Legacy; queso blanco is the closest (acid-set fresh cheese with matching fat and protein). It is salted, so sodium is overstated: real paneer is about 20-30 mg sodium per 100 g versus 704 mg here Sodium set to 30 mg per 100 g: paneer is unsalted, the queso blanco stand-in is not.",
+  "per100g": {
+   "sodium": 30
+  }
+ },
+ {
+  "phrases": [
+   "panko breadcrumb",
+   "panko bread crumb",
+   "panko"
+  ],
+  "fdcId": 174928,
+  "cupGrams": 60,
+  "basis": "Plain dry bread crumbs. Panko is lighter than fine crumbs: package labels give 1/2 cup = 30 g (USDA fine dry crumbs are 108 g per cup)"
+ },
+ {
+  "phrases": [
+   "paprika"
+  ],
+  "fdcId": 171329,
+  "cupGrams": 110.4,
+  "unitGrams": {
+   "pinch": 0.3
+  },
+  "basis": "USDA portion: 1 tsp = 2.3 g; pinch = 1/8 tsp"
+ },
+ {
+  "phrases": [
+   "pecorino romano"
+  ],
+  "fdcId": 171249,
+  "cupGrams": 57,
+  "basis": "Recipes state 2 oz finely grated = about 1 cup (57 g per cup)"
+ },
+ {
+  "phrases": [
+   "persian cucumber"
+  ],
+  "fdcId": 168409,
+  "cupGrams": 104,
+  "eachGrams": 75,
+  "basis": "Recipe states about 6 Persian cucumbers per lb (75 g each); USDA 0.5 cup slices = 52 g"
+ },
+ {
+  "phrases": [
+   "pinto bean"
+  ],
+  "fdcId": 174286,
+  "cupGrams": 169,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "Canned pinto beans, drained solids. USDA portions for drained, rinsed pinto beans (173797): 1 can = 258 g, 1 cup = 169 g. 174286 used because 173797 has no fiber value",
+  "drainedCan": {
+   "grams": 258,
+   "ofOz": 15
+  }
+ },
+ {
+  "phrases": [
+   "pita bread",
+   "pita"
+  ],
+  "fdcId": 174915,
+  "eachGrams": 60,
+  "basis": "USDA portion: 1 large pita (6-1/2 in dia) = 60 g"
+ },
+ {
+  "phrases": [
+   "pitted kalamata olive",
+   "kalamata olive"
+  ],
+  "fdcId": 169096,
+  "cupGrams": 134,
+  "basis": "No kalamata entry in SR Legacy; brine-cured 'Olives, pickled, green' is closer to kalamata in fat and sodium than canned California ripe olives. Weight from USDA ripe olives: 1 tbsp = 8.4 g (134 g per cup)"
+ },
+ {
+  "phrases": [
+   "plain whole-milk greek yogurt",
+   "whole-milk greek yogurt",
+   "whole milk greek yogurt",
+   "plain greek yogurt",
+   "greek yogurt"
+  ],
+  "fdcId": 171304,
+  "cupGrams": 245,
+  "basis": "Kitchen reference: 1 cup yogurt = 245 g (USDA yogurt portion: 1 cup (8 fl oz) = 245 g). Whole-milk Greek yogurt also used for unspecified 'plain greek yogurt'"
+ },
+ {
+  "phrases": [
+   "plain whole-milk yogurt",
+   "whole-milk yogurt",
+   "whole milk yogurt"
+  ],
+  "fdcId": 171284,
+  "cupGrams": 245,
+  "basis": "USDA portion: 1 cup (8 fl oz) = 245 g"
+ },
+ {
+  "phrases": [
+   "potato burger bun",
+   "potato bun"
+  ],
+  "fdcId": 172796,
+  "eachGrams": 53,
+  "basis": "Plain hamburger roll entry; a potato burger bun weighs about 53 g (package labels; USDA plain roll is 44 g)"
+ },
+ {
+  "phrases": [
+   "powdered sugar"
+  ],
+  "fdcId": 169656,
+  "cupGrams": 120,
+  "basis": "USDA portion: 1 cup unsifted = 120 g"
+ },
+ {
+  "phrases": [
+   "pure chipotle chile powder",
+   "chipotle chile powder",
+   "chipotle chili powder",
+   "chipotle powder"
+  ],
+  "fdcId": 170932,
+  "cupGrams": 110.4,
+  "basis": "No chipotle powder in SR Legacy; closest pure ground dried chile is 'Spices, pepper, red or cayenne'. Weight as for USDA paprika: 1 tsp = 2.3 g"
+ },
+ {
+  "phrases": [
+   "quinoa"
+  ],
+  "fdcId": 168874,
+  "cupGrams": 170,
+  "basis": "USDA portion (uncooked): 1 cup = 170 g"
+ },
+ {
+  "phrases": [
+   "radish"
+  ],
+  "fdcId": 169276,
+  "cupGrams": 116,
+  "eachGrams": 4.5,
+  "basis": "USDA portions: 1 medium (3/4 to 1 in dia) = 4.5 g; 1 cup slices = 116 g"
+ },
+ {
+  "phrases": [
+   "raisin"
+  ],
+  "fdcId": 168165,
+  "cupGrams": 145,
+  "basis": "USDA portion: 1 cup not packed = 145 g"
+ },
+ {
+  "phrases": [
+   "raw pumpkin seed",
+   "raw pepitas"
+  ],
+  "fdcId": 170556,
+  "cupGrams": 129,
+  "basis": "USDA portion (dried kernels): 1 cup = 129 g"
+ },
+ {
+  "phrases": [
+   "roasted pumpkin seed",
+   "roasted pepitas"
+  ],
+  "fdcId": 170557,
+  "cupGrams": 118,
+  "basis": "USDA portion (roasted kernels, without salt): 1 cup = 118 g"
+ },
+ {
+  "phrases": [
+   "raw sunflower seed",
+   "sunflower seed"
+  ],
+  "fdcId": 170562,
+  "cupGrams": 140,
+  "basis": "USDA portion (dried kernels): 1 cup = 140 g"
+ },
+ {
+  "phrases": [
+   "red kidney bean"
+  ],
+  "fdcId": 174285,
+  "cupGrams": 158,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "Canned red kidney beans, drained solids. USDA portions: 1 can drained solids = 266 g; 1 cup rinsed solids = 158 g",
+  "drainedCan": {
+   "grams": 266,
+   "ofOz": 15
+  }
+ },
+ {
+  "phrases": [
+   "red lentil"
+  ],
+  "fdcId": 174284,
+  "cupGrams": 192,
+  "basis": "USDA portion (raw): 1 cup = 192 g"
+ },
+ {
+  "phrases": [
+   "red pepper flakes",
+   "red pepper flake"
+  ],
+  "fdcId": 170932,
+  "cupGrams": 86.4,
+  "unitGrams": {
+   "pinch": 0.2
+  },
+  "basis": "USDA portion: 1 tsp = 1.8 g; pinch = 1/8 tsp"
+ },
+ {
+  "phrases": [
+   "red wine vinegar"
+  ],
+  "fdcId": 172240,
+  "cupGrams": 239,
+  "basis": "USDA portion: 1 cup = 239 g"
+ },
+ {
+  "phrases": [
+   "rice vinegar"
+  ],
+  "fdcId": 172237,
+  "cupGrams": 238,
+  "basis": "No rice vinegar in SR Legacy; distilled vinegar is the closest (unseasoned). USDA portion: 1 cup = 238 g"
+ },
+ {
+  "phrases": [
+   "ricotta salata"
+  ],
+  "fdcId": 173420,
+  "cupGrams": 113,
+  "basis": "No ricotta salata in SR Legacy; feta is the closest (salted, pressed, similar fat, protein and sodium). 1 cup coarsely grated about 113 g, as USDA shredded cheese"
+ },
+ {
+  "phrases": [
+   "roasted peanut"
+  ],
+  "fdcId": 174262,
+  "cupGrams": 146,
+  "basis": "Dry-roasted peanuts with salt (usual retail form). USDA portion for dry-roasted peanuts: 1 cup = 146 g"
+ },
+ {
+  "phrases": [
+   "roasted pumpkin seeds",
+   "toasted pepitas",
+   "pumpkin seed",
+   "pepita"
+  ],
+  "fdcId": 170557,
+  "cupGrams": 118,
+  "basis": "USDA portion (roasted pumpkin seed kernels, no salt): 1 cup = 118 g"
+ },
+ {
+  "phrases": [
+   "roasted seasoned seaweed",
+   "seasoned seaweed",
+   "gim"
+  ],
+  "fdcId": 168458,
+  "cupGrams": 80,
+  "basis": "Closest SR food is raw laver (no dried or seasoned laver in SR Legacy). USDA portion: 2 tbsp = 10 g raw laver, so 1/2 cup = 40 g raw, roughly equal to 5-6 g dried gim; seasoning oil and salt are not captured"
+ },
+ {
+  "phrases": [
+   "roasted unsalted peanuts",
+   "unsalted peanuts"
+  ],
+  "fdcId": 173806,
+  "cupGrams": 146,
+  "basis": "USDA portion (dry-roasted peanuts, without salt): 1 cup = 146 g"
+ },
+ {
+  "phrases": [
+   "russet or yukon gold potatoes"
+  ],
+  "fdcId": 170027,
+  "cupGrams": 150,
+  "eachGrams": 213,
+  "edible": 0.8,
+  "basis": "USDA portions: 1 medium russet = 213 g, 1/2 cup diced = 75 g; bought by weight then peeled, peeling yield about 80% (kitchen yield reference)"
+ },
+ {
+  "phrases": [
+   "yukon gold potato",
+   "yukon gold"
+  ],
+  "fdcId": 170026,
+  "cupGrams": 150,
+  "eachGrams": 213,
+  "basis": "No Yukon Gold in SR Legacy; generic 'Potatoes, flesh and skin, raw'. USDA portions: 1 medium = 213 g, 1/2 cup diced = 75 g"
+ },
+ {
+  "phrases": [
+   "saffron threads",
+   "saffron"
+  ],
+  "fdcId": 170934,
+  "cupGrams": 33.6,
+  "unitGrams": {
+   "pinch": 0.1
+  },
+  "basis": "USDA portion: 1 tsp = 0.7 g; a pinch of threads is about 1/8 tsp = 0.1 g"
+ },
+ {
+  "phrases": [
+   "sake"
+  ],
+  "fdcId": 167723,
+  "cupGrams": 233,
+  "basis": "USDA portion: 1 fl oz = 29.1 g, so 1 cup = 233 g"
+ },
+ {
+  "phrases": [
+   "scallion"
+  ],
+  "fdcId": 170005,
+  "cupGrams": 100,
+  "eachGrams": 15,
+  "basis": "USDA portions: 1 medium scallion = 15 g, 1 cup chopped = 100 g"
+ },
+ {
+  "phrases": [
+   "scotch bonnet or habanero chile",
+   "scotch bonnet",
+   "habanero chile",
+   "habanero"
+  ],
+  "fdcId": 170106,
+  "cupGrams": 150,
+  "eachGrams": 12,
+  "basis": "No habanero/scotch bonnet in SR Legacy; 'Peppers, hot chili, red, raw'. One habanero weighs about 12 g (kitchen reference); USDA 1/2 cup chopped = 75 g"
+ },
+ {
+  "phrases": [
+   "thai bird's eye chile",
+   "bird's eye chile",
+   "thai bird chile"
+  ],
+  "fdcId": 170106,
+  "cupGrams": 150,
+  "eachGrams": 2,
+  "basis": "'Peppers, hot chili, red, raw'; one Thai bird's eye chile weighs about 2 g (kitchen reference); USDA 1/2 cup chopped = 75 g"
+ },
+ {
+  "phrases": [
+   "red chile"
+  ],
+  "fdcId": 170106,
+  "cupGrams": 150,
+  "eachGrams": 45,
+  "basis": "USDA portions (hot chili, red, raw): 1 pepper = 45 g, 1/2 cup chopped = 75 g"
+ },
+ {
+  "phrases": [
+   "serrano or green chile",
+   "serrano chile",
+   "serrano"
+  ],
+  "fdcId": 169395,
+  "cupGrams": 105,
+  "eachGrams": 6.1,
+  "basis": "USDA portions: 1 serrano pepper = 6.1 g, 1 cup chopped = 105 g"
+ },
+ {
+  "phrases": [
+   "semisweet chocolate chips",
+   "semisweet chocolate",
+   "chocolate chips"
+  ],
+  "fdcId": 167976,
+  "cupGrams": 168,
+  "basis": "USDA portion: 1 cup chips (6 oz package) = 168 g"
+ },
+ {
+  "phrases": [
+   "sharp cheddar cheese",
+   "sharp cheddar",
+   "cheddar cheese",
+   "cheddar"
+  ],
+  "fdcId": 173414,
+  "cupGrams": 113,
+  "unitGrams": {
+   "slice": 28
+  },
+  "basis": "USDA portions (Cheese, cheddar): 1 cup shredded = 113 g, 1 slice = 28 g"
+ },
+ {
+  "phrases": [
+   "shiitake mushroom"
+  ],
+  "fdcId": 169242,
+  "eachGrams": 19,
+  "edible": 0.8,
+  "basis": "USDA portion: 1 whole shiitake = 19 g; bought by weight then stemmed, stems are about 20% of weight (kitchen yield reference)"
+ },
+ {
+  "phrases": [
+   "short-grain brown rice"
+  ],
+  "fdcId": 169706,
+  "cupGrams": 190,
+  "basis": "No short-grain brown rice in SR Legacy; 'Rice, brown, medium-grain, raw'. USDA portion: 1 cup = 190 g"
+ },
+ {
+  "phrases": [
+   "short-grain white (sushi) rice",
+   "short-grain white",
+   "sushi rice"
+  ],
+  "fdcId": 168881,
+  "cupGrams": 200,
+  "basis": "USDA portion (Rice, white, short-grain, uncooked): 1 cup = 200 g"
+ },
+ {
+  "phrases": [
+   "uncooked jasmine rice"
+  ],
+  "fdcId": 168877,
+  "cupGrams": 185,
+  "basis": "Jasmine is a long-grain white rice; USDA portion (Rice, white, long-grain, raw): 1 cup = 185 g"
+ },
+ {
+  "phrases": [
+   "shredded iceberg lettuce",
+   "iceberg lettuce",
+   "iceberg"
+  ],
+  "fdcId": 169248,
+  "cupGrams": 72,
+  "eachGrams": 539,
+  "basis": "USDA portions: 1 cup shredded = 72 g, 1 medium head = 539 g"
+ },
+ {
+  "phrases": [
+   "shredded red cabbage"
+  ],
+  "fdcId": 169977,
+  "cupGrams": 70,
+  "eachGrams": 839,
+  "basis": "USDA portions: 1 cup shredded = 70 g, 1 medium head = 839 g"
+ },
+ {
+  "phrases": [
+   "shredded romaine lettuce",
+   "romaine lettuce",
+   "romaine"
+  ],
+  "fdcId": 169247,
+  "cupGrams": 47,
+  "eachGrams": 626,
+  "basis": "USDA portions: 1 cup shredded = 47 g, 1 head = 626 g"
+ },
+ {
+  "phrases": [
+   "skin-on salmon fillet",
+   "salmon fillet",
+   "salmon"
+  ],
+  "fdcId": 175167,
+  "eachGrams": 170,
+  "unitGrams": {
+   "piece": 170
+  },
+  "basis": "Recipe states fillets of about 6 oz each = 170 g; 'Fish, salmon, Atlantic, farmed, raw'"
+ },
+ {
+  "phrases": [
+   "skinless cod or halibut fillets",
+   "skinless cod",
+   "cod fillet",
+   "cod"
+  ],
+  "fdcId": 171955,
+  "eachGrams": 231,
+  "basis": "USDA portion (Fish, cod, Atlantic, raw): 1 fillet = 231 g; recipe measures by weight"
+ },
+ {
+  "phrases": [
+   "skirt steak or flank steak",
+   "skirt steak"
+  ],
+  "fdcId": 172158,
+  "basis": "'Beef, plate steak, boneless, inside skirt, lean and fat, 0\" trim, all grades, raw'; recipe measures by weight (boneless, no waste)"
+ },
+ {
+  "phrases": [
+   "small broccoli florets"
+  ],
+  "fdcId": 169330,
+  "cupGrams": 71,
+  "basis": "USDA portion (Broccoli, flower clusters, raw): 1 cup flowerets = 71 g"
+ },
+ {
+  "phrases": [
+   "small corn tortillas"
+  ],
+  "fdcId": 175036,
+  "eachGrams": 24,
+  "fixedSize": true,
+  "basis": "USDA portion: 1 corn tortilla = 24 g (the standard 6-inch taco size that recipes call 'small', so no further size scaling)"
+ },
+ {
+  "phrases": [
+   "cucumber"
+  ],
+  "fdcId": 168409,
+  "cupGrams": 104,
+  "eachGrams": 301,
+  "basis": "USDA portions (Cucumber, with peel, raw): 1 cucumber (8-1/4 in) = 301 g, 1/2 cup slices = 52 g"
+ },
+ {
+  "phrases": [
+   "smoked paprika",
+   "sweet paprika"
+  ],
+  "fdcId": 171329,
+  "cupGrams": 110.4,
+  "unitGrams": {
+   "pinch": 0.3
+  },
+  "basis": "USDA portion: 1 tsp = 2.3 g (x 48 = 110.4 g per cup); pinch = 1/8 tsp"
+ },
+ {
+  "phrases": [
+   "soft or medium tofu",
+   "soft tofu",
+   "medium tofu"
+  ],
+  "fdcId": 172449,
+  "cupGrams": 248,
+  "basis": "USDA portion (Tofu, soft, nigari): 1 cup (1/2-inch cubes) = 248 g; recipe measures by weight"
+ },
+ {
+  "phrases": [
+   "soy sauce"
+  ],
+  "fdcId": 174277,
+  "cupGrams": 255,
+  "basis": "USDA portions (shoyu): 1 tbsp = 16 g, 1 cup = 255 g"
+ },
+ {
+  "phrases": [
+   "spaghetti or wheat noodles"
+  ],
+  "fdcId": 169736,
+  "cupGrams": 91,
+  "basis": "'Pasta, dry, enriched'; USDA portion: 1 cup spaghetti = 91 g; recipe measures by weight"
+ },
+ {
+  "phrases": [
+   "stale crusty country bread",
+   "crusty country bread",
+   "country bread",
+   "sourdough"
+  ],
+  "fdcId": 172675,
+  "cupGrams": 43,
+  "basis": "'Bread, french or vienna (includes sourdough)'; recipe says 6 oz torn = about 4 cups, i.e. 43 g per cup"
+ },
+ {
+  "phrases": [
+   "sugar snap pea",
+   "snap pea"
+  ],
+  "fdcId": 170010,
+  "cupGrams": 63,
+  "basis": "USDA portion (Peas, edible-podded, raw): 1 cup whole = 63 g; recipe measures by weight"
+ },
+ {
+  "phrases": [
+   "unsweetened sunflower seed butter",
+   "sunflower seed butter"
+  ],
+  "fdcId": 168595,
+  "cupGrams": 256,
+  "basis": "USDA portion (sunflower seed butter, with salt added, as most jars are salted): 1 tbsp = 16 g (x 16 = 256 g per cup)"
+ },
+ {
+  "phrases": [
+   "sweet chili sauce"
+  ],
+  "fdcId": 174066,
+  "cupGrams": 280,
+  "basis": "No Thai sweet chili sauce in SR Legacy; closest equivalent is 'Sauce, sweet and sour, ready-to-serve' (similar sugar and calories). USDA portion: 2 tbsp = 35 g (280 g per cup)"
+ },
+ {
+  "phrases": [
+   "sweet-tart apple"
+  ],
+  "fdcId": 171689,
+  "cupGrams": 110,
+  "eachGrams": 161,
+  "basis": "Peeled and cored, so 'Apples, raw, without skin'. USDA portions: 1 medium (3 in) = 161 g edible, 1 cup slices = 110 g"
+ },
+ {
+  "phrases": [
+   "sweetened condensed milk",
+   "condensed milk"
+  ],
+  "fdcId": 171275,
+  "cupGrams": 306,
+  "unitGrams": {
+   "can": 397
+  },
+  "basis": "USDA portion: 1 cup = 306 g; standard can is 14 oz = 397 g"
+ },
+ {
+  "phrases": [
+   "well-stirred tahini",
+   "tahini"
+  ],
+  "fdcId": 170189,
+  "cupGrams": 240,
+  "basis": "USDA portion (tahini from roasted and toasted kernels, most common type): 1 tbsp = 15 g (240 g per cup)"
+ },
+ {
+  "phrases": [
+   "tamarind concentrate"
+  ],
+  "fdcId": 167763,
+  "cupGrams": 120,
+  "basis": "No tamarind concentrate in SR Legacy; 'Tamarinds, raw' (pulp). USDA portion: 1 cup pulp = 120 g, i.e. 7.5 g pulp per tbsp, which approximates the pulp content of pourable (water-diluted) Thai concentrate"
+ },
+ {
+  "phrases": [
+   "torn fresh basil"
+  ],
+  "fdcId": 172232,
+  "cupGrams": 24,
+  "basis": "USDA portion (Basil, fresh): 1/4 cup whole leaves = 6 g (24 g per cup)"
+ },
+ {
+  "phrases": [
+   "thick-cut bacon"
+  ],
+  "fdcId": 168277,
+  "unitGrams": {
+   "slice": 38
+  },
+  "basis": "'Pork, cured, bacon, unprepared' (raw). Thick-cut bacon runs about 12 slices per lb = 38 g per raw slice (USDA regular slice is 28 g)"
+ },
+ {
+  "phrases": [
+   "toasted sesame oil",
+   "sesame oil"
+  ],
+  "fdcId": 171016,
+  "cupGrams": 218,
+  "basis": "USDA portions: 1 cup = 218 g, 1 tbsp = 13.6 g"
+ },
+ {
+  "phrases": [
+   "toasted sesame seed"
+  ],
+  "fdcId": 170152,
+  "cupGrams": 128,
+  "basis": "USDA portion (sesame seed kernels, toasted, without salt): 1 cup = 128 g"
+ },
+ {
+  "phrases": [
+   "tomato paste"
+  ],
+  "fdcId": 170459,
+  "cupGrams": 256,
+  "unitGrams": {
+   "can": 170
+  },
+  "basis": "USDA portions: 1 tbsp = 16 g (256 g per cup), 1 can (6 oz) = 170 g; only tomato paste entry in SR Legacy is 'without salt added'"
+ },
+ {
+  "phrases": [
+   "tomato salsa or pico de gallo",
+   "tomato salsa",
+   "pico de gallo",
+   "salsa"
+  ],
+  "fdcId": 174524,
+  "cupGrams": 259,
+  "basis": "USDA portion (Sauce, salsa, ready-to-serve): 1 cup = 259 g"
+ },
+ {
+  "phrases": [
+   "tuna"
+  ],
+  "fdcId": 173709,
+  "cupGrams": 154,
+  "unitGrams": {
+   "can": 142
+  },
+  "basis": "'Fish, tuna, light, canned in water, drained solids'. A 5-oz can drains to about 4 oz = 113 g; USDA 1 cup chunks = 154 g",
+  "drainedCan": {
+   "grams": 113,
+   "ofOz": 5
+  }
+ },
+ {
+  "phrases": [
+   "turbinado or granulated sugar",
+   "turbinado sugar",
+   "turbinado"
+  ],
+  "fdcId": 170674,
+  "cupGrams": 221,
+  "basis": "USDA portion (Sugar, turbinado): 1 tsp = 4.6 g (x 48 = 221 g per cup)"
+ },
+ {
+  "phrases": [
+   "unsalted butter"
+  ],
+  "fdcId": 173430,
+  "cupGrams": 227,
+  "basis": "USDA portions (Butter, without salt): 1 cup = 227 g, 1 tbsp = 14.2 g"
+ },
+ {
+  "phrases": [
+   "unseasoned rice vinegar"
+  ],
+  "fdcId": 172237,
+  "cupGrams": 238,
+  "basis": "No rice vinegar in SR Legacy; closest equivalent 'Vinegar, distilled'. USDA portion: 1 cup = 238 g"
+ },
+ {
+  "phrases": [
+   "white vinegar or apple cider vinegar"
+  ],
+  "fdcId": 172237,
+  "cupGrams": 238,
+  "basis": "USDA portion (Vinegar, distilled): 1 cup = 238 g, 1 tbsp = 14.9 g"
+ },
+ {
+  "phrases": [
+   "unsweetened certified gluten-free oat milk",
+   "gluten-free oat milk",
+   "oat milk"
+  ],
+  "fdcId": 171942,
+  "cupGrams": 240,
+  "basis": "No oat milk in SR Legacy; closest equivalent is the other grain milk, 'Beverages, rice milk, unsweetened'. USDA portion: 8 fl oz = 240 g"
+ },
+ {
+  "phrases": [
+   "unsweetened nut-free plant milk",
+   "nut-free plant milk",
+   "plant milk"
+  ],
+  "fdcId": 175215,
+  "cupGrams": 243,
+  "basis": "Name suggests pea milk first; no pea milk in SR Legacy, closest in protein and fat is 'Soymilk (all flavors), unsweetened'. USDA portion: 1 cup = 243 g"
+ },
+ {
+  "phrases": [
+   "unsweetened natural cocoa powder",
+   "unsweetened cocoa powder",
+   "cocoa powder"
+  ],
+  "fdcId": 169593,
+  "cupGrams": 86,
+  "basis": "USDA portion (Cocoa, dry powder, unsweetened): 1 cup = 86 g"
+ },
+ {
+  "phrases": [
+   "unsweetened coconut flakes",
+   "coconut flakes"
+  ],
+  "fdcId": 170170,
+  "cupGrams": 60,
+  "basis": "'Nuts, coconut meat, dried (desiccated), not sweetened'; recipe states 1/2 cup flakes = 30 g, so 60 g per cup"
+ },
+ {
+  "phrases": [
+   "vanilla extract"
+  ],
+  "fdcId": 173471,
+  "cupGrams": 202,
+  "basis": "USDA portion: 1 tsp = 4.2 g (x 48 = 202 g per cup)"
+ },
+ {
+  "phrases": [
+   "vegan thai red curry paste",
+   "thai red curry paste",
+   "red curry paste"
+  ],
+  "fdcId": 171186,
+  "cupGrams": 240,
+  "basis": "No curry paste in SR Legacy; closest equivalent is another chile-garlic paste, 'Sauce, hot chile, sriracha' (similar calories and sodium per gram). Curry paste label weight: 1 tbsp = 15 g (240 g per cup)"
+ },
+ {
+  "phrases": [
+   "vegetable broth"
+  ],
+  "fdcId": 171583,
+  "cupGrams": 240,
+  "unitGrams": {
+   "can": 411
+  },
+  "basis": "'Soup, vegetable broth, ready to serve'. 1 cup of broth = 240 g (water density; USDA's listed 221 g per cup is low for a thin liquid and its own 32-oz carton = 926 g implies about 232 g); 14.5-oz can = 411 g",
+  "fluidCan": true
+ },
+ {
+  "phrases": [
+   "warm water",
+   "water"
+  ],
+  "skip": true
+ },
+ {
+  "phrases": [
+   "wheat spring roll pastry wrapper",
+   "spring roll pastry wrapper",
+   "spring roll pastry",
+   "spring roll wrapper"
+  ],
+  "fdcId": 172802,
+  "eachGrams": 13,
+  "fixedSize": true,
+  "basis": "'Wonton wrappers (includes egg roll wrappers)' as the closest wheat wrapper. Thin 8-inch spring roll pastry weighs about 13 g per sheet (550 g pack of 40 sheets); USDA's 32 g is for a thicker egg roll wrapper"
+ },
+ {
+  "phrases": [
+   "white (shiro) miso",
+   "white miso",
+   "shiro miso",
+   "miso"
+  ],
+  "fdcId": 172442,
+  "cupGrams": 275,
+  "basis": "USDA portions (Miso): 1 cup = 275 g, 1 tbsp = 17 g"
+ },
+ {
+  "phrases": [
+   "white beans such as cannellini or great northern",
+   "white bean",
+   "great northern bean"
+  ],
+  "fdcId": 175249,
+  "cupGrams": 180,
+  "unitGrams": {
+   "can": 425
+  },
+  "basis": "'Beans, white, mature seeds, canned' (SR has no drained-solids entry for white beans). A 15-oz can drains to about 255 g; 1 cup drained beans is about 180 g (kitchen reference) Drained beans use the cooked entry: SR Legacy has canned white beans only with their liquid.",
+  "drainedCan": {
+   "grams": 255,
+   "ofOz": 15
+  }
+ },
+ {
+  "phrases": [
+   "whole black peppercorns",
+   "black peppercorn"
+  ],
+  "fdcId": 170931,
+  "cupGrams": 139.2,
+  "basis": "USDA portion (Spices, pepper, black): 1 tsp whole = 2.9 g (x 48 = 139.2 g per cup)"
+ },
+ {
+  "phrases": [
+   "whole sichuan peppercorns",
+   "sichuan peppercorn"
+  ],
+  "fdcId": 170931,
+  "cupGrams": 96,
+  "basis": "No Sichuan pepper in SR Legacy; closest equivalent 'Spices, pepper, black'. Whole Sichuan peppercorns are light husks, about 2 g per tsp (x 48 = 96 g per cup, kitchen reference)"
+ },
+ {
+  "phrases": [
+   "whole chicken"
+  ],
+  "fdcId": 171447,
+  "eachGrams": 1814,
+  "edible": 0.61,
+  "basis": "'Chicken, broilers or fryers, meat and skin, raw'. Whole bird about 4 lb = 1814 g as purchased; USDA portion: 1 lb ready-to-cook chicken yields 276 g meat and skin (61% edible)"
+ },
+ {
+  "phrases": [
+   "whole milk"
+  ],
+  "fdcId": 171265,
+  "cupGrams": 244,
+  "basis": "USDA portion (Milk, whole, 3.25% milkfat): 1 cup = 244 g"
+ },
+ {
+  "phrases": [
+   "peeled tomatoes"
+  ],
+  "fdcId": 170051,
+  "cupGrams": 240,
+  "unitGrams": {
+   "can": 250
+  },
+  "basis": "'Tomatoes, red, ripe, canned, packed in tomato juice'. USDA portion: 1 cup = 240 g; a 14.5-oz (411 g) can of whole tomatoes drains to about 250 g of tomatoes (label drained weight, about 60%)"
+ },
+ {
+  "phrases": [
+   "whole-grain mustard",
+   "yellow mustard"
+  ],
+  "fdcId": 172234,
+  "cupGrams": 240,
+  "basis": "'Mustard, prepared, yellow' (the only prepared mustard in SR Legacy; used for whole-grain mustard too). USDA portion: 1 tsp = 5 g (x 48 = 240 g per cup)"
+ },
+ {
+  "phrases": [
+   "worcestershire sauce",
+   "worcestershire"
+  ],
+  "fdcId": 171610,
+  "cupGrams": 272,
+  "basis": "USDA portion: 1 tbsp = 17 g (x 16 = 272 g per cup)"
+ }
+]

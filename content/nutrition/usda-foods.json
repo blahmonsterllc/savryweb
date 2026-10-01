@@ -1,0 +1,3483 @@
+{
+ "source": "USDA FoodData Central, SR Legacy (April 2018 release). Public domain.",
+ "unit": "per 100 g; energy kcal; sodium and cholesterol mg; everything else g",
+ "foods": {
+  "167723": {
+   "description": "Alcoholic beverage, rice (sake)",
+   "per100g": {
+    "sugar": 0,
+    "fat": 0,
+    "carbohydrates": 5,
+    "calories": 134,
+    "fiber": 0,
+    "sodium": 2,
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "protein": 0.5
+   }
+  },
+  "167747": {
+   "description": "Lemon juice, raw",
+   "per100g": {
+    "cholesterol": 0,
+    "protein": 0.35,
+    "saturatedFat": 0.04,
+    "fiber": 0.3,
+    "sodium": 1,
+    "sugar": 2.52,
+    "fat": 0.24,
+    "carbohydrates": 6.9,
+    "calories": 22
+   }
+  },
+  "167749": {
+   "description": "Lemon peel, raw",
+   "per100g": {
+    "sugar": 4.17,
+    "calories": 47,
+    "saturatedFat": 0.039,
+    "cholesterol": 0,
+    "fiber": 10.6,
+    "sodium": 6,
+    "protein": 1.5,
+    "fat": 0.3,
+    "carbohydrates": 16
+   }
+  },
+  "167763": {
+   "description": "Tamarinds, raw",
+   "per100g": {
+    "sugar": 38.8,
+    "fiber": 5.1,
+    "protein": 2.8,
+    "sodium": 28,
+    "saturatedFat": 0.272,
+    "cholesterol": 0,
+    "fat": 0.6,
+    "carbohydrates": 62.5,
+    "calories": 239
+   }
+  },
+  "167849": {
+   "description": "Pork, fresh, shoulder, (Boston butt), blade (steaks), separable lean and fat, raw",
+   "per100g": {
+    "fat": 12.36,
+    "carbohydrates": 0,
+    "calories": 186,
+    "cholesterol": 62,
+    "saturatedFat": 4.348,
+    "fiber": 0,
+    "sodium": 61,
+    "protein": 17.42,
+    "sugar": 0
+   }
+  },
+  "167976": {
+   "description": "Candies, semisweet chocolate",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 54.5,
+    "carbohydrates": 63.9,
+    "calories": 480,
+    "fiber": 5.9,
+    "sodium": 11,
+    "protein": 4.2,
+    "saturatedFat": 17.75,
+    "fat": 30
+   }
+  },
+  "168156": {
+   "description": "Lime juice, raw",
+   "per100g": {
+    "protein": 0.42,
+    "fiber": 0.4,
+    "sodium": 2,
+    "fat": 0.07,
+    "sugar": 1.69,
+    "saturatedFat": 0.008,
+    "carbohydrates": 8.42,
+    "calories": 25,
+    "cholesterol": 0
+   }
+  },
+  "168165": {
+   "description": "Raisins, dark, seedless (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 0.094,
+    "fiber": 4.5,
+    "sodium": 26,
+    "protein": 3.3,
+    "fat": 0.25,
+    "carbohydrates": 79.32,
+    "sugar": 65.18,
+    "calories": 299
+   }
+  },
+  "168173": {
+   "description": "Strawberries, frozen, unsweetened (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "sugar": 4.56,
+    "fat": 0.11,
+    "carbohydrates": 9.13,
+    "calories": 35,
+    "protein": 0.43,
+    "fiber": 2.1,
+    "sodium": 2,
+    "saturatedFat": 0.006,
+    "cholesterol": 0
+   }
+  },
+  "168177": {
+   "description": "Pears, asian, raw",
+   "per100g": {
+    "sugar": 7.05,
+    "protein": 0.5,
+    "fiber": 3.6,
+    "sodium": 0,
+    "cholesterol": 0,
+    "saturatedFat": 0.012,
+    "fat": 0.23,
+    "carbohydrates": 10.65,
+    "calories": 42
+   }
+  },
+  "168242": {
+   "description": "Pork, fresh, loin, center rib (chops or roasts), bone-in, separable lean and fat, raw",
+   "per100g": {
+    "protein": 20.28,
+    "fiber": 0,
+    "sodium": 56,
+    "cholesterol": 58,
+    "fat": 11.04,
+    "carbohydrates": 0,
+    "calories": 186,
+    "saturatedFat": 2.365,
+    "sugar": 0
+   }
+  },
+  "168269": {
+   "description": "Pork, fresh, variety meats and by-products, jowl, raw",
+   "per100g": {
+    "sugar": 0,
+    "fiber": 0,
+    "sodium": 25,
+    "cholesterol": 90,
+    "saturatedFat": 25.26,
+    "protein": 6.38,
+    "fat": 69.61,
+    "carbohydrates": 0,
+    "calories": 655
+   }
+  },
+  "168277": {
+   "description": "Pork, cured, bacon, unprepared",
+   "per100g": {
+    "protein": 13.66,
+    "sodium": 751,
+    "saturatedFat": 12.615,
+    "fat": 37.13,
+    "carbohydrates": 0,
+    "calories": 393,
+    "cholesterol": 66,
+    "sugar": 0.35,
+    "fiber": 0
+   }
+  },
+  "168398": {
+   "description": "Corn, sweet, yellow, frozen, kernels cut off cob, unprepared (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "fat": 0.78,
+    "carbohydrates": 20.71,
+    "calories": 88,
+    "sugar": 2.5,
+    "protein": 3.02,
+    "fiber": 2.1,
+    "sodium": 3,
+    "saturatedFat": 0.119,
+    "cholesterol": 0
+   }
+  },
+  "168409": {
+   "description": "Cucumber, with peel, raw",
+   "per100g": {
+    "carbohydrates": 3.63,
+    "calories": 15,
+    "sugar": 1.67,
+    "saturatedFat": 0.037,
+    "cholesterol": 0,
+    "sodium": 2,
+    "fat": 0.11,
+    "fiber": 0.5,
+    "protein": 0.65
+   }
+  },
+  "168410": {
+   "description": "Edamame, frozen, unprepared",
+   "per100g": {
+    "fiber": 4.8,
+    "fat": 4.73,
+    "sodium": 6,
+    "protein": 11.22,
+    "carbohydrates": 7.61,
+    "calories": 109,
+    "sugar": 2.48
+   }
+  },
+  "168421": {
+   "description": "Kale, raw",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 0.178,
+    "protein": 2.92,
+    "fiber": 4.1,
+    "sodium": 53,
+    "fat": 1.49,
+    "carbohydrates": 4.42,
+    "calories": 35,
+    "sugar": 0.99
+   }
+  },
+  "168429": {
+   "description": "Lettuce, butterhead (includes boston and bibb types), raw",
+   "per100g": {
+    "saturatedFat": 0.029,
+    "sugar": 0.94,
+    "carbohydrates": 2.23,
+    "calories": 13,
+    "sodium": 5,
+    "cholesterol": 0,
+    "protein": 1.35,
+    "fiber": 1.1,
+    "fat": 0.22
+   }
+  },
+  "168434": {
+   "description": "Mushrooms, brown, italian, or crimini, raw",
+   "per100g": {
+    "carbohydrates": 4.3,
+    "calories": 22,
+    "protein": 2.5,
+    "fiber": 0.6,
+    "sodium": 6,
+    "cholesterol": 0,
+    "saturatedFat": 0.014,
+    "sugar": 1.72,
+    "fat": 0.1
+   }
+  },
+  "168458": {
+   "description": "Seaweed, laver, raw",
+   "per100g": {
+    "sugar": 0.49,
+    "carbohydrates": 5.11,
+    "calories": 35,
+    "fat": 0.28,
+    "protein": 5.81,
+    "fiber": 0.3,
+    "sodium": 48,
+    "saturatedFat": 0.061,
+    "cholesterol": 0
+   }
+  },
+  "168462": {
+   "description": "Spinach, raw",
+   "per100g": {
+    "protein": 2.86,
+    "sodium": 79,
+    "cholesterol": 0,
+    "fiber": 2.2,
+    "sugar": 0.42,
+    "fat": 0.39,
+    "carbohydrates": 3.63,
+    "calories": 23,
+    "saturatedFat": 0.063
+   }
+  },
+  "168482": {
+   "description": "Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "fiber": 3,
+    "saturatedFat": 0.018,
+    "sugar": 4.18,
+    "carbohydrates": 20.12,
+    "calories": 86,
+    "sodium": 55,
+    "cholesterol": 0,
+    "fat": 0.05,
+    "protein": 1.57
+   }
+  },
+  "168556": {
+   "description": "Catsup",
+   "per100g": {
+    "sodium": 907,
+    "cholesterol": 0,
+    "protein": 1.04,
+    "fiber": 0.3,
+    "saturatedFat": 0.014,
+    "sugar": 21.27,
+    "fat": 0.1,
+    "carbohydrates": 27.4,
+    "calories": 101
+   }
+  },
+  "168558": {
+   "description": "Pickles, cucumber, dill or kosher dill",
+   "per100g": {
+    "sodium": 809,
+    "cholesterol": 0,
+    "sugar": 1.07,
+    "fat": 0.3,
+    "carbohydrates": 2.41,
+    "protein": 0.5,
+    "fiber": 1,
+    "saturatedFat": 0.079,
+    "calories": 12
+   }
+  },
+  "168573": {
+   "description": "Lemon grass (citronella), raw",
+   "per100g": {
+    "cholesterol": 0,
+    "carbohydrates": 25.31,
+    "calories": 99,
+    "sodium": 6,
+    "protein": 1.82,
+    "saturatedFat": 0.119,
+    "fat": 0.49
+   }
+  },
+  "168576": {
+   "description": "Peppers, jalapeno, raw",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 0.092,
+    "fiber": 2.8,
+    "sodium": 3,
+    "protein": 0.91,
+    "sugar": 4.12,
+    "fat": 0.37,
+    "carbohydrates": 6.5,
+    "calories": 29
+   }
+  },
+  "168577": {
+   "description": "Peppers, chili, green, canned",
+   "per100g": {
+    "fat": 0.27,
+    "carbohydrates": 4.6,
+    "calories": 21,
+    "protein": 0.72,
+    "fiber": 1.7,
+    "sodium": 397,
+    "cholesterol": 0,
+    "saturatedFat": 0.028
+   }
+  },
+  "168579": {
+   "description": "Peppers, pasilla, dried",
+   "per100g": {
+    "fat": 15.85,
+    "carbohydrates": 51.13,
+    "calories": 345,
+    "fiber": 26.8,
+    "sodium": 89,
+    "protein": 12.35,
+    "cholesterol": 0
+   }
+  },
+  "168595": {
+   "description": "Seeds, sunflower seed butter, with salt added (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 4.678,
+    "protein": 17.28,
+    "fiber": 5.7,
+    "sodium": 331,
+    "fat": 55.2,
+    "sugar": 10.54,
+    "carbohydrates": 23.32,
+    "calories": 617
+   }
+  },
+  "168833": {
+   "description": "Sugars, brown",
+   "per100g": {
+    "fat": 0,
+    "carbohydrates": 98.09,
+    "calories": 380,
+    "sugar": 97.02,
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "protein": 0.12,
+    "fiber": 0,
+    "sodium": 28
+   }
+  },
+  "168874": {
+   "description": "Quinoa, uncooked",
+   "per100g": {
+    "fiber": 7,
+    "sodium": 5,
+    "saturatedFat": 0.706,
+    "protein": 14.12,
+    "fat": 6.07,
+    "carbohydrates": 64.16,
+    "calories": 368,
+    "cholesterol": 0
+   }
+  },
+  "168877": {
+   "description": "Rice, white, long-grain, regular, raw, enriched",
+   "per100g": {
+    "fat": 0.66,
+    "carbohydrates": 79.95,
+    "calories": 365,
+    "protein": 7.13,
+    "fiber": 1.3,
+    "sodium": 5,
+    "cholesterol": 0,
+    "saturatedFat": 0.18,
+    "sugar": 0.12
+   }
+  },
+  "168878": {
+   "description": "Rice, white, long-grain, regular, enriched, cooked",
+   "per100g": {
+    "sugar": 0.05,
+    "fiber": 0.4,
+    "sodium": 1,
+    "cholesterol": 0,
+    "saturatedFat": 0.077,
+    "protein": 2.69,
+    "fat": 0.28,
+    "carbohydrates": 28.17,
+    "calories": 130
+   }
+  },
+  "168881": {
+   "description": "Rice, white, short-grain, enriched, uncooked",
+   "per100g": {
+    "protein": 6.5,
+    "fiber": 2.8,
+    "sodium": 1,
+    "cholesterol": 0,
+    "saturatedFat": 0.14,
+    "fat": 0.52,
+    "carbohydrates": 79.15,
+    "calories": 358
+   }
+  },
+  "168882": {
+   "description": "Rice, white, short-grain, enriched, cooked",
+   "per100g": {
+    "carbohydrates": 28.73,
+    "calories": 130,
+    "fat": 0.19,
+    "protein": 2.36,
+    "sodium": 0,
+    "cholesterol": 0,
+    "saturatedFat": 0.051
+   }
+  },
+  "168894": {
+   "description": "Wheat flour, white, all-purpose, enriched, bleached",
+   "per100g": {
+    "fiber": 2.7,
+    "sodium": 2,
+    "protein": 10.33,
+    "cholesterol": 0,
+    "saturatedFat": 0.155,
+    "fat": 0.98,
+    "carbohydrates": 76.31,
+    "calories": 364,
+    "sugar": 0.27
+   }
+  },
+  "168896": {
+   "description": "Wheat flour, white, bread, enriched",
+   "per100g": {
+    "sugar": 0.31,
+    "protein": 11.98,
+    "cholesterol": 0,
+    "saturatedFat": 0.244,
+    "fiber": 2.4,
+    "sodium": 2,
+    "fat": 1.66,
+    "carbohydrates": 72.53,
+    "calories": 361
+   }
+  },
+  "168931": {
+   "description": "Rice, white, short-grain, raw, unenriched",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 0.14,
+    "protein": 6.5,
+    "sodium": 1,
+    "fat": 0.52,
+    "carbohydrates": 79.15,
+    "calories": 358
+   }
+  },
+  "169096": {
+   "description": "Olives, pickled, canned or bottled, green",
+   "per100g": {
+    "fat": 15.32,
+    "sugar": 0.54,
+    "fiber": 3.3,
+    "sodium": 1556,
+    "protein": 1.03,
+    "cholesterol": 0,
+    "carbohydrates": 3.84,
+    "calories": 145,
+    "saturatedFat": 2.029
+   }
+  },
+  "169098": {
+   "description": "Orange juice, raw (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "sugar": 8.4,
+    "protein": 0.7,
+    "fiber": 0.2,
+    "sodium": 1,
+    "saturatedFat": 0.024,
+    "cholesterol": 0,
+    "fat": 0.2,
+    "carbohydrates": 10.4,
+    "calories": 45
+   }
+  },
+  "169124": {
+   "description": "Pineapple, raw, all varieties",
+   "per100g": {
+    "protein": 0.54,
+    "sodium": 1,
+    "sugar": 9.85,
+    "fat": 0.12,
+    "fiber": 1.4,
+    "saturatedFat": 0.009,
+    "carbohydrates": 13.12,
+    "calories": 50,
+    "cholesterol": 0
+   }
+  },
+  "169228": {
+   "description": "Eggplant, raw",
+   "per100g": {
+    "saturatedFat": 0.034,
+    "cholesterol": 0,
+    "sugar": 3.53,
+    "fat": 0.18,
+    "carbohydrates": 5.88,
+    "calories": 25,
+    "fiber": 3,
+    "sodium": 2,
+    "protein": 0.98
+   }
+  },
+  "169230": {
+   "description": "Garlic, raw",
+   "per100g": {
+    "carbohydrates": 33.06,
+    "calories": 149,
+    "sugar": 1,
+    "saturatedFat": 0.089,
+    "cholesterol": 0,
+    "fiber": 2.1,
+    "sodium": 17,
+    "protein": 6.36,
+    "fat": 0.5
+   }
+  },
+  "169231": {
+   "description": "Ginger root, raw",
+   "per100g": {
+    "sugar": 1.7,
+    "fat": 0.75,
+    "cholesterol": 0,
+    "sodium": 13,
+    "protein": 1.82,
+    "carbohydrates": 17.77,
+    "calories": 80,
+    "fiber": 2,
+    "saturatedFat": 0.203
+   }
+  },
+  "169242": {
+   "description": "Mushrooms, shiitake, raw",
+   "per100g": {
+    "sugar": 2.38,
+    "fat": 0.49,
+    "sodium": 9,
+    "protein": 2.24,
+    "fiber": 2.5,
+    "carbohydrates": 6.79,
+    "calories": 34
+   }
+  },
+  "169247": {
+   "description": "Lettuce, cos or romaine, raw",
+   "per100g": {
+    "carbohydrates": 3.29,
+    "calories": 17,
+    "saturatedFat": 0.039,
+    "sodium": 8,
+    "cholesterol": 0,
+    "fat": 0.3,
+    "sugar": 1.19,
+    "fiber": 2.1,
+    "protein": 1.23
+   }
+  },
+  "169248": {
+   "description": "Lettuce, iceberg (includes crisphead types), raw",
+   "per100g": {
+    "carbohydrates": 2.97,
+    "calories": 14,
+    "sugar": 1.97,
+    "saturatedFat": 0.018,
+    "cholesterol": 0,
+    "fiber": 1.2,
+    "sodium": 10,
+    "protein": 0.9,
+    "fat": 0.14
+   }
+  },
+  "169249": {
+   "description": "Lettuce, green leaf, raw",
+   "per100g": {
+    "fiber": 1.3,
+    "saturatedFat": 0.02,
+    "sugar": 0.78,
+    "carbohydrates": 2.87,
+    "cholesterol": 0,
+    "calories": 15,
+    "protein": 1.36,
+    "sodium": 28,
+    "fat": 0.15
+   }
+  },
+  "169276": {
+   "description": "Radishes, raw",
+   "per100g": {
+    "carbohydrates": 3.4,
+    "calories": 16,
+    "saturatedFat": 0.032,
+    "sugar": 1.86,
+    "cholesterol": 0,
+    "protein": 0.68,
+    "fiber": 1.6,
+    "sodium": 39,
+    "fat": 0.1
+   }
+  },
+  "169291": {
+   "description": "Squash, summer, zucchini, includes skin, raw",
+   "per100g": {
+    "sugar": 2.5,
+    "fat": 0.32,
+    "carbohydrates": 3.11,
+    "calories": 17,
+    "fiber": 1,
+    "sodium": 8,
+    "protein": 1.21,
+    "saturatedFat": 0.084,
+    "cholesterol": 0
+   }
+  },
+  "169295": {
+   "description": "Squash, winter, butternut, raw",
+   "per100g": {
+    "fiber": 2,
+    "carbohydrates": 11.69,
+    "calories": 45,
+    "fat": 0.1,
+    "protein": 1,
+    "sodium": 4,
+    "saturatedFat": 0.021,
+    "cholesterol": 0,
+    "sugar": 2.2
+   }
+  },
+  "169330": {
+   "description": "Broccoli, flower clusters, raw",
+   "per100g": {
+    "carbohydrates": 5.06,
+    "sugar": 1.48,
+    "fiber": 2.3,
+    "sodium": 27,
+    "protein": 2.98,
+    "saturatedFat": 0.054,
+    "cholesterol": 0,
+    "calories": 28,
+    "fat": 0.35
+   }
+  },
+  "169395": {
+   "description": "Peppers, serrano, raw",
+   "per100g": {
+    "fat": 0.44,
+    "carbohydrates": 6.7,
+    "calories": 32,
+    "protein": 1.74,
+    "fiber": 3.7,
+    "sodium": 10,
+    "cholesterol": 0,
+    "saturatedFat": 0.059,
+    "sugar": 3.83
+   }
+  },
+  "169396": {
+   "description": "Peppers, ancho, dried",
+   "per100g": {
+    "sodium": 43,
+    "calories": 281,
+    "carbohydrates": 51.42,
+    "protein": 11.86,
+    "fiber": 21.6,
+    "cholesterol": 0,
+    "saturatedFat": 0.82,
+    "fat": 8.2
+   }
+  },
+  "169414": {
+   "description": "Seeds, flaxseed",
+   "per100g": {
+    "fat": 42.16,
+    "fiber": 27.3,
+    "sodium": 30,
+    "protein": 18.29,
+    "sugar": 1.55,
+    "carbohydrates": 28.88,
+    "calories": 534,
+    "saturatedFat": 3.663,
+    "cholesterol": 0
+   }
+  },
+  "169563": {
+   "description": "Beef, flank, steak, separable lean and fat, trimmed to 0\" fat, all grades, raw",
+   "per100g": {
+    "protein": 21.22,
+    "fiber": 0,
+    "sodium": 54,
+    "sugar": 0,
+    "fat": 7.17,
+    "carbohydrates": 0,
+    "calories": 155,
+    "cholesterol": 65,
+    "saturatedFat": 2.978
+   }
+  },
+  "169593": {
+   "description": "Cocoa, dry powder, unsweetened",
+   "per100g": {
+    "sugar": 1.75,
+    "carbohydrates": 57.9,
+    "calories": 228,
+    "fiber": 37,
+    "cholesterol": 0,
+    "saturatedFat": 8.07,
+    "sodium": 21,
+    "protein": 19.6,
+    "fat": 13.7
+   }
+  },
+  "169640": {
+   "description": "Honey",
+   "per100g": {
+    "saturatedFat": 0,
+    "protein": 0.3,
+    "fiber": 0.2,
+    "sodium": 4,
+    "cholesterol": 0,
+    "fat": 0,
+    "carbohydrates": 82.4,
+    "calories": 304,
+    "sugar": 82.12
+   }
+  },
+  "169655": {
+   "description": "Sugars, granulated",
+   "per100g": {
+    "protein": 0,
+    "sodium": 1,
+    "fat": 0,
+    "calories": 387,
+    "saturatedFat": 0,
+    "sugar": 99.8,
+    "carbohydrates": 99.98,
+    "fiber": 0,
+    "cholesterol": 0
+   }
+  },
+  "169656": {
+   "description": "Sugars, powdered",
+   "per100g": {
+    "fat": 0,
+    "calories": 389,
+    "saturatedFat": 0,
+    "protein": 0,
+    "sodium": 2,
+    "carbohydrates": 99.77,
+    "sugar": 97.81,
+    "cholesterol": 0,
+    "fiber": 0
+   }
+  },
+  "169661": {
+   "description": "Syrups, maple",
+   "per100g": {
+    "fiber": 0,
+    "sodium": 12,
+    "cholesterol": 0,
+    "saturatedFat": 0.007,
+    "protein": 0.04,
+    "fat": 0.06,
+    "carbohydrates": 67.04,
+    "calories": 260,
+    "sugar": 60.46
+   }
+  },
+  "169698": {
+   "description": "Cornstarch",
+   "per100g": {
+    "sugar": 0,
+    "fat": 0.05,
+    "carbohydrates": 91.27,
+    "calories": 381,
+    "protein": 0.26,
+    "fiber": 0.9,
+    "sodium": 9,
+    "cholesterol": 0,
+    "saturatedFat": 0.009
+   }
+  },
+  "169704": {
+   "description": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "saturatedFat": 0.26,
+    "fiber": 1.6,
+    "sodium": 4,
+    "protein": 2.74,
+    "fat": 0.97,
+    "carbohydrates": 25.58,
+    "calories": 123,
+    "sugar": 0.24,
+    "cholesterol": 0
+   }
+  },
+  "169706": {
+   "description": "Rice, brown, medium-grain, raw (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "fiber": 3.4,
+    "fat": 2.68,
+    "carbohydrates": 76.17,
+    "calories": 362,
+    "protein": 7.5,
+    "sodium": 4,
+    "cholesterol": 0,
+    "saturatedFat": 0.536
+   }
+  },
+  "169707": {
+   "description": "Rice, white, long-grain, parboiled, enriched, dry",
+   "per100g": {
+    "saturatedFat": 0.294,
+    "sugar": 0.33,
+    "carbohydrates": 80.89,
+    "calories": 374,
+    "cholesterol": 0,
+    "fat": 1.03,
+    "protein": 7.51,
+    "fiber": 1.8,
+    "sodium": 2
+   }
+  },
+  "169727": {
+   "description": "Pasta, fresh-refrigerated, plain, as purchased",
+   "per100g": {
+    "fat": 2.3,
+    "carbohydrates": 54.73,
+    "calories": 288,
+    "sodium": 26,
+    "protein": 11.31,
+    "cholesterol": 73,
+    "saturatedFat": 0.328
+   }
+  },
+  "169736": {
+   "description": "Pasta, dry, enriched",
+   "per100g": {
+    "sodium": 6,
+    "sugar": 2.67,
+    "saturatedFat": 0.277,
+    "carbohydrates": 74.67,
+    "calories": 371,
+    "cholesterol": 0,
+    "fat": 1.51,
+    "fiber": 3.2,
+    "protein": 13.04
+   }
+  },
+  "169742": {
+   "description": "Rice noodles, dry",
+   "per100g": {
+    "fat": 0.56,
+    "calories": 364,
+    "cholesterol": 0,
+    "fiber": 1.6,
+    "sodium": 182,
+    "sugar": 0.12,
+    "protein": 5.95,
+    "carbohydrates": 80.18,
+    "saturatedFat": 0.153
+   }
+  },
+  "169756": {
+   "description": "Rice, white, long-grain, regular, raw, unenriched",
+   "per100g": {
+    "sugar": 0.12,
+    "cholesterol": 0,
+    "saturatedFat": 0.18,
+    "protein": 7.13,
+    "fiber": 1.3,
+    "sodium": 5,
+    "fat": 0.66,
+    "carbohydrates": 79.95,
+    "calories": 365
+   }
+  },
+  "169760": {
+   "description": "Rice, white, medium-grain, raw, unenriched",
+   "per100g": {
+    "protein": 6.61,
+    "sodium": 1,
+    "cholesterol": 0,
+    "saturatedFat": 0.158,
+    "fat": 0.58,
+    "carbohydrates": 79.34,
+    "calories": 360
+   }
+  },
+  "169947": {
+   "description": "Pineapple juice, canned or bottled, unsweetened, without added ascorbic acid",
+   "per100g": {
+    "saturatedFat": 0.008,
+    "carbohydrates": 12.87,
+    "calories": 53,
+    "fat": 0.12,
+    "sugar": 9.98,
+    "fiber": 0.2,
+    "sodium": 2,
+    "protein": 0.36,
+    "cholesterol": 0
+   }
+  },
+  "169957": {
+   "description": "Mung beans, mature seeds, sprouted, raw",
+   "per100g": {
+    "sugar": 4.13,
+    "carbohydrates": 5.94,
+    "calories": 30,
+    "protein": 3.04,
+    "fiber": 1.8,
+    "sodium": 6,
+    "saturatedFat": 0.046,
+    "cholesterol": 0,
+    "fat": 0.18
+   }
+  },
+  "169961": {
+   "description": "Beans, snap, green, raw",
+   "per100g": {
+    "fat": 0.22,
+    "sugar": 3.26,
+    "protein": 1.83,
+    "fiber": 2.7,
+    "sodium": 6,
+    "carbohydrates": 6.97,
+    "calories": 31,
+    "cholesterol": 0,
+    "saturatedFat": 0.05
+   }
+  },
+  "169975": {
+   "description": "Cabbage, raw",
+   "per100g": {
+    "fat": 0.1,
+    "carbohydrates": 5.8,
+    "calories": 25,
+    "sugar": 3.2,
+    "protein": 1.28,
+    "fiber": 2.5,
+    "sodium": 18,
+    "saturatedFat": 0.034,
+    "cholesterol": 0
+   }
+  },
+  "169977": {
+   "description": "Cabbage, red, raw",
+   "per100g": {
+    "carbohydrates": 7.37,
+    "calories": 31,
+    "sugar": 3.83,
+    "fiber": 2.1,
+    "saturatedFat": 0.021,
+    "cholesterol": 0,
+    "fat": 0.16,
+    "protein": 1.43,
+    "sodium": 27
+   }
+  },
+  "169986": {
+   "description": "Cauliflower, raw",
+   "per100g": {
+    "carbohydrates": 4.97,
+    "calories": 25,
+    "saturatedFat": 0.13,
+    "cholesterol": 0,
+    "protein": 1.92,
+    "fiber": 2,
+    "sugar": 1.91,
+    "sodium": 30,
+    "fat": 0.28
+   }
+  },
+  "169988": {
+   "description": "Celery, raw",
+   "per100g": {
+    "calories": 14,
+    "saturatedFat": 0.042,
+    "carbohydrates": 2.97,
+    "fat": 0.17,
+    "sugar": 1.34,
+    "cholesterol": 0,
+    "sodium": 80,
+    "fiber": 1.6,
+    "protein": 0.69
+   }
+  },
+  "169997": {
+   "description": "Coriander (cilantro) leaves, raw",
+   "per100g": {
+    "protein": 2.13,
+    "carbohydrates": 3.67,
+    "calories": 23,
+    "saturatedFat": 0.014,
+    "cholesterol": 0,
+    "fiber": 2.8,
+    "sodium": 46,
+    "fat": 0.52,
+    "sugar": 0.87
+   }
+  },
+  "169998": {
+   "description": "Corn, sweet, yellow, raw",
+   "per100g": {
+    "fiber": 2,
+    "sodium": 15,
+    "protein": 3.27,
+    "fat": 1.35,
+    "sugar": 6.26,
+    "saturatedFat": 0.325,
+    "carbohydrates": 18.7,
+    "calories": 86,
+    "cholesterol": 0
+   }
+  },
+  "170000": {
+   "description": "Onions, raw",
+   "per100g": {
+    "sugar": 4.24,
+    "fat": 0.1,
+    "carbohydrates": 9.34,
+    "calories": 40,
+    "saturatedFat": 0.042,
+    "protein": 1.1,
+    "fiber": 1.7,
+    "sodium": 4,
+    "cholesterol": 0
+   }
+  },
+  "170005": {
+   "description": "Onions, spring or scallions (includes tops and bulb), raw",
+   "per100g": {
+    "sugar": 2.33,
+    "calories": 32,
+    "fat": 0.19,
+    "protein": 1.83,
+    "fiber": 2.6,
+    "sodium": 16,
+    "saturatedFat": 0.032,
+    "cholesterol": 0,
+    "carbohydrates": 7.34
+   }
+  },
+  "170010": {
+   "description": "Peas, edible-podded, raw",
+   "per100g": {
+    "sugar": 4,
+    "carbohydrates": 7.55,
+    "calories": 42,
+    "protein": 2.8,
+    "fiber": 2.6,
+    "sodium": 4,
+    "saturatedFat": 0.039,
+    "cholesterol": 0,
+    "fat": 0.2
+   }
+  },
+  "170016": {
+   "description": "Peas, green, frozen, unprepared (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "sugar": 5,
+    "fat": 0.4,
+    "carbohydrates": 13.62,
+    "calories": 77,
+    "protein": 5.22,
+    "fiber": 4.5,
+    "sodium": 108,
+    "cholesterol": 0,
+    "saturatedFat": 0.066
+   }
+  },
+  "170026": {
+   "description": "Potatoes, flesh and skin, raw",
+   "per100g": {
+    "fat": 0.09,
+    "cholesterol": 0,
+    "calories": 77,
+    "sodium": 6,
+    "saturatedFat": 0.025,
+    "protein": 2.05,
+    "fiber": 2.1,
+    "carbohydrates": 17.49,
+    "sugar": 0.82
+   }
+  },
+  "170027": {
+   "description": "Potatoes, russet, flesh and skin, raw (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "protein": 2.14,
+    "cholesterol": 0,
+    "sodium": 5,
+    "fat": 0.08,
+    "fiber": 1.3,
+    "sugar": 0.62,
+    "saturatedFat": 0.026,
+    "carbohydrates": 18.07,
+    "calories": 79
+   }
+  },
+  "170051": {
+   "description": "Tomatoes, red, ripe, canned, packed in tomato juice",
+   "per100g": {
+    "sodium": 115,
+    "cholesterol": 0,
+    "sugar": 2.55,
+    "fat": 0.25,
+    "carbohydrates": 3.47,
+    "calories": 16,
+    "saturatedFat": 0.034,
+    "fiber": 1.9,
+    "protein": 0.79
+   }
+  },
+  "170054": {
+   "description": "Tomato products, canned, sauce",
+   "per100g": {
+    "sugar": 3.56,
+    "protein": 1.2,
+    "cholesterol": 0,
+    "calories": 24,
+    "fat": 0.3,
+    "carbohydrates": 5.31,
+    "sodium": 474,
+    "saturatedFat": 0.041,
+    "fiber": 1.5
+   }
+  },
+  "170106": {
+   "description": "Peppers, hot chili, red, raw",
+   "per100g": {
+    "sugar": 5.3,
+    "fiber": 1.5,
+    "sodium": 9,
+    "fat": 0.44,
+    "carbohydrates": 8.81,
+    "calories": 40,
+    "protein": 1.87,
+    "saturatedFat": 0.042,
+    "cholesterol": 0
+   }
+  },
+  "170107": {
+   "description": "Peppers, hot chili, red, canned, excluding seeds, solids and liquids",
+   "per100g": {
+    "sugar": 3.32,
+    "carbohydrates": 5.1,
+    "calories": 21,
+    "fat": 0.1,
+    "fiber": 1.3,
+    "sodium": 1173,
+    "protein": 0.9,
+    "saturatedFat": 0.01,
+    "cholesterol": 0
+   }
+  },
+  "170108": {
+   "description": "Peppers, sweet, red, raw",
+   "per100g": {
+    "fiber": 2.1,
+    "calories": 26,
+    "saturatedFat": 0.059,
+    "sodium": 4,
+    "cholesterol": 0,
+    "sugar": 4.2,
+    "carbohydrates": 6.03,
+    "protein": 0.99,
+    "fat": 0.3
+   }
+  },
+  "170148": {
+   "description": "Seeds, hemp seed, hulled",
+   "per100g": {
+    "protein": 31.56,
+    "fiber": 4,
+    "sodium": 5,
+    "cholesterol": 0,
+    "saturatedFat": 4.6,
+    "fat": 48.75,
+    "carbohydrates": 8.67,
+    "calories": 553,
+    "sugar": 1.5
+   }
+  },
+  "170152": {
+   "description": "Seeds, sesame seed kernels, toasted, without salt added (decorticated)",
+   "per100g": {
+    "sugar": 0.48,
+    "protein": 16.96,
+    "fiber": 16.9,
+    "sodium": 39,
+    "cholesterol": 0,
+    "saturatedFat": 6.722,
+    "fat": 48,
+    "carbohydrates": 26.04,
+    "calories": 567
+   }
+  },
+  "170170": {
+   "description": "Nuts, coconut meat, dried (desiccated), not sweetened",
+   "per100g": {
+    "fiber": 16.3,
+    "fat": 64.53,
+    "calories": 660,
+    "protein": 6.88,
+    "sodium": 37,
+    "cholesterol": 0,
+    "saturatedFat": 57.218,
+    "sugar": 7.35,
+    "carbohydrates": 23.65
+   }
+  },
+  "170173": {
+   "description": "Nuts, coconut milk, canned (liquid expressed from grated meat and water)",
+   "per100g": {
+    "fat": 21.33,
+    "carbohydrates": 2.81,
+    "calories": 197,
+    "protein": 2.02,
+    "sodium": 13,
+    "cholesterol": 0,
+    "saturatedFat": 18.915
+   }
+  },
+  "170187": {
+   "description": "Nuts, walnuts, english",
+   "per100g": {
+    "carbohydrates": 13.71,
+    "calories": 654,
+    "saturatedFat": 6.126,
+    "sugar": 2.61,
+    "cholesterol": 0,
+    "protein": 15.23,
+    "fiber": 6.7,
+    "sodium": 2,
+    "fat": 65.21
+   }
+  },
+  "170189": {
+   "description": "Seeds, sesame butter, tahini, from roasted and toasted kernels (most common type)",
+   "per100g": {
+    "sugar": 0.49,
+    "fat": 53.76,
+    "carbohydrates": 21.19,
+    "calories": 595,
+    "protein": 17,
+    "fiber": 9.3,
+    "sodium": 115,
+    "cholesterol": 0,
+    "saturatedFat": 7.529
+   }
+  },
+  "170272": {
+   "description": "Chocolate, dark, 60-69% cacao solids",
+   "per100g": {
+    "fat": 38.31,
+    "carbohydrates": 52.42,
+    "calories": 579,
+    "cholesterol": 6,
+    "protein": 6.12,
+    "fiber": 8,
+    "sodium": 10,
+    "saturatedFat": 22.031,
+    "sugar": 36.71
+   }
+  },
+  "170379": {
+   "description": "Broccoli, raw",
+   "per100g": {
+    "saturatedFat": 0.114,
+    "sugar": 1.7,
+    "carbohydrates": 6.64,
+    "calories": 34,
+    "fat": 0.37,
+    "protein": 2.82,
+    "fiber": 2.6,
+    "sodium": 33,
+    "cholesterol": 0
+   }
+  },
+  "170393": {
+   "description": "Carrots, raw",
+   "per100g": {
+    "saturatedFat": 0.032,
+    "sodium": 69,
+    "protein": 0.93,
+    "fat": 0.24,
+    "cholesterol": 0,
+    "sugar": 4.74,
+    "carbohydrates": 9.58,
+    "calories": 41,
+    "fiber": 2.8
+   }
+  },
+  "170406": {
+   "description": "Collards, raw",
+   "per100g": {
+    "cholesterol": 0,
+    "fat": 0.61,
+    "carbohydrates": 5.42,
+    "calories": 32,
+    "protein": 3.02,
+    "fiber": 4,
+    "sodium": 17,
+    "saturatedFat": 0.055,
+    "sugar": 0.46
+   }
+  },
+  "170412": {
+   "description": "Onions, frozen, whole, unprepared",
+   "per100g": {
+    "carbohydrates": 8.45,
+    "calories": 35,
+    "sugar": 3.81,
+    "fat": 0.06,
+    "cholesterol": 0,
+    "saturatedFat": 0.011,
+    "protein": 0.89,
+    "fiber": 1.7,
+    "sodium": 10
+   }
+  },
+  "170416": {
+   "description": "Parsley, fresh",
+   "per100g": {
+    "carbohydrates": 6.33,
+    "calories": 36,
+    "fat": 0.79,
+    "protein": 2.97,
+    "fiber": 3.3,
+    "sodium": 56,
+    "saturatedFat": 0.132,
+    "cholesterol": 0,
+    "sugar": 0.85
+   }
+  },
+  "170425": {
+   "description": "Peas and carrots, frozen, unprepared",
+   "per100g": {
+    "fiber": 3.4,
+    "protein": 3.4,
+    "saturatedFat": 0.084,
+    "cholesterol": 0,
+    "sodium": 79,
+    "fat": 0.47,
+    "carbohydrates": 11.15,
+    "calories": 53
+   }
+  },
+  "170427": {
+   "description": "Peppers, sweet, green, raw",
+   "per100g": {
+    "fat": 0.17,
+    "protein": 0.86,
+    "fiber": 1.7,
+    "sodium": 3,
+    "saturatedFat": 0.058,
+    "carbohydrates": 4.64,
+    "calories": 20,
+    "sugar": 2.4,
+    "cholesterol": 0
+   }
+  },
+  "170457": {
+   "description": "Tomatoes, red, ripe, raw, year round average",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 2.63,
+    "carbohydrates": 3.89,
+    "calories": 18,
+    "saturatedFat": 0.028,
+    "fat": 0.2,
+    "fiber": 1.2,
+    "sodium": 5,
+    "protein": 0.88
+   }
+  },
+  "170459": {
+   "description": "Tomato products, canned, paste, without salt added (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 0.1,
+    "carbohydrates": 18.91,
+    "calories": 82,
+    "sugar": 12.18,
+    "sodium": 59,
+    "fat": 0.47,
+    "protein": 4.32,
+    "fiber": 4.1
+   }
+  },
+  "170499": {
+   "description": "Shallots, raw",
+   "per100g": {
+    "carbohydrates": 16.8,
+    "calories": 72,
+    "fat": 0.1,
+    "sodium": 12,
+    "cholesterol": 0,
+    "protein": 2.5,
+    "saturatedFat": 0.017,
+    "sugar": 7.87,
+    "fiber": 3.2
+   }
+  },
+  "170501": {
+   "description": "Tomatoes, crushed, canned",
+   "per100g": {
+    "sodium": 186,
+    "fat": 0.28,
+    "carbohydrates": 7.29,
+    "calories": 32,
+    "fiber": 1.9,
+    "protein": 1.64,
+    "saturatedFat": 0.04,
+    "cholesterol": 0,
+    "sugar": 4.4
+   }
+  },
+  "170554": {
+   "description": "Seeds, chia seeds, dried",
+   "per100g": {
+    "protein": 16.54,
+    "fiber": 34.4,
+    "sodium": 16,
+    "saturatedFat": 3.33,
+    "fat": 30.74,
+    "carbohydrates": 42.12,
+    "calories": 486,
+    "cholesterol": 0
+   }
+  },
+  "170556": {
+   "description": "Seeds, pumpkin and squash seed kernels, dried",
+   "per100g": {
+    "carbohydrates": 10.71,
+    "calories": 559,
+    "cholesterol": 0,
+    "protein": 30.23,
+    "fiber": 6,
+    "sodium": 7,
+    "saturatedFat": 8.659,
+    "sugar": 1.4,
+    "fat": 49.05
+   }
+  },
+  "170557": {
+   "description": "Seeds, pumpkin and squash seed kernels, roasted, without salt",
+   "per100g": {
+    "protein": 29.84,
+    "fiber": 6.5,
+    "sodium": 18,
+    "saturatedFat": 8.544,
+    "sugar": 1.29,
+    "fat": 49.05,
+    "carbohydrates": 14.71,
+    "calories": 574,
+    "cholesterol": 0
+   }
+  },
+  "170562": {
+   "description": "Seeds, sunflower seed kernels, dried",
+   "per100g": {
+    "saturatedFat": 4.455,
+    "protein": 20.78,
+    "fiber": 8.6,
+    "sodium": 9,
+    "fat": 51.46,
+    "sugar": 2.62,
+    "cholesterol": 0,
+    "carbohydrates": 20,
+    "calories": 584
+   }
+  },
+  "170568": {
+   "description": "Nuts, almonds, blanched",
+   "per100g": {
+    "protein": 21.4,
+    "saturatedFat": 3.953,
+    "fiber": 9.9,
+    "sodium": 19,
+    "fat": 52.52,
+    "carbohydrates": 18.67,
+    "calories": 590,
+    "sugar": 4.63,
+    "cholesterol": 0
+   }
+  },
+  "170674": {
+   "description": "Sugar, turbinado",
+   "per100g": {
+    "fat": 0,
+    "carbohydrates": 99.8,
+    "calories": 399,
+    "sugar": 99.19,
+    "protein": 0,
+    "sodium": 3
+   }
+  },
+  "170813": {
+   "description": "Beef, chuck, under blade pot roast or steak, boneless, separable lean and fat, trimmed to 0\" fat, all grades, raw",
+   "per100g": {
+    "fat": 13.26,
+    "carbohydrates": 0,
+    "calories": 196,
+    "sugar": 0,
+    "protein": 19.17,
+    "fiber": 0,
+    "sodium": 76,
+    "cholesterol": 66,
+    "saturatedFat": 5.726
+   }
+  },
+  "170844": {
+   "description": "Cheese, monterey",
+   "per100g": {
+    "calories": 373,
+    "sodium": 600,
+    "fat": 30.28,
+    "carbohydrates": 0.68,
+    "protein": 24.48,
+    "cholesterol": 89,
+    "saturatedFat": 19.066,
+    "fiber": 0,
+    "sugar": 0.5
+   }
+  },
+  "170845": {
+   "description": "Cheese, mozzarella, whole milk",
+   "per100g": {
+    "cholesterol": 79,
+    "protein": 22.17,
+    "sodium": 486,
+    "saturatedFat": 13.9,
+    "sugar": 0,
+    "fat": 22.14,
+    "carbohydrates": 2.4,
+    "calories": 299,
+    "fiber": 0
+   }
+  },
+  "170848": {
+   "description": "Cheese, parmesan, hard",
+   "per100g": {
+    "sodium": 1175,
+    "saturatedFat": 14.85,
+    "sugar": 0.11,
+    "fat": 25,
+    "fiber": 0,
+    "cholesterol": 68,
+    "protein": 35.75,
+    "carbohydrates": 3.22,
+    "calories": 392
+   }
+  },
+  "170853": {
+   "description": "Cheese, pasteurized process, American, fortified with vitamin D",
+   "per100g": {
+    "sugar": 2.26,
+    "cholesterol": 100,
+    "saturatedFat": 18.057,
+    "protein": 18.13,
+    "sodium": 1671,
+    "fat": 30.71,
+    "carbohydrates": 4.78,
+    "calories": 366,
+    "fiber": 0
+   }
+  },
+  "170859": {
+   "description": "Cream, fluid, heavy whipping",
+   "per100g": {
+    "fat": 36.08,
+    "calories": 340,
+    "sugar": 2.92,
+    "sodium": 27,
+    "cholesterol": 113,
+    "protein": 2.84,
+    "saturatedFat": 23.032,
+    "fiber": 0,
+    "carbohydrates": 2.84
+   }
+  },
+  "170874": {
+   "description": "Milk, buttermilk, fluid, cultured, lowfat",
+   "per100g": {
+    "calories": 40,
+    "sodium": 148,
+    "saturatedFat": 0.66,
+    "fat": 1.07,
+    "sugar": 5.36,
+    "protein": 3.31,
+    "fiber": 0,
+    "cholesterol": 4,
+    "carbohydrates": 4.79
+   }
+  },
+  "170917": {
+   "description": "Spices, bay leaf",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 2.28,
+    "fiber": 26.3,
+    "sodium": 23,
+    "protein": 7.61,
+    "fat": 8.36,
+    "carbohydrates": 74.97,
+    "calories": 313
+   }
+  },
+  "170919": {
+   "description": "Spices, cardamom",
+   "per100g": {
+    "sodium": 18,
+    "protein": 10.76,
+    "saturatedFat": 0.68,
+    "cholesterol": 0,
+    "fat": 6.7,
+    "carbohydrates": 68.47,
+    "calories": 311,
+    "fiber": 28
+   }
+  },
+  "170922": {
+   "description": "Spices, coriander seed",
+   "per100g": {
+    "fat": 17.77,
+    "carbohydrates": 54.99,
+    "calories": 298,
+    "sodium": 35,
+    "cholesterol": 0,
+    "saturatedFat": 0.99,
+    "protein": 12.37,
+    "fiber": 41.9
+   }
+  },
+  "170923": {
+   "description": "Spices, cumin seed",
+   "per100g": {
+    "protein": 17.81,
+    "fiber": 10.5,
+    "sodium": 168,
+    "cholesterol": 0,
+    "fat": 22.27,
+    "carbohydrates": 44.24,
+    "calories": 375,
+    "saturatedFat": 1.535,
+    "sugar": 2.25
+   }
+  },
+  "170924": {
+   "description": "Spices, curry powder",
+   "per100g": {
+    "calories": 325,
+    "sodium": 52,
+    "cholesterol": 0,
+    "sugar": 2.76,
+    "saturatedFat": 1.648,
+    "fiber": 53.2,
+    "protein": 14.29,
+    "fat": 14.01,
+    "carbohydrates": 55.83
+   }
+  },
+  "170929": {
+   "description": "Spices, mustard seed, ground",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 6.79,
+    "protein": 26.08,
+    "fiber": 12.2,
+    "sodium": 13,
+    "saturatedFat": 1.989,
+    "fat": 36.24,
+    "carbohydrates": 28.09,
+    "calories": 508
+   }
+  },
+  "170931": {
+   "description": "Spices, pepper, black",
+   "per100g": {
+    "cholesterol": 0,
+    "fat": 3.26,
+    "sugar": 0.64,
+    "carbohydrates": 63.95,
+    "calories": 251,
+    "protein": 10.39,
+    "fiber": 25.3,
+    "sodium": 20,
+    "saturatedFat": 1.392
+   }
+  },
+  "170932": {
+   "description": "Spices, pepper, red or cayenne",
+   "per100g": {
+    "fat": 17.27,
+    "carbohydrates": 56.63,
+    "calories": 318,
+    "protein": 12.01,
+    "sodium": 30,
+    "cholesterol": 0,
+    "saturatedFat": 3.26,
+    "fiber": 27.2,
+    "sugar": 10.34
+   }
+  },
+  "170933": {
+   "description": "Spices, pepper, white",
+   "per100g": {
+    "protein": 10.4,
+    "sodium": 5,
+    "cholesterol": 0,
+    "fat": 2.12,
+    "carbohydrates": 68.61,
+    "calories": 296,
+    "fiber": 26.2,
+    "saturatedFat": 0.626
+   }
+  },
+  "170934": {
+   "description": "Spices, saffron",
+   "per100g": {
+    "carbohydrates": 65.37,
+    "calories": 310,
+    "protein": 11.43,
+    "fiber": 3.9,
+    "cholesterol": 0,
+    "saturatedFat": 1.586,
+    "fat": 5.85,
+    "sodium": 148
+   }
+  },
+  "170938": {
+   "description": "Spices, thyme, dried",
+   "per100g": {
+    "fat": 7.43,
+    "carbohydrates": 63.94,
+    "calories": 276,
+    "protein": 9.11,
+    "sodium": 55,
+    "saturatedFat": 2.73,
+    "cholesterol": 0,
+    "fiber": 37,
+    "sugar": 1.71
+   }
+  },
+  "171009": {
+   "description": "Salad dressing, mayonnaise, regular",
+   "per100g": {
+    "cholesterol": 42,
+    "saturatedFat": 11.703,
+    "sodium": 635,
+    "protein": 0.96,
+    "fat": 74.85,
+    "carbohydrates": 0.57,
+    "calories": 680,
+    "fiber": 0,
+    "sugar": 0.57
+   }
+  },
+  "171016": {
+   "description": "Oil, sesame, salad or cooking",
+   "per100g": {
+    "protein": 0,
+    "fiber": 0,
+    "sodium": 0,
+    "cholesterol": 0,
+    "saturatedFat": 14.2,
+    "fat": 100,
+    "carbohydrates": 0,
+    "calories": 884,
+    "sugar": 0
+   }
+  },
+  "171077": {
+   "description": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw",
+   "per100g": {
+    "fat": 2.62,
+    "calories": 120,
+    "saturatedFat": 0.563,
+    "sodium": 45,
+    "protein": 22.5,
+    "cholesterol": 73,
+    "sugar": 0,
+    "carbohydrates": 0,
+    "fiber": 0
+   }
+  },
+  "171186": {
+   "description": "Sauce, hot chile, sriracha",
+   "per100g": {
+    "protein": 1.93,
+    "fiber": 2.2,
+    "sodium": 2124,
+    "fat": 0.93,
+    "carbohydrates": 19.16,
+    "calories": 93,
+    "sugar": 15.11
+   }
+  },
+  "171192": {
+   "description": "Sauce, pasta, spaghetti/marinara, ready-to-serve",
+   "per100g": {
+    "fiber": 1.8,
+    "sugar": 4.91,
+    "fat": 1.61,
+    "carbohydrates": 7.43,
+    "calories": 50,
+    "saturatedFat": 0.218,
+    "sodium": 437,
+    "protein": 1.39,
+    "cholesterol": 2
+   }
+  },
+  "171242": {
+   "description": "Cheese, gruyere",
+   "per100g": {
+    "sugar": 0.36,
+    "calories": 413,
+    "sodium": 714,
+    "fat": 32.34,
+    "carbohydrates": 0.36,
+    "cholesterol": 110,
+    "saturatedFat": 18.913,
+    "protein": 29.81,
+    "fiber": 0
+   }
+  },
+  "171244": {
+   "description": "Cheese, mozzarella, low moisture, part-skim",
+   "per100g": {
+    "sodium": 666,
+    "fiber": 0,
+    "protein": 23.75,
+    "saturatedFat": 11.295,
+    "cholesterol": 64,
+    "fat": 19.78,
+    "carbohydrates": 5.58,
+    "calories": 295,
+    "sugar": 1.9
+   }
+  },
+  "171249": {
+   "description": "Cheese, romano",
+   "per100g": {
+    "calories": 387,
+    "sodium": 1433,
+    "fat": 26.94,
+    "carbohydrates": 3.63,
+    "cholesterol": 104,
+    "saturatedFat": 17.115,
+    "fiber": 0,
+    "protein": 31.8,
+    "sugar": 0.73
+   }
+  },
+  "171257": {
+   "description": "Cream, sour, cultured",
+   "per100g": {
+    "sodium": 31,
+    "protein": 2.44,
+    "cholesterol": 59,
+    "saturatedFat": 10.14,
+    "sugar": 3.41,
+    "fat": 19.35,
+    "carbohydrates": 4.63,
+    "calories": 198,
+    "fiber": 0
+   }
+  },
+  "171265": {
+   "description": "Milk, whole, 3.25% milkfat, with added vitamin D",
+   "per100g": {
+    "cholesterol": 10,
+    "fat": 3.25,
+    "sugar": 5.05,
+    "carbohydrates": 4.8,
+    "calories": 61,
+    "saturatedFat": 1.865,
+    "fiber": 0,
+    "sodium": 43,
+    "protein": 3.15
+   }
+  },
+  "171275": {
+   "description": "Milk, canned, condensed, sweetened",
+   "per100g": {
+    "calories": 321,
+    "sugar": 54.4,
+    "fat": 8.7,
+    "carbohydrates": 54.4,
+    "protein": 7.91,
+    "fiber": 0,
+    "sodium": 127,
+    "cholesterol": 34,
+    "saturatedFat": 5.486
+   }
+  },
+  "171276": {
+   "description": "Milk, canned, evaporated, with added vitamin D and without added vitamin A",
+   "per100g": {
+    "calories": 134,
+    "protein": 6.81,
+    "fiber": 0,
+    "sodium": 106,
+    "cholesterol": 29,
+    "saturatedFat": 4.591,
+    "fat": 7.56,
+    "carbohydrates": 10.04,
+    "sugar": 10.04
+   }
+  },
+  "171284": {
+   "description": "Yogurt, plain, whole milk",
+   "per100g": {
+    "sugar": 4.66,
+    "calories": 61,
+    "cholesterol": 13,
+    "saturatedFat": 2.096,
+    "protein": 3.47,
+    "fiber": 0,
+    "sodium": 46,
+    "fat": 3.25,
+    "carbohydrates": 4.66
+   }
+  },
+  "171287": {
+   "description": "Egg, whole, raw, fresh",
+   "per100g": {
+    "calories": 143,
+    "cholesterol": 372,
+    "saturatedFat": 3.126,
+    "protein": 12.56,
+    "sodium": 142,
+    "sugar": 0.37,
+    "fat": 9.51,
+    "carbohydrates": 0.72,
+    "fiber": 0
+   }
+  },
+  "171304": {
+   "description": "Yogurt, Greek, plain, whole milk",
+   "per100g": {
+    "protein": 9,
+    "fiber": 0,
+    "sodium": 35,
+    "cholesterol": 13,
+    "sugar": 4,
+    "fat": 5,
+    "carbohydrates": 3.98,
+    "calories": 97,
+    "saturatedFat": 2.395
+   }
+  },
+  "171314": {
+   "description": "Butter, Clarified butter (ghee)",
+   "per100g": {
+    "protein": 0,
+    "fiber": 0,
+    "sodium": 0,
+    "cholesterol": 300,
+    "saturatedFat": 60,
+    "fat": 100,
+    "carbohydrates": 0,
+    "calories": 900,
+    "sugar": 0
+   }
+  },
+  "171315": {
+   "description": "Spices, allspice, ground",
+   "per100g": {
+    "fiber": 21.6,
+    "sodium": 77,
+    "protein": 6.09,
+    "cholesterol": 0,
+    "saturatedFat": 2.55,
+    "fat": 8.69,
+    "carbohydrates": 72.12,
+    "calories": 263
+   }
+  },
+  "171319": {
+   "description": "Spices, chili powder",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 7.19,
+    "sodium": 2867,
+    "fat": 14.28,
+    "carbohydrates": 49.7,
+    "calories": 282,
+    "protein": 13.46,
+    "fiber": 34.8,
+    "saturatedFat": 2.462
+   }
+  },
+  "171320": {
+   "description": "Spices, cinnamon, ground",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 2.17,
+    "fiber": 53.1,
+    "protein": 3.99,
+    "sodium": 10,
+    "saturatedFat": 0.345,
+    "fat": 1.24,
+    "carbohydrates": 80.59,
+    "calories": 247
+   }
+  },
+  "171325": {
+   "description": "Spices, garlic powder",
+   "per100g": {
+    "cholesterol": 0,
+    "fiber": 9,
+    "sodium": 60,
+    "protein": 16.55,
+    "saturatedFat": 0.249,
+    "sugar": 2.43,
+    "fat": 0.73,
+    "carbohydrates": 72.73,
+    "calories": 331
+   }
+  },
+  "171326": {
+   "description": "Spices, nutmeg, ground",
+   "per100g": {
+    "protein": 5.84,
+    "sodium": 16,
+    "cholesterol": 0,
+    "saturatedFat": 25.94,
+    "fat": 36.31,
+    "carbohydrates": 49.29,
+    "calories": 525,
+    "sugar": 2.99,
+    "fiber": 20.8
+   }
+  },
+  "171328": {
+   "description": "Spices, oregano, dried",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 4.09,
+    "fat": 4.28,
+    "carbohydrates": 68.92,
+    "calories": 265,
+    "fiber": 42.5,
+    "sodium": 25,
+    "saturatedFat": 1.551,
+    "protein": 9
+   }
+  },
+  "171329": {
+   "description": "Spices, paprika",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 10.34,
+    "fiber": 34.9,
+    "sodium": 68,
+    "protein": 14.14,
+    "fat": 12.89,
+    "carbohydrates": 53.99,
+    "calories": 282,
+    "saturatedFat": 2.14
+   }
+  },
+  "171412": {
+   "description": "Oil, coconut",
+   "per100g": {
+    "saturatedFat": 82.475,
+    "protein": 0,
+    "fat": 99.06,
+    "calories": 892,
+    "carbohydrates": 0,
+    "fiber": 0,
+    "sodium": 0,
+    "cholesterol": 0,
+    "sugar": 0
+   }
+  },
+  "171413": {
+   "description": "Oil, olive, salad or cooking",
+   "per100g": {
+    "fat": 100,
+    "carbohydrates": 0,
+    "calories": 884,
+    "sodium": 2,
+    "protein": 0,
+    "saturatedFat": 13.808,
+    "cholesterol": 0,
+    "fiber": 0,
+    "sugar": 0
+   }
+  },
+  "171447": {
+   "description": "Chicken, broilers or fryers, meat and skin, raw",
+   "per100g": {
+    "fiber": 0,
+    "sodium": 70,
+    "cholesterol": 75,
+    "saturatedFat": 4.31,
+    "protein": 18.6,
+    "fat": 15.06,
+    "carbohydrates": 0,
+    "calories": 215,
+    "sugar": 0
+   }
+  },
+  "171583": {
+   "description": "Soup, vegetable broth, ready to serve",
+   "per100g": {
+    "saturatedFat": 0.028,
+    "protein": 0.24,
+    "fiber": 0,
+    "sodium": 296,
+    "cholesterol": 0,
+    "fat": 0.07,
+    "carbohydrates": 0.93,
+    "calories": 5,
+    "sugar": 0.55
+   }
+  },
+  "171609": {
+   "description": "Soup, chicken broth, low sodium, canned",
+   "per100g": {
+    "carbohydrates": 1.2,
+    "fat": 0.6,
+    "calories": 16,
+    "protein": 2,
+    "fiber": 0,
+    "sodium": 30,
+    "cholesterol": 0,
+    "saturatedFat": 0.179,
+    "sugar": 0.13
+   }
+  },
+  "171610": {
+   "description": "Sauce, worcestershire",
+   "per100g": {
+    "protein": 0,
+    "fiber": 0,
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "fat": 0,
+    "sodium": 1300,
+    "carbohydrates": 19.17,
+    "calories": 77,
+    "sugar": 10.03
+   }
+  },
+  "171631": {
+   "description": "Sausage, Italian, pork, mild, raw",
+   "per100g": {
+    "fiber": 0,
+    "sodium": 563,
+    "protein": 13.9,
+    "cholesterol": 69,
+    "saturatedFat": 8.615,
+    "fat": 24.26,
+    "carbohydrates": 2.97,
+    "calories": 290,
+    "sugar": 1.19
+   }
+  },
+  "171688": {
+   "description": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "carbohydrates": 13.81,
+    "calories": 52,
+    "saturatedFat": 0.028,
+    "fat": 0.17,
+    "sugar": 10.39,
+    "fiber": 2.4,
+    "sodium": 1,
+    "protein": 0.26,
+    "cholesterol": 0
+   }
+  },
+  "171689": {
+   "description": "Apples, raw, without skin",
+   "per100g": {
+    "saturatedFat": 0.021,
+    "carbohydrates": 12.76,
+    "calories": 48,
+    "sodium": 0,
+    "cholesterol": 0,
+    "fiber": 1.3,
+    "protein": 0.27,
+    "sugar": 10.1,
+    "fat": 0.13
+   }
+  },
+  "171706": {
+   "description": "Avocados, raw, California",
+   "per100g": {
+    "fat": 15.41,
+    "sugar": 0.3,
+    "protein": 1.96,
+    "fiber": 6.8,
+    "sodium": 8,
+    "cholesterol": 0,
+    "carbohydrates": 8.64,
+    "calories": 167,
+    "saturatedFat": 2.126
+   }
+  },
+  "171711": {
+   "description": "Blueberries, raw",
+   "per100g": {
+    "sodium": 1,
+    "carbohydrates": 14.49,
+    "calories": 57,
+    "cholesterol": 0,
+    "sugar": 9.96,
+    "fat": 0.33,
+    "saturatedFat": 0.028,
+    "fiber": 2.4,
+    "protein": 0.74
+   }
+  },
+  "171723": {
+   "description": "Cranberries, dried, sweetened (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "calories": 308,
+    "sodium": 5,
+    "fiber": 5.3,
+    "protein": 0.17,
+    "cholesterol": 0,
+    "saturatedFat": 0.088,
+    "fat": 1.09,
+    "carbohydrates": 82.8,
+    "sugar": 72.56
+   }
+  },
+  "171775": {
+   "description": "Beef, loin, top loin steak, boneless, lip-on, separable lean and fat, trimmed to 1/8\" fat, all grades, raw",
+   "per100g": {
+    "protein": 21.29,
+    "fiber": 0,
+    "sodium": 44,
+    "cholesterol": 62,
+    "saturatedFat": 5.491,
+    "fat": 12.68,
+    "carbohydrates": 0,
+    "calories": 199,
+    "sugar": 0
+   }
+  },
+  "171796": {
+   "description": "Beef, ground, 85% lean meat / 15% fat, raw (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "sugar": 0,
+    "fiber": 0,
+    "fat": 15,
+    "protein": 18.59,
+    "sodium": 66,
+    "cholesterol": 68,
+    "carbohydrates": 0,
+    "saturatedFat": 5.715,
+    "calories": 215
+   }
+  },
+  "171942": {
+   "description": "Beverages, rice milk, unsweetened",
+   "per100g": {
+    "protein": 0.28,
+    "fiber": 0.3,
+    "sodium": 39,
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "fat": 0.97,
+    "carbohydrates": 9.17,
+    "calories": 47,
+    "sugar": 5.28
+   }
+  },
+  "171955": {
+   "description": "Fish, cod, Atlantic, raw",
+   "per100g": {
+    "sugar": 0,
+    "calories": 82,
+    "fiber": 0,
+    "sodium": 54,
+    "protein": 17.81,
+    "cholesterol": 43,
+    "saturatedFat": 0.131,
+    "fat": 0.67,
+    "carbohydrates": 0
+   }
+  },
+  "172158": {
+   "description": "Beef, plate steak, boneless, inside skirt, separable lean and fat, trimmed to 0\" fat, all grades, raw",
+   "per100g": {
+    "cholesterol": 65,
+    "saturatedFat": 4.626,
+    "protein": 20.38,
+    "fiber": 0,
+    "sodium": 64,
+    "fat": 11.71,
+    "carbohydrates": 0,
+    "calories": 187,
+    "sugar": 0
+   }
+  },
+  "172184": {
+   "description": "Egg, yolk, raw, fresh",
+   "per100g": {
+    "sugar": 0.56,
+    "fat": 26.54,
+    "protein": 15.86,
+    "sodium": 48,
+    "cholesterol": 1085,
+    "carbohydrates": 3.59,
+    "calories": 322,
+    "saturatedFat": 9.551,
+    "fiber": 0
+   }
+  },
+  "172224": {
+   "description": "Cheese, white, queso blanco",
+   "per100g": {
+    "cholesterol": 70,
+    "saturatedFat": 13.661,
+    "protein": 20.38,
+    "sodium": 704,
+    "fat": 24.31,
+    "carbohydrates": 2.53,
+    "calories": 310,
+    "sugar": 1.76
+   }
+  },
+  "172231": {
+   "description": "Spices, turmeric, ground",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 3.21,
+    "fat": 3.25,
+    "carbohydrates": 67.14,
+    "calories": 312,
+    "protein": 9.68,
+    "fiber": 22.7,
+    "sodium": 27,
+    "saturatedFat": 1.838
+   }
+  },
+  "172232": {
+   "description": "Basil, fresh",
+   "per100g": {
+    "saturatedFat": 0.041,
+    "cholesterol": 0,
+    "sugar": 0.3,
+    "fat": 0.64,
+    "carbohydrates": 2.65,
+    "calories": 23,
+    "fiber": 1.6,
+    "sodium": 4,
+    "protein": 3.15
+   }
+  },
+  "172233": {
+   "description": "Dill weed, fresh",
+   "per100g": {
+    "fat": 1.12,
+    "carbohydrates": 7.02,
+    "calories": 43,
+    "protein": 3.46,
+    "cholesterol": 0,
+    "sodium": 61,
+    "saturatedFat": 0.06,
+    "fiber": 2.1
+   }
+  },
+  "172234": {
+   "description": "Mustard, prepared, yellow",
+   "per100g": {
+    "cholesterol": 0,
+    "protein": 3.74,
+    "fiber": 4,
+    "sodium": 1104,
+    "saturatedFat": 0.214,
+    "fat": 3.34,
+    "carbohydrates": 5.83,
+    "calories": 60,
+    "sugar": 0.92
+   }
+  },
+  "172237": {
+   "description": "Vinegar, distilled",
+   "per100g": {
+    "fat": 0,
+    "sugar": 0.04,
+    "protein": 0,
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "sodium": 2,
+    "fiber": 0,
+    "carbohydrates": 0.04,
+    "calories": 18
+   }
+  },
+  "172238": {
+   "description": "Capers, canned",
+   "per100g": {
+    "sugar": 0.41,
+    "fat": 0.86,
+    "carbohydrates": 4.89,
+    "saturatedFat": 0.233,
+    "protein": 2.36,
+    "cholesterol": 0,
+    "fiber": 3.2,
+    "calories": 23,
+    "sodium": 2348
+   }
+  },
+  "172240": {
+   "description": "Vinegar, red wine",
+   "per100g": {
+    "fat": 0,
+    "carbohydrates": 0.27,
+    "calories": 19,
+    "sugar": 0,
+    "protein": 0.04,
+    "fiber": 0,
+    "sodium": 8,
+    "saturatedFat": 0
+   }
+  },
+  "172241": {
+   "description": "Vinegar, balsamic",
+   "per100g": {
+    "sugar": 14.95,
+    "protein": 0.49,
+    "sodium": 23,
+    "saturatedFat": 0,
+    "fat": 0,
+    "carbohydrates": 17.03,
+    "calories": 88
+   }
+  },
+  "172336": {
+   "description": "Oil, canola",
+   "per100g": {
+    "fat": 100,
+    "cholesterol": 0,
+    "saturatedFat": 7.365,
+    "protein": 0,
+    "carbohydrates": 0,
+    "calories": 884,
+    "fiber": 0,
+    "sodium": 0,
+    "sugar": 0
+   }
+  },
+  "172378": {
+   "description": "Chicken, broilers or fryers, leg, meat and skin, raw",
+   "per100g": {
+    "fiber": 0,
+    "sugar": 0,
+    "sodium": 84,
+    "protein": 16.37,
+    "cholesterol": 93,
+    "saturatedFat": 4.366,
+    "fat": 15.95,
+    "carbohydrates": 0.17,
+    "calories": 214
+   }
+  },
+  "172385": {
+   "description": "Chicken, broilers or fryers, thigh, meat and skin, raw",
+   "per100g": {
+    "calories": 221,
+    "protein": 16.52,
+    "sodium": 81,
+    "saturatedFat": 4.524,
+    "fiber": 0,
+    "cholesterol": 98,
+    "sugar": 0,
+    "fat": 16.61,
+    "carbohydrates": 0.25
+   }
+  },
+  "172390": {
+   "description": "Chicken, broilers or fryers, wing, meat and skin, raw",
+   "per100g": {
+    "sodium": 84,
+    "cholesterol": 111,
+    "protein": 17.52,
+    "calories": 191,
+    "sugar": 0,
+    "carbohydrates": 0,
+    "fiber": 0,
+    "fat": 12.85,
+    "saturatedFat": 3.535
+   }
+  },
+  "172420": {
+   "description": "Lentils, raw",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 2.03,
+    "fat": 1.06,
+    "sodium": 6,
+    "fiber": 10.7,
+    "protein": 24.63,
+    "saturatedFat": 0.154,
+    "carbohydrates": 63.35,
+    "calories": 352
+   }
+  },
+  "172442": {
+   "description": "Miso",
+   "per100g": {
+    "sugar": 6.2,
+    "saturatedFat": 1.025,
+    "protein": 12.79,
+    "carbohydrates": 25.37,
+    "calories": 198,
+    "cholesterol": 0,
+    "fiber": 5.4,
+    "sodium": 3728,
+    "fat": 6.01
+   }
+  },
+  "172449": {
+   "description": "Tofu, soft, prepared with calcium sulfate and magnesium chloride (nigari)",
+   "per100g": {
+    "calories": 61,
+    "carbohydrates": 1.18,
+    "protein": 7.17,
+    "sugar": 0.7,
+    "fat": 3.69,
+    "fiber": 0.2,
+    "sodium": 8,
+    "saturatedFat": 0.533,
+    "cholesterol": 0
+   }
+  },
+  "172473": {
+   "description": "Soy sauce made from soy and wheat (shoyu), low sodium",
+   "per100g": {
+    "fiber": 0.7,
+    "sodium": 3598,
+    "cholesterol": 0,
+    "saturatedFat": 0.035,
+    "protein": 9.05,
+    "fat": 0.3,
+    "carbohydrates": 5.59,
+    "calories": 57,
+    "sugar": 0.5
+   }
+  },
+  "172673": {
+   "description": "Bread, egg",
+   "per100g": {
+    "sugar": 1.78,
+    "fiber": 2.3,
+    "calories": 287,
+    "protein": 9.5,
+    "cholesterol": 51,
+    "fat": 6,
+    "carbohydrates": 47.8,
+    "sodium": 380,
+    "saturatedFat": 1.593
+   }
+  },
+  "172675": {
+   "description": "Bread, french or vienna (includes sourdough)",
+   "per100g": {
+    "protein": 10.75,
+    "fiber": 2.2,
+    "sodium": 602,
+    "saturatedFat": 0.529,
+    "fat": 2.42,
+    "carbohydrates": 51.88,
+    "calories": 272,
+    "sugar": 4.62,
+    "cholesterol": 0
+   }
+  },
+  "172796": {
+   "description": "Rolls, hamburger or hotdog, plain",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 0.842,
+    "fiber": 1.8,
+    "sodium": 494,
+    "protein": 9.77,
+    "sugar": 7.28,
+    "fat": 3.91,
+    "carbohydrates": 50.12,
+    "calories": 279
+   }
+  },
+  "172802": {
+   "description": "Wonton wrappers (includes egg roll wrappers)",
+   "per100g": {
+    "fiber": 1.8,
+    "fat": 1.5,
+    "carbohydrates": 57.9,
+    "calories": 291,
+    "cholesterol": 9,
+    "saturatedFat": 0.263,
+    "protein": 9.8,
+    "sodium": 572
+   }
+  },
+  "172803": {
+   "description": "Leavening agents, baking powder, double-acting, sodium aluminum sulfate",
+   "per100g": {
+    "saturatedFat": 0,
+    "fiber": 0.2,
+    "protein": 0,
+    "sodium": 10600,
+    "cholesterol": 0,
+    "fat": 0,
+    "carbohydrates": 27.7,
+    "calories": 53,
+    "sugar": 0
+   }
+  },
+  "172804": {
+   "description": "Leavening agents, baking powder, double-acting, straight phosphate",
+   "per100g": {
+    "saturatedFat": 0,
+    "fiber": 0.2,
+    "fat": 0,
+    "carbohydrates": 24.1,
+    "calories": 51,
+    "protein": 0.1,
+    "sodium": 7893,
+    "cholesterol": 0,
+    "sugar": 0
+   }
+  },
+  "172850": {
+   "description": "Turkey, ground, 93% lean, 7% fat, raw",
+   "per100g": {
+    "fiber": 0,
+    "sodium": 69,
+    "cholesterol": 74,
+    "saturatedFat": 2.17,
+    "protein": 18.73,
+    "fat": 8.34,
+    "sugar": 0,
+    "carbohydrates": 0,
+    "calories": 150
+   }
+  },
+  "172889": {
+   "description": "Soup, beef broth, less/reduced sodium, ready to serve",
+   "per100g": {
+    "fat": 0.07,
+    "carbohydrates": 0.2,
+    "calories": 6,
+    "sugar": 0.2,
+    "protein": 1.14,
+    "sodium": 225,
+    "cholesterol": 0,
+    "saturatedFat": 0.042,
+    "fiber": 0
+   }
+  },
+  "173176": {
+   "description": "Alcoholic beverage, wine, dessert, sweet",
+   "per100g": {
+    "fat": 0,
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "protein": 0.2,
+    "fiber": 0,
+    "sodium": 9,
+    "carbohydrates": 13.69,
+    "calories": 160,
+    "sugar": 7.78
+   }
+  },
+  "173190": {
+   "description": "Alcoholic beverage, wine, table, red",
+   "per100g": {
+    "fiber": 0,
+    "sodium": 4,
+    "fat": 0,
+    "carbohydrates": 2.61,
+    "sugar": 0.62,
+    "calories": 85,
+    "saturatedFat": 0,
+    "cholesterol": 0,
+    "protein": 0.07
+   }
+  },
+  "173402": {
+   "description": "Beef, rib eye steak, boneless, lip off, separable lean and fat, trimmed to 0\" fat, all grades, raw",
+   "per100g": {
+    "protein": 19.26,
+    "fiber": 0,
+    "sodium": 52,
+    "cholesterol": 68,
+    "saturatedFat": 7.363,
+    "fat": 16.71,
+    "carbohydrates": 0.12,
+    "calories": 228,
+    "sugar": 0
+   }
+  },
+  "173410": {
+   "description": "Butter, salted",
+   "per100g": {
+    "fiber": 0,
+    "cholesterol": 215,
+    "sodium": 643,
+    "calories": 717,
+    "saturatedFat": 51.368,
+    "fat": 81.11,
+    "carbohydrates": 0.06,
+    "protein": 0.85,
+    "sugar": 0.06
+   }
+  },
+  "173414": {
+   "description": "Cheese, cheddar (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "carbohydrates": 3.37,
+    "calories": 403,
+    "protein": 22.87,
+    "fat": 33.31,
+    "sugar": 0.48,
+    "cholesterol": 99,
+    "saturatedFat": 18.867,
+    "sodium": 653,
+    "fiber": 0
+   }
+  },
+  "173418": {
+   "description": "Cheese, cream",
+   "per100g": {
+    "protein": 6.15,
+    "saturatedFat": 20.213,
+    "cholesterol": 101,
+    "fat": 34.44,
+    "carbohydrates": 5.52,
+    "calories": 350,
+    "sugar": 3.76,
+    "sodium": 314,
+    "fiber": 0
+   }
+  },
+  "173420": {
+   "description": "Cheese, feta",
+   "per100g": {
+    "sugar": 0,
+    "fat": 21.49,
+    "carbohydrates": 3.88,
+    "calories": 265,
+    "saturatedFat": 13.3,
+    "sodium": 1139,
+    "cholesterol": 89,
+    "protein": 14.21,
+    "fiber": 0
+   }
+  },
+  "173430": {
+   "description": "Butter, without salt",
+   "per100g": {
+    "sugar": 0.06,
+    "calories": 717,
+    "cholesterol": 215,
+    "saturatedFat": 50.489,
+    "fat": 81.11,
+    "carbohydrates": 0.06,
+    "protein": 0.85,
+    "fiber": 0,
+    "sodium": 11
+   }
+  },
+  "173468": {
+   "description": "Salt, table",
+   "per100g": {
+    "fiber": 0,
+    "sodium": 38758,
+    "saturatedFat": 0,
+    "cholesterol": 0,
+    "protein": 0,
+    "fat": 0,
+    "carbohydrates": 0,
+    "calories": 0,
+    "sugar": 0
+   }
+  },
+  "173469": {
+   "description": "Vinegar, cider",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "fiber": 0,
+    "fat": 0,
+    "protein": 0,
+    "carbohydrates": 0.93,
+    "calories": 21,
+    "sugar": 0.4,
+    "sodium": 5
+   }
+  },
+  "173470": {
+   "description": "Thyme, fresh",
+   "per100g": {
+    "protein": 5.56,
+    "fiber": 14,
+    "sodium": 9,
+    "cholesterol": 0,
+    "saturatedFat": 0.467,
+    "fat": 1.68,
+    "carbohydrates": 24.45,
+    "calories": 101
+   }
+  },
+  "173471": {
+   "description": "Vanilla extract",
+   "per100g": {
+    "fat": 0.06,
+    "carbohydrates": 12.65,
+    "calories": 288,
+    "protein": 0.06,
+    "fiber": 0,
+    "sodium": 9,
+    "cholesterol": 0,
+    "saturatedFat": 0.01,
+    "sugar": 12.65
+   }
+  },
+  "173473": {
+   "description": "Rosemary, fresh",
+   "per100g": {
+    "fat": 5.86,
+    "carbohydrates": 20.7,
+    "calories": 131,
+    "protein": 3.31,
+    "fiber": 14.1,
+    "sodium": 26,
+    "saturatedFat": 2.838,
+    "cholesterol": 0
+   }
+  },
+  "173475": {
+   "description": "Spearmint, fresh",
+   "per100g": {
+    "fat": 0.73,
+    "carbohydrates": 8.41,
+    "calories": 44,
+    "protein": 3.29,
+    "fiber": 6.8,
+    "sodium": 30,
+    "saturatedFat": 0.191,
+    "cholesterol": 0
+   }
+  },
+  "173573": {
+   "description": "Oil, avocado",
+   "per100g": {
+    "protein": 0,
+    "fiber": 0,
+    "sodium": 0,
+    "saturatedFat": 11.56,
+    "fat": 100,
+    "carbohydrates": 0,
+    "calories": 884
+   }
+  },
+  "173627": {
+   "description": "Chicken, broilers or fryers, dark meat, thigh, meat only, raw",
+   "per100g": {
+    "calories": 121,
+    "fat": 4.12,
+    "sodium": 95,
+    "protein": 19.66,
+    "cholesterol": 94,
+    "saturatedFat": 1.097,
+    "sugar": 0,
+    "carbohydrates": 0,
+    "fiber": 0
+   }
+  },
+  "173709": {
+   "description": "Fish, tuna, light, canned in water, drained solids (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "sugar": 0,
+    "fat": 0.96,
+    "calories": 86,
+    "cholesterol": 36,
+    "saturatedFat": 0.211,
+    "protein": 19.44,
+    "sodium": 247,
+    "fiber": 0,
+    "carbohydrates": 0
+   }
+  },
+  "173801": {
+   "description": "Chickpeas (garbanzo beans, bengal gram), mature seeds, canned, drained, rinsed in tap water",
+   "per100g": {
+    "fat": 2.47,
+    "carbohydrates": 22.87,
+    "calories": 138,
+    "protein": 7.04,
+    "sodium": 212,
+    "cholesterol": 0,
+    "saturatedFat": 0.213,
+    "sugar": 4,
+    "fiber": 6.3
+   }
+  },
+  "173802": {
+   "description": "Lima beans, large, mature seeds, cooked, boiled, with salt",
+   "per100g": {
+    "fiber": 7,
+    "sugar": 2.9,
+    "carbohydrates": 20.88,
+    "calories": 115,
+    "protein": 7.8,
+    "cholesterol": 0,
+    "saturatedFat": 0.089,
+    "sodium": 238,
+    "fat": 0.38
+   }
+  },
+  "173806": {
+   "description": "Peanuts, all types, dry-roasted, without salt",
+   "per100g": {
+    "fiber": 8.4,
+    "cholesterol": 0,
+    "saturatedFat": 7.723,
+    "protein": 24.35,
+    "carbohydrates": 21.26,
+    "calories": 587,
+    "sugar": 4.9,
+    "sodium": 6,
+    "fat": 49.66
+   }
+  },
+  "173904": {
+   "description": "Cereals, oats, regular and quick, not fortified, dry",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 1.11,
+    "fiber": 10.1,
+    "sugar": 0.99,
+    "fat": 6.52,
+    "carbohydrates": 67.7,
+    "calories": 379,
+    "sodium": 6,
+    "protein": 13.15
+   }
+  },
+  "173933": {
+   "description": "Apple juice, canned or bottled, unsweetened, without added ascorbic acid",
+   "per100g": {
+    "sugar": 9.62,
+    "fat": 0.13,
+    "carbohydrates": 11.3,
+    "calories": 46,
+    "saturatedFat": 0.022,
+    "protein": 0.1,
+    "fiber": 0.2,
+    "sodium": 4,
+    "cholesterol": 0
+   }
+  },
+  "173944": {
+   "description": "Bananas, raw",
+   "per100g": {
+    "saturatedFat": 0.112,
+    "carbohydrates": 22.84,
+    "calories": 89,
+    "cholesterol": 0,
+    "fiber": 2.6,
+    "sodium": 1,
+    "protein": 1.09,
+    "sugar": 12.23,
+    "fat": 0.33
+   }
+  },
+  "173946": {
+   "description": "Blackberries, raw",
+   "per100g": {
+    "sugar": 4.88,
+    "fat": 0.49,
+    "protein": 1.39,
+    "fiber": 5.3,
+    "carbohydrates": 9.61,
+    "calories": 43,
+    "saturatedFat": 0.014,
+    "sodium": 1,
+    "cholesterol": 0
+   }
+  },
+  "174036": {
+   "description": "Beef, ground, 80% lean meat / 20% fat, raw",
+   "per100g": {
+    "cholesterol": 71,
+    "fiber": 0,
+    "protein": 17.17,
+    "fat": 20,
+    "carbohydrates": 0,
+    "sugar": 0,
+    "calories": 254,
+    "sodium": 66,
+    "saturatedFat": 7.581
+   }
+  },
+  "174066": {
+   "description": "Sauce, sweet and sour, ready-to-serve",
+   "per100g": {
+    "sugar": 18.75,
+    "fat": 0.02,
+    "carbohydrates": 38.22,
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "protein": 0.27,
+    "fiber": 0.1,
+    "sodium": 539,
+    "calories": 154
+   }
+  },
+  "174262": {
+   "description": "Peanuts, all types, dry-roasted, with salt",
+   "per100g": {
+    "sugar": 4.9,
+    "carbohydrates": 21.26,
+    "calories": 587,
+    "fiber": 8.4,
+    "sodium": 410,
+    "protein": 24.35,
+    "cholesterol": 0,
+    "saturatedFat": 7.723,
+    "fat": 49.66
+   }
+  },
+  "174266": {
+   "description": "Peanut butter, smooth style, with salt (Includes foods for USDA's Food Distribution Program)",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 10.49,
+    "fiber": 5,
+    "sodium": 426,
+    "protein": 22.21,
+    "fat": 51.36,
+    "carbohydrates": 22.31,
+    "calories": 598,
+    "saturatedFat": 10.325
+   }
+  },
+  "174277": {
+   "description": "Soy sauce made from soy and wheat (shoyu)",
+   "per100g": {
+    "fat": 0.57,
+    "carbohydrates": 4.93,
+    "sugar": 0.4,
+    "protein": 8.14,
+    "sodium": 5493,
+    "saturatedFat": 0.073,
+    "calories": 53,
+    "cholesterol": 0,
+    "fiber": 0.8
+   }
+  },
+  "174278": {
+   "description": "Soy sauce made from soy (tamari)",
+   "per100g": {
+    "carbohydrates": 5.57,
+    "calories": 60,
+    "sugar": 1.7,
+    "protein": 10.51,
+    "fiber": 0.8,
+    "sodium": 5586,
+    "cholesterol": 0,
+    "saturatedFat": 0.011,
+    "fat": 0.1
+   }
+  },
+  "174284": {
+   "description": "Lentils, pink or red, raw",
+   "per100g": {
+    "saturatedFat": 0.379,
+    "cholesterol": 0,
+    "carbohydrates": 63.1,
+    "calories": 358,
+    "protein": 23.91,
+    "fat": 2.17,
+    "fiber": 10.8,
+    "sodium": 7
+   }
+  },
+  "174285": {
+   "description": "Beans, kidney, red, mature seeds, canned, drained solids",
+   "per100g": {
+    "fat": 1.05,
+    "carbohydrates": 21.49,
+    "calories": 124,
+    "sugar": 3.8,
+    "sodium": 231,
+    "cholesterol": 0,
+    "protein": 7.98,
+    "fiber": 5.5,
+    "saturatedFat": 0.181
+   }
+  },
+  "174286": {
+   "description": "Beans, pinto, canned, drained solids",
+   "per100g": {
+    "saturatedFat": 0.158,
+    "protein": 6.99,
+    "fiber": 5.5,
+    "sodium": 239,
+    "cholesterol": 0,
+    "fat": 0.9,
+    "carbohydrates": 20.22,
+    "calories": 114,
+    "sugar": 0.54
+   }
+  },
+  "174290": {
+   "description": "Tofu, extra firm, prepared with nigari",
+   "per100g": {
+    "saturatedFat": 0.919,
+    "protein": 9.98,
+    "fiber": 1,
+    "sodium": 4,
+    "fat": 5.26,
+    "carbohydrates": 1.18,
+    "calories": 83,
+    "sugar": 0.71,
+    "cholesterol": 0
+   }
+  },
+  "174370": {
+   "description": "Lamb, ground, raw",
+   "per100g": {
+    "sugar": 0,
+    "fat": 23.41,
+    "carbohydrates": 0,
+    "calories": 282,
+    "protein": 16.56,
+    "fiber": 0,
+    "sodium": 59,
+    "cholesterol": 73,
+    "saturatedFat": 10.19
+   }
+  },
+  "174524": {
+   "description": "Sauce, salsa, ready-to-serve",
+   "per100g": {
+    "cholesterol": 0,
+    "sodium": 711,
+    "fiber": 1.9,
+    "protein": 1.52,
+    "saturatedFat": 0.021,
+    "carbohydrates": 6.64,
+    "sugar": 4.01,
+    "calories": 29,
+    "fat": 0.17
+   }
+  },
+  "174527": {
+   "description": "Sauce, ready-to-serve, pepper or hot",
+   "per100g": {
+    "fiber": 0.3,
+    "sugar": 1.26,
+    "protein": 0.51,
+    "sodium": 2643,
+    "cholesterol": 0,
+    "saturatedFat": 0.052,
+    "fat": 0.37,
+    "carbohydrates": 1.75,
+    "calories": 11
+   }
+  },
+  "174529": {
+   "description": "Sauce, oyster, ready-to-serve",
+   "per100g": {
+    "protein": 1.35,
+    "fiber": 0.3,
+    "sodium": 2733,
+    "cholesterol": 0,
+    "saturatedFat": 0.043,
+    "fat": 0.25,
+    "carbohydrates": 10.92,
+    "calories": 51,
+    "sugar": 0
+   }
+  },
+  "174531": {
+   "description": "Sauce, fish, ready-to-serve",
+   "per100g": {
+    "fat": 0.01,
+    "carbohydrates": 3.64,
+    "calories": 35,
+    "protein": 5.06,
+    "fiber": 0,
+    "cholesterol": 0,
+    "saturatedFat": 0.003,
+    "sugar": 3.64,
+    "sodium": 7851
+   }
+  },
+  "174837": {
+   "description": "Alcoholic beverage, wine, table, white",
+   "per100g": {
+    "fat": 0,
+    "sugar": 0.96,
+    "fiber": 0,
+    "sodium": 5,
+    "cholesterol": 0,
+    "saturatedFat": 0,
+    "carbohydrates": 2.6,
+    "protein": 0.07,
+    "calories": 82
+   }
+  },
+  "174913": {
+   "description": "Bread, Italian",
+   "per100g": {
+    "cholesterol": 0,
+    "saturatedFat": 0.544,
+    "protein": 9.49,
+    "fiber": 2.1,
+    "sodium": 618,
+    "fat": 2.73,
+    "carbohydrates": 48.11,
+    "calories": 259,
+    "sugar": 4.69
+   }
+  },
+  "174915": {
+   "description": "Bread, pita, white, enriched",
+   "per100g": {
+    "fiber": 2.2,
+    "sugar": 1.3,
+    "fat": 1.2,
+    "carbohydrates": 55.7,
+    "calories": 275,
+    "protein": 9.1,
+    "sodium": 536,
+    "cholesterol": 0,
+    "saturatedFat": 0.166
+   }
+  },
+  "174928": {
+   "description": "Bread, crumbs, dry, grated, plain",
+   "per100g": {
+    "fat": 5.3,
+    "protein": 13.35,
+    "fiber": 4.5,
+    "sodium": 732,
+    "cholesterol": 0,
+    "carbohydrates": 71.98,
+    "calories": 395,
+    "sugar": 6.2,
+    "saturatedFat": 1.203
+   }
+  },
+  "174957": {
+   "description": "Cookies, graham crackers, plain or honey (includes cinnamon)",
+   "per100g": {
+    "fat": 10.6,
+    "carbohydrates": 77.66,
+    "calories": 430,
+    "sugar": 24.85,
+    "protein": 6.69,
+    "fiber": 3.4,
+    "cholesterol": 0,
+    "saturatedFat": 1.633,
+    "sodium": 516
+   }
+  },
+  "175036": {
+   "description": "Tortillas, ready-to-bake or -fry, corn",
+   "per100g": {
+    "saturatedFat": 0.453,
+    "protein": 5.7,
+    "fiber": 6.3,
+    "sodium": 45,
+    "sugar": 0.88,
+    "fat": 2.85,
+    "carbohydrates": 44.64,
+    "calories": 218,
+    "cholesterol": 0
+   }
+  },
+  "175040": {
+   "description": "Leavening agents, baking soda",
+   "per100g": {
+    "fiber": 0,
+    "saturatedFat": 0,
+    "fat": 0,
+    "carbohydrates": 0,
+    "calories": 0,
+    "cholesterol": 0,
+    "protein": 0,
+    "sodium": 27360,
+    "sugar": 0
+   }
+  },
+  "175041": {
+   "description": "Leavening agents, cream of tartar",
+   "per100g": {
+    "saturatedFat": 0,
+    "fiber": 0.2,
+    "sodium": 52,
+    "protein": 0,
+    "cholesterol": 0,
+    "fat": 0,
+    "carbohydrates": 61.5,
+    "calories": 258,
+    "sugar": 0
+   }
+  },
+  "175043": {
+   "description": "Leavening agents, yeast, baker's, active dry",
+   "per100g": {
+    "fat": 7.61,
+    "carbohydrates": 41.22,
+    "calories": 325,
+    "protein": 40.44,
+    "fiber": 26.9,
+    "sodium": 51,
+    "cholesterol": 0,
+    "saturatedFat": 1.001,
+    "sugar": 0
+   }
+  },
+  "175167": {
+   "description": "Fish, salmon, Atlantic, farmed, raw",
+   "per100g": {
+    "calories": 208,
+    "fat": 13.42,
+    "cholesterol": 55,
+    "saturatedFat": 3.05,
+    "protein": 20.42,
+    "sodium": 59,
+    "sugar": 0,
+    "fiber": 0,
+    "carbohydrates": 0
+   }
+  },
+  "175179": {
+   "description": "Crustaceans, shrimp, raw",
+   "per100g": {
+    "fat": 0.51,
+    "carbohydrates": 0,
+    "calories": 85,
+    "protein": 20.1,
+    "sodium": 119,
+    "cholesterol": 161,
+    "saturatedFat": 0.101
+   }
+  },
+  "175215": {
+   "description": "Soymilk (all flavors), unsweetened, with added calcium, vitamins A and D",
+   "per100g": {
+    "sugar": 0.41,
+    "fat": 1.61,
+    "carbohydrates": 1.74,
+    "calories": 33,
+    "cholesterol": 0,
+    "saturatedFat": 0.206,
+    "sodium": 37,
+    "fiber": 0.5,
+    "protein": 2.86
+   }
+  },
+  "175237": {
+   "description": "Beans, black, mature seeds, cooked, boiled, with salt",
+   "per100g": {
+    "fiber": 8.7,
+    "sugar": 0.32,
+    "sodium": 237,
+    "protein": 8.86,
+    "cholesterol": 0,
+    "saturatedFat": 0.139,
+    "fat": 0.54,
+    "carbohydrates": 23.71,
+    "calories": 132
+   }
+  },
+  "175243": {
+   "description": "Beans, kidney, red, mature seeds, canned, drained solids, rinsed in tap water",
+   "per100g": {
+    "protein": 8.12,
+    "sodium": 208,
+    "cholesterol": 0,
+    "fat": 0.93,
+    "carbohydrates": 20.8,
+    "calories": 121,
+    "saturatedFat": 0.328,
+    "fiber": 6
+   }
+  },
+  "175249": {
+   "description": "Beans, white, mature seeds, cooked, boiled, with salt",
+   "per100g": {
+    "fiber": 6.3,
+    "carbohydrates": 25.09,
+    "calories": 139,
+    "sugar": 0.34,
+    "protein": 9.73,
+    "fat": 0.35,
+    "sodium": 242,
+    "saturatedFat": 0.091,
+    "cholesterol": 0
+   }
+  }
+ }
+}

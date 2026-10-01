@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getPublicRecipeBySlug, ingredientLine, recipeJsonLd } from '@/lib/community-recipes'
+import { getPublicRecipeBySlug, recipeJsonLd } from '@/lib/community-recipes'
 import { safeJsonLd } from '@/lib/security-policy.mjs'
 import RecipeShareBar from '@/components/RecipeShareBar'
 import RecipeQuickActions from '@/components/RecipeQuickActions'
+import RecipeIngredients from '@/components/RecipeIngredients'
 import RecipeDiscussion from '@/components/RecipeDiscussion'
 import AdSlot from '@/components/AdSlot'
 
@@ -51,11 +52,6 @@ export default async function RecipePage({ params }: Params) {
   if (!recipe) notFound()
 
   const jsonLd = recipeJsonLd(recipe)
-  const sections = new Map<string, typeof recipe.ingredients>()
-  for (const i of recipe.ingredients) {
-    const key = i.section ?? ''
-    sections.set(key, [...(sections.get(key) ?? []), i])
-  }
   const yieldText = recipe.servingType === 'yields' ? `${recipe.servings} ${recipe.yieldUnit ?? 'items'}` : `${recipe.servings} servings`
   const n = recipe.nutritionPerServing
 
@@ -104,27 +100,13 @@ export default async function RecipePage({ params }: Params) {
         </div>
       </header>
 
-      <RecipeQuickActions cooking={{ title: recipe.title, ingredients: recipe.ingredients.map(ingredientLine), steps: recipe.instructions, ovenTemp: recipe.ovenTemp }} />
+      <RecipeQuickActions cooking={{ title: recipe.title, ingredients: recipe.ingredients, steps: recipe.instructions, ovenTemp: recipe.ovenTemp }} />
 
       <div className="mt-8 grid gap-8 md:grid-cols-5">
         <section id="ingredients" className="recipe-anchor md:col-span-2">
           <h2 className="text-xl font-bold text-gray-900">Ingredients</h2>
           <p className="mt-1 text-sm text-gray-500">Tap each item as you gather it.</p>
-          {[...sections.entries()].map(([section, items]) => (
-            <div key={section} className="mt-4">
-              {section && <h3 className="mb-1 text-sm font-semibold uppercase tracking-wide text-primary-700">{section}</h3>}
-              <ul className="space-y-2">
-                {items.map((i, idx) => (
-                  <li key={idx} className="recipe-ingredient">
-                    <label>
-                      <input type="checkbox" />
-                      <span>{ingredientLine(i)}</span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <RecipeIngredients ingredients={recipe.ingredients} servings={recipe.servings} servingType={recipe.servingType} yieldUnit={recipe.yieldUnit ?? null} />
           {recipe.equipment.length > 0 && (
             <div className="mt-6">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-primary-700">Equipment</h3>

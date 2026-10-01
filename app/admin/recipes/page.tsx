@@ -41,6 +41,9 @@ export default function AdminRecipesPage() {
   const [recipes, setRecipes] = useState<Recipe[] | null>(null)
   const [busy, setBusy] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [confirmBulk, setConfirmBulk] = useState(false)
+  const [progress, setProgress] = useState<string | null>(null)
 
   const load = useCallback(async (q: string) => {
     setError(null)
@@ -68,6 +71,36 @@ export default function AdminRecipesPage() {
     if (filter === 'hold') return all.filter((r) => r.reviewHold)
     return all
   }, [recipes, filter])
+
+  // Only drafts can be selected, and only the ones on screen.
+  const selectable = useMemo(() => shown.filter((r) => r.visibility === 'private'), [shown])
+  const chosen = useMemo(() => selectable.filter((r) => selected.has(r.id)), [selectable, selected])
+  const allChosen = selectable.length > 0 && chosen.length === selectable.length
+
+  function toggle(id: string) {
+    setConfirmBulk(false)
+    setSelected((current) => { const next = new Set(current); if (next.has(id)) next.delete(id); else next.add(id); return next })
+  }
+
+  function toggleAll() {
+    setConfirmBulk(false)
+    setSelected(allChosen ? new Set() : new Set(selectable.map((r) => r.id)))
+  }
+
+  async function publishChosen() {
+    const batch = chosen
+    let failed = 0
+    for (let index = 0; index < batch.length; index += 1) {
+      setProgress(`Publishing ${index + 1} of ${batch.length}…`)
+      const res = await fetch('/api/admin/recipes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: batch[index].id, visibility: 'public' }) })
+      if (!res.ok) failed += 1
+    }
+    setProgress(null)
+    setConfirmBulk(false)
+    setSelected(new Set())
+    if (failed > 0) setError(`${failed} of ${batch.length} could not be published. They are still drafts.`)
+    load(query)
+  }
 
   function search(event: FormEvent) {
     event.preventDefault()
@@ -110,6 +143,7 @@ export default function AdminRecipesPage() {
           <table className="min-w-full text-sm">
             <thead className="bg-gray-50 text-left text-xs font-bold uppercase tracking-wide text-gray-500">
               <tr>
+                <th className="w-10 px-4 py-3">{selectable.length > 0 && <input type="checkbox" aria-label="Select all drafts" checked={allChosen} onChange={toggleAll} />}</th>
                 <th className="px-4 py-3">Recipe</th>
                 <th className="px-4 py-3">Labels</th>
                 <th className="px-4 py-3">Author</th>
@@ -122,6 +156,7 @@ export default function AdminRecipesPage() {
             <tbody className="divide-y divide-gray-100">
               {shown.map((r) => (
                 <tr key={r.id} className={r.reviewHold ? 'bg-amber-50/70' : ''}>
+                  <td className="px-4 py-3">{r.visibility === 'private' && <input type="checkbox" aria-label={`Select ${r.title}`} checked={selected.has(r.id)} onChange={() => toggle(r.id)} />}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -153,9 +188,31 @@ export default function AdminRecipesPage() {
                   </td>
                 </tr>
               ))}
-              {shown.length === 0 && <tr><td colSpan={7} className="px-4 py-8 text-center text-gray-500">Nothing here.</td></tr>}
+              {shown.length === 0 && <tr><td colSpan={8} className="px-4 py-8 text-center text-gray-500">Nothing here.</td></tr>}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {recipes && selectable.length > 0 && (
+        <div className="sticky bottom-4 mt-4 flex flex-wrap items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-lg">
+          <button type="button" onClick={toggleAll} className="rounded-full bg-gray-100 px-4 py-2 text-sm font-bold text-gray-800 hover:bg-gray-200">
+            {allChosen ? 'Clear selection' : selectable.length === 1 ? 'Select the draft' : `Select all ${selectable.length} drafts`}
+          </button>
+          <span className="text-sm text-gray-600">{chosen.length} selected</span>
+          <div className="ml-auto flex flex-wrap items-center gap-2">
+            {progress ? (
+              <span className="text-sm font-semibold text-gray-700">{progress}</span>
+            ) : confirmBulk ? (
+              <>
+                <span className="text-sm text-gray-700">Publish {chosen.length} recipe{chosen.length === 1 ? '' : 's'} to the community?</span>
+                <button type="button" onClick={publishChosen} className="rounded-full bg-green-700 px-4 py-2 text-sm font-bold text-white">Yes, publish</button>
+                <button type="button" onClick={() => setConfirmBulk(false)} className="rounded-full px-3 py-2 text-sm text-gray-600">Cancel</button>
+              </>
+            ) : (
+              <button type="button" disabled={chosen.length === 0} onClick={() => setConfirmBulk(true)} className="rounded-full bg-green-700 px-4 py-2 text-sm font-bold text-white disabled:opacity-40">Publish selected</button>
+            )}
+          </div>
         </div>
       )}
     </main>

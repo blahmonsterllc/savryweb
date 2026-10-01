@@ -3,7 +3,7 @@
 import { CheckSquare, Printer } from 'lucide-react'
 import CookingMode from '@/components/CookingMode'
 
-type Cooking = { title: string; ingredients: string[]; steps: string[]; ovenTemp?: number | null }
+type Cooking = { title: string; ingredients: { name: string; amount: string | null; unit: string | null; isOptional: boolean }[]; steps: string[]; ovenTemp?: number | null }
 
 export default function RecipeQuickActions({ cooking }: { cooking?: Cooking }) {
   return (

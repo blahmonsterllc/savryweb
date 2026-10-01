@@ -3,8 +3,11 @@
 import { ChefHat, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { scaledIngredientLine } from '@/lib/scale-ingredients.mjs'
+import { useServingFactor } from '@/lib/serving-scale'
 
-type Props = { title: string; ingredients: string[]; steps: string[]; ovenTemp?: number | null }
+type Ingredient = { name: string; amount: string | null; unit: string | null; isOptional: boolean }
+type Props = { title: string; ingredients: Ingredient[]; steps: string[]; ovenTemp?: number | null }
 
 /**
  * Full-screen cooking view, like the app's Cooking Mode: the ingredient list
@@ -16,6 +19,8 @@ export default function CookingMode({ title, ingredients, steps, ovenTemp }: Pro
   const [index, setIndex] = useState(0)
   const [checked, setChecked] = useState<Set<number>>(new Set())
   const [showIngredients, setShowIngredients] = useState(false)
+  // Follows the servings chosen on the recipe page.
+  const factor = useServingFactor()
   const wakeLock = useRef<{ release: () => Promise<void> } | null>(null)
 
   const total = steps.length
@@ -90,11 +95,11 @@ export default function CookingMode({ title, ingredients, steps, ovenTemp }: Pro
               <h2>Ingredients</h2>
               {ovenTemp ? <p className="cooking-mode__oven">Oven {ovenTemp}°F</p> : null}
               <ul>
-                {ingredients.map((line, i) => (
+                {ingredients.map((ingredient, i) => (
                   <li key={i}>
                     <label className={checked.has(i) ? 'is-done' : ''}>
                       <input type="checkbox" checked={checked.has(i)} onChange={() => toggle(i)} />
-                      <span>{line}</span>
+                      <span>{scaledIngredientLine(ingredient, factor)}</span>
                     </label>
                   </li>
                 ))}

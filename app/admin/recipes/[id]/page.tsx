@@ -144,7 +144,14 @@ export default function AdminRecipeReviewPage() {
       </section>
 
       <section className="mt-10 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-        <h2 className="font-bold text-gray-900">Review</h2>
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="font-bold text-gray-900">Review</h2>
+          {recipe.visibility !== 'public' && (
+            <button type="button" onClick={() => setChecked(checked.size === CHECKLIST.length ? new Set() : new Set(CHECKLIST.map((_, index) => index)))} className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-800 hover:bg-gray-200">
+              {checked.size === CHECKLIST.length ? 'Clear all' : 'Select all'}
+            </button>
+          )}
+        </div>
         <ul className="mt-3 space-y-2 text-sm">
           {CHECKLIST.map((item, index) => (
             <li key={index}>

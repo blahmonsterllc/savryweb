@@ -12,6 +12,9 @@
  * (same slug) is skipped unless --update is passed, and --update never changes
  * a recipe's visibility.
  *
+ * After seeding, calculate nutrition for the new recipes:
+ *   node scripts/nutrition/apply.mjs --project-ref qnpekzrchqftdoaebzuf
+ *
  * Needs NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SECRET_KEY (or SUPABASE_SERVICE_ROLE_KEY).
  */
 import { createHash } from 'node:crypto'

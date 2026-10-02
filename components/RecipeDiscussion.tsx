@@ -5,6 +5,7 @@ import { Check, ChevronDown, Heart, MessageCircle, Reply, Sparkles, X } from 'lu
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
+import { newPhotoPath, photoToJPEG } from '@/lib/photo-upload'
 
 type Topic = 'addition' | 'revision' | 'substitution' | 'technique' | 'question'
 type DiscussionPost = {
@@ -243,10 +244,11 @@ export default function RecipeDiscussion({ slug, initialCount = 0 }: { slug: str
 
   async function submitMadeIt(note: string) {
     if (!photo || !viewerId) throw new Error('Add a photo of your finished dish. That’s how a Made It counts.')
-    const ext = photo.type === 'image/png' ? 'png' : photo.type === 'image/webp' ? 'webp' : 'jpg'
-    const path = `${viewerId}/madeit-${crypto.randomUUID()}.${ext}`
-    const { error: uploadError } = await supabase.storage.from('recipe-images').upload(path, photo, { contentType: photo.type, upsert: false })
-    if (uploadError) throw new Error('That photo could not be saved. Try a smaller JPEG.')
+    // Phone photos are far over the storage limit as taken; shrink before sending.
+    const prepared = await photoToJPEG(photo)
+    const path = newPhotoPath(viewerId, 'madeit')
+    const { error: uploadError } = await supabase.storage.from('recipe-images').upload(path, prepared, { contentType: 'image/jpeg', upsert: false })
+    if (uploadError) throw new Error('That photo could not be saved. Please try again.')
     const { error: madeError } = await supabase.rpc('record_made_it', {
       payload: { recipeSlug: slug, source: 'web', photoPath: path, text: note || undefined },
     })

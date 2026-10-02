@@ -219,3 +219,14 @@ test('community browse and saves: one server contract, counts kept by the server
   assert.match(button, /rpc\('toggle_recipe_save'/)
   assert.doesNotMatch(button, /from\('recipe_saves'\)/, 'the site never writes saves directly')
 })
+
+test('photo uploads are plain inserts of prepared JPEGs into the member\'s own folder', async () => {
+  for (const file of ['components/RecipeComposer.tsx', 'components/RecipeDiscussion.tsx', 'components/AccountHub.tsx']) {
+    const code = await source(file)
+    assert.doesNotMatch(code, /upsert:\s*true/, `${file}: storage refuses an overwrite, so an upsert upload always fails`)
+  }
+  const discussion = await source('components/RecipeDiscussion.tsx')
+  assert.match(discussion, /photoToJPEG\(photo\)/, 'Made It photos are shrunk before upload; raw phone photos exceed the 2 MB limit')
+  const helper = await source('lib/photo-upload.ts')
+  assert.match(helper, /`\$\{userId\}\/\$\{label\}-\$\{random\}\.jpg`/, 'every upload gets a new path inside the member folder')
+})

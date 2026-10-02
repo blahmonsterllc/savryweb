@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
+import { newPhotoPath } from '@/lib/photo-upload'
 
 type IngredientDraft = {
   amount: string
@@ -235,10 +236,12 @@ export default function RecipeComposer() {
       let imagePath: string | null = null
       let imageURL: string | null = null
       if (draft.imageBase64) {
-        imagePath = `${user.id}/${draft.clientRecipeId}.jpg`
+        // A fresh path each time: members may add files to their own folder
+        // but not overwrite one, so replacing in place is refused by storage.
+        imagePath = newPhotoPath(user.id, 'recipe')
         const { error: uploadError } = await supabase.storage
           .from('recipe-images')
-          .upload(imagePath, base64JPEG(draft.imageBase64), { contentType: 'image/jpeg', upsert: true })
+          .upload(imagePath, base64JPEG(draft.imageBase64), { contentType: 'image/jpeg', upsert: false })
         if (uploadError) throw uploadError
         imageURL = supabase.storage.from('recipe-images').getPublicUrl(imagePath).data.publicUrl
       }

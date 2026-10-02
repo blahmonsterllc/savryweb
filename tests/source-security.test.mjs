@@ -199,3 +199,23 @@ test('content patrol only flags, is service-role only, and its schedule needs a 
   const privacy = await source('app/privacy/page.tsx')
   assert.match(privacy, /Anthropic/)
 })
+
+test('community browse and saves: one server contract, counts kept by the server', async () => {
+  const migration = await source('supabase/migrations/20261002000000_community_browse_and_saves.sql')
+  for (const fn of ['recipe_card', 'browse_public_recipes', 'recipe_save_state', 'toggle_recipe_save', 'my_saved_recipes', 'my_published_recipes']) {
+    const body = migration.slice(migration.indexOf(`function public.${fn}(`))
+    assert.match(body.slice(0, body.indexOf('$$')), /security definer set search_path = ''/, `${fn} pins its search path`)
+  }
+  assert.match(migration, /revoke all on function public\.recipe_card\(public\.recipes, uuid\) from public, anon, authenticated/, 'the card helper takes any viewer id, so clients must not call it')
+  assert.match(migration, /revoke all on function public\.toggle_recipe_save\(text\) from public, anon/)
+  assert.match(migration, /revoke all on function public\.my_saved_recipes\(integer, integer\) from public, anon/)
+  assert.match(migration, /revoke insert, update, delete on public\.recipe_saves from anon, authenticated/, 'saves go through the function so save_count stays right')
+  const browse = migration.slice(migration.indexOf('function public.browse_public_recipes'), migration.indexOf('function public.recipe_save_state'))
+  assert.match(browse, /r\.visibility = 'public' and not p\.is_banned/, 'only public recipes from members in good standing')
+  assert.match(browse, /user_blocks/, 'blocked cooks are hidden from the member who blocked them')
+  assert.match(browse, /least\(greatest\(coalesce\(result_limit, 24\), 1\), 60\)/, 'page size is capped')
+
+  const button = await source('components/SaveRecipeButton.tsx')
+  assert.match(button, /rpc\('toggle_recipe_save'/)
+  assert.doesNotMatch(button, /from\('recipe_saves'\)/, 'the site never writes saves directly')
+})

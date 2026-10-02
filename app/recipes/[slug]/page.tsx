@@ -100,7 +100,7 @@ export default async function RecipePage({ params }: Params) {
         </div>
       </header>
 
-      <RecipeQuickActions cooking={{ title: recipe.title, ingredients: recipe.ingredients, steps: recipe.instructions, ovenTemp: recipe.ovenTemp }} />
+      <RecipeQuickActions slug={recipe.slug} cooking={{ title: recipe.title, ingredients: recipe.ingredients, steps: recipe.instructions, ovenTemp: recipe.ovenTemp }} />
 
       <div className="mt-8 grid gap-8 md:grid-cols-5">
         <section id="ingredients" className="recipe-anchor md:col-span-2">

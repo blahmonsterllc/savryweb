@@ -31,6 +31,7 @@ const SECTIONS = [
   { id: 'profile', label: 'Profile' },
   { id: 'social', label: 'Social links' },
   { id: 'recipes', label: 'Your recipes' },
+  { id: 'saved', label: 'Saved recipes' },
   { id: 'email', label: 'Email' },
   { id: 'membership', label: 'Membership' },
   { id: 'account', label: 'Account' },
@@ -146,6 +147,7 @@ export default function AccountHub() {
         <ProfileSection profile={profile} onChange={setProfile} cookURL={cookURL} />
         <SocialSection profile={profile} onChange={setProfile} cookURL={cookURL} />
         <RecipesSection recipes={recipes} />
+        <SavedSection />
         <EmailSection profile={profile} onChange={setProfile} />
         <MembershipSection profile={profile} />
         <AccountSection profile={profile} onSignOut={signOut} />
@@ -397,6 +399,55 @@ function RecipesSection({ recipes }: { recipes: RecipeRow[] }) {
       ) : (
         <div className="account-library__empty">
           <p>You have not shared a recipe yet. Start with the dish friends or family always ask you to make.</p>
+        </div>
+      )}
+    </SectionCard>
+  )
+}
+
+type SavedCard = { id: string; slug: string; title: string; imageUrl: string | null; authorName: string; totalTime: number }
+
+/** Recipes the member saved, here or in the app. The list is the same in both. */
+function SavedSection() {
+  const [saved, setSaved] = useState<SavedCard[] | null>(null)
+  const [busy, setBusy] = useState<string | null>(null)
+
+  useEffect(() => {
+    let active = true
+    getSupabaseBrowserClient()
+      .rpc('my_saved_recipes', { result_limit: 100 })
+      .then(({ data }: { data: { recipes?: SavedCard[] } | null }) => { if (active) setSaved(data?.recipes ?? []) })
+    return () => { active = false }
+  }, [])
+
+  async function remove(slug: string) {
+    setBusy(slug)
+    const { error } = await getSupabaseBrowserClient().rpc('toggle_recipe_save', { target_slug: slug })
+    setBusy(null)
+    if (!error) setSaved((current) => (current ?? []).filter((recipe) => recipe.slug !== slug))
+  }
+
+  return (
+    <SectionCard id="saved" title="Saved recipes" lede="Recipes you saved on Savry.io or in the Savry app. The list is the same in both.">
+      {saved === null ? (
+        <p className="settings-hint">Loading…</p>
+      ) : saved.length ? (
+        <ul className="account-library__list">
+          {saved.map((recipe) => (
+            <li key={recipe.id} className="account-library__saved">
+              <Link href={`/recipes/${recipe.slug}`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {recipe.imageUrl ? <img src={recipe.imageUrl} alt="" /> : <span className="account-library__initial">{recipe.title.charAt(0)}</span>}
+                <div><strong>{recipe.title}</strong><span>by {recipe.authorName}{recipe.totalTime ? ` · ${recipe.totalTime} min` : ''}</span></div>
+              </Link>
+              <button type="button" className="account-library__remove" disabled={busy === recipe.slug} onClick={() => remove(recipe.slug)}>Remove</button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="account-library__empty">
+          <p>Nothing saved yet. Tap Save on any recipe to keep it here.</p>
+          <Link href="/recipes" className="button button--light">Browse recipes</Link>
         </div>
       )}
     </SectionCard>

@@ -230,3 +230,35 @@ test('photo uploads are plain inserts of prepared JPEGs into the member\'s own f
   const helper = await source('lib/photo-upload.ts')
   assert.match(helper, /`\$\{userId\}\/\$\{label\}-\$\{random\}\.jpg`/, 'every upload gets a new path inside the member folder')
 })
+
+test('Savry+ purchases reach the site only with Apple\'s signature and the member\'s own session', async () => {
+  const sync = await source('pages/api/membership/sync.ts')
+  assert.ok(sync.indexOf('auth.getUser(token)') < sync.indexOf('readSavryPlusPurchase('), 'the member is identified before the purchase is read')
+  assert.ok(sync.indexOf('readSavryPlusPurchase(') < sync.indexOf("rpc('record_app_store_membership'"), 'the purchase is verified before it is stored')
+  assert.match(sync, /target_user: userData\.user\.id/, 'a membership is only ever linked to the caller')
+  assert.doesNotMatch(sync, /req\.body\?\.(userId|user_id|tier|status|expires)/, 'nothing about the membership is taken on the caller\'s word')
+
+  const notifications = await source('pages/api/app-store/notifications.ts')
+  assert.ok(notifications.indexOf('verifyAppStoreJWS(req.body?.signedPayload)') < notifications.indexOf('getSupabaseAdmin()'), 'Apple\'s signature is checked before the database is touched')
+  assert.match(notifications, /readSavryPlusPurchase\(signedTransaction\)/, 'the transaction inside a notification is verified too')
+
+  const membership = await source('lib/app-store-membership.ts')
+  assert.match(membership, /import 'server-only'/)
+  assert.match(membership, /verifyAppStoreJWS\(signedTransaction as string\)/, 'the default pinned Apple root is used, never a caller-supplied one')
+  assert.doesNotMatch(membership, /trustedRoots/)
+  assert.match(membership, /APP_STORE_ALLOW_SANDBOX === 'true'/, 'test purchases count only when switched on')
+
+  const cron = await source('pages/api/cron/memberships.ts')
+  assert.match(cron, /timingSafeEqual/)
+  assert.match(cron, /if \(!secret\) return res\.status\(503\)/)
+  assert.ok(cron.indexOf('return res.status(401)') < cron.indexOf('getSupabaseAdmin()'), 'the secret is checked before anything runs')
+
+  const middleware = await source('middleware.ts')
+  assert.match(middleware, /pathname === '\/api\/membership\/sync'/)
+  assert.match(middleware, /pathname === '\/api\/cron\/memberships'/)
+  assert.match(middleware, /const APP_STORE_NOTIFICATIONS_PATH = '\/api\/app-store\/notifications'/)
+  assert.doesNotMatch(middleware, /startsWith\('\/api\/(membership|app-store)'\)/, 'only the exact paths are public')
+
+  const cronConfig = JSON.parse(await source('vercel.json'))
+  assert.deepEqual(cronConfig.crons.map((entry) => entry.path), ['/api/cron/patrol', '/api/cron/memberships'])
+})

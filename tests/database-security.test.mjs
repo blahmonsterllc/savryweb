@@ -125,3 +125,16 @@ test('admin tools are service-role only and the audit covers the core invariants
     assert.match(admin, new RegExp(`'id', '${id}'`), `audit check ${id}`)
   }
 })
+
+test('memberships are written only by the server, and one purchase belongs to one account', async () => {
+  const membership = await readFile(new URL('../supabase/migrations/20261002010000_app_store_membership.sql', import.meta.url), 'utf8')
+  for (const fn of ['record_app_store_membership(uuid, jsonb)', 'apply_app_store_notification(jsonb)', 'expire_lapsed_memberships()']) {
+    const escaped = fn.replace(/[()]/g, (m) => '\\' + m)
+    assert.match(membership, new RegExp(`revoke all on function public\\.${escaped} from public, anon, authenticated`), `${fn} must be revoked from clients`)
+    assert.match(membership, new RegExp(`grant execute on function public\\.${escaped} to service_role`), `${fn} must be granted to service_role`)
+  }
+  assert.equal((membership.match(/security definer set search_path = ''/g) ?? []).length, 3)
+  assert.doesNotMatch(membership, /auth\.uid\(\)/, 'the caller is named by the server, which verified the session')
+  assert.match(membership, /owner_id is not null and owner_id <> target_user/, 'a purchase linked to one account is refused for another')
+  assert.doesNotMatch(membership, /update public\.profiles/, 'the tier changes only through the membership trigger')
+})

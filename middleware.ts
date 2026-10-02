@@ -30,14 +30,21 @@ function shouldBlockBot(userAgent: string, path: string): boolean {
   return !allowedPublicBots.some((pattern) => pattern.test(userAgent))
 }
 
+const APP_STORE_NOTIFICATIONS_PATH = '/api/app-store/notifications'
+
 // Public API routes that are reachable without an admin session.
 function isPublicApiRoute(pathname: string): boolean {
   return (
     pathname === '/api/public/config' ||
     // Members call this with their own Supabase token; the handler verifies it.
     pathname === '/api/account/apple-revoke' ||
-    // Vercel Cron calls this with the CRON_SECRET bearer token; the handler verifies it.
+    // The app sends a member's signed Savry+ purchase with their Supabase token; the handler verifies both.
+    pathname === '/api/membership/sync' ||
+    // Apple's servers report renewals and refunds here; the handler verifies Apple's signature.
+    pathname === APP_STORE_NOTIFICATIONS_PATH ||
+    // Vercel Cron calls these with the CRON_SECRET bearer token; the handlers verify it.
     pathname === '/api/cron/patrol' ||
+    pathname === '/api/cron/memberships' ||
     pathname === '/api/email/unsubscribe'
   )
 }
@@ -116,8 +123,9 @@ export async function middleware(req: NextRequest) {
   // Bot handling here is intentionally light; the database enforces the
   // real limits (account standing, daily allowances) inside its functions.
 
-  // Check if bot should be blocked (scrapers everywhere, every bot on /api)
-  if (shouldBlockBot(userAgent, pathname)) {
+  // Check if bot should be blocked (scrapers everywhere, every bot on /api).
+  // Apple's notification servers are not a browser; their signature is the check.
+  if (pathname !== APP_STORE_NOTIFICATIONS_PATH && shouldBlockBot(userAgent, pathname)) {
     {
       return NextResponse.json(
         {

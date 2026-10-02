@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { computeRecipeNutrition, createMatcher, exclusionFor, gramsFor } from '../lib/nutrition/compute.mjs'
+import { computeRecipeNutrition, createMatcher, exclusionFor, gramsFor, normalizeUnit } from '../lib/nutrition/compute.mjs'
 
 const rules = [
   { phrases: ['all-purpose flour', 'flour'], fdcId: 1, cupGrams: 125 },
@@ -66,6 +66,24 @@ test('weights follow the recipe: stated grams, then weight, can size, volume, na
   assert.equal(grams('fine sea salt', '1', 'pinch'), 0, 'a pinch rounds to nothing but is still weighed')
   assert.equal(gramsFor({ name: 'garlic', amount: '2', unit: 'sprig' }, ruleFor('garlic')), null, 'an unknown unit is never guessed')
   assert.equal(grams('olive oil or neutral oil, for frying', '1/2', 'cup'), 27, 'only part of frying oil is absorbed')
+})
+
+test('units are understood however the cook writes them', () => {
+  assert.equal(normalizeUnit('Tablespoons'), 'tbsp')
+  assert.equal(normalizeUnit('tsp.'), 'tsp')
+  assert.equal(normalizeUnit('cups'), 'cup')
+  assert.equal(normalizeUnit('lbs'), 'lb')
+  assert.equal(normalizeUnit('grams'), 'g')
+  assert.equal(normalizeUnit('cloves'), 'clove')
+  assert.equal(normalizeUnit(''), null)
+  assert.equal(normalizeUnit('each'), null)
+  assert.equal(grams('all-purpose flour', '250', 'grams'), 250)
+  assert.equal(grams('unsalted butter', '0.5', 'kg'), 500)
+  assert.equal(grams('olive oil', '2', 'Tablespoons'), 27)
+  assert.equal(grams('olive oil', '100', 'ml'), 91)
+  assert.equal(grams('olive oil', '1', 'fl oz'), 27)
+  assert.equal(grams('garlic', '4', 'cloves'), 12)
+  assert.equal(grams('large eggs', '2', 'each'), 100)
 })
 
 test('optional items and serving suggestions are left out', () => {

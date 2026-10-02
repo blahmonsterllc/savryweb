@@ -48,6 +48,8 @@ recipes.push({
     line('bone-in, skin-on chicken thighs (about 6 oz each)', '4', null), line('sweet potatoes (about 2 medium), peeled and cubed', '1', 'lb'),
     line('medium sweet potatoes (about 1 1/4 lb), scrubbed', '2', null), line('whole wheat flour', '', 'cup'), line('red pepper flakes, or more to taste', '1/2', 'teaspoon'),
     line('Gruyère cheese, coarsely grated (about 1 cup)', '4', 'ounces'), line('fresh thyme', '3', 'sprigs'), line('honey', '1', 'dash'),
+    line('yellow onion, diced', '1', 'large'), line('red bell pepper, seeded and diced', '1', 'Large'), line('eggs', '2', 'large'), line('carrots', '3', 'small'),
+    line('celery', '2', 'stalks'), line('garlic', '1', 'head'), line('fresh basil', '6', 'leaves'), line('yellow onion', '2', 'bucket'),
   ],
 })
 

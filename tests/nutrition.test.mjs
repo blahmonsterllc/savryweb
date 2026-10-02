@@ -84,6 +84,11 @@ test('units are understood however the cook writes them', () => {
   assert.equal(grams('olive oil', '1', 'fl oz'), 27)
   assert.equal(grams('garlic', '4', 'cloves'), 12)
   assert.equal(grams('large eggs', '2', 'each'), 100)
+  assert.equal(grams('yellow onion, diced', '1', 'large'), 143, 'a size word in the unit box is a size, not a unit')
+  assert.equal(grams('yellow onion', '2', 'Small'), 165)
+  assert.equal(grams('eggs', '2', 'large'), 100, 'egg weight is already for a large egg')
+  assert.equal(grams('yellow onion', '2', 'heads'), 220, 'a counting word falls back to the weight of one')
+  assert.equal(gramsFor({ name: 'yellow onion', amount: '2', unit: 'bucket' }, ruleFor('yellow onion')), null)
 })
 
 test('optional items and serving suggestions are left out', () => {

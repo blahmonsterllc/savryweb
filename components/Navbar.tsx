@@ -63,6 +63,7 @@ export default function Navbar() {
         </button>
 
         <div className={`savry-nav__links ${open ? 'savry-nav__links--open' : ''}`}>
+          {viewer && <Link href="/feed" onClick={close} className={pathname === '/feed' ? 'is-active' : ''}>Your table</Link>}
           <Link href="/recipes" onClick={close} className={pathname === '/recipes' || (pathname?.startsWith('/recipes/') && pathname !== '/recipes/new') ? 'is-active' : ''}>Community recipes</Link>
           <Link href="/recipes/new" onClick={close} className={pathname === '/recipes/new' ? 'is-active' : ''}>Add a recipe</Link>
           <Link href="/savry-plus" onClick={close} className={pathname === '/savry-plus' ? 'is-active' : ''}>Savry+</Link>

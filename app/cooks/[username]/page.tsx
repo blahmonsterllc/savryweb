@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, ExternalLink } from 'lucide-react'
+import FollowButton from '@/components/FollowButton'
 import RecipeShareBar from '@/components/RecipeShareBar'
 import { getSupabasePublicCook } from '@/lib/community-recipes-supabase'
 import { SOCIAL_NETWORKS, socialLinkLabel, socialLinkURL } from '@/lib/social-links'
@@ -62,6 +63,7 @@ export default async function CookPage({ params }: { params: { username: string 
             <div><dt>Cooked by others</dt><dd>{madeCount}</dd></div>
           </dl>
           <div className="cook-page__actions">
+            <FollowButton username={cook.username} />
             <RecipeShareBar title={`${cook.displayName} on Savry`} url={url} imageUrl={cook.avatarUrl} label="Share this cook" />
             {links.length > 0 && (
               <ul className="cook-page__links" aria-label="Elsewhere">

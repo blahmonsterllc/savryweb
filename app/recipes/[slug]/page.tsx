@@ -60,10 +60,11 @@ export default async function RecipePage({ params }: Params) {
 
       <Link href="/recipes" className="text-sm text-primary-700 hover:underline">← All community recipes</Link>
 
-      <header className="mt-4 overflow-hidden rounded-3xl bg-white shadow-xl">
+      {/* Not overflow-hidden: the Share menu opens below its button and must be able to leave the box. */}
+      <header className="mt-4 rounded-3xl bg-white shadow-xl">
         {recipe.imageUrl && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={recipe.imageUrl} alt={recipe.title} className="max-h-[420px] w-full object-cover" />
+          <img src={recipe.imageUrl} alt={recipe.title} className="max-h-[420px] w-full rounded-t-3xl object-cover" />
         )}
         <div className="p-6 sm:p-8">
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{recipe.title}</h1>

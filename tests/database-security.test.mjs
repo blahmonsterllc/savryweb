@@ -178,3 +178,14 @@ test('following is server-managed, respects blocks and bans, and the feed shows 
   assert.match(feed, /create trigger user_blocks_drop_follows after insert on public\.user_blocks/, 'a block ends the follow both ways')
   assert.equal((feed.match(/security definer set search_path = ''/g) ?? []).length, 7)
 })
+
+test('notifications are written only by triggers, never for your own actions or from someone you blocked', async () => {
+  const n = await readFile(new URL('../supabase/migrations/20261003010000_notifications.sql', import.meta.url), 'utf8')
+  assert.match(n, /revoke all on public\.notifications from public, anon, authenticated/, 'clients never touch the table directly')
+  assert.match(n, /if recipient is null or recipient = actor then return; end if;/, 'no notification about your own action')
+  assert.match(n, /b\.blocker_id = recipient and b\.blocked_id = actor/, 'blocked cooks cannot reach your inbox')
+  assert.match(n, /where user_id = actor and read_at is null/, 'you can only mark your own as read')
+  assert.match(n, /where n\.user_id = auth\.uid\(\)/, 'you only read your own')
+  for (const trigger of ['contributions_notify', 'profile_follows_notify', 'recipes_notify_live']) assert.match(n, new RegExp(`create trigger ${trigger} `))
+  assert.equal((n.match(/security definer set search_path = ''/g) ?? []).length, 7)
+})

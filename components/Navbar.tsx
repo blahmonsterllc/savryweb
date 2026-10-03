@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
+import NotificationBell from '@/components/NotificationBell'
 
 type Viewer = { name: string; avatarUrl: string | null }
 
@@ -69,6 +70,7 @@ export default function Navbar() {
           <Link href="/savry-plus" onClick={close} className={pathname === '/savry-plus' ? 'is-active' : ''}>Savry+</Link>
           <a href="/#app-coming-soon" onClick={close}>The app</a>
 
+          {viewer && <NotificationBell onNavigate={close} />}
           {viewer ? (
             <Link href="/account" className="savry-nav__me" onClick={close} aria-label="Your account">
               {viewer.avatarUrl ? (

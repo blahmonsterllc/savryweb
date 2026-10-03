@@ -138,3 +138,14 @@ test('memberships are written only by the server, and one purchase belongs to on
   assert.match(membership, /owner_id is not null and owner_id <> target_user/, 'a purchase linked to one account is refused for another')
   assert.doesNotMatch(membership, /update public\.profiles/, 'the tier changes only through the membership trigger')
 })
+
+test('publishing has a quality gate and new cooks wait for an editor', async () => {
+  const gate = await readFile(new URL('../supabase/migrations/20261002020000_publish_quality_gate.sql', import.meta.url), 'utf8')
+  assert.ok(gate.indexOf('public.recipe_quality_problem(payload)') < gate.indexOf('result := public.publish_recipe(payload)'), 'the gate runs before anything is written')
+  assert.match(gate, /named_ingredients < 2/)
+  assert.match(gate, /usable_steps < 2 or method_length < 80/)
+  assert.match(gate, /if not already_public and not public\.cook_is_trusted\(actor, target_id\) then/, 'the recipe being published must not count toward trust')
+  assert.match(gate, /set visibility = 'private', review_hold = true/)
+  assert.match(gate, /revoke all on function public\.cook_is_trusted\(uuid, uuid\) from public, anon, authenticated/)
+  assert.doesNotMatch(gate, /payload ->> 'status'|payload ->> 'visibility'|payload ->> 'trusted'/, 'standing is never taken from the client')
+})

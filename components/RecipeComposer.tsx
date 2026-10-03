@@ -138,6 +138,8 @@ export default function RecipeComposer() {
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const [publishedURL, setPublishedURL] = useState<string | null>(null)
+  // A cook's first recipes wait for an editor before they appear on the table.
+  const [pendingReview, setPendingReview] = useState(false)
 
   useEffect(() => {
     try {
@@ -280,9 +282,10 @@ export default function RecipeComposer() {
         },
       })
       if (publishError) throw publishError
-      const published = result as { url?: string } | null
+      const published = result as { url?: string; status?: string } | null
       if (!published?.url) throw new Error('Savry could not publish this recipe.')
       window.localStorage.removeItem(DRAFT_KEY)
+      setPendingReview(published.status === 'pending_review')
       setPublishedURL(published.url)
     } catch (error: any) {
       setMessage(error?.message || 'Savry could not publish this recipe.')
@@ -299,10 +302,19 @@ export default function RecipeComposer() {
         <div className="recipe-published">
           <span className="recipe-published__check"><Check size={38} /></span>
           <span className="eyebrow">Fresh from your kitchen</span>
-          <h1>Your recipe is on the shared table.</h1>
-          <p>It is now public, shareable, and credited to your Savry community account.</p>
+          {pendingReview ? (
+            <>
+              <h1>Your recipe is in for review.</h1>
+              <p>A Savry editor reads each cook&rsquo;s first recipes before they join the shared table, usually within a day. You can see and edit it from your account meanwhile.</p>
+            </>
+          ) : (
+            <>
+              <h1>Your recipe is on the shared table.</h1>
+              <p>It is now public, shareable, and credited to your Savry community account.</p>
+            </>
+          )}
           <div>
-            <a href={publishedURL} className="button button--coral">View your recipe</a>
+            <a href={publishedURL} className="button button--coral">{pendingReview ? 'See your recipe' : 'View your recipe'}</a>
             <button
               type="button"
               className="button button--light"

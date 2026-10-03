@@ -32,6 +32,7 @@ const SECTIONS = [
   { id: 'social', label: 'Social links' },
   { id: 'recipes', label: 'Your recipes' },
   { id: 'saved', label: 'Saved recipes' },
+  { id: 'collections', label: 'Collections' },
   { id: 'email', label: 'Email' },
   { id: 'membership', label: 'Membership' },
   { id: 'account', label: 'Account' },
@@ -148,6 +149,7 @@ export default function AccountHub() {
         <SocialSection profile={profile} onChange={setProfile} cookURL={cookURL} />
         <RecipesSection recipes={recipes} />
         <SavedSection />
+        <CollectionsSection username={profile.username ?? null} />
         <EmailSection profile={profile} onChange={setProfile} />
         <MembershipSection profile={profile} />
         <AccountSection profile={profile} onSignOut={signOut} />
@@ -446,6 +448,98 @@ function RecipesSection({ recipes: initial }: { recipes: RecipeRow[] }) {
           <p>You have not shared a recipe yet. Start with the dish friends or family always ask you to make.</p>
         </div>
       )}
+    </SectionCard>
+  )
+}
+
+type CollectionCard = { id: string; slug: string; title: string; description: string | null; isPublic: boolean; itemCount: number; coverUrls: string[] }
+
+/** The cook's collections: start one, make it private or public, or remove it. Recipes go in from each recipe's Collect button. */
+function CollectionsSection({ username }: { username: string | null }) {
+  const [collections, setCollections] = useState<CollectionCard[] | null>(null)
+  const [title, setTitle] = useState('')
+  const [busy, setBusy] = useState<string | null>(null)
+  const [confirming, setConfirming] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    let active = true
+    getSupabaseBrowserClient().rpc('my_collections').then(({ data, error }: { data: unknown; error: { message: string } | null }) => {
+      if (!active) return
+      if (error) return setMessage(error.message)
+      setCollections(((data as { collections?: CollectionCard[] } | null)?.collections ?? []))
+    })
+    return () => { active = false }
+  }, [])
+
+  async function create() {
+    const name = title.trim()
+    if (!name) return
+    setBusy('new')
+    setMessage(null)
+    const { data, error } = await getSupabaseBrowserClient().rpc('create_collection', { title: name })
+    setBusy(null)
+    if (error) return setMessage(error.message)
+    setCollections((list) => [data as CollectionCard, ...(list ?? [])])
+    setTitle('')
+  }
+
+  async function setPublic(collection: CollectionCard, isPublic: boolean) {
+    setBusy(collection.slug)
+    const { data, error } = await getSupabaseBrowserClient().rpc('update_collection', { target_slug: collection.slug, payload: { isPublic } })
+    setBusy(null)
+    if (error) return setMessage(error.message)
+    setCollections((list) => (list ?? []).map((c) => (c.slug === collection.slug ? (data as CollectionCard) : c)))
+  }
+
+  async function remove(collection: CollectionCard) {
+    setBusy(collection.slug)
+    const { error } = await getSupabaseBrowserClient().rpc('delete_collection', { target_slug: collection.slug })
+    setBusy(null)
+    setConfirming(null)
+    if (error) return setMessage(error.message)
+    setCollections((list) => (list ?? []).filter((c) => c.slug !== collection.slug))
+  }
+
+  return (
+    <SectionCard id="collections" title="Collections" lede="Named lists of recipes you can share: Sunday roasts, kid-approved, the holiday table. Add recipes from the Collect button on any recipe.">
+      <form className="settings-inline-form" onSubmit={(event) => { event.preventDefault(); create() }}>
+        <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="New collection, e.g. Weeknight dinners" maxLength={80} aria-label="New collection name" />
+        <button type="submit" className="button button--coral" disabled={busy === 'new' || !title.trim()}><Plus size={16} /> Start</button>
+      </form>
+      {message && <p className="settings-note" role="alert">{message}</p>}
+      {collections && collections.length > 0 ? (
+        <ul className="account-library__list">
+          {collections.map((collection) => (
+            <li key={collection.id} className="account-library__saved">
+              {username ? (
+                <Link href={`/cooks/${username}/collections/${collection.slug}`}>
+                  <span className="account-library__initial">{collection.itemCount}</span>
+                  <div><strong>{collection.title}</strong><span>{collection.isPublic ? 'Public' : 'Private'} · {collection.itemCount} recipe{collection.itemCount === 1 ? '' : 's'}</span></div>
+                </Link>
+              ) : (
+                <span className="account-library__static">
+                  <span className="account-library__initial">{collection.itemCount}</span>
+                  <div><strong>{collection.title}</strong><span>{collection.isPublic ? 'Public' : 'Private'} · {collection.itemCount} recipe{collection.itemCount === 1 ? '' : 's'} · pick a username to get a page for it</span></div>
+                </span>
+              )}
+              {confirming === collection.slug ? (
+                <span className="account-library__confirm">
+                  <button type="button" className="account-library__remove account-library__remove--danger" disabled={busy === collection.slug} onClick={() => remove(collection)}>{busy === collection.slug ? 'Removing…' : 'Yes, remove it'}</button>
+                  <button type="button" className="account-library__remove" onClick={() => setConfirming(null)}>Keep</button>
+                </span>
+              ) : (
+                <span className="account-library__confirm">
+                  <button type="button" className="account-library__remove" disabled={busy === collection.slug} onClick={() => setPublic(collection, !collection.isPublic)}>{collection.isPublic ? 'Make private' : 'Make public'}</button>
+                  <button type="button" className="account-library__remove" onClick={() => setConfirming(collection.slug)}>Remove</button>
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : collections ? (
+        <div className="account-library__empty"><p>No collections yet. Start one above, then add recipes from the Collect button on any recipe.</p></div>
+      ) : null}
     </SectionCard>
   )
 }

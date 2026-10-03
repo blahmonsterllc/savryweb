@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, ExternalLink } from 'lucide-react'
+import CookCollections from '@/components/CookCollections'
 import FollowButton from '@/components/FollowButton'
 import RecipeShareBar from '@/components/RecipeShareBar'
 import { getSupabasePublicCook } from '@/lib/community-recipes-supabase'
@@ -104,6 +105,8 @@ export default async function CookPage({ params }: { params: { username: string 
           <p className="cook-page__empty">No public recipes yet. Check back soon.</p>
         )}
       </section>
+
+      <CookCollections username={cook.username} displayName={cook.displayName} />
     </main>
   )
 }

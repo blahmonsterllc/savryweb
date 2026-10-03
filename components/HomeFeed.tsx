@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 import { ChefHat, Sparkles, Utensils } from 'lucide-react'
 import FollowButton from '@/components/FollowButton'
+import MadeItComposer from '@/components/MadeItComposer'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
 type Cook = { id: string; username: string | null; displayName: string; chefTitle: string | null; avatarUrl: string | null; followerCount: number; recipeCount: number }
@@ -43,6 +44,7 @@ function CookName({ cook }: { cook: Cook }) {
 /** The home feed: what the cooks you follow are doing, or everyone when you are new. */
 export default function HomeFeed() {
   const [signedIn, setSignedIn] = useState<boolean | null>(null)
+  const [viewerId, setViewerId] = useState<string | null>(null)
   const [scope, setScope] = useState<'following' | 'everyone'>('following')
   const [feed, setFeed] = useState<Feed | null>(null)
   const [suggested, setSuggested] = useState<Cook[]>([])
@@ -66,6 +68,7 @@ export default function HomeFeed() {
       if (!active) return
       const isSignedIn = Boolean(auth.user)
       setSignedIn(isSignedIn)
+      setViewerId(auth.user?.id ?? null)
       const first = await load(isSignedIn ? 'following' : 'everyone', 0)
       if (!active) return
       // A cook who follows nobody yet sees everyone, plus who to follow.
@@ -106,6 +109,16 @@ export default function HomeFeed() {
     }
   }
 
+  async function reload() {
+    try {
+      const next = await load(scope, 0)
+      setFeed(next)
+      setExhausted(next.items.length < PAGE)
+    } catch {
+      // The post went through; the feed catches up on the next load.
+    }
+  }
+
   async function more() {
     if (!feed) return
     setLoading(true)
@@ -137,6 +150,7 @@ export default function HomeFeed() {
 
       <div className="feed__layout">
         <section className="feed__stream" aria-live="polite">
+          {viewerId && <MadeItComposer viewerId={viewerId} onPosted={reload} />}
           {error && <p className="settings-note" role="alert">{error}</p>}
           {signedIn && feed && feed.following === 0 && (
             <div className="feed__empty">

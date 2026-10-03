@@ -25,7 +25,7 @@ type Profile = {
   madeCount: number
 }
 
-type RecipeRow = { id: string; slug: string; title: string; image_url: string | null; made_count: number; version: number }
+type RecipeRow = { id: string; slug: string; title: string; image_url: string | null; image_path: string | null; made_count: number; version: number; visibility: 'public' | 'unlisted' | 'private'; review_hold: boolean }
 
 const SECTIONS = [
   { id: 'profile', label: 'Profile' },
@@ -87,7 +87,7 @@ export default function AccountHub() {
       }
       const [{ data: me, error: profileError }, { data: rows, error: recipesError }] = await Promise.all([
         supabase.rpc('my_profile'),
-        supabase.from('recipes').select('id,slug,title,image_url,made_count,version').eq('author_id', authData.user.id).order('created_at', { ascending: false }).limit(100),
+        supabase.from('recipes').select('id,slug,title,image_url,image_path,made_count,version,visibility,review_hold').eq('author_id', authData.user.id).order('created_at', { ascending: false }).limit(100),
       ])
       if (!active) return
       if (profileError || recipesError || !me) {
@@ -377,22 +377,67 @@ function SocialSection({ profile, onChange, cookURL }: { profile: Profile; onCha
   )
 }
 
-function RecipesSection({ recipes }: { recipes: RecipeRow[] }) {
+function RecipesSection({ recipes: initial }: { recipes: RecipeRow[] }) {
+  const [recipes, setRecipes] = useState(initial)
+  const [busy, setBusy] = useState<string | null>(null)
+  const [confirming, setConfirming] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
+  useEffect(() => setRecipes(initial), [initial])
+
+  function standing(recipe: RecipeRow): string {
+    if (recipe.visibility === 'public') return `On the table · ${recipe.made_count} made it · version ${recipe.version}`
+    if (recipe.review_hold) return 'In review · a Savry editor reads it before it joins the table'
+    return 'Private · only you can see it'
+  }
+
+  async function withdraw(recipe: RecipeRow) {
+    setBusy(recipe.slug)
+    setMessage(null)
+    const { error } = await getSupabaseBrowserClient().rpc('unpublish_recipe', { target_slug: recipe.slug })
+    setBusy(null)
+    if (error) return setMessage(error.message)
+    setRecipes((current) => current.map((r) => (r.slug === recipe.slug ? { ...r, visibility: 'private', review_hold: false } : r)))
+  }
+
+  async function remove(recipe: RecipeRow) {
+    setBusy(recipe.slug)
+    setMessage(null)
+    const supabase = getSupabaseBrowserClient()
+    const { error } = await supabase.rpc('delete_my_recipe', { target_slug: recipe.slug })
+    setBusy(null)
+    setConfirming(null)
+    if (error) return setMessage(error.message)
+    // The photo is the cook's own upload; removing it is allowed and best effort.
+    if (recipe.image_path) await supabase.storage.from('recipe-images').remove([recipe.image_path]).catch(() => undefined)
+    setRecipes((current) => current.filter((r) => r.slug !== recipe.slug))
+  }
+
   return (
-    <SectionCard id="recipes" title="Your recipes" lede="Everything you have published to the community.">
+    <SectionCard id="recipes" title="Your recipes" lede="Everything you have shared with the community, and anything waiting for review.">
       <div className="settings-actions">
         <Link href="/recipes/new" className="button button--coral"><Plus size={16} /> Add a recipe</Link>
       </div>
+      {message && <p className="settings-note" role="alert">{message}</p>}
       {recipes.length ? (
         <ul className="account-library__list">
           {recipes.map((recipe) => (
-            <li key={recipe.id}>
+            <li key={recipe.id} className="account-library__saved">
               <Link href={`/recipes/${recipe.slug}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {recipe.image_url ? <img src={recipe.image_url} alt="" /> : <span className="account-library__initial">{recipe.title.charAt(0)}</span>}
-                <div><strong>{recipe.title}</strong><span>{recipe.made_count} made it · version {recipe.version}</span></div>
-                <ArrowRight size={18} />
+                <div><strong>{recipe.title}</strong><span>{standing(recipe)}</span></div>
               </Link>
+              {confirming === recipe.slug ? (
+                <span className="account-library__confirm">
+                  <button type="button" className="account-library__remove account-library__remove--danger" disabled={busy === recipe.slug} onClick={() => remove(recipe)}>{busy === recipe.slug ? 'Deleting…' : 'Yes, delete it'}</button>
+                  <button type="button" className="account-library__remove" disabled={busy === recipe.slug} onClick={() => setConfirming(null)}>Keep</button>
+                </span>
+              ) : (
+                <span className="account-library__confirm">
+                  {recipe.visibility === 'public' && <button type="button" className="account-library__remove" disabled={busy === recipe.slug} onClick={() => withdraw(recipe)}>{busy === recipe.slug ? 'Working…' : 'Take off the table'}</button>}
+                  <button type="button" className="account-library__remove" disabled={busy === recipe.slug} onClick={() => setConfirming(recipe.slug)}>Delete</button>
+                </span>
+              )}
             </li>
           ))}
         </ul>

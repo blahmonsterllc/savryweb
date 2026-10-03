@@ -4493,3 +4493,13 @@ html {
 .account-library__remove:hover {
   color: var(--savry-coral-dark);
 }
+
+.account-library__remove--danger { color: var(--savry-coral-dark); }
+
+.account-library__confirm {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 2px;
+}

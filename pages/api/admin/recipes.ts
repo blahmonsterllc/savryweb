@@ -4,6 +4,7 @@
  * GET  /api/admin/recipes?q=&limit=           search by title, slug, or author
  * GET  /api/admin/recipes?id=<uuid>           one recipe in full, drafts included
  * POST /api/admin/recipes { id, visibility }  public | unlisted | private (clears review hold)
+ * DELETE /api/admin/recipes?id=<uuid>         removes the recipe and everything attached to it
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
@@ -32,8 +33,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json({ success: true, recipes: data ?? [] })
   }
 
+  if (req.method === 'DELETE') {
+    const id = typeof req.query.id === 'string' ? req.query.id : ''
+    if (!UUID.test(id)) return res.status(400).json({ success: false, error: 'Bad request' })
+    const { data, error } = await supabase.rpc('admin_delete_recipe', { target: id })
+    if (error) return res.status(400).json({ success: false, error: error.message })
+    const imagePath = (data as { imagePath?: string | null } | null)?.imagePath
+    if (imagePath) await supabase.storage.from('recipe-images').remove([imagePath]).catch(() => undefined)
+    return res.status(200).json({ success: true, deleted: (data as { deleted?: boolean } | null)?.deleted === true })
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'GET, POST')
+    res.setHeader('Allow', 'GET, POST, DELETE')
     return res.status(405).json({ success: false, error: 'Method not allowed' })
   }
 

@@ -50,6 +50,7 @@ export default function AdminRecipeReviewPage() {
   const [recipe, setRecipe] = useState<Detail | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
   const [checked, setChecked] = useState<Set<number>>(new Set())
 
   const load = useCallback(async () => {
@@ -69,6 +70,15 @@ export default function AdminRecipeReviewPage() {
     if (!res.ok) return setError((await res.json()).error ?? 'Could not update the recipe')
     if (thenBack) router.push('/admin/recipes')
     else load()
+  }
+
+  async function deleteRecipe() {
+    if (!recipe) return
+    setBusy(true)
+    const res = await fetch(`/api/admin/recipes?id=${recipe.id}`, { method: 'DELETE' })
+    setBusy(false)
+    if (!res.ok) return setError((await res.json()).error ?? 'Could not delete the recipe')
+    router.push('/admin/recipes')
   }
 
   if (error) return <main className="mx-auto max-w-3xl px-6 py-10"><p className="rounded-xl bg-red-50 p-4 text-red-800">{error}</p></main>
@@ -171,6 +181,15 @@ export default function AdminRecipeReviewPage() {
             <button type="button" disabled={busy} onClick={() => setVisibility('private', false)} className="rounded-full bg-gray-900 px-5 py-2 text-sm font-bold text-white disabled:opacity-40">Take back to draft</button>
           )}
           <Link href="/admin/recipes" className="rounded-full px-5 py-2 text-sm font-semibold text-gray-600 ring-1 ring-gray-200 hover:bg-gray-50">{isDraft ? 'Leave as draft' : 'Back'}</Link>
+          {confirmingDelete ? (
+            <span className="ml-auto flex items-center gap-2 text-sm">
+              <span className="text-gray-600">Delete this recipe and everything attached to it?</span>
+              <button type="button" disabled={busy} onClick={deleteRecipe} className="rounded-full bg-red-700 px-4 py-2 text-sm font-bold text-white disabled:opacity-40">{busy ? 'Deleting…' : 'Yes, delete'}</button>
+              <button type="button" disabled={busy} onClick={() => setConfirmingDelete(false)} className="rounded-full px-4 py-2 text-sm font-semibold text-gray-600 ring-1 ring-gray-200">Keep</button>
+            </span>
+          ) : (
+            <button type="button" disabled={busy} onClick={() => setConfirmingDelete(true)} className="ml-auto rounded-full px-5 py-2 text-sm font-semibold text-red-700 ring-1 ring-red-200 hover:bg-red-50">Delete recipe</button>
+          )}
         </div>
         {recipe.visibility !== 'public' && checked.size < CHECKLIST.length && <p className="mt-2 text-xs text-gray-500">Tick every check to enable publishing.</p>}
       </section>

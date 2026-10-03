@@ -87,7 +87,6 @@ export default function AdminOverviewPage() {
       <h2 className="mt-10 text-sm font-bold uppercase tracking-wide text-gray-500">Storage and growth</h2>
       <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Tile label="Photos stored" value={n('storageObjects')} hint={formatBytes(n('storageBytes'))} />
-        <Tile label="Ads" value={health?.groups.find((g) => g.id === 'config')?.checks.find((c) => c.id === 'adsense')?.ok ? 'Serving' : 'Not yet'} hint="AdSense id in Vercel turns them on" href="/admin/security" />
         <Tile label="Sign-in" value={health?.groups.find((g) => g.id === 'database')?.checks.find((c) => c.id === 'db-apple-secret')?.ok ? 'Apple OK' : 'Check'} hint="Apple secret rotates every 6 months" href="/admin/security" />
         <Tile label="Email" value={health?.groups.find((g) => g.id === 'mail')?.checks.every((c) => c.ok) ? 'Healthy' : 'Check'} hint="Resend out, Cloudflare in" href="/admin/security" />
       </div>
@@ -100,7 +99,6 @@ export default function AdminOverviewPage() {
           ['https://resend.com/emails', 'Resend', 'Auth email delivery log'],
           ['https://dash.cloudflare.com', 'Cloudflare', 'DNS and inbound email routing'],
           ['https://appstoreconnect.apple.com', 'App Store Connect', 'Savry+ subscriptions and TestFlight'],
-          ['https://adsense.google.com', 'Google AdSense', 'Ad approval and earnings'],
           ['https://search.google.com/search-console', 'Search Console', 'Indexing and search traffic'],
           ['https://github.com/blahmonsterllc/savryweb/actions', 'GitHub Actions', 'Automated tests on every push'],
         ].map(([href, title, body]) => (

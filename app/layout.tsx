@@ -1,13 +1,10 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import SiteFooter from '@/components/SiteFooter'
-import AdConsent from '@/components/AdConsent'
 import { Providers } from './providers'
 import { SITE_URL } from '@/lib/site-url'
-import { adsConfigured, GOOGLE_CMP_SCRIPT_URL, GOOGLE_FC_PRESENT_SNIPPET } from '@/lib/ads'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -49,20 +46,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {adsConfigured && (
-          <>
-            {/* Google certified CMP (Privacy & messaging) handles EEA/UK consent for AdSense. */}
-            <Script id="google-cmp" src={GOOGLE_CMP_SCRIPT_URL} strategy="beforeInteractive" />
-            <Script id="googlefc-present" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: GOOGLE_FC_PRESENT_SNIPPET }} />
-          </>
-        )}
         <Providers>
           <Navbar />
           <main className="relative">
             {children}
           </main>
           <SiteFooter />
-          <AdConsent />
         </Providers>
       </body>
     </html>

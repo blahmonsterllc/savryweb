@@ -111,8 +111,7 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith('/_next') ||
     pathname.startsWith('/favicon.ico') ||
     pathname.startsWith('/robots.txt') ||
-    pathname.startsWith('/sitemap.xml') ||
-    pathname === '/ads.txt'
+    pathname.startsWith('/sitemap.xml')
   ) {
     return NextResponse.next()
   }

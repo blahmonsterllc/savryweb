@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import { Search } from 'lucide-react'
-import { Fragment, useMemo, useState } from 'react'
-import AdSlotClient from '@/components/AdSlotClient'
+import { useMemo, useState } from 'react'
 
 type ExplorerRecipe = {
   id: string
@@ -112,9 +111,8 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
 
       {visible.length ? (
         <ul className="recipe-index__grid">
-          {visible.map((recipe, index) => (
-            <Fragment key={recipe.id}>
-              <li className="recipe-index-card">
+          {visible.map((recipe) => (
+              <li key={recipe.id} className="recipe-index-card">
                 <Link href={`/recipes/${recipe.slug}`}>
                   {recipe.imageUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -135,10 +133,6 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
                   </div>
                 </Link>
               </li>
-              {index === Math.min(5, visible.length - 1) && visible.length > 6 && (
-                <li key="savry-feed-partner" className="recipe-feed-ad"><AdSlotClient placement="feed" checkMembership /></li>
-              )}
-            </Fragment>
           ))}
         </ul>
       ) : (

@@ -26,8 +26,8 @@ export default function PrivacyPolicy() {
           <li>Your private recipes, meal plans, and grocery lists in the iOS app stay on your device and, if you enable it, in your own iCloud (CloudKit) account. Savry cannot read them.</li>
           <li>Recipe AI in the iOS app runs on your device with Apple Intelligence. Your recipes are not sent to Savry or to a third-party AI service for that.</li>
           <li>Your Savry account and everything you publish to the community are stored in Supabase (Postgres and Storage) in the United States.</li>
-          <li>The website shows Google AdSense ads only with your consent. Savry+ members see no ads at all.</li>
-          <li>You can access, correct, or delete your data, and you can change your advertising choices at any time.</li>
+          <li>Savry shows no advertising and uses no advertising cookies, on the website or in the app.</li>
+          <li>You can access, correct, or delete your data at any time.</li>
         </ul>
       </section>
 
@@ -38,7 +38,7 @@ export default function PrivacyPolicy() {
         <h3>Community content</h3>
         <p>Recipes you publish, along with their photos, ingredients, steps, notes, and version history, are stored in our community database. So are the comments, suggestions, “Made It” photos, and likes you add to recipes. This content is public: anyone on the internet can see it together with your display name.</p>
         <h3>Membership status</h3>
-        <p>If you subscribe to Savry+, we record that your account is a member and when the membership renews or ends, so we can turn on member features and hide ads. Payment is processed by Apple; we never receive your card details.</p>
+        <p>If you subscribe to Savry+, we record that your account is a member and when the membership renews or ends, so we can turn on member features. Payment is processed by Apple; we never receive your card details.</p>
         <h3>Private recipes in the iOS app</h3>
         <p>Recipes you import or write in the app, your meal plans, grocery lists, and cooking preferences are stored on your device. If iCloud sync is on, they are also stored in your private iCloud database through Apple’s CloudKit, under your Apple ID and Apple’s privacy terms. Savry has no access to that data.</p>
         <h3>Technical and usage information</h3>
@@ -52,7 +52,7 @@ export default function PrivacyPolicy() {
         <ul>
           <li>To create and secure your account and to sign you in.</li>
           <li>To publish and display the recipes and community activity you choose to share, with your display name.</li>
-          <li>To run Savry+ membership features, including an ad-free experience.</li>
+          <li>To run Savry+ membership features.</li>
           <li>To answer support requests and send account or service notices.</li>
           <li>To send product news only if you opt in, with an unsubscribe link in every email.</li>
           <li>To keep the service safe: preventing spam, abuse, fraud, and unauthorized access, and enforcing our <Link href="/terms">Terms</Link>. This includes automated review of what you publish to the community and of your public profile, to check that it is suitable for a family site. Flagged items are reviewed by a person.</li>
@@ -66,7 +66,7 @@ export default function PrivacyPolicy() {
         <ul>
           <li><strong>Performance of a contract</strong>: providing your account, the community features you use, and Savry+.</li>
           <li><strong>Legitimate interests</strong>: securing the service, preventing abuse, keeping short-lived server logs, and improving Savry, balanced against your rights.</li>
-          <li><strong>Consent</strong>: advertising cookies and personalized ads, and marketing email. You can withdraw consent at any time using the “Privacy choices” link in the footer or the unsubscribe link in an email.</li>
+          <li><strong>Consent</strong>: marketing email. You can withdraw consent at any time using the unsubscribe link in an email.</li>
           <li><strong>Legal obligation</strong>: responding to lawful requests and keeping records we are required to keep.</li>
         </ul>
       </section>
@@ -80,7 +80,6 @@ export default function PrivacyPolicy() {
           <li><strong>Apple App Store</strong>, for Savry+ purchases and subscription management.</li>
           <li><strong>Vercel</strong>, which hosts the website and its short-lived server logs.</li>
           <li><strong>Anthropic</strong>, whose Claude model reviews community content for us. The recipes, comments, suggestions, and photos you publish, and your profile name, username, bio, links, and photo, are sent to it to be checked against our community guidelines. Private recipes in the app are never sent.</li>
-          <li><strong>Google AdSense</strong>, which serves ads on the website when you consent (details below).</li>
         </ul>
         <p>If you are outside the United States, your account and community data are transferred to and stored in the United States. Where required, we rely on standard contractual clauses and the safeguards offered by these providers. Data in transit is encrypted with TLS, and access to the database is restricted with row-level security so that only you can change your own content.</p>
       </section>
@@ -91,10 +90,8 @@ export default function PrivacyPolicy() {
       </section>
 
       <section id="advertising-choices">
-        <h2>Advertising and your choices</h2>
-        <p>The Savry website shows a small number of clearly labeled ads through Google AdSense: one in the community recipe feed and one on recipe pages below the ingredients and steps. There are no ads in the iOS app, and Savry+ members see no ads on the website either.</p>
-        <p>Google and its partners may use cookies and similar technologies to show and measure ads, including personalized ads based on your visits to this and other sites. In the EEA, UK, and Switzerland we ask for your consent through Google’s certified consent tool before any advertising cookie is set. Elsewhere, you can still decline advertising cookies. Declining never limits recipe or community features.</p>
-        <p>To change your choice at any time, use the <strong>Privacy choices</strong> link in the footer of every page. You can also opt out of personalized advertising from Google at <a href="https://adssettings.google.com" rel="noopener noreferrer">adssettings.google.com</a>, and learn how Google uses data at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer">policies.google.com/technologies/partner-sites</a>.</p>
+        <h2>Advertising</h2>
+        <p>Savry shows no advertising on the website or in the iOS app, and sets no advertising or tracking cookies. The only cookies on the website keep you signed in. Savry is supported by Savry+ memberships.</p>
       </section>
 
       <section id="do-not-sell">
@@ -122,7 +119,7 @@ export default function PrivacyPolicy() {
           <li><strong>Access</strong> the personal information we hold about you and receive a copy in a portable format.</li>
           <li><strong>Correct</strong> your display name and email from your account settings, or ask us to fix anything else.</li>
           <li><strong>Delete</strong> your account and all associated data. In the iOS app, use Settings → Account → Delete account. On the web, email <a href="mailto:privacy@savry.io">privacy@savry.io</a> from the address on your account and we will complete the deletion within 30 days.</li>
-          <li><strong>Opt out</strong> of personalized ads through the Privacy choices link, and of marketing email through the unsubscribe link.</li>
+          <li><strong>Opt out</strong> of marketing email through the unsubscribe link in every message.</li>
           <li><strong>Object to or restrict</strong> processing based on legitimate interests, and <strong>withdraw consent</strong> at any time without affecting earlier processing.</li>
           <li><strong>Complain</strong> to your local data protection authority if you believe we have not respected your rights. We would appreciate the chance to help first.</li>
         </ul>

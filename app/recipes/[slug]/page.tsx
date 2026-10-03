@@ -7,7 +7,6 @@ import RecipeShareBar from '@/components/RecipeShareBar'
 import RecipeQuickActions from '@/components/RecipeQuickActions'
 import RecipeIngredients from '@/components/RecipeIngredients'
 import RecipeDiscussion from '@/components/RecipeDiscussion'
-import AdSlot from '@/components/AdSlot'
 
 export const revalidate = 300
 
@@ -133,8 +132,6 @@ export default async function RecipePage({ params }: Params) {
           )}
         </section>
       </div>
-
-      <AdSlot placement="recipe" />
 
       {n && (
         <section className="mt-10 rounded-2xl bg-white p-6 shadow">

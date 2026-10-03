@@ -37,11 +37,10 @@ async function configuration(): Promise<Group> {
       { id: 'apple-revoke', label: 'Apple token revocation on account deletion', ok: Boolean(env.APPLE_TEAM_ID && env.APPLE_KEY_ID && env.APPLE_PRIVATE_KEY), detail: env.APPLE_PRIVATE_KEY ? 'Configured' : 'Add APPLE_TEAM_ID, APPLE_KEY_ID, and APPLE_PRIVATE_KEY in Vercel' },
       { id: 'patrol-key', label: 'Content patrol has a model key', ok: Boolean(env.ANTHROPIC_API_KEY), detail: env.ANTHROPIC_API_KEY ? 'Configured' : 'Add ANTHROPIC_API_KEY in Vercel to switch the patrol on', pending: !env.ANTHROPIC_API_KEY },
       { id: 'patrol-schedule', label: 'Content patrol schedule is protected', ok: Boolean(env.CRON_SECRET), detail: env.CRON_SECRET ? 'Runs every 10 minutes' : 'Add CRON_SECRET in Vercel' },
-      { id: 'adsense', label: 'Google AdSense publisher id', ok: Boolean(env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID), detail: env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID ? 'Ads can serve' : 'Set NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID in Vercel once AdSense approves the site', pending: !env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID },
       {
         id: 'retired-env',
         label: 'No retired secrets in the environment',
-        ok: !['FIREBASE_PROJECT_ID', 'FIREBASE_PRIVATE_KEY', 'NEXT_PUBLIC_FIREBASE_API_KEY', 'OPENAI_API_KEY', 'JWT_SECRET', 'DATABASE_URL', 'ENABLE_LEGACY_APP_API', 'R2_ACCESS_KEY_ID', 'R2_BUCKET', 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'NEXTAUTH_SECRET', 'NEXTAUTH_URL'].some((key) => env[key]),
+        ok: !['FIREBASE_PROJECT_ID', 'FIREBASE_PRIVATE_KEY', 'NEXT_PUBLIC_FIREBASE_API_KEY', 'OPENAI_API_KEY', 'JWT_SECRET', 'DATABASE_URL', 'ENABLE_LEGACY_APP_API', 'R2_ACCESS_KEY_ID', 'R2_BUCKET', 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'NEXTAUTH_SECRET', 'NEXTAUTH_URL', 'NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID'].some((key) => env[key]),
         detail: 'Firebase, OpenAI, legacy JWT, Prisma database, R2, and the old Google admin sign-in variables should be deleted from Vercel',
       },
     ],

@@ -30,19 +30,32 @@ test('recipe discussion uses Supabase RPCs and never the retired app API', async
   assert.doesNotMatch(discussion, /\/api\/app\/community/)
 })
 
-test('advertising is consent-aware and loaded only from the official Google endpoint', async () => {
-  const ad = await source('components/AdSlotClient.tsx')
-  assert.match(ad, /savry_ad_consent/)
-  assert.match(ad, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js/)
-  assert.match(ad, /Advertisement/)
-})
-
-test('ad slots are hidden for Savry+ members on the server', async () => {
-  const wrapper = await source('components/AdSlot.tsx')
-  assert.match(wrapper, /getViewerMembership/)
-  assert.match(wrapper, /if \(isMember\) return null/)
-  const membership = await source('lib/viewer-membership.ts')
-  assert.match(membership, /server-only/)
+test('the site carries no advertising, ad scripts, or advertising cookies', async () => {
+  const { readdir } = await import('node:fs/promises')
+  const { join } = await import('node:path')
+  const root = new URL('../', import.meta.url).pathname
+  const files = []
+  async function walk(dir) {
+    for (const entry of await readdir(join(root, dir), { withFileTypes: true })) {
+      const rel = join(dir, entry.name)
+      if (entry.isDirectory()) await walk(rel)
+      else if (/\.(tsx?|mjs|css)$/.test(entry.name)) files.push(rel)
+    }
+  }
+  for (const dir of ['app', 'components', 'lib', 'pages']) await walk(dir)
+  files.push('middleware.ts')
+  for (const file of files) {
+    const text = await source(file)
+    assert.doesNotMatch(text, /googlesyndication|adsbygoogle|fundingchoices|doubleclick|AdSense|NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID(?!'\])/, `${file} still refers to advertising`)
+    assert.doesNotMatch(text, /components\/AdSlot|components\/AdConsent|lib\/ads'/, `${file} imports a removed ad component`)
+  }
+  const policy = await source('lib/security-policy.mjs')
+  assert.match(policy, /"script-src 'self' 'unsafe-inline'" \+ devEval \+ "",/, 'no third-party scripts')
+  assert.match(policy, /frame-src 'none'/)
+  const terms = await source('app/terms/page.tsx')
+  assert.match(terms, /does not show advertisements/)
+  const privacy = await source('app/privacy/page.tsx')
+  assert.match(privacy, /no advertising/)
 })
 
 test('nothing on the site links back to Firebase or the legacy app API', async () => {

@@ -5,7 +5,7 @@ import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
   title: 'Savry+ Membership',
-  description: 'Meet Savry+, the annual membership for unlimited recipe imports, expanded on-device recipe help, smarter weekly plans, and an ad-free Savry.',
+  description: 'Meet Savry+, the annual membership for unlimited recipe imports, expanded on-device recipe help, and smarter weekly plans.',
   alternates: { canonical: `${SITE_URL}/savry-plus` },
 }
 
@@ -14,7 +14,6 @@ const plusFeatures = [
   'Expanded on-device recipe help powered by Apple Intelligence: scale, swap, and adapt recipes without your data leaving your device',
   'Smarter weekly meal plans shaped around your schedule and budget',
   'Advanced nutrition context, dietary filters, and ingredient insights',
-  'An ad-free Savry website and app experience',
 ]
 
 const freeFeatures = [

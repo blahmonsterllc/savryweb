@@ -86,7 +86,7 @@ export default function TermsOfService() {
           <li>Savry+ is an annual, auto-renewing subscription purchased in the Savry iOS app through Apple’s App Store. The price is shown in the app before you buy and is charged to your Apple ID.</li>
           <li>Your membership renews automatically each year at the then-current price unless you cancel at least 24 hours before the end of the current period. Manage or cancel it in your App Store subscription settings; deleting the app does not cancel a subscription.</li>
           <li>Refunds are handled by Apple under App Store policies; Savry cannot issue App Store refunds directly.</li>
-          <li>Member features include unlimited imports in the app, expanded on-device recipe help, smarter weekly plans, advanced nutrition context, and an ad-free website and app. Your membership follows your Savry account.</li>
+          <li>Member features include unlimited imports in the app, expanded on-device recipe help, smarter weekly plans, and advanced nutrition context. Your membership follows your Savry account.</li>
           <li>If we change the price, Apple will notify you and ask for your agreement before the change applies to you.</li>
         </ul>
       </section>
@@ -103,7 +103,7 @@ export default function TermsOfService() {
 
       <section id="advertising">
         <h2>11. Advertising</h2>
-        <p>The website may show clearly labeled advertisements served by Google AdSense, subject to your consent choices. Advertisements are never shown to Savry+ members and never appear in the iOS app. Savry is not responsible for the products or services advertised.</p>
+        <p>Savry does not show advertisements on the website or in the iOS app. Savry is supported by Savry+ memberships. Members may not use Savry to advertise products or services except as part of a genuine recipe or cook note.</p>
       </section>
 
       <section id="third-parties">

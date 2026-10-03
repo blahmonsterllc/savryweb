@@ -1216,140 +1216,21 @@ select {
   filter: brightness(0) invert(1);
 }
 
-/* The ad window: one framed, labelled panel per placement. It is the only
-   place an ad can appear, so nothing sponsored ever sits loose in the page. */
-.ad-window {
-  width: 100%;
-  max-width: 760px;
-  margin: clamp(34px, 5vw, 64px) auto;
-  border: 1px solid rgb(16 29 47 / 12%);
-  border-radius: 22px;
-  background: #fffdf8;
-  padding: 10px;
-  box-shadow: 0 12px 34px rgb(16 29 47 / 6%);
-}
 
-.ad-window__bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px 16px;
-  padding: 4px 8px 10px;
-  color: #667183;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  line-height: 1.3;
-  text-transform: uppercase;
-}
 
-.ad-window__bar a {
-  color: var(--savry-ink-soft);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  text-decoration: underline;
-  text-decoration-color: rgb(16 29 47 / 28%);
-  text-transform: none;
-  text-underline-offset: 3px;
-}
 
-.ad-window__bar a:hover {
-  color: var(--savry-coral-dark);
-}
 
-/* The pane keeps its height before anything loads, so the page never jumps. */
-.ad-window__pane {
-  display: grid;
-  overflow: hidden;
-  min-height: 250px;
-  place-items: center;
-  border-radius: 14px;
-  background: var(--savry-paper);
-}
 
-.ad-window__pane .adsbygoogle {
-  min-height: 250px;
-}
 
-/* In the recipe grid the window is simply one more card. */
-.recipe-feed-ad {
-  display: flex;
-  list-style: none;
-}
 
-.ad-window--feed {
-  display: flex;
-  max-width: none;
-  flex-direction: column;
-  margin: 0;
-  border-radius: 24px 24px 24px 6px;
-}
 
-.ad-window--feed .ad-window__pane {
-  flex: 1 1 auto;
-  min-height: 300px;
-}
 
-.house-ad {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  min-height: inherit;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 12px;
-  background: var(--savry-ink);
-  padding: clamp(24px, 4vw, 40px);
-  color: #f7f2e8;
-}
 
-.house-ad__eyebrow {
-  color: #ffb49f;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
 
-.house-ad h3 {
-  max-width: 22ch;
-  margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.45rem, 2.6vw, 2rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.14;
-  text-wrap: balance;
-}
 
-.house-ad p {
-  max-width: 46ch;
-  margin: 0;
-  color: rgb(247 242 232 / 78%);
-  font-size: 0.95rem;
-  line-height: 1.55;
-}
 
-.house-ad a {
-  margin-top: 6px;
-  border-radius: 999px;
-  background: var(--savry-coral);
-  padding: 10px 18px;
-  color: white;
-  font-size: 0.86rem;
-  font-weight: 800;
-}
 
-.house-ad a:hover {
-  background: #fa7257;
-}
 
-@media print {
-  .ad-window { display: none; }
-}
 
 /* Recipe workshop: compact until a cook chooses to open it. */
 .recipe-discussion {
@@ -1725,94 +1606,20 @@ select {
   color: rgb(255 255 255 / 72%);
 }
 
-.ad-consent {
-  position: fixed;
-  z-index: 80;
-  right: 20px;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  max-width: 900px;
-  margin-inline: auto;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  border: 1px solid rgb(255 255 255 / 18%);
-  border-radius: 18px;
-  background: rgb(9 21 35 / 96%);
-  box-shadow: 0 24px 70px rgb(0 0 0 / 34%);
-  color: white;
-  padding: 20px 22px;
-  backdrop-filter: blur(16px);
-}
 
-.ad-consent strong {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.05rem;
-}
 
-.ad-consent p {
-  max-width: 600px;
-  margin: 5px 0 0;
-  color: rgb(255 255 255 / 72%);
-  font-size: 0.86rem;
-  line-height: 1.5;
-}
 
-.ad-consent p a {
-  color: white;
-  text-decoration: underline;
-}
 
-.ad-consent__actions {
-  display: flex;
-  gap: 9px;
-  flex: none;
-}
 
-.ad-consent button {
-  min-height: 42px;
-  border: 1px solid rgb(255 255 255 / 24%);
-  border-radius: 999px;
-  padding: 0 17px;
-  color: white;
-  font-size: 0.8rem;
-  font-weight: 750;
-}
 
-.ad-consent .ad-consent__accept {
-  border-color: var(--savry-coral);
-  background: var(--savry-coral);
-}
 
 .account-page,
-.partner-page {
-  padding-block: clamp(64px, 9vw, 118px) 120px;
-}
 
 .account-page > header,
-.partner-page {
-  max-width: 1050px;
-}
 
 .account-page > header h1,
-.partner-page > h1 {
-  max-width: 870px;
-  margin: 12px 0 18px;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(3.2rem, 7vw, 6.7rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.06;
-}
 
 .account-page > header > p,
-.partner-page__lede {
-  max-width: 720px;
-  color: var(--savry-ink-soft);
-  font-size: 1.1rem;
-  line-height: 1.72;
-}
 
 .account-hub,
 .account-state {
@@ -1943,46 +1750,12 @@ select {
   font-weight: 800;
 }
 
-.partner-page__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin: 54px 0 36px;
-}
 
-.partner-page__grid article {
-  min-height: 240px;
-  border-top: 5px solid var(--savry-coral);
-  background: var(--savry-white);
-  padding: 28px;
-}
 
-.partner-page__grid article:nth-child(2) { border-color: var(--savry-saffron); }
-.partner-page__grid article:nth-child(3) { border-color: var(--savry-mint); }
 
-.partner-page__grid span {
-  color: var(--savry-coral-dark);
-  font-size: 0.75rem;
-  font-weight: 850;
-  letter-spacing: 0.12em;
-}
 
-.partner-page__grid h2 {
-  margin: 32px 0 10px;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.7rem;
-  line-height: 1.1;
-}
 
-.partner-page__grid p {
-  color: var(--savry-ink-soft);
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
 
-.partner-page > .text-link {
-  margin-left: 22px;
-}
 
 /* Savry+ membership */
 
@@ -2169,15 +1942,9 @@ select {
 }
 
 @media (max-width: 760px) {
-  .ad-consent,
   .account-profile {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .ad-consent__actions {
-    width: 100%;
-    flex-wrap: wrap;
   }
 
   .recipe-discussion__toggle {
@@ -2200,8 +1967,7 @@ select {
     flex-direction: column;
   }
 
-  .account-library > ul,
-  .partner-page__grid {
+  .account-library > ul {
     grid-template-columns: 1fr;
   }
 
@@ -2228,8 +1994,7 @@ select {
     box-shadow: 14px 16px 0 var(--savry-saffron);
   }
 
-  .account-page > header h1,
-  .partner-page > h1 {
+  .account-page > header h1 {
     font-size: clamp(3rem, 16vw, 5.2rem);
   }
 }

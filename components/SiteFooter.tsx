@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import PrivacyChoicesLink from '@/components/PrivacyChoicesLink'
 
 export default function SiteFooter() {
   return (
@@ -13,10 +12,8 @@ export default function SiteFooter() {
           <Link href="/recipes/new">Share a recipe</Link>
           <Link href="/account">My Savry</Link>
           <Link href="/savry-plus">Savry+</Link>
-          <Link href="/advertise">Advertise</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
-          <PrivacyChoicesLink />
         </nav>
         <span>© {new Date().getFullYear()} Savry</span>
       </div>

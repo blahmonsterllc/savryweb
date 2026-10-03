@@ -189,3 +189,12 @@ test('notifications are written only by triggers, never for your own actions or 
   for (const trigger of ['contributions_notify', 'profile_follows_notify', 'recipes_notify_live']) assert.match(n, new RegExp(`create trigger ${trigger} `))
   assert.equal((n.match(/security definer set search_path = ''/g) ?? []).length, 7)
 })
+
+test('onboarding records tastes for the signed-in cook only, bounded', async () => {
+  const o = await readFile(new URL('../supabase/migrations/20261003020000_onboarding.sql', import.meta.url), 'utf8')
+  assert.match(o, /if actor is null then raise exception 'Sign in first'/)
+  assert.match(o, /raise exception 'Pick up to twelve of each'/)
+  assert.match(o, /where id = actor;/, 'only the caller\'s profile changes')
+  assert.match(o, /revoke all on function public\.finish_onboarding\(text\[\], text\[\]\) from public, anon/)
+  assert.match(o, /'onboardedAt', p\.onboarded_at/, 'my_profile reports whether the table is set')
+})

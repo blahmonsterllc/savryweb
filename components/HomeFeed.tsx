@@ -46,6 +46,7 @@ export default function HomeFeed() {
   const [scope, setScope] = useState<'following' | 'everyone'>('following')
   const [feed, setFeed] = useState<Feed | null>(null)
   const [suggested, setSuggested] = useState<Cook[]>([])
+  const [needsSetup, setNeedsSetup] = useState(false)
   const [loading, setLoading] = useState(true)
   const [exhausted, setExhausted] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -80,6 +81,10 @@ export default function HomeFeed() {
       setExhausted(false)
       const { data: cooks } = await supabase.rpc('suggested_cooks', { result_limit: 6 })
       if (active) setSuggested(((cooks as { cooks?: Cook[] } | null)?.cooks ?? []).filter((c) => c.username))
+      if (isSignedIn) {
+        const { data: profile } = await supabase.rpc('my_profile')
+        if (active) setNeedsSetup(Boolean(profile) && !profile.onboardedAt)
+      }
     }
     start().catch((e) => active && setError(e?.message || 'Could not load the table.')).finally(() => active && setLoading(false))
     return () => { active = false }
@@ -193,6 +198,13 @@ export default function HomeFeed() {
         </section>
 
         <aside className="feed__side">
+          {needsSetup && (
+            <div className="feed-card feed-card--setup">
+              <h2>Set your table.</h2>
+              <p>Three quick steps: what you like to cook, a few cooks to follow, a few recipes to save.</p>
+              <Link href="/welcome" className="button button--coral">Start</Link>
+            </div>
+          )}
           {!signedIn && signedIn !== null && (
             <div className="feed-card">
               <h2>Pull up a chair.</h2>

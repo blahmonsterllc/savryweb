@@ -455,22 +455,6 @@ export default function RecipeComposer() {
           </div>
         </section>
 
-        <aside className="recipe-phone-preview" aria-label="Recipe preview">
-          <div className="recipe-phone-preview__notch" />
-          <div className="recipe-phone-preview__bar"><span>9:41</span><b>S</b><span>•••</span></div>
-          {draft.imageBase64 ? <img src={`data:image/jpeg;base64,${draft.imageBase64}`} alt="" /> : <div className="recipe-phone-preview__photo"><ChefHat /><span>Your photo</span></div>}
-          <div className="recipe-phone-preview__body">
-            <span className="recipe-phone-preview__category">{draft.category || 'Your kitchen'}</span>
-            <h2>{draft.title || 'Your recipe title'}</h2>
-            <p>{draft.description || 'A short introduction will appear here when you share this recipe.'}</p>
-            <div className="recipe-phone-preview__facts"><span><Clock3 /> {totalTime} min</span><span><Users /> {draft.servings || 1}</span></div>
-            <h3>Ingredients</h3>
-            {(validIngredients.length ? validIngredients : [{ name: 'Your ingredients appear here', amount: '', unit: '', isOptional: false }]).slice(0, 5).map((ingredient, index) => (
-              <div className="recipe-phone-preview__ingredient" key={index}><i /> <span>{[ingredient.amount, ingredient.unit, ingredient.name].filter(Boolean).join(' ')}</span></div>
-            ))}
-            {validIngredients.length > 5 && <small>+ {validIngredients.length - 5} more</small>}
-          </div>
-        </aside>
       </div>
     </main>
   )

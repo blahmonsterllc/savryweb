@@ -62,7 +62,7 @@ export function renderDigest(digest: Digest, unsubscribeUrl: string): { subject:
     digest.yourWeek.newFollowers ? `${digest.yourWeek.newFollowers} new follower${digest.yourWeek.newFollowers === 1 ? '' : 's'}` : null,
   ].filter(Boolean) as string[]
 
-  const html = `<!doctype html><html><body style="margin:0;background:#f7f2e8;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#101d2f">
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>${escape(subject)}</title></head><body style="margin:0;background:#f7f2e8;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#101d2f">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f7f2e8"><tr><td align="center" style="padding:28px 16px">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#fffdf8;border-radius:22px;padding:28px 24px">
     <tr><td><a href="${link('/feed')}" style="color:#101d2f;text-decoration:none;font-family:Georgia,serif;font-size:26px;font-weight:600">Savry</a>

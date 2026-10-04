@@ -249,6 +249,7 @@ test('Savry+ purchases reach the site only with Apple\'s signature and the membe
   assert.ok(sync.indexOf('auth.getUser(token)') < sync.indexOf('readSavryPlusPurchase('), 'the member is identified before the purchase is read')
   assert.ok(sync.indexOf('readSavryPlusPurchase(') < sync.indexOf("rpc('record_app_store_membership'"), 'the purchase is verified before it is stored')
   assert.match(sync, /target_user: userData\.user\.id/, 'a membership is only ever linked to the caller')
+  assert.match(sync, /readSavryPlusPurchase\(req\.body\?\.signedTransaction, userData\.user\.id\)/, 'a purchase bought under another account id is refused')
   assert.doesNotMatch(sync, /req\.body\?\.(userId|user_id|tier|status|expires)/, 'nothing about the membership is taken on the caller\'s word')
 
   const notifications = await source('pages/api/app-store/notifications.ts')

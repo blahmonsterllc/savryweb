@@ -13,7 +13,8 @@ export function isViewerMember(): Promise<boolean> {
       const supabase = getSupabaseBrowserClient()
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.user) return false
-      const { data } = await supabase.from('profiles').select('tier').eq('id', session.user.id).maybeSingle()
+      // Own row only, through the member's profile function; profiles.tier is not client-readable.
+    const { data } = await supabase.rpc('my_profile')
       return data?.tier === 'plus' || data?.tier === 'pro'
     } catch {
       return false

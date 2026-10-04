@@ -244,3 +244,14 @@ test('the cook directory and made-it galleries show only cooks in good standing 
   assert.match(d, /c\.type = 'made' and not c\.hidden and c\.photo_path is not null/)
   assert.equal((d.match(/security definer set search_path = ''/g) ?? []).length, 2)
 })
+
+test('members cannot read other members\' tier, email preference or terms date', async () => {
+  const review = await readFile(new URL('../supabase/migrations/20261004000000_security_review.sql', import.meta.url), 'utf8')
+  assert.match(review, /revoke select \(tier, is_banned, email_opt_in, terms_accepted_at, updated_at\) on public\.profiles from authenticated/)
+  assert.match(review, /recipes_image_path_no_traversal/)
+  for (const file of ['lib/viewer-membership.ts', 'lib/viewer-membership-client.ts']) {
+    const source = await readFile(new URL(`../${file}`, import.meta.url), 'utf8')
+    assert.doesNotMatch(source, /from\('profiles'\)\.select\('tier'\)/, `${file} must not read profiles.tier directly`)
+    assert.match(source, /rpc\('my_profile'\)/)
+  }
+})

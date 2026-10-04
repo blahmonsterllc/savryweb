@@ -33,9 +33,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { data: userData, error: userError } = await supabase.auth.getUser(token)
   if (userError || !userData.user) return res.status(401).json({ member: false, error: 'Sign in first' })
 
-  // One purchase can be linked to one account at a time; the database enforces
-  // that, so a member who replaces their Savry account keeps what they paid for.
-  const result = readSavryPlusPurchase(req.body?.signedTransaction)
+  // The app attaches the buyer's Savry account id to the purchase; a transaction
+  // carrying a different id is refused here. One purchase links to one account.
+  const result = readSavryPlusPurchase(req.body?.signedTransaction, userData.user.id)
   if ('rejected' in result) return res.status(400).json({ member: false, error: result.rejected })
 
   const { data, error } = await supabase.rpc('record_app_store_membership', { target_user: userData.user.id, purchase: result.purchase })

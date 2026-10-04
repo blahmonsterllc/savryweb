@@ -19,7 +19,8 @@ export async function getViewerMembership(): Promise<ViewerMembership> {
     const { data: { session } } = await supabase.auth.getSession()
     if (!session?.user) return { isMember: false, tier: null }
 
-    const { data } = await supabase.from('profiles').select('tier').eq('id', session.user.id).maybeSingle()
+    // Own row only, through the member's profile function; profiles.tier is not client-readable.
+    const { data } = await supabase.rpc('my_profile')
     const tier = (data?.tier as ViewerMembership['tier']) ?? 'free'
     return { isMember: MEMBER_TIERS.has(tier), tier }
   } catch (error) {

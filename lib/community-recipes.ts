@@ -203,6 +203,8 @@ export interface PublicRecipe {
   sourceURL: string | null
   viewCount: number
   madeCount: number
+  /** Chosen by a Savry editor; set only from admin. */
+  editorsPick?: boolean
   commentCount: number
   version: number
 }

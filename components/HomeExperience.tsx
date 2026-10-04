@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, BookOpen, Check, RefreshCw, Sparkles, Users } from 'lucide-react'
+import TableThisWeek from '@/components/TableThisWeek'
 
 const featured = [
   {
@@ -50,6 +51,8 @@ export default function HomeExperience() {
           </div>
         </div>
       </section>
+
+      <TableThisWeek />
 
       <section className="community-now site-shell" aria-labelledby="community-now-title">
         <div className="section-heading section-heading--row">

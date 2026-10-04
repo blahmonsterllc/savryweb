@@ -12,6 +12,7 @@ type Detail = {
   description: string | null
   visibility: 'public' | 'unlisted' | 'private'
   reviewHold: boolean
+  editorsPickAt: string | null
   imageUrl: string | null
   prepTime: number | null
   cookTime: number | null
@@ -70,6 +71,15 @@ export default function AdminRecipeReviewPage() {
     if (!res.ok) return setError((await res.json()).error ?? 'Could not update the recipe')
     if (thenBack) router.push('/admin/recipes')
     else load()
+  }
+
+  async function setPick(editorsPick: boolean) {
+    if (!recipe) return
+    setBusy(true)
+    const res = await fetch('/api/admin/recipes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: recipe.id, editorsPick }) })
+    setBusy(false)
+    if (!res.ok) return setError((await res.json()).error ?? 'Could not update the recipe')
+    load()
   }
 
   async function deleteRecipe() {
@@ -179,6 +189,11 @@ export default function AdminRecipeReviewPage() {
             </button>
           ) : (
             <button type="button" disabled={busy} onClick={() => setVisibility('private', false)} className="rounded-full bg-gray-900 px-5 py-2 text-sm font-bold text-white disabled:opacity-40">Take back to draft</button>
+          )}
+          {recipe.visibility === 'public' && (
+            <button type="button" disabled={busy} onClick={() => setPick(!recipe.editorsPickAt)} className={`rounded-full px-5 py-2 text-sm font-bold ring-1 disabled:opacity-40 ${recipe.editorsPickAt ? 'bg-amber-100 text-amber-900 ring-amber-300' : 'text-gray-700 ring-gray-200 hover:bg-gray-50'}`}>
+              {recipe.editorsPickAt ? '★ Editor’s pick · remove' : '☆ Make it an Editor’s pick'}
+            </button>
           )}
           <Link href="/admin/recipes" className="rounded-full px-5 py-2 text-sm font-semibold text-gray-600 ring-1 ring-gray-200 hover:bg-gray-50">{isDraft ? 'Leave as draft' : 'Back'}</Link>
           {confirmingDelete ? (

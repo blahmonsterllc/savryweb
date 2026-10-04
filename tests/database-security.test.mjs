@@ -223,3 +223,14 @@ test('the weekly email reads only opted-in confirmed cooks and is service-role o
   assert.match(d, /email_token = gen_random_uuid\(\)/, 'an unsubscribe link works once')
   assert.match(d, /b\.blocker_id = target and b\.blocked_id = r\.author_id/, 'blocked cooks never appear in your email')
 })
+
+test('trending and editor picks show only public work from cooks in good standing; picks are admin-only', async () => {
+  const t = await readFile(new URL('../supabase/migrations/20261003050000_trending_and_picks.sql', import.meta.url), 'utf8')
+  assert.match(t, /join public\.profiles a on a\.id = r\.author_id and not a\.is_banned\n    where r\.visibility = 'public'/)
+  assert.match(t, /b\.blocker_id = \(select id from me\) and b\.blocked_id = r\.author_id/, 'blocked cooks never appear')
+  assert.match(t, /revoke all on function public\.admin_set_editors_pick\(uuid, boolean\) from public, anon, authenticated/)
+  assert.match(t, /grant execute on function public\.admin_set_editors_pick\(uuid, boolean\) to service_role/)
+  assert.doesNotMatch(t, /editors_pick_at = .*payload/, 'picks are never set from client input')
+  const api = await readFile(new URL('../pages/api/admin/recipes.ts', import.meta.url), 'utf8')
+  assert.ok(api.indexOf('requireAdmin(req, res)') < api.indexOf('admin_set_editors_pick'), 'admin check comes first')
+})

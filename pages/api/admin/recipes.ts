@@ -4,6 +4,7 @@
  * GET  /api/admin/recipes?q=&limit=           search by title, slug, or author
  * GET  /api/admin/recipes?id=<uuid>           one recipe in full, drafts included
  * POST /api/admin/recipes { id, visibility }  public | unlisted | private (clears review hold)
+ * POST /api/admin/recipes { id, editorsPick }  true | false
  * DELETE /api/admin/recipes?id=<uuid>         removes the recipe and everything attached to it
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -49,6 +50,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const id = typeof req.body?.id === 'string' ? req.body.id : ''
+  if (typeof req.body?.editorsPick === 'boolean') {
+    if (!UUID.test(id)) return res.status(400).json({ success: false, error: 'Bad request' })
+    const { error } = await supabase.rpc('admin_set_editors_pick', { target: id, pick: req.body.editorsPick })
+    if (error) return res.status(400).json({ success: false, error: error.message })
+    return res.status(200).json({ success: true })
+  }
   const visibility = req.body?.visibility
   if (!UUID.test(id) || !['public', 'unlisted', 'private'].includes(visibility)) return res.status(400).json({ success: false, error: 'Bad request' })
   const { error } = await supabase.rpc('admin_set_recipe_visibility', { target: id, new_visibility: visibility })

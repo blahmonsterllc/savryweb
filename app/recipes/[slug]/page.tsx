@@ -67,6 +67,7 @@ export default async function RecipePage({ params }: Params) {
           <img src={recipe.imageUrl} alt={recipe.title} className="max-h-[420px] w-full rounded-t-3xl object-cover" />
         )}
         <div className="p-6 sm:p-8">
+          {recipe.editorsPick && <span className="table-week__badge table-week__badge--page">Editor&rsquo;s pick</span>}
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{recipe.title}</h1>
           {recipe.description && <p className="mt-3 text-lg text-gray-600">{recipe.description}</p>}
           <p className="mt-3 text-sm text-gray-500">

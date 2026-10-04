@@ -9,6 +9,7 @@ type Recipe = {
   title: string
   visibility: 'public' | 'unlisted' | 'private'
   reviewHold: boolean
+  editorsPickAt: string | null
   reportCount: number
   madeCount: number
   commentCount: number
@@ -26,12 +27,13 @@ type Recipe = {
   authorBanned: boolean
 }
 
-type Filter = 'all' | 'drafts' | 'public' | 'hold'
+type Filter = 'all' | 'drafts' | 'public' | 'hold' | 'picks'
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'drafts', label: 'Drafts to review' },
   { id: 'public', label: 'Public' },
   { id: 'hold', label: 'On hold' },
+  { id: 'picks', label: 'Editor’s picks' },
   { id: 'all', label: 'All' },
 ]
 
@@ -61,6 +63,7 @@ export default function AdminRecipesPage() {
       drafts: all.filter((r) => r.visibility === 'private').length,
       public: all.filter((r) => r.visibility === 'public').length,
       hold: all.filter((r) => r.reviewHold).length,
+      picks: all.filter((r) => r.editorsPickAt).length,
     }
   }, [recipes])
 
@@ -69,6 +72,7 @@ export default function AdminRecipesPage() {
     if (filter === 'drafts') return all.filter((r) => r.visibility === 'private')
     if (filter === 'public') return all.filter((r) => r.visibility === 'public')
     if (filter === 'hold') return all.filter((r) => r.reviewHold)
+    if (filter === 'picks') return all.filter((r) => r.editorsPickAt)
     return all
   }, [recipes, filter])
 

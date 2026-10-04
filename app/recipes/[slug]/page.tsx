@@ -26,13 +26,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       description,
       url: recipe.url,
       siteName: 'Savry',
-      images: recipe.imageUrl ? [{ url: recipe.imageUrl }] : undefined,
+      // The branded share card (app/recipes/[slug]/opengraph-image.tsx).
+      images: [{ url: `${recipe.url}/opengraph-image`, width: 1200, height: 630, alt: recipe.title }],
     },
     twitter: {
-      card: recipe.imageUrl ? 'summary_large_image' : 'summary',
+      card: 'summary_large_image',
       title: recipe.title,
       description,
-      images: recipe.imageUrl ? [recipe.imageUrl] : undefined,
+      images: [`${recipe.url}/opengraph-image`],
     },
   }
 }
@@ -97,7 +98,7 @@ export default async function RecipePage({ params }: Params) {
             </div>
           )}
 
-          <div className="mt-6"><RecipeShareBar title={recipe.title} url={recipe.url} imageUrl={recipe.imageUrl} /></div>
+          <div className="mt-6"><RecipeShareBar title={recipe.title} url={recipe.url} imageUrl={recipe.imageUrl} cardUrl={`${recipe.url}/opengraph-image`} /></div>
         </div>
       </header>
 

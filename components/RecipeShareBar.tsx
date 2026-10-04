@@ -1,6 +1,6 @@
 'use client'
 
-import { Check, Link2, Share2 } from 'lucide-react'
+import { Check, Image as ImageIcon, Link2, Share2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 /**
@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react'
  * "Copy link". Every entry is a plain intent URL, so no third-party scripts.
  * The page's Open Graph card is what the networks render.
  */
-export default function RecipeShareBar({ title, url, imageUrl, label = 'Share' }: { title: string; url: string; imageUrl?: string | null; label?: string }) {
+export default function RecipeShareBar({ title, url, imageUrl, label = 'Share', cardUrl }: { title: string; url: string; imageUrl?: string | null; label?: string; cardUrl?: string }) {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
   const root = useRef<HTMLDivElement>(null)
@@ -42,6 +42,23 @@ export default function RecipeShareBar({ title, url, imageUrl, label = 'Share' }
     }
   }
 
+  /** The branded card as an image: the system sheet with a file where that works, otherwise the image itself. */
+  async function shareCard() {
+    if (!cardUrl) return
+    try {
+      const blob = await fetch(cardUrl).then((r) => r.blob())
+      const file = new File([blob], `${title.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}-savry.png`, { type: 'image/png' })
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file], title, text: `${title} on Savry`, url }).catch(() => undefined)
+      } else {
+        window.open(cardUrl, '_blank', 'noopener')
+      }
+    } catch {
+      window.open(cardUrl, '_blank', 'noopener')
+    }
+    setOpen(false)
+  }
+
   async function share() {
     // Phones and tablets get the system sheet, which already knows Messages, Instagram, TikTok, and the rest.
     if (navigator.share && window.matchMedia('(pointer: coarse)').matches) {
@@ -71,6 +88,11 @@ export default function RecipeShareBar({ title, url, imageUrl, label = 'Share' }
           <button type="button" role="menuitem" onClick={copyLink}>
             {copied ? <Check size={15} /> : <Link2 size={15} />} {copied ? 'Link copied' : 'Copy link'}
           </button>
+          {cardUrl && (
+            <button type="button" role="menuitem" onClick={shareCard}>
+              <ImageIcon size={15} /> Share as image
+            </button>
+          )}
           {networks.map((n) => (
             <a key={n.name} role="menuitem" href={n.href} target={n.name === 'Email' ? undefined : '_blank'} rel="noopener noreferrer" onClick={() => setOpen(false)}>
               {n.name}

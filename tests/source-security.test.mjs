@@ -311,3 +311,11 @@ test('the recipe share card is built from public recipe data only', async () => 
   const page = await source('app/recipes/[slug]/page.tsx')
   assert.match(page, /opengraph-image/, 'social previews use the branded card')
 })
+
+test('a recipe published on the web gets nutrition from the same USDA engine, or none', async () => {
+  const composer = await source('components/RecipeComposer.tsx')
+  assert.match(composer, /import\('@\/lib\/nutrition\/compute\.mjs'\)/, 'the shared engine, loaded only at publish')
+  assert.match(composer, /result\.coverage < 0\.95\) return null/, 'the same 95% coverage bar as the Savry Kitchen recipes')
+  assert.match(composer, /source: 'usdaFoodDataCentral'/)
+  assert.match(composer, /nutritionPerServing,/, 'the figures ride along on publish_recipe_v2, which range-checks them')
+})

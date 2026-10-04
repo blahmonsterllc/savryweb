@@ -124,6 +124,31 @@ function imageToJPEG(file: File): Promise<string> {
   })
 }
 
+/**
+ * Nutrition per serving from the ingredient list, with the same USDA engine
+ * and rules the Savry Kitchen recipes use. Loaded only when publishing. Null
+ * when too few lines matched a known food (the page then shows no label
+ * rather than a wrong one).
+ */
+async function nutritionFor(servings: number, ingredients: IngredientDraft[]): Promise<Record<string, number | string> | null> {
+  try {
+    const [{ computeRecipeNutrition, createMatcher }, rules, usda] = await Promise.all([
+      import('@/lib/nutrition/compute.mjs'),
+      import('@/content/nutrition/ingredient-rules.json'),
+      import('@/content/nutrition/usda-foods.json'),
+    ])
+    const ruleList = ((rules as { default?: unknown }).default ?? rules) as object[]
+    const foods = (((usda as { default?: { foods?: unknown } }).default ?? usda) as { foods: Record<string, object> }).foods
+    const reference = { rules: ruleList, foods, resolve: createMatcher(ruleList) }
+    const result = computeRecipeNutrition({ servings, ingredients: ingredients.map((i) => ({ name: i.name, amount: i.amount || null, unit: i.unit || null, isOptional: i.isOptional })) }, reference)
+    if (!result || result.coverage < 0.95) return null
+    const n = result.perServing
+    return { calories: n.calories, protein: n.protein, carbohydrates: n.carbohydrates, fat: n.fat, fiber: n.fiber, sugar: n.sugar, sodium: n.sodium, cholesterol: n.cholesterol, saturatedFat: n.saturatedFat, source: 'usdaFoodDataCentral', ingredientCoverage: result.coverage }
+  } catch {
+    return null
+  }
+}
+
 function base64JPEG(value: string): Blob {
   const binary = window.atob(value)
   const bytes = new Uint8Array(binary.length)
@@ -241,8 +266,10 @@ export default function RecipeComposer() {
         imageURL = supabase.storage.from('recipe-images').getPublicUrl(imagePath).data.publicUrl
       }
 
+      const nutritionPerServing = await nutritionFor(Math.max(1, toNumber(draft.servings, 1)), validIngredients)
       const { data: result, error: publishError } = await supabase.rpc('publish_recipe_v2', {
         payload: {
+          nutritionPerServing,
           clientRecipeId: draft.clientRecipeId,
           title: draft.title.trim(),
           description: draft.description.trim() || null,
@@ -370,6 +397,7 @@ export default function RecipeComposer() {
             <div className="recipe-form-section">
               <div className="recipe-form-section__title"><ListChecks /><div><span>02</span><h2>What goes in</h2></div></div>
               <p className="recipe-form-section__hint">One ingredient per line, written the way you&rsquo;d say it. Savry works out the amounts, so servings can be scaled and grocery lists built. Add &ldquo;(optional)&rdquo; where it applies.</p>
+              <p className="lines-editor__dictate">On a phone, tap the microphone on your keyboard and say each ingredient on its own line.</p>
               <textarea
                 className="lines-editor"
                 autoFocus
@@ -396,6 +424,7 @@ export default function RecipeComposer() {
             <div className="recipe-form-section">
               <div className="recipe-form-section__title"><ListChecks /><div><span>03</span><h2>How it&rsquo;s made</h2></div></div>
               <p className="recipe-form-section__hint">One step per line. Savry numbers them, and the app can read them aloud and set timers.</p>
+              <p className="lines-editor__dictate">On a phone, tap the microphone on your keyboard and say each step; say &ldquo;new line&rdquo; between them.</p>
               <textarea
                 className="lines-editor"
                 autoFocus

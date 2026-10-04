@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default async function RecipesIndexPage() {
   let recipes: Awaited<ReturnType<typeof listPublicRecipes>> = []
   try {
-    recipes = await listPublicRecipes(48)
+    recipes = await listPublicRecipes(1000)
   } catch (error) {
     console.error('recipes index: failed to load', error)
   }

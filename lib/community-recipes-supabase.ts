@@ -105,7 +105,8 @@ export async function listSupabasePublicRecipes(limit = 24): Promise<PublicRecip
     .select(PUBLIC_RECIPE_SELECT)
     .eq('visibility', 'public')
     .order('published_at', { ascending: false })
-    .limit(Math.min(Math.max(limit, 1), 100))
+    // The whole table is small enough to list; the explorer filters on the client.
+    .limit(Math.min(Math.max(limit, 1), 2000))
   if (error) throw error
   return (data ?? []).map(fromSupabaseRecipe)
 }

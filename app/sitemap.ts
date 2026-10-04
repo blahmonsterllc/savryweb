@@ -5,7 +5,7 @@ import { SITE_URL } from '@/lib/site-url'
 export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const recipes = await listPublicRecipes(100).catch(() => [])
+  const recipes = await listPublicRecipes(2000).catch(() => [])
   const staticPages: MetadataRoute.Sitemap = [
     ['', 'daily', 1],
     ['/cooks', 'daily', 0.6],

@@ -9,15 +9,14 @@ import {
   Clock3,
   ImagePlus,
   ListChecks,
-  Minus,
   Plus,
   Send,
-  Trash2,
   Users,
 } from 'lucide-react'
 import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 import { newPhotoPath } from '@/lib/photo-upload'
+import { ingredientRowsToText, parseIngredientLines, parseInstructionLines } from '@/lib/ingredient-lines.mjs'
 
 type IngredientDraft = {
   amount: string
@@ -48,13 +47,16 @@ type RecipeDraft = {
   imageBase64: string
   ingredients: IngredientDraft[]
   instructions: string[]
+  /** What the cook typed, one ingredient per line; `ingredients` is parsed from it. */
+  ingredientText: string
+  /** What the cook typed, one step per line; `instructions` is parsed from it. */
+  instructionText: string
   rightsAttested: boolean
 }
 
 const DRAFT_KEY = 'savry_web_recipe_draft_v1'
 const steps = ['The dish', 'Ingredients', 'Method', 'Review']
 const categories = ['Breakfast', 'Lunch', 'Dinner', 'Soup', 'Salad', 'Side', 'Dessert', 'Snack', 'Drink', 'Sauce', 'Other']
-const units = ['', 'tsp', 'tbsp', 'cup', 'oz', 'lb', 'g', 'kg', 'ml', 'l', 'pinch', 'clove', 'can', 'package']
 
 function blankDraft(): RecipeDraft {
   return {
@@ -77,12 +79,10 @@ function blankDraft(): RecipeDraft {
     notes: '',
     sourceURL: '',
     imageBase64: '',
-    ingredients: [
-      { amount: '', unit: '', name: '', isOptional: false },
-      { amount: '', unit: '', name: '', isOptional: false },
-      { amount: '', unit: '', name: '', isOptional: false },
-    ],
-    instructions: ['', '', ''],
+    ingredients: [],
+    instructions: [],
+    ingredientText: '',
+    instructionText: '',
     rightsAttested: false,
   }
 }
@@ -144,8 +144,13 @@ export default function RecipeComposer() {
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem(DRAFT_KEY)
-      const next = saved ? { ...blankDraft(), ...JSON.parse(saved) } : blankDraft()
+      const next: RecipeDraft = saved ? { ...blankDraft(), ...JSON.parse(saved) } : blankDraft()
       next.clientRecipeId ||= window.crypto.randomUUID()
+      // A draft from the row-by-row editor: carry its rows into the text boxes.
+      if (!next.ingredientText && next.ingredients.some((row) => row.name)) next.ingredientText = ingredientRowsToText(next.ingredients)
+      if (!next.instructionText && next.instructions.some(Boolean)) next.instructionText = next.instructions.filter(Boolean).join('\n')
+      next.ingredients = parseIngredientLines(next.ingredientText) as IngredientDraft[]
+      next.instructions = parseInstructionLines(next.instructionText)
       setDraft(next)
     } catch {
       setDraft({ ...blankDraft(), clientRecipeId: window.crypto.randomUUID() })
@@ -170,19 +175,7 @@ export default function RecipeComposer() {
     setMessage(null)
   }
 
-  function updateIngredient(index: number, changes: Partial<IngredientDraft>) {
-    setDraft((current) => ({
-      ...current,
-      ingredients: current.ingredients.map((ingredient, itemIndex) => itemIndex === index ? { ...ingredient, ...changes } : ingredient),
-    }))
-  }
 
-  function updateInstruction(index: number, value: string) {
-    setDraft((current) => ({
-      ...current,
-      instructions: current.instructions.map((instruction, itemIndex) => itemIndex === index ? value : instruction),
-    }))
-  }
 
   function canContinue(): boolean {
     if (step === 0 && !draft.title.trim()) {
@@ -354,7 +347,7 @@ export default function RecipeComposer() {
           {step === 0 && (
             <div className="recipe-form-section">
               <div className="recipe-form-section__title"><ChefHat /><div><span>01</span><h2>Tell us about the dish</h2></div></div>
-              <label className="recipe-field recipe-field--hero"><span>Recipe name</span><input autoFocus value={draft.title} onChange={(event) => update('title', event.target.value)} placeholder="Example: Roasted tomato white bean skillet" maxLength={200} /></label>
+              <label className="recipe-field recipe-field--hero"><span>Recipe name</span><input autoFocus value={draft.title} onChange={(event) => update('title', event.target.value)} placeholder="Example: Lemon garlic chicken" maxLength={200} /></label>
               <label className={`recipe-photo-field ${draft.imageBase64 ? 'has-photo' : ''}`}>
                 {draft.imageBase64 ? <img src={`data:image/jpeg;base64,${draft.imageBase64}`} alt="Recipe preview" /> : <><ImagePlus /><strong>Add a finished-dish photo</strong><span>Portrait or landscape works</span></>}
                 <input type="file" accept="image/*" onChange={pickImage} />
@@ -375,49 +368,49 @@ export default function RecipeComposer() {
 
           {step === 1 && (
             <div className="recipe-form-section">
-              <div className="recipe-form-section__title"><ListChecks /><div><span>02</span><h2>Build the ingredient list</h2></div></div>
-              <p className="recipe-form-section__hint">Keep the amount and unit separate so Savry can scale servings and build an accurate grocery list.</p>
-              <div className="ingredient-editor">
-                {draft.ingredients.map((ingredient, index) => (
-                  <div className="ingredient-editor__row" key={index}>
-                    <span className="ingredient-editor__number">{index + 1}</span>
-                    <input aria-label={`Ingredient ${index + 1} amount`} value={ingredient.amount} onChange={(event) => updateIngredient(index, { amount: event.target.value })} placeholder="1 1/2" />
-                    <select aria-label={`Ingredient ${index + 1} unit`} value={ingredient.unit} onChange={(event) => updateIngredient(index, { unit: event.target.value })}>{units.map((unit) => <option key={unit} value={unit}>{unit || 'unit'}</option>)}</select>
-                    <input aria-label={`Ingredient ${index + 1} name`} value={ingredient.name} onChange={(event) => updateIngredient(index, { name: event.target.value })} placeholder="ingredient" maxLength={200} />
-                    <label className="ingredient-editor__optional"><input type="checkbox" checked={ingredient.isOptional} onChange={(event) => updateIngredient(index, { isOptional: event.target.checked })} /> optional</label>
-                    <button type="button" aria-label={`Remove ingredient ${index + 1}`} onClick={() => update('ingredients', draft.ingredients.filter((_, itemIndex) => itemIndex !== index))}><Trash2 size={17} /></button>
-                  </div>
-                ))}
-              </div>
-              <button type="button" className="recipe-add-row" onClick={() => update('ingredients', [...draft.ingredients, { amount: '', unit: '', name: '', isOptional: false }])}><Plus size={17} /> Add ingredient</button>
-              <div className="recipe-field-grid">
-                <label className="recipe-field"><span>Equipment <small>comma separated</small></span><input value={draft.equipment} onChange={(event) => update('equipment', event.target.value)} placeholder="sheet pan, blender" /></label>
-                <label className="recipe-field"><span>Oven temperature °F <small>optional</small></span><input type="number" min="100" max="700" value={draft.ovenTemp} onChange={(event) => update('ovenTemp', event.target.value)} placeholder="425" /></label>
-              </div>
+              <div className="recipe-form-section__title"><ListChecks /><div><span>02</span><h2>What goes in</h2></div></div>
+              <p className="recipe-form-section__hint">One ingredient per line, written the way you&rsquo;d say it. Savry works out the amounts, so servings can be scaled and grocery lists built. Add &ldquo;(optional)&rdquo; where it applies.</p>
+              <textarea
+                className="lines-editor"
+                autoFocus
+                value={draft.ingredientText}
+                onChange={(event) => setDraft((current) => ({ ...current, ingredientText: event.target.value, ingredients: parseIngredientLines(event.target.value) as IngredientDraft[] }))}
+                placeholder={'2 chicken breasts\n3 cloves garlic\n1 lemon\n2 tbsp olive oil\nsalt and pepper\nfresh parsley (optional)'}
+                rows={10}
+                spellCheck
+              />
+              {validIngredients.length > 0 && (
+                <ol className="lines-preview" aria-label="How Savry read your ingredients">
+                  {validIngredients.map((ingredient, index) => (
+                    <li key={index}>
+                      <b>{[ingredient.amount, ingredient.unit].filter(Boolean).join(' ') || '·'}</b>
+                      <span>{ingredient.name}{ingredient.isOptional ? <em> optional</em> : null}</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
             </div>
           )}
 
           {step === 2 && (
             <div className="recipe-form-section">
-              <div className="recipe-form-section__title"><ListChecks /><div><span>03</span><h2>Write the method</h2></div></div>
-              <p className="recipe-form-section__hint">Use one clear action per step. Timers and hands-free cooking tools can read these in the app.</p>
-              <div className="method-editor">
-                {draft.instructions.map((instruction, index) => (
-                  <div className="method-editor__row" key={index}>
-                    <span>{index + 1}</span>
-                    <textarea aria-label={`Step ${index + 1}`} value={instruction} onChange={(event) => updateInstruction(index, event.target.value)} placeholder={index === 0 ? 'Heat the oven and prepare the pan…' : 'Describe the next step…'} rows={3} maxLength={2000} />
-                    <button type="button" aria-label={`Remove step ${index + 1}`} onClick={() => update('instructions', draft.instructions.filter((_, itemIndex) => itemIndex !== index))}><Trash2 size={17} /></button>
-                  </div>
-                ))}
-              </div>
-              <button type="button" className="recipe-add-row" onClick={() => update('instructions', [...draft.instructions, ''])}><Plus size={17} /> Add step</button>
-              <label className="recipe-field"><span>Cook’s notes <small>optional</small></span><textarea value={draft.notes} onChange={(event) => update('notes', event.target.value)} placeholder="Storage, substitutions, serving ideas, or what you learned…" rows={4} maxLength={2000} /></label>
-              <div className="recipe-field-grid">
-                <label className="recipe-field"><span>Tags <small>comma separated</small></span><input value={draft.tags} onChange={(event) => update('tags', event.target.value)} placeholder="one pan, weeknight, cozy" /></label>
-                <label className="recipe-field"><span>Dietary tags</span><input value={draft.dietaryTags} onChange={(event) => update('dietaryTags', event.target.value)} placeholder="vegetarian, gluten-free" /></label>
-                <label className="recipe-field"><span>Allergens</span><input value={draft.allergens} onChange={(event) => update('allergens', event.target.value)} placeholder="dairy, peanuts" /></label>
-                <label className="recipe-field"><span>Original source URL <small>if adapted</small></span><input type="url" value={draft.sourceURL} onChange={(event) => update('sourceURL', event.target.value)} placeholder="https://…" /></label>
-              </div>
+              <div className="recipe-form-section__title"><ListChecks /><div><span>03</span><h2>How it&rsquo;s made</h2></div></div>
+              <p className="recipe-form-section__hint">One step per line. Savry numbers them, and the app can read them aloud and set timers.</p>
+              <textarea
+                className="lines-editor"
+                autoFocus
+                value={draft.instructionText}
+                onChange={(event) => setDraft((current) => ({ ...current, instructionText: event.target.value, instructions: parseInstructionLines(event.target.value) }))}
+                placeholder={'Season the chicken and let it sit while the pan heats.\nSear 4 minutes a side, then add the garlic and lemon.\nRest 5 minutes before slicing.'}
+                rows={10}
+                spellCheck
+              />
+              {validInstructions.length > 0 && (
+                <ol className="lines-preview lines-preview--steps" aria-label="How Savry read your method">
+                  {validInstructions.map((instruction, index) => <li key={index}><b>{index + 1}</b><span>{instruction}</span></li>)}
+                </ol>
+              )}
+              <label className="recipe-field"><span>Cook&rsquo;s notes <small>optional</small></span><textarea value={draft.notes} onChange={(event) => update('notes', event.target.value)} placeholder="Storage, substitutions, serving ideas, or what you learned…" rows={3} maxLength={2000} /></label>
             </div>
           )}
 
@@ -435,6 +428,17 @@ export default function RecipeComposer() {
                 <p className={validInstructions.length ? 'is-complete' : ''}><Check /> Cooking method</p>
                 <p className={draft.imageBase64 ? 'is-complete' : ''}><Check /> Finished-dish photo <small>recommended</small></p>
               </div>
+              <details className="recipe-more">
+                <summary>More details <small>all optional</small></summary>
+                <div className="recipe-field-grid">
+                  <label className="recipe-field"><span>Equipment <small>comma separated</small></span><input value={draft.equipment} onChange={(event) => update('equipment', event.target.value)} placeholder="sheet pan, blender" /></label>
+                  <label className="recipe-field"><span>Oven temperature °F</span><input type="number" min="100" max="700" value={draft.ovenTemp} onChange={(event) => update('ovenTemp', event.target.value)} placeholder="425" /></label>
+                  <label className="recipe-field"><span>Tags <small>comma separated</small></span><input value={draft.tags} onChange={(event) => update('tags', event.target.value)} placeholder="one pan, weeknight, cozy" /></label>
+                  <label className="recipe-field"><span>Dietary tags</span><input value={draft.dietaryTags} onChange={(event) => update('dietaryTags', event.target.value)} placeholder="vegetarian, gluten-free" /></label>
+                  <label className="recipe-field"><span>Allergens</span><input value={draft.allergens} onChange={(event) => update('allergens', event.target.value)} placeholder="dairy, peanuts" /></label>
+                  <label className="recipe-field"><span>Original source URL <small>if adapted</small></span><input type="url" value={draft.sourceURL} onChange={(event) => update('sourceURL', event.target.value)} placeholder="https://…" /></label>
+                </div>
+              </details>
               <label className="recipe-rights">
                 <input type="checkbox" checked={draft.rightsAttested} onChange={(event) => update('rightsAttested', event.target.checked)} />
                 <span>I created this recipe or have permission to publish it, including its photo. I understand it will be visible to the Savry community.</span>

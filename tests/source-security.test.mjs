@@ -273,5 +273,31 @@ test('Savry+ purchases reach the site only with Apple\'s signature and the membe
   assert.doesNotMatch(middleware, /startsWith\('\/api\/(membership|app-store)'\)/, 'only the exact paths are public')
 
   const cronConfig = JSON.parse(await source('vercel.json'))
-  assert.deepEqual(cronConfig.crons.map((entry) => entry.path), ['/api/cron/patrol', '/api/cron/memberships'])
+  assert.ok(cronConfig.crons.some((entry) => entry.path === '/api/cron/memberships'), 'the membership expiry runs on a schedule')
+})
+
+test('the weekly email sends only to opted-in, confirmed cooks, through a protected cron, with one-click unsubscribe', async () => {
+  const cron = await source('pages/api/cron/weekly-email.ts')
+  assert.match(cron, /timingSafeEqual/)
+  assert.match(cron, /if \(!secret\) return res\.status\(503\)/)
+  assert.ok(cron.indexOf('return res.status(401)') < cron.indexOf('sendWeeklyDigests('), 'the secret is checked before anything sends')
+
+  const digest = await source('lib/weekly-digest.ts')
+  assert.match(digest, /import 'server-only'/)
+  assert.match(digest, /List-Unsubscribe-Post/, 'one-click unsubscribe header on every message')
+  assert.match(digest, /if \(!result\.configured && !options\.dryRun\) return result/, 'no key means no sends, never an error')
+  assert.doesNotMatch(digest, /NEXT_PUBLIC_RESEND/)
+
+  const unsubscribe = await source('pages/api/email/unsubscribe.ts')
+  assert.match(unsubscribe, /unsubscribe_by_token/)
+  assert.match(unsubscribe, /name="robots" content="noindex"/)
+
+  const middleware = await source('middleware.ts')
+  assert.match(middleware, /pathname === '\/api\/cron\/weekly-email'/)
+  assert.match(middleware, /pathname === '\/api\/email\/unsubscribe'/)
+  const cronConfig = JSON.parse(await source('vercel.json'))
+  assert.deepEqual(cronConfig.crons.map((entry) => entry.path), ['/api/cron/patrol', '/api/cron/memberships', '/api/cron/weekly-email'])
+
+  const preview = await source('pages/api/admin/digest-preview.ts')
+  assert.ok(preview.indexOf('requireAdmin(req, res)') < preview.indexOf('getSupabaseAdmin()'), 'admin check comes first')
 })

@@ -36,6 +36,7 @@ async function configuration(): Promise<Group> {
       { id: 'site-url', label: 'Canonical site URL is savry.io', ok: SITE_URL === 'https://www.savry.io', detail: SITE_URL },
       { id: 'apple-revoke', label: 'Apple token revocation on account deletion', ok: Boolean(env.APPLE_TEAM_ID && env.APPLE_KEY_ID && env.APPLE_PRIVATE_KEY), detail: env.APPLE_PRIVATE_KEY ? 'Configured' : 'Add APPLE_TEAM_ID, APPLE_KEY_ID, and APPLE_PRIVATE_KEY in Vercel' },
       { id: 'patrol-key', label: 'Content patrol has a model key', ok: Boolean(env.ANTHROPIC_API_KEY), detail: env.ANTHROPIC_API_KEY ? 'Configured' : 'Add ANTHROPIC_API_KEY in Vercel to switch the patrol on', pending: !env.ANTHROPIC_API_KEY },
+      { id: 'resend-key', label: 'Weekly email can send (Resend API key)', ok: Boolean(env.RESEND_API_KEY), detail: env.RESEND_API_KEY ? 'Configured; goes out Sundays 15:00 UTC' : 'Add RESEND_API_KEY in Vercel to switch the weekly email on', pending: !env.RESEND_API_KEY },
       { id: 'patrol-schedule', label: 'Content patrol schedule is protected', ok: Boolean(env.CRON_SECRET), detail: env.CRON_SECRET ? 'Runs every 10 minutes' : 'Add CRON_SECRET in Vercel' },
       {
         id: 'retired-env',

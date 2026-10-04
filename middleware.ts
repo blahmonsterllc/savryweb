@@ -45,6 +45,7 @@ function isPublicApiRoute(pathname: string): boolean {
     // Vercel Cron calls these with the CRON_SECRET bearer token; the handlers verify it.
     pathname === '/api/cron/patrol' ||
     pathname === '/api/cron/memberships' ||
+    pathname === '/api/cron/weekly-email' ||
     pathname === '/api/email/unsubscribe'
   )
 }

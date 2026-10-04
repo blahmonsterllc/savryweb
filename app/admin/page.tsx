@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import DigestTestButton from '@/components/admin/DigestTestButton'
 import { useEffect, useState } from 'react'
 
 type Stats = Record<string, number | string>
@@ -93,6 +94,11 @@ export default function AdminOverviewPage() {
 
       <h2 className="mt-10 text-sm font-bold uppercase tracking-wide text-gray-500">Elsewhere</h2>
       <ul className="mt-3 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
+        <li className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+          <a href="/api/admin/digest-preview" target="_blank" rel="noopener noreferrer" className="font-semibold text-gray-900 hover:underline">This week&rsquo;s email ↗</a>
+          <p className="mt-1 text-gray-500">Preview the Sunday digest as you would receive it.</p>
+          <DigestTestButton />
+        </li>
         {[
           ['https://supabase.com/dashboard/project/qnpekzrchqftdoaebzuf', 'Supabase', 'Database, auth users, storage, logs'],
           ['https://vercel.com', 'Vercel', 'Deployments and environment variables'],

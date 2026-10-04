@@ -210,3 +210,16 @@ test('collections are written only through screened, owner-scoped functions and 
   assert.match(c, /not a\.is_banned/, 'recipes from banned cooks drop out of collections')
   assert.equal((c.match(/security definer set search_path = ''/g) ?? []).length, 8)
 })
+
+test('the weekly email reads only opted-in confirmed cooks and is service-role only', async () => {
+  const d = await readFile(new URL('../supabase/migrations/20261003040000_weekly_digest.sql', import.meta.url), 'utf8')
+  assert.match(d, /where p\.email_opt_in and not p\.is_banned and u\.email_confirmed_at is not null/)
+  assert.match(d, /revoke all on public\.digest_sends from public, anon, authenticated/)
+  for (const fn of ['digest_recipients(date, integer)', 'weekly_digest(uuid, timestamptz)', 'record_digest_send(uuid, date, text)', 'unsubscribe_by_token(uuid)']) {
+    const escaped = fn.replace(/[()]/g, (m) => '\\' + m)
+    assert.match(d, new RegExp(`revoke all on function public\\.${escaped} from public, anon, authenticated`), `${fn} revoked from clients`)
+    assert.match(d, new RegExp(`grant execute on function public\\.${escaped} to service_role`), `${fn} granted to service_role`)
+  }
+  assert.match(d, /email_token = gen_random_uuid\(\)/, 'an unsubscribe link works once')
+  assert.match(d, /b\.blocker_id = target and b\.blocked_id = r\.author_id/, 'blocked cooks never appear in your email')
+})

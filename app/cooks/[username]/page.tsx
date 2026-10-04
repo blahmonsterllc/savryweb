@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import CookCollections from '@/components/CookCollections'
+import CookMadeIts from '@/components/CookMadeIts'
 import FollowButton from '@/components/FollowButton'
 import RecipeShareBar from '@/components/RecipeShareBar'
 import { getSupabasePublicCook } from '@/lib/community-recipes-supabase'
@@ -106,6 +107,7 @@ export default async function CookPage({ params }: { params: { username: string 
         )}
       </section>
 
+      <CookMadeIts username={cook.username} displayName={cook.displayName} />
       <CookCollections username={cook.username} displayName={cook.displayName} />
     </main>
   )

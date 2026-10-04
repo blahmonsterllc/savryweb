@@ -8,6 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const recipes = await listPublicRecipes(100).catch(() => [])
   const staticPages: MetadataRoute.Sitemap = [
     ['', 'daily', 1],
+    ['/cooks', 'daily', 0.6],
     ['/recipes', 'daily', 0.9],
     ['/savry-plus', 'monthly', 0.5],
     ['/privacy', 'yearly', 0.2],

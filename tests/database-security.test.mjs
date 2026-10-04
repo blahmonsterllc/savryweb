@@ -234,3 +234,13 @@ test('trending and editor picks show only public work from cooks in good standin
   const api = await readFile(new URL('../pages/api/admin/recipes.ts', import.meta.url), 'utf8')
   assert.ok(api.indexOf('requireAdmin(req, res)') < api.indexOf('admin_set_editors_pick'), 'admin check comes first')
 })
+
+test('the cook directory and made-it galleries show only cooks in good standing and public work', async () => {
+  const d = await readFile(new URL('../supabase/migrations/20261003070000_cook_directory.sql', import.meta.url), 'utf8')
+  assert.match(d, /where not p\.is_banned and p\.username is not null/)
+  assert.match(d, /exists \(select 1 from public\.recipes r where r\.author_id = p\.id and r\.visibility = 'public'\)/, 'only cooks with something on the table')
+  assert.match(d, /b\.blocker_id = \(select id from me\) and b\.blocked_id = p\.id\) or \(b\.blocker_id = p\.id and b\.blocked_id = \(select id from me\)/, 'blocks hide both ways')
+  assert.match(d, /join public\.recipes r on r\.id = c\.recipe_id and r\.visibility = 'public'/)
+  assert.match(d, /c\.type = 'made' and not c\.hidden and c\.photo_path is not null/)
+  assert.equal((d.match(/security definer set search_path = ''/g) ?? []).length, 2)
+})

@@ -1777,27 +1777,17 @@ select {
   z-index: 0;
 }
 
-.plus-hero__copy::before,
-.plus-hero__copy::after {
+.plus-hero__copy::before {
   content: '';
   position: absolute;
   z-index: -1;
   pointer-events: none;
   border-radius: 8px 42px 42px 42px;
-}
-
-.plus-hero__copy::before {
   inset: -14% -10% -16% -12%;
   background:
     radial-gradient(closest-side at 24% 28%, rgb(239 182 63 / 26%), transparent 72%),
     radial-gradient(closest-side at 80% 74%, rgb(152 215 181 / 22%), transparent 70%),
     radial-gradient(closest-side at 62% 20%, rgb(240 100 73 / 10%), transparent 70%);
-}
-
-.plus-hero__copy::after {
-  inset: 6% -4% 4% -2%;
-  border: 2px solid rgb(239 182 63 / 42%);
-  transform: rotate(-1.5deg);
 }
 
 .plus-hero h1 {
@@ -2023,9 +2013,6 @@ select {
     box-shadow: 14px 16px 0 var(--savry-saffron);
   }
 
-  .plus-hero__copy::after {
-    inset: 4% -3% 2% -3%;
-  }
 
   .account-page > header h1 {
     font-size: clamp(3rem, 16vw, 5.2rem);

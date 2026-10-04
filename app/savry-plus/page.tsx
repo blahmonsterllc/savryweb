@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Check, ShieldCheck, Sparkles } from 'lucide-react'
 import { SITE_URL } from '@/lib/site-url'
+import PlusCallToAction from '@/components/PlusCallToAction'
 
 export const metadata: Metadata = {
   title: 'Savry+ Membership',
@@ -43,7 +44,7 @@ export default function SavryPlusPage() {
           <ul>
             {plusFeatures.map((feature) => <li key={feature}><Check size={18} /> <span>{feature}</span></li>)}
           </ul>
-          <Link className="button button--coral" href="/account">Create your free Savry account</Link>
+          <PlusCallToAction />
           <span className="plus-card__fine"><ShieldCheck size={16} /> Your membership follows your Savry account on the web and in the app.</span>
         </aside>
       </section>

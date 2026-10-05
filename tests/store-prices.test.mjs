@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { packageGrams, perKgFromItem, searchTerm, storePrice } from '../lib/cost/store-prices.mjs'
+import { STORE_SEARCH, packageGrams, perKgFromItem, searchTerm, storePrice } from '../lib/cost/store-prices.mjs'
 import { describeMultiplier, regionalPrice } from '../lib/cost/regional.mjs'
 import { computeRecipeCost } from '../lib/cost/compute.mjs'
 import { createMatcher } from '../lib/nutrition/compute.mjs'
@@ -79,6 +79,22 @@ test('the median regular price across the shelf wins, and a wild match is droppe
   assert.equal(storePrice(products, { baseline: 1 }), null, 'twelve times the regional figure is a wrong product, not chicken')
   assert.equal(storePrice(products, { baseline: 100 }), null, 'a tenth of the regional figure is a wrong product too')
   assert.equal(storePrice([]), null)
+})
+
+test('curated searches keep the wrong products out of the median', () => {
+  const butter = [
+    { description: 'Kroger® Butter with Olive Oil and Sea Salt Spreadable Tub', items: [{ size: '15 oz', price: { regular: 3.99 } }] },
+    { description: 'Kroger® Unsalted Butter Sticks', items: [{ size: '16 oz', price: { regular: 4.49 } }] },
+    { description: 'Land O Lakes® Unsalted Butter', items: [{ size: '16 oz', price: { regular: 5.99 } }] },
+  ]
+  const chosen = storePrice(butter, { exclude: STORE_SEARCH[173430].exclude })
+  assert.equal(chosen.listings, 2, 'the spread is not butter')
+  assert.match(chosen.description, /Unsalted Butter Sticks/)
+  assert.equal(searchTerm(173430, rules), 'unsalted butter')
+  assert.equal(searchTerm(169655, rules), 'granulated sugar')
+  assert.ok(STORE_SEARCH[169655].exclude.test('Kroger® Light Brown Sugar'))
+  assert.ok(STORE_SEARCH[170027].exclude.test('Lay\'s Classic Potato Chips'))
+  for (const id of Object.keys(STORE_SEARCH)) assert.ok(priceFile.prices[id], `curated search for ${id}, which Savry does not price`)
 })
 
 test('each priced food has words to search a store for', () => {

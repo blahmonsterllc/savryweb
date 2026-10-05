@@ -21,7 +21,7 @@ import rules from '@/content/nutrition/ingredient-rules.json'
 import priceFile from '@/content/cost/food-prices.json'
 import regional from '@/content/cost/regional-prices.json'
 import { krogerConfigured, nearestStore, searchProducts, type KrogerStore } from '@/lib/kroger'
-import { searchTerm, storePrice } from '@/lib/cost/store-prices.mjs'
+import { STORE_SEARCH, searchTerm, storePrice } from '@/lib/cost/store-prices.mjs'
 import { regionalPrice } from '@/lib/cost/regional.mjs'
 
 const MAX_FOODS = 40
@@ -71,7 +71,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const term = searchTerm(Number(food), rules as { fdcId?: number; phrases?: string[] }[])
         const table = (priceFile.prices as Record<string, { perKg: number }>)[food]?.perKg
         const baseline = typeof table === 'number' ? table * multiplier : undefined
-        price = term ? storePrice(await searchProducts(term, store.locationId), { gramsPerCount: GRAMS_PER_COUNT[food], baseline }) : null
+        // A wider net (15) leaves enough after the curated exclusions to take a fair median.
+        price = term ? storePrice(await searchProducts(term, store.locationId, 15), { gramsPerCount: GRAMS_PER_COUNT[food], baseline, exclude: STORE_SEARCH[Number(food)]?.exclude }) : null
         priceCache.set(key, { at: Date.now(), price })
       }
       if (price) prices[food] = price

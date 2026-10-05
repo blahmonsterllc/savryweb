@@ -1,0 +1,50 @@
+name: Monthly grocery prices
+
+# BLS publishes average retail prices with the CPI, around the middle of each
+# month. This refreshes content/cost/food-prices.json from them and commits the
+# change, which redeploys the site; /api/cron/recost then re-prices every
+# recipe the next day, and the app downloads the new table from
+# /api/prices/table. No database key lives in GitHub.
+
+on:
+  schedule:
+    - cron: '0 14 16 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    name: Refresh from BLS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Pull the latest BLS average prices
+        run: node scripts/cost/refresh-bls.mjs
+        env:
+          # Optional: a free key from data.bls.gov/registrationEngine raises the daily limit shared runners can hit.
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+      - name: Anything new?
+        id: diff
+        run: |
+          if git diff --quiet -- content/cost/food-prices.json; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Tests and type check before committing
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          node --test tests/*.test.mjs
+          npx tsc --noEmit -p .
+      - name: Commit the new prices
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "savry-prices-bot"
+          git config user.email "savry-prices-bot@users.noreply.github.com"
+          period=$(node -e "console.log(require('./content/cost/food-prices.json').asOf)")
+          git add content/cost/food-prices.json
+          git commit -m "Grocery prices from BLS, ${period}"
+          git push

@@ -48,7 +48,10 @@ function isPublicApiRoute(pathname: string): boolean {
     pathname === '/api/cron/weekly-email' ||
     pathname === '/api/email/unsubscribe' ||
     // The app asks for shelf prices near a ZIP code; nothing personal is sent or stored, and the server caches by store.
-    pathname === '/api/prices/store'
+    pathname === '/api/prices/store' ||
+    // The public price table the app downloads; the same file every visitor's recipe page is priced from.
+    pathname === '/api/prices/table' ||
+    pathname === '/api/cron/recost'
   )
 }
 

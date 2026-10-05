@@ -297,7 +297,7 @@ test('the weekly email sends only to opted-in, confirmed cooks, through a protec
   assert.match(middleware, /pathname === '\/api\/cron\/weekly-email'/)
   assert.match(middleware, /pathname === '\/api\/email\/unsubscribe'/)
   const cronConfig = JSON.parse(await source('vercel.json'))
-  assert.deepEqual(cronConfig.crons.map((entry) => entry.path), ['/api/cron/patrol', '/api/cron/memberships', '/api/cron/weekly-email'])
+  assert.deepEqual(cronConfig.crons.map((entry) => entry.path), ['/api/cron/patrol', '/api/cron/memberships', '/api/cron/weekly-email', '/api/cron/recost'])
 
   const preview = await source('pages/api/admin/digest-preview.ts')
   assert.ok(preview.indexOf('requireAdmin(req, res)') < preview.indexOf('getSupabaseAdmin()'), 'admin check comes first')
@@ -318,4 +318,18 @@ test('a recipe published on the web gets nutrition from the same USDA engine, or
   assert.match(composer, /result\.coverage < 0\.95\) return null/, 'the same 95% coverage bar as the Savry Kitchen recipes')
   assert.match(composer, /source: 'usdaFoodDataCentral'/)
   assert.match(composer, /nutritionPerServing,/, 'the figures ride along on publish_recipe_v2, which range-checks them')
+})
+
+test('the monthly re-price is a protected cron and the price table holds nothing private', async () => {
+  const cron = await source('pages/api/cron/recost.ts')
+  assert.match(cron, /timingSafeEqual/)
+  assert.match(cron, /if \(!secret\) return res\.status\(503\)/)
+  assert.ok(cron.indexOf('return res.status(401)') < cron.indexOf('getSupabaseAdmin()'), 'the secret is checked before the database is touched')
+
+  const table = await source('pages/api/prices/table.ts')
+  assert.doesNotMatch(table, /supabase|process\.env/i, 'the public table is the shipped file and nothing else')
+
+  const workflow = await source('.github/workflows/bls-prices.yml')
+  assert.doesNotMatch(workflow, /SUPABASE|SERVICE_ROLE|CRON_SECRET/, 'no database key or cron secret lives in GitHub')
+  assert.match(workflow, /node --test tests\/\*\.test\.mjs/, 'prices are committed only after the tests pass')
 })

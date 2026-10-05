@@ -50,7 +50,7 @@ async function fetchLatest(seriesIds) {
   const response = await fetch('https://api.bls.gov/publicAPI/v2/timeseries/data/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ seriesid: seriesIds, startyear: String(year - 1), endyear: String(year) }),
+    body: JSON.stringify({ seriesid: seriesIds, startyear: String(year - 1), endyear: String(year), ...(process.env.BLS_API_KEY ? { registrationkey: process.env.BLS_API_KEY } : {}) }),
   })
   const body = await response.json()
   if (body.status !== 'REQUEST_SUCCEEDED') throw new Error(`BLS: ${body.status} ${(body.message ?? []).join(' ')}`)

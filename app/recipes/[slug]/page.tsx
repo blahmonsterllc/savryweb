@@ -93,7 +93,7 @@ export default async function RecipePage({ params }: Params) {
             )}
           </div>
           {recipe.costPerServing != null && (
-            <p className="mt-2 text-xs text-gray-500">About ${(recipe.costPerServing * recipe.servings).toFixed(2)} for the whole recipe, estimated from US average grocery prices (Bureau of Labor Statistics and typical shelf prices) for the ingredients as listed. Your store&rsquo;s prices and weekly sales will differ, so treat this as a guide. The Savry app adjusts it to where you shop.</p>
+            <p className="mt-2 text-xs text-gray-500">About ${(recipe.costPerServing * recipe.servings).toFixed(2)} for the whole recipe at US average grocery prices. Your store will vary; the Savry app adjusts for where you live.</p>
           )}
 
           {(recipe.tags.length > 0 || recipe.dietaryTags.length > 0) && (

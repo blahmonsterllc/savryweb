@@ -51,7 +51,9 @@ function isPublicApiRoute(pathname: string): boolean {
     pathname === '/api/prices/store' ||
     // The public price table the app downloads; the same file every visitor's recipe page is priced from.
     pathname === '/api/prices/table' ||
-    pathname === '/api/cron/recost'
+    pathname === '/api/cron/recost' ||
+    // Members price their own recipe with their Supabase token; the handler verifies it and computes the cost itself.
+    pathname === '/api/recipes/cost'
   )
 }
 

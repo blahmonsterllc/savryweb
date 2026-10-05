@@ -9,7 +9,7 @@ const PUBLIC_RECIPE_SELECT = `
   prep_time_minutes, cook_time_minutes, servings, serving_type, yield_unit,
   difficulty, category, cuisine, tags, dietary_tags, allergens, equipment,
   oven_temp_f, notes, source_url, nutrition_per_serving, nutrition_source,
-  nutrition_coverage, cost_per_serving, view_count, made_count, comment_count, version, editors_pick_at,
+  nutrition_coverage, cost_per_serving, cost_coverage, view_count, made_count, comment_count, version, editors_pick_at,
   author:profiles!recipes_author_id_fkey(display_name, username),
   ingredients:recipe_ingredients(position, section, name, amount, unit, is_optional),
   steps:recipe_steps(position, instruction)
@@ -83,7 +83,8 @@ export function fromSupabaseRecipe(row: any): PublicRecipe {
     viewCount: Number(row.view_count ?? 0),
     madeCount: Number(row.made_count ?? 0),
     editorsPick: Boolean(row.editors_pick_at),
-    costPerServing: row.cost_per_serving == null ? null : Number(row.cost_per_serving),
+    // Shown only when nearly all of the recipe could be priced.
+    costPerServing: row.cost_per_serving == null || Number(row.cost_coverage ?? 0) < 0.95 ? null : Number(row.cost_per_serving),
     commentCount: Number(row.comment_count ?? 0),
     version: Number(row.version ?? 1),
   }

@@ -24,17 +24,23 @@ jobs:
     name: Refresh from BLS
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          # The write token is not left on disk for npm install scripts or tests; only the push steps use it.
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 20
           cache: npm
       - name: Check that this workflow can push
         if: inputs.check_push
+        env:
+          PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           branch="bls-push-check-${GITHUB_RUN_ID}"
-          git push origin "HEAD:refs/heads/${branch}"
-          git push origin --delete "${branch}"
+          remote="https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push "$remote" "HEAD:refs/heads/${branch}"
+          git push "$remote" --delete "${branch}"
           echo "push permission confirmed"
       - run: npm ci
         if: ${{ !inputs.check_push }}
@@ -49,17 +55,25 @@ jobs:
         id: diff
         run: |
           if git diff --quiet -- content/cost/food-prices.json; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
-      - name: Tests and type check before committing
+      - name: Tests, type check and build before committing
         if: steps.diff.outputs.changed == 'true'
         run: |
           node --test tests/*.test.mjs
           npx tsc --noEmit -p .
+          npm run build
+        env:
+          # Public values only, the same ones ci.yml builds with: commits pushed by this workflow do not trigger ci.yml.
+          NEXT_PUBLIC_SUPABASE_URL: https://qnpekzrchqftdoaebzuf.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_3lpt2dqF_B0B2V4YP8RZiQ_2IOpz5Am
+          NEXT_PUBLIC_SITE_URL: https://www.savry.io
       - name: Commit the new prices
         if: steps.diff.outputs.changed == 'true'
+        env:
+          PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "savry-prices-bot"
           git config user.email "savry-prices-bot@users.noreply.github.com"
           period=$(node -e "console.log(require('./content/cost/food-prices.json').asOf)")
           git add content/cost/food-prices.json
           git commit -m "Grocery prices from BLS, ${period}"
-          git push
+          git push "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main

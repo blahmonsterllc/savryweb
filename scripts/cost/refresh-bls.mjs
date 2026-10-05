@@ -12,6 +12,12 @@
  * node scripts/cost/apply.mjs --project-ref <ref>.
  *
  * Public API, no key needed (25 series per request).
+ *
+ * Guarded so a bad month cannot reach every recipe and phone: the newest
+ * point is chosen by date, not by position; a price must be between $0.05
+ * and $500 a kilogram; and a move of more than 40% from the price already in
+ * the table stops the run (the workflow then fails and emails the owner).
+ * Pass --accept-large-moves after checking a real jump by hand.
  */
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -56,7 +62,11 @@ async function fetchLatest(seriesIds) {
   if (body.status !== 'REQUEST_SUCCEEDED') throw new Error(`BLS: ${body.status} ${(body.message ?? []).join(' ')}`)
   const latest = {}
   for (const series of body.Results.series) {
-    const point = series.data.find((p) => p.value && p.value !== '-')
+    // Monthly points only (M01..M12; M13 is an annual average), newest first by date.
+    const points = series.data
+      .filter((p) => /^M(0[1-9]|1[0-2])$/.test(p.period) && Number.isFinite(Number(p.value)) && Number(p.value) > 0)
+      .sort((a, b) => `${b.year}${b.period}`.localeCompare(`${a.year}${a.period}`))
+    const point = points[0]
     if (point) latest[series.seriesID] = { value: Number(point.value), period: `${point.year}-${point.period.replace('M', '')}` }
   }
   return latest
@@ -70,6 +80,8 @@ async function main() {
 
   const mapped = new Set()
   const changes = []
+  const problems = []
+  const acceptLargeMoves = process.argv.includes('--accept-large-moves')
   for (const entry of BLS_SERIES) {
     const point = latest[entry.series]
     if (!point) { console.log(`  no recent data for ${entry.series} (${entry.item}); left as it was`); continue }
@@ -77,6 +89,9 @@ async function main() {
     for (const food of entry.foods) {
       const id = String(food)
       if (!table.prices[id]) throw new Error(`BLS map names food ${id}, which is not in the price table`)
+      if (!Number.isFinite(perKg) || perKg < 0.05 || perKg > 500) { problems.push(`${id} ${entry.item}: $${perKg}/kg is outside $0.05–$500`); continue }
+      const was = table.prices[id].perKg
+      if (!acceptLargeMoves && Number.isFinite(was) && was > 0 && Math.abs(perKg - was) / was > 0.4) { problems.push(`${id} ${entry.item}: $${was}/kg → $${perKg}/kg is a ${Math.round((perKg / was - 1) * 100)}% move`); continue }
       mapped.add(id)
       const before = table.prices[id].perKg
       table.prices[id] = { ...table.prices[id], perKg, basis: 'bls', blsSeries: entry.series, blsPeriod: point.period }
@@ -88,6 +103,10 @@ async function main() {
     if (price.basis === 'bls' && !mapped.has(id)) {
       table.prices[id] = { perKg: price.perKg, basis: 'est', description: price.description }
     }
+  }
+  if (problems.length > 0) {
+    for (const problem of problems) console.error(`  REFUSED ${problem}`)
+    throw new Error(`${problems.length} price(s) failed the plausibility check; nothing written. Check them on data.bls.gov, then rerun with --accept-large-moves if they are real.`)
   }
   const periods = [...new Set(changes.map((c) => c.period))].sort()
   table.asOf = periods.at(-1) ?? table.asOf

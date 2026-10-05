@@ -330,6 +330,35 @@ test('the monthly re-price is a protected cron and the price table holds nothing
   assert.doesNotMatch(table, /supabase|process\.env/i, 'the public table is the shipped file and nothing else')
 
   const workflow = await source('.github/workflows/bls-prices.yml')
-  assert.doesNotMatch(workflow, /SUPABASE|SERVICE_ROLE|CRON_SECRET/, 'no database key or cron secret lives in GitHub')
+  assert.doesNotMatch(workflow, /SUPABASE_SECRET|SERVICE_ROLE|CRON_SECRET|KROGER_CLIENT_SECRET|sb_secret_/, 'no database key or cron secret lives in GitHub')
   assert.match(workflow, /node --test tests\/\*\.test\.mjs/, 'prices are committed only after the tests pass')
+})
+
+test('price pipeline: quota guarded, costs computed on the server, workflow keeps its token to itself', async () => {
+  const store = await source('pages/api/prices/store.ts')
+  assert.ok(store.indexOf('requireAdmin(req, res)') > -1 && store.indexOf("explain && !(await requireAdmin") > -1, 'explain mode is for admins only')
+  assert.match(store, /take_kroger_budget/, 'every Kroger call draws on the shared daily budget')
+  assert.match(store, /callerAllowed\(req\)/, 'each caller is limited')
+  assert.match(store, /prices\[id\] && !STORE_SEARCH/, 'only foods Savry prices are looked up')
+  assert.doesNotMatch(store, /error\?\.message[^\n]*res\.status/, 'upstream error text never reaches the caller')
+
+  const cost = await source('pages/api/recipes/cost.ts')
+  assert.match(cost, /\.eq\('author_id', userData\.user\.id\)/, 'only the caller\'s own recipe')
+  assert.match(cost, /is_banned/)
+  assert.doesNotMatch(cost, /req\.body\?\.(cost|perServing|price)/, 'the browser never sends a cost')
+  const composer = await source('components/RecipeComposer.tsx')
+  assert.doesNotMatch(composer, /set_my_recipe_cost/)
+
+  const migration = await source('supabase/migrations/20261005010000_price_pipeline_hardening.sql')
+  assert.match(migration, /drop function if exists public\.set_my_recipe_cost/)
+  assert.match(migration, /revoke all on function public\.take_kroger_budget\(text, integer, integer\) from public, anon, authenticated/)
+
+  const workflow = await source('.github/workflows/bls-prices.yml')
+  assert.match(workflow, /persist-credentials: false/)
+  assert.match(workflow, /uses: actions\/checkout@[0-9a-f]{40}/, 'actions are pinned to a commit')
+  assert.match(workflow, /uses: actions\/setup-node@[0-9a-f]{40}/)
+  assert.match(workflow, /npm run build/, 'the price commit is built before it is pushed')
+
+  const refresh = await source('scripts/cost/refresh-bls.mjs')
+  assert.match(refresh, /accept-large-moves/, 'a large month-on-month move stops the run')
 })

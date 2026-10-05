@@ -1,6 +1,39 @@
 [
   {
     "phrases": [
+      "deli turkey breast",
+      "sliced deli turkey",
+      "deli turkey",
+      "sliced turkey breast"
+    ],
+    "fdcId": 172941,
+    "unitGrams": {
+      "slice": 28
+    },
+    "basis": "USDA \"Turkey breast, sliced, prepackaged\"; a deli slice is about 1 oz (28 g)"
+  },
+  {
+    "phrases": [
+      "gochujang",
+      "korean red chile paste",
+      "korean red pepper paste"
+    ],
+    "fdcId": 172442,
+    "cupGrams": 304,
+    "per100g": {
+      "calories": 215,
+      "carbohydrates": 44,
+      "sugar": 22,
+      "protein": 5,
+      "fat": 1.5,
+      "saturatedFat": 0.2,
+      "fiber": 3,
+      "sodium": 2400
+    },
+    "basis": "No gochujang in SR Legacy. Miso (fermented soybean paste) stands in, corrected to typical US gochujang labels: about 215 kcal, 44 g carbohydrate, 22 g sugar, 2,400 mg sodium per 100 g. 1 tbsp = 19 g (304 g per cup)."
+  },
+  {
+    "phrases": [
       "full-fat coconut milk",
       "coconut milk"
     ],
@@ -869,7 +902,8 @@
     "unitGrams": {
       "piece": 15
     },
-    "basis": "USDA portion (iceberg/crisphead): 1 large leaf = 15 g"
+    "basis": "USDA portion (iceberg/crisphead): 1 large leaf = 15 g",
+    "eachGrams": 15
   },
   {
     "phrases": [
@@ -3504,5 +3538,34 @@
       "ofOz": 25
     },
     "basis": "USDA portion: 1 cup canned = 165 g; a 25 oz can holds 709 g and drains to about 430 g"
+  },
+  {
+    "phrases": [
+      "dried black-eyed peas",
+      "black-eyed peas",
+      "black-eyed pea",
+      "blackeye peas"
+    ],
+    "fdcId": 173758,
+    "cupGrams": 167,
+    "basis": "USDA portion (mature seeds, raw): 1 cup = 167 g"
+  },
+  {
+    "phrases": [
+      "ground sumac",
+      "sumac"
+    ],
+    "skip": true,
+    "basis": "Not in SR Legacy; used by the tablespoon as a sour seasoning, so its nutrition is negligible and it is not priced."
+  },
+  {
+    "phrases": [
+      "caraway seeds",
+      "caraway seed",
+      "caraway"
+    ],
+    "fdcId": 170918,
+    "cupGrams": 107,
+    "basis": "USDA \"Spices, caraway seed\": 1 tsp = 2.1 g, 1 tbsp = 6.7 g (107 g per cup)"
   }
 ]

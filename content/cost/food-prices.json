@@ -646,6 +646,11 @@
    "basis": "est",
    "description": "Spices, bay leaf"
   },
+  "170918": {
+   "perKg": 59,
+   "basis": "est",
+   "description": "Spices, caraway seed"
+  },
   "170919": {
    "perKg": 190,
    "basis": "est",
@@ -1041,6 +1046,11 @@
    "basis": "est",
    "description": "Soup, beef broth, less/reduced sodium, ready to serve"
   },
+  "172941": {
+   "perKg": 17.6,
+   "basis": "est",
+   "description": "Turkey breast, sliced, prepackaged"
+  },
   "173176": {
    "perKg": 18,
    "basis": "est",
@@ -1131,6 +1141,11 @@
    "perKg": 11,
    "basis": "est",
    "description": "Fish, tuna, light, canned in water, drained solids"
+  },
+  "173758": {
+   "perKg": 3.95,
+   "basis": "est",
+   "description": "Cowpeas, common (blackeyes, crowder, southern), mature seeds, raw"
   },
   "173801": {
    "perKg": 2.35,

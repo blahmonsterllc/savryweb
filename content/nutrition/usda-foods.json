@@ -1709,6 +1709,20 @@
     "calories": 313
    }
   },
+  "170918": {
+   "description": "Spices, caraway seed",
+   "per100g": {
+    "fat": 14.59,
+    "carbohydrates": 49.9,
+    "calories": 333,
+    "sodium": 17,
+    "saturatedFat": 0.62,
+    "protein": 19.77,
+    "cholesterol": 0,
+    "fiber": 38,
+    "sugar": 0.64
+   }
+  },
   "170919": {
    "description": "Spices, cardamom",
    "per100g": {
@@ -2774,6 +2788,20 @@
     "fiber": 0
    }
   },
+  "172941": {
+   "description": "Turkey breast, sliced, prepackaged",
+   "per100g": {
+    "sugar": 0.91,
+    "fat": 3.77,
+    "carbohydrates": 2.2,
+    "calories": 106,
+    "cholesterol": 49,
+    "saturatedFat": 0.906,
+    "sodium": 898,
+    "protein": 14.81,
+    "fiber": 0
+   }
+  },
   "173176": {
    "description": "Alcoholic beverage, wine, dessert, sweet",
    "per100g": {
@@ -3005,6 +3033,20 @@
     "sodium": 247,
     "fiber": 0,
     "carbohydrates": 0
+   }
+  },
+  "173758": {
+   "description": "Cowpeas, common (blackeyes, crowder, southern), mature seeds, raw",
+   "per100g": {
+    "carbohydrates": 60.03,
+    "sugar": 6.9,
+    "calories": 336,
+    "protein": 23.52,
+    "saturatedFat": 0.331,
+    "fiber": 10.6,
+    "sodium": 16,
+    "cholesterol": 0,
+    "fat": 1.26
    }
   },
   "173801": {

@@ -8,6 +8,11 @@
  },
  "note": "National averages for an estimate within about 20%. A cook can correct any price in the app.",
  "prices": {
+  "167535": {
+   "perKg": 6.1,
+   "basis": "est",
+   "description": "Tortillas, ready-to-bake or -fry, flour, shelf stable"
+  },
   "167723": {
    "perKg": 20,
    "basis": "est",
@@ -317,6 +322,11 @@
    "perKg": 4.4,
    "basis": "est",
    "description": "Cornstarch"
+  },
+  "169701": {
+   "perKg": 2.1,
+   "basis": "est",
+   "description": "Hominy, canned, white"
   },
   "169704": {
    "perKg": 2,
@@ -942,6 +952,11 @@
    "perKg": 4.4,
    "basis": "est",
    "description": "Lentils, raw"
+  },
+  "172428": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Peas, green, split, mature seeds, raw"
   },
   "172442": {
    "perKg": 13,

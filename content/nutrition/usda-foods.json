@@ -2,6 +2,20 @@
  "source": "USDA FoodData Central, SR Legacy (April 2018 release). Public domain.",
  "unit": "per 100 g; energy kcal; sodium and cholesterol mg; everything else g",
  "foods": {
+  "167535": {
+   "description": "Tortillas, ready-to-bake or -fry, flour, shelf stable",
+   "per100g": {
+    "fat": 7.58,
+    "carbohydrates": 49.27,
+    "calories": 297,
+    "sugar": 2.66,
+    "protein": 8.01,
+    "fiber": 2.4,
+    "sodium": 742,
+    "cholesterol": 0,
+    "saturatedFat": 1.225
+   }
+  },
   "167723": {
    "description": "Alcoholic beverage, rice (sake)",
    "per100g": {
@@ -852,6 +866,20 @@
     "sodium": 9,
     "cholesterol": 0,
     "saturatedFat": 0.009
+   }
+  },
+  "169701": {
+   "description": "Hominy, canned, white",
+   "per100g": {
+    "fiber": 2.5,
+    "protein": 1.48,
+    "saturatedFat": 0.123,
+    "fat": 0.88,
+    "carbohydrates": 14.26,
+    "calories": 72,
+    "sugar": 1.51,
+    "sodium": 267,
+    "cholesterol": 0
    }
   },
   "169704": {
@@ -2577,6 +2605,20 @@
     "saturatedFat": 0.154,
     "carbohydrates": 63.35,
     "calories": 352
+   }
+  },
+  "172428": {
+   "description": "Peas, green, split, mature seeds, raw",
+   "per100g": {
+    "protein": 23.12,
+    "saturatedFat": 0.408,
+    "fiber": 22.2,
+    "sodium": 5,
+    "fat": 3.89,
+    "carbohydrates": 61.63,
+    "calories": 364,
+    "sugar": 3.14,
+    "cholesterol": 0
    }
   },
   "172442": {

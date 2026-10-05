@@ -2865,7 +2865,10 @@
     "fdcId": 170005,
     "cupGrams": 100,
     "eachGrams": 15,
-    "basis": "USDA portions: 1 medium scallion = 15 g, 1 cup chopped = 100 g"
+    "basis": "USDA portions: 1 medium scallion = 15 g, 1 cup chopped = 100 g; 1 bunch (6 to 7 scallions) = about 100 g",
+    "unitGrams": {
+      "bunch": 100
+    }
   },
   {
     "phrases": [
@@ -3107,7 +3110,10 @@
     ],
     "fdcId": 172675,
     "cupGrams": 43,
-    "basis": "'Bread, french or vienna (includes sourdough)'; recipe says 6 oz torn = about 4 cups, i.e. 43 g per cup"
+    "basis": "'Bread, french or vienna (includes sourdough)'; recipe says 6 oz torn = about 4 cups, i.e. 43 g per cup; a 1-inch slice of a country loaf = about 40 g",
+    "unitGrams": {
+      "slice": 40
+    }
   },
   {
     "phrases": [
@@ -3462,5 +3468,41 @@
     "fdcId": 171610,
     "cupGrams": 272,
     "basis": "USDA portion: 1 tbsp = 17 g (x 16 = 272 g per cup)"
+  },
+  {
+    "phrases": [
+      "flour tortilla",
+      "flour tortillas"
+    ],
+    "fdcId": 167535,
+    "eachGrams": 49,
+    "basis": "USDA portion: 1 tortilla (8-inch) = 49 g; a 10-inch one is about 1.3x, so write \"large\""
+  },
+  {
+    "phrases": [
+      "green split peas",
+      "yellow split peas",
+      "split peas",
+      "split pea"
+    ],
+    "fdcId": 172428,
+    "cupGrams": 197,
+    "basis": "USDA portion: 1 cup raw split peas = 197 g"
+  },
+  {
+    "phrases": [
+      "white or yellow hominy",
+      "hominy"
+    ],
+    "fdcId": 169701,
+    "cupGrams": 165,
+    "unitGrams": {
+      "can": 709
+    },
+    "drainedCan": {
+      "grams": 430,
+      "ofOz": 25
+    },
+    "basis": "USDA portion: 1 cup canned = 165 g; a 25 oz can holds 709 g and drains to about 430 g"
   }
 ]

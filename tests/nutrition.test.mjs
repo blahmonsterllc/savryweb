@@ -96,7 +96,8 @@ test('optional items and serving suggestions are left out', () => {
   assert.equal(exclusionFor({ name: 'kosher salt, for the pasta water' }), null, 'cooking-water salt counts, at the share the food takes up')
   assert.equal(Math.round(gramsFor({ name: 'fine sea salt, for the cooking water', amount: '1', unit: 'tbsp' }, ruleFor('fine sea salt')).grams * 10) / 10, 1.8)
   assert.equal(exclusionFor({ name: 'toasted sesame seeds', isOptional: true }), 'optional')
-  assert.equal(exclusionFor({ name: 'coarsely ground black pepper, plus more to serve' }), null, 'the measured amount still counts')
+  assert.equal(exclusionFor({ name: 'coarsely ground black pepper, plus more to serve', amount: '1/2' }), null, 'the measured amount still counts')
+  assert.equal(exclusionFor({ name: 'freshly ground black pepper' }), 'to taste', 'pepper with no amount is seasoning, not a missing weight')
   assert.equal(exclusionFor({ name: 'flaky sea salt, for the top' }), null)
 })
 

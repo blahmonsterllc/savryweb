@@ -24,7 +24,7 @@ import rules from '@/content/nutrition/ingredient-rules.json'
 import priceFile from '@/content/cost/food-prices.json'
 import regional from '@/content/cost/regional-prices.json'
 import { krogerConfigured, nearestStore, searchProducts, type KrogerStore } from '@/lib/kroger'
-import { STORE_SEARCH, searchTerm, storePrice } from '@/lib/cost/store-prices.mjs'
+import { STORE_SEARCH, isValueBrand, packageGrams, searchTerm, storePrice } from '@/lib/cost/store-prices.mjs'
 import { regionalPrice } from '@/lib/cost/regional.mjs'
 
 const MAX_FOODS = 40
@@ -63,6 +63,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // The JSON's [first, last, state] rows read as (string | number)[]; the shape is checked by tests/store-prices.test.mjs.
     const { multiplier } = regionalPrice(zip, regional as unknown as Parameters<typeof regionalPrice>[1])
+
+    // ?explain=1 with one food: the listings the store returned and how each was read, for tuning the searches.
+    if (req.query.explain === '1' && foods.length === 1) {
+      const food = foods[0]
+      const curated = STORE_SEARCH[Number(food)]
+      const term = curated?.skip ? null : searchTerm(Number(food), rules as { fdcId?: number; phrases?: string[] }[])
+      const products = term ? await searchProducts(term, store.locationId, 15) : []
+      const listings = products.flatMap((product) => (product.items ?? []).map((item) => ({
+        brand: product.brand ?? null,
+        description: product.description ?? '',
+        size: item.size ?? '',
+        regular: item.price?.regular ?? null,
+        promo: item.price?.promo ?? null,
+        grams: packageGrams(item.size ?? '', { gramsPerCount: GRAMS_PER_COUNT[food] }),
+        house: isValueBrand(product),
+        excluded: Boolean(curated?.exclude?.test(product.description ?? '')) || Boolean(curated?.require && !curated.require.test(product.description ?? '')),
+      })))
+      res.setHeader('Cache-Control', 'no-store')
+      return res.status(200).json({ store: store.name, term, skip: Boolean(curated?.skip), listings })
+    }
     const prices: Record<string, NonNullable<StorePriceResult>> = {}
     for (const food of foods) {
       const key = `${store.locationId}:${food}`

@@ -5,7 +5,6 @@ import { LayoutGrid, List, Search } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
 const VIEW_KEY = 'savry.recipeView'
-const PRICE_KEY = 'savry.recipePrice'
 
 type ExplorerRecipe = {
   id: string
@@ -36,13 +35,11 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
   const [maxTime, setMaxTime] = useState('all')
   const [sort, setSort] = useState<'community' | 'newest' | 'quick' | 'cheapest'>('newest')
   const [view, setView] = useState<'cards' | 'list'>('cards')
-  const [price, setPrice] = useState<'recipe' | 'serving'>('recipe')
 
-  // The reader's last choices of cards or list, and whole recipe or per serving, kept in this browser only.
+  // The reader's last choice of cards or list, kept in this browser only.
   useEffect(() => {
     try {
       if (window.localStorage.getItem(VIEW_KEY) === 'list') setView('list')
-      if (window.localStorage.getItem(PRICE_KEY) === 'serving') setPrice('serving')
     } catch {}
   }, [])
 
@@ -51,16 +48,6 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
     try { window.localStorage.setItem(VIEW_KEY, next) } catch {}
   }
 
-  function choosePrice(next: 'recipe' | 'serving') {
-    setPrice(next)
-    try { window.localStorage.setItem(PRICE_KEY, next) } catch {}
-  }
-
-  /** The cost as the reader chose to see it: the whole recipe, or one serving. */
-  function shownCost(recipe: ExplorerRecipe): number | null {
-    if (recipe.costPerServing == null) return null
-    return price === 'serving' ? recipe.costPerServing : recipe.costPerServing * Math.max(1, recipe.servings ?? 1)
-  }
 
   const categories = useMemo(
     () => Array.from(new Set(recipes.map((recipe) => recipe.category).filter(Boolean))).sort(),
@@ -93,10 +80,11 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
       .sort((a, b) => {
         if (sort === 'newest') return Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
         if (sort === 'quick') return (a.totalTime || Number.MAX_SAFE_INTEGER) - (b.totalTime || Number.MAX_SAFE_INTEGER)
-        if (sort === 'cheapest') return (shownCost(a) ?? Number.MAX_SAFE_INTEGER) - (shownCost(b) ?? Number.MAX_SAFE_INTEGER)
+        // Prices are shown on each recipe, not in the list; the order still helps a cook on a budget.
+        if (sort === 'cheapest') return (a.costPerServing ?? Number.MAX_SAFE_INTEGER) - (b.costPerServing ?? Number.MAX_SAFE_INTEGER)
         return b.madeCount * 5 + b.version - (a.madeCount * 5 + a.version)
       })
-  }, [category, diet, maxTime, query, recipes, sort, price]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [category, diet, maxTime, query, recipes, sort])
 
   const hasFilters = Boolean(query.trim()) || category !== 'all' || diet !== 'all' || maxTime !== 'all'
 
@@ -133,19 +121,13 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
           <option value="newest">Newest</option>
           <option value="community">Most cooked</option>
           <option value="quick">Quickest</option>
-          <option value="cheapest">Cheapest</option>
+          <option value="cheapest">Cheapest per serving</option>
         </select>
       </div>
 
       <div className="recipe-explorer__summary">
         <p className="recipe-explorer__count">{visible.length} recipe{visible.length === 1 ? '' : 's'} at the table</p>
         {hasFilters && <button type="button" onClick={clearFilters}>Clear filters</button>}
-        {view === 'list' && (
-          <div className="recipe-explorer__view" role="group" aria-label="Show cost for">
-            <button type="button" aria-pressed={price === 'recipe'} onClick={() => choosePrice('recipe')}>Whole recipe</button>
-            <button type="button" aria-pressed={price === 'serving'} onClick={() => choosePrice('serving')}>Per serving</button>
-          </div>
-        )}
         <div className="recipe-explorer__view" role="group" aria-label="Show recipes as">
           <button type="button" aria-pressed={view === 'cards'} onClick={() => chooseView('cards')}><LayoutGrid size={16} aria-hidden="true" /> Cards</button>
           <button type="button" aria-pressed={view === 'list'} onClick={() => chooseView('list')}><List size={16} aria-hidden="true" /> List</button>
@@ -153,7 +135,7 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
       </div>
 
       {visible.length && view === 'list' ? (
-        <ul className="recipe-list" aria-label={`Recipes, with time and estimated cost ${price === 'serving' ? 'per serving' : 'for the whole recipe'}`}>
+        <ul className="recipe-list">
           {visible.map((recipe) => (
             <li key={recipe.id}>
               <Link href={`/recipes/${recipe.slug}`} className="recipe-list__row">
@@ -168,7 +150,7 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
                   <small>{[recipe.category, recipe.cuisine, `by ${recipe.authorName}`].filter(Boolean).join(' · ')}</small>
                 </span>
                 <span className="recipe-list__time">{recipe.totalTime ? `${recipe.totalTime} min` : '—'}</span>
-                <span className="recipe-list__cost" title={price === 'serving' ? 'Estimated cost per serving' : `Estimated cost for the whole recipe (${recipe.servings ?? 1} servings)`}>{shownCost(recipe) != null ? <>${shownCost(recipe)!.toFixed(2)}<small>{price === 'serving' ? '/serving' : ` · serves ${recipe.servings ?? 1}`}</small></> : '—'}</span>
+                <span className="recipe-list__level">{recipe.difficulty}</span>
               </Link>
             </li>
           ))}

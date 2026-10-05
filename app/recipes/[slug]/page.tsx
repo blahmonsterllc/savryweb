@@ -6,6 +6,7 @@ import { safeJsonLd } from '@/lib/security-policy.mjs'
 import RecipeShareBar from '@/components/RecipeShareBar'
 import RecipeQuickActions from '@/components/RecipeQuickActions'
 import RecipeIngredients from '@/components/RecipeIngredients'
+import RecipeCost from '@/components/RecipeCost'
 import RecipeDiscussion from '@/components/RecipeDiscussion'
 
 export const revalidate = 300
@@ -83,17 +84,18 @@ export default async function RecipePage({ params }: Params) {
             {recipe.version > 1 ? ` · v${recipe.version}` : ''}
           </p>
 
-          <div className={`mt-6 grid grid-cols-2 gap-3 ${recipe.costPerServing != null ? 'sm:grid-cols-5' : 'sm:grid-cols-4'}`}>
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Stat label="Prep" value={recipe.prepTime ? `${recipe.prepTime} min` : '—'} />
             <Stat label="Cook" value={recipe.cookTime ? `${recipe.cookTime} min` : '—'} />
             <Stat label="Total" value={recipe.totalTime ? `${recipe.totalTime} min` : '—'} />
             <Stat label={recipe.servingType === 'yields' ? 'Makes' : 'Serves'} value={yieldText} />
-            {recipe.costPerServing != null && (
-              <Stat label={`Cost per ${recipe.servingType === 'yields' ? (recipe.yieldUnit?.replace(/s$/, '') ?? 'item') : 'serving'}`} value={`$${recipe.costPerServing.toFixed(2)}`} />
-            )}
           </div>
           {recipe.costPerServing != null && (
-            <p className="mt-2 text-xs text-gray-500">About ${(recipe.costPerServing * recipe.servings).toFixed(2)} for the whole recipe at US average grocery prices. Your store will vary; the Savry app adjusts for where you live.</p>
+            <RecipeCost
+              perServing={recipe.costPerServing}
+              servings={recipe.servings}
+              unit={recipe.servingType === 'yields' ? (recipe.yieldUnit?.replace(/s$/, '') ?? 'item') : 'serving'}
+            />
           )}
 
           {(recipe.tags.length > 0 || recipe.dietaryTags.length > 0) && (

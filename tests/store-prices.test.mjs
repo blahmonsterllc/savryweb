@@ -58,18 +58,26 @@ test('store package sizes become grams', () => {
   assert.equal(packageGrams('each'), null)
 })
 
-test('a listing becomes a price per kilogram, promo first, and the median wins', () => {
-  assert.equal(perKgFromItem({ size: '1 lb', price: { regular: 4.99 } }), 11)
-  assert.equal(perKgFromItem({ size: '1 lb', price: { regular: 4.99, promo: 2.99 } }), 6.59)
+test('a listing becomes a regular price per kilogram; a sale rides along but never sets the estimate', () => {
+  assert.deepEqual(perKgFromItem({ size: '1 lb', price: { regular: 4.99 } }), { perKg: 11, promoPerKg: null })
+  assert.deepEqual(perKgFromItem({ size: '1 lb', price: { regular: 4.99, promo: 2.99 } }), { perKg: 11, promoPerKg: 6.59 })
   assert.equal(perKgFromItem({ size: '12 ct', price: { regular: 3.49 } }), null)
+  assert.equal(perKgFromItem({ size: '1 lb', price: { promo: 2.99 } }), null, 'no regular price, no estimate')
+})
+
+test('the median regular price across the shelf wins, and a wild match is dropped against the regional figure', () => {
   const products = [
-    { description: 'Kroger Chicken Breast', items: [{ size: 'per lb', price: { regular: 3.99 } }] },
+    { description: 'Kroger Chicken Breast', items: [{ size: 'per lb', price: { regular: 3.99, promo: 1.99 } }] },
     { description: 'Organic Chicken Breast', items: [{ size: 'per lb', price: { regular: 8.99 } }] },
     { description: 'Chicken Breast Tenders', items: [{ size: '1 lb', price: { regular: 5.49 } }] },
     { description: 'Mystery', items: [{ size: 'each', price: { regular: 1 } }] },
   ]
   const chosen = storePrice(products)
   assert.equal(chosen.description, 'Chicken Breast Tenders')
+  assert.equal(chosen.listings, 3)
+  assert.equal(storePrice(products, { baseline: 9.3 }).perKg, 12.1, 'inside the band, the store price stands')
+  assert.equal(storePrice(products, { baseline: 1 }), null, 'twelve times the regional figure is a wrong product, not chicken')
+  assert.equal(storePrice(products, { baseline: 100 }), null, 'a tenth of the regional figure is a wrong product too')
   assert.equal(storePrice([]), null)
 })
 

@@ -3,7 +3,12 @@
  *
  * GET /api/prices/store?zip=43017&foods=171077,170000,168894
  *
- * → 200 { store: { name, chain, city, state } | null, prices: { "<fdcId>": { perKg, description, size, promo } }, asOf }
+ * → 200 { store: { name, chain, city, state } | null, prices: { "<fdcId>": { perKg, promoPerKg, description, size, listings } }, asOf }
+ *
+ * perKg is the store's regular price (the median across what it carries);
+ * a sale price comes back as promoPerKg and is not used for the estimate.
+ * A store price far outside Savry's regional figure for the food is dropped
+ * as a wrong product match.
  *   400 bad ZIP or food list
  *   503 { error } store prices are not configured on this server
  *
@@ -13,8 +18,11 @@
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
 import rules from '@/content/nutrition/ingredient-rules.json'
+import priceFile from '@/content/cost/food-prices.json'
+import regional from '@/content/cost/regional-prices.json'
 import { krogerConfigured, nearestStore, searchProducts, type KrogerStore } from '@/lib/kroger'
 import { searchTerm, storePrice } from '@/lib/cost/store-prices.mjs'
+import { regionalPrice } from '@/lib/cost/regional.mjs'
 
 const MAX_FOODS = 40
 const PRICE_TTL = 12 * 60 * 60 * 1000
@@ -22,7 +30,7 @@ const STORE_TTL = 24 * 60 * 60 * 1000
 /** Foods sold by the count; what one weighs so "12 ct" becomes a weight. */
 const GRAMS_PER_COUNT: Record<string, number> = { '171287': 50, '172184': 50 }
 
-type StorePriceResult = { perKg: number; description: string; size: string; promo: boolean } | null
+type StorePriceResult = { perKg: number; promoPerKg: number | null; description: string; size: string; listings: number } | null
 const storeCache = new Map<string, { at: number; store: KrogerStore | null }>()
 const priceCache = new Map<string, { at: number; price: StorePriceResult }>()
 
@@ -50,6 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     if (!store) return res.status(200).json({ store: null, prices: {}, asOf: new Date().toISOString() })
 
+    const { multiplier } = regionalPrice(zip, regional as Parameters<typeof regionalPrice>[1])
     const prices: Record<string, NonNullable<StorePriceResult>> = {}
     for (const food of foods) {
       const key = `${store.locationId}:${food}`
@@ -59,7 +68,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         price = cached.price
       } else {
         const term = searchTerm(Number(food), rules as { fdcId?: number; phrases?: string[] }[])
-        price = term ? storePrice(await searchProducts(term, store.locationId), { gramsPerCount: GRAMS_PER_COUNT[food] }) : null
+        const table = (priceFile.prices as Record<string, { perKg: number }>)[food]?.perKg
+        const baseline = typeof table === 'number' ? table * multiplier : undefined
+        price = term ? storePrice(await searchProducts(term, store.locationId), { gramsPerCount: GRAMS_PER_COUNT[food], baseline }) : null
         priceCache.set(key, { at: Date.now(), price })
       }
       if (price) prices[food] = price

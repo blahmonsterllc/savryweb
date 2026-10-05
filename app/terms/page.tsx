@@ -83,8 +83,9 @@ export default function TermsOfService() {
       <section id="savry-plus">
         <h2>8. Savry+ membership</h2>
         <ul>
-          <li>Savry+ is an annual, auto-renewing subscription purchased in the Savry iOS app through Apple’s App Store. The price is shown in the app before you buy and is charged to your Apple ID.</li>
-          <li>Your membership renews automatically each year at the then-current price unless you cancel at least 24 hours before the end of the current period. Manage or cancel it in your App Store subscription settings; deleting the app does not cancel a subscription.</li>
+          <li>Savry+ is an auto-renewing subscription, billed monthly or yearly, purchased in the Savry iOS app through Apple’s App Store. The price is shown in the app before you buy and is charged to your Apple ID.</li>
+          <li>The yearly plan may begin with a free trial where Apple offers one. If you do not cancel at least 24 hours before the trial ends, the yearly price is charged when it ends. A free trial is available once per Apple ID.</li>
+          <li>Your membership renews automatically each month or year at the then-current price unless you cancel at least 24 hours before the end of the current period. Manage or cancel it in your App Store subscription settings; deleting the app does not cancel a subscription.</li>
           <li>Refunds are handled by Apple under App Store policies; Savry cannot issue App Store refunds directly.</li>
           <li>Member features include unlimited imports in the app, expanded on-device recipe help, smarter weekly plans, and advanced nutrition context. Your membership follows your Savry account.</li>
           <li>If we change the price, Apple will notify you and ask for your agreement before the change applies to you.</li>

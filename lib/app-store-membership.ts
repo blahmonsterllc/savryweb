@@ -2,10 +2,10 @@ import 'server-only'
 
 import { AppStoreSignatureError, membershipFromTransaction, verifyAppStoreJWS } from '@/lib/app-store-jws.mjs'
 
-/** The one product that makes someone a Savry+ member, as sold by the iOS app. */
+/** The products that make someone a Savry+ member, as sold by the iOS app (one subscription group). */
 export const SAVRY_PLUS_PURCHASE = {
   bundleId: process.env.APPLE_BUNDLE_ID || 'recipe.foodprep',
-  productId: 'recipe.foodprep.savry.plus.annual',
+  productIds: ['recipe.foodprep.savry.plus.annual', 'recipe.foodprep.savry.plus.monthly'],
 } as const
 
 /**

@@ -44,7 +44,7 @@ const transaction = (extra = {}) => ({
   originalTransactionId: '2000000123456789', purchaseDate: Date.now() - 86_400_000, expiresDate: Date.now() + 300 * 86_400_000,
   signedDate: Date.now() + 2000, type: 'Auto-Renewable Subscription', ...extra,
 })
-const expected = { bundleId: 'recipe.foodprep', productId: 'recipe.foodprep.savry.plus.annual', userId: USER }
+const expected = { bundleId: 'recipe.foodprep', productIds: ['recipe.foodprep.savry.plus.annual', 'recipe.foodprep.savry.plus.monthly'], userId: USER }
 const rejects = (fn, pattern) => assert.throws(fn, (error) => error instanceof AppStoreSignatureError && pattern.test(error.message))
 
 test('the pinned root is Apple Root CA - G3', () => {
@@ -96,6 +96,7 @@ test('certificates must carry Apple\'s App Store markers and be valid when signe
 
 test('only a live Savry+ purchase for this app and this member becomes a membership', () => {
   assert.equal(membershipFromTransaction(transaction(), expected).productId, 'recipe.foodprep.savry.plus.annual')
+  assert.equal(membershipFromTransaction(transaction({ productId: 'recipe.foodprep.savry.plus.monthly' }), expected).productId, 'recipe.foodprep.savry.plus.monthly')
   rejects(() => membershipFromTransaction(transaction({ bundleId: 'com.other.app' }), expected), /different app/)
   rejects(() => membershipFromTransaction(transaction({ productId: 'something.else' }), expected), /not Savry\+/)
   rejects(() => membershipFromTransaction(transaction({ environment: 'Sandbox' }), expected), /Test purchases/)

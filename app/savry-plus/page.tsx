@@ -6,7 +6,7 @@ import PlusCallToAction from '@/components/PlusCallToAction'
 
 export const metadata: Metadata = {
   title: 'Savry+ Membership',
-  description: 'Meet Savry+, the annual membership for unlimited recipe imports, expanded on-device recipe help, and smarter weekly plans.',
+  description: 'Meet Savry+, the membership for unlimited recipe imports, expanded on-device recipe help, and smarter weekly plans. $4.99 a month or $29.99 a year, with a free week to start.',
   alternates: { canonical: `${SITE_URL}/savry-plus` },
 }
 
@@ -33,9 +33,10 @@ export default function SavryPlusPage() {
           <p>Bring in recipes from the web and social posts, get more help adapting them on your own device, and plan the week with less friction. Explicit food restrictions stay in your control and are never guessed.</p>
           <div className="plus-hero__actions">
             <span className="plus-price"><strong>$29.99</strong><span>per year</span></span>
-            <span className="plus-badge">Annual membership</span>
+            <span className="plus-badge">First 7 days free</span>
           </div>
-          <p className="plus-hero__note">Savry+ is an auto-renewing annual subscription purchased in the Savry app through the App Store. Cancel any time in your App Store settings.</p>
+          <p className="plus-hero__alt">Or <strong>$4.99</strong> a month. The year saves 50%; cancel either any time.</p>
+          <p className="plus-hero__note">Savry+ is an auto-renewing subscription purchased in the Savry app through the App Store. The yearly plan starts with a free week; you are not charged if you cancel before it ends. Cancel any time in your App Store settings.</p>
         </div>
 
         <aside className="plus-card" aria-label="Savry Plus membership benefits">

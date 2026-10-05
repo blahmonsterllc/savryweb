@@ -1844,6 +1844,17 @@ select {
   letter-spacing: 0.06em;
 }
 
+.plus-hero__alt {
+  margin-top: 14px;
+  font-size: 0.98rem !important;
+  color: var(--savry-ink-soft);
+}
+
+.plus-hero__alt strong {
+  color: var(--savry-ink);
+  font-weight: 800;
+}
+
 .plus-hero__note {
   margin-top: 8px;
   font-size: 0.82rem !important;

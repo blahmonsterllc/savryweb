@@ -58,7 +58,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     if (!store) return res.status(200).json({ store: null, prices: {}, asOf: new Date().toISOString() })
 
-    const { multiplier } = regionalPrice(zip, regional as Parameters<typeof regionalPrice>[1])
+    // The JSON's [first, last, state] rows read as (string | number)[]; the shape is checked by tests/store-prices.test.mjs.
+    const { multiplier } = regionalPrice(zip, regional as unknown as Parameters<typeof regionalPrice>[1])
     const prices: Record<string, NonNullable<StorePriceResult>> = {}
     for (const food of foods) {
       const key = `${store.locationId}:${food}`

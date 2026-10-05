@@ -6,20 +6,20 @@ import PlusCallToAction from '@/components/PlusCallToAction'
 
 export const metadata: Metadata = {
   title: 'Savry+ Membership',
-  description: 'Meet Savry+, the membership for unlimited recipe imports, expanded on-device recipe help, and smarter weekly plans. $4.99 a month or $29.99 a year, with a free week to start.',
+  description: 'Savry+ plans your week of meals under a grocery budget, using what is already in your kitchen and prices where you shop. $4.99 a month or $29.99 a year, with a free week to start.',
   alternates: { canonical: `${SITE_URL}/savry-plus` },
 }
 
 const plusFeatures = [
-  'Unlimited recipe imports in the Savry app from supported websites and social posts, with the original source preserved',
-  'Expanded on-device recipe help powered by Apple Intelligence: scale, swap, and adapt recipes without your data leaving your device',
-  'Smarter weekly meal plans shaped around your schedule and budget',
-  'Advanced nutrition context, dietary filters, and ingredient insights',
+  'Plan the week under a grocery budget: meal plans built from your own recipes that stay within what you want to spend',
+  'Cook from what you already have: plans lean on your pantry first, so the shopping list is shorter',
+  'Prices where you shop: costs scaled to your state, with shelf prices from your nearest Kroger-family store where there is one',
+  'Unlimited recipe imports from websites and social posts, and on-device recipe help that never sends your data anywhere',
 ]
 
 const freeFeatures = [
-  'Explore and publish community recipes',
-  'Save recipes and suggest improvements',
+  'See what every recipe costs per serving, from US average grocery prices',
+  'Explore, save and publish community recipes',
   'Keep private recipes on your device with iCloud sync',
 ]
 
@@ -29,8 +29,8 @@ export default function SavryPlusPage() {
       <section className="plus-hero site-shell">
         <div className="plus-hero__copy">
           <span className="eyebrow">Savry+ membership</span>
-          <h1>More help for the kitchen you actually have.</h1>
-          <p>Bring in recipes from the web and social posts, get more help adapting them on your own device, and plan the week with less friction. Explicit food restrictions stay in your control and are never guessed.</p>
+          <h1>Plan the week. Know what it costs.</h1>
+          <p>Set what you want to spend on groceries, tell Savry what is already in the kitchen, and get a week of meals from your own recipes that fits. Every recipe shows its cost per serving, priced where you shop. Prices are estimates, so your store will differ a little; the plan still keeps you close. Food restrictions stay in your control and are never guessed.</p>
           <div className="plus-hero__actions">
             <span className="plus-price"><strong>$29.99</strong><span>per year</span></span>
             <span className="plus-badge">First 7 days free</span>

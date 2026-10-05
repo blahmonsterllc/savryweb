@@ -337,7 +337,8 @@ test('the monthly re-price is a protected cron and the price table holds nothing
 test('price pipeline: quota guarded, costs computed on the server, workflow keeps its token to itself', async () => {
   const store = await source('pages/api/prices/store.ts')
   assert.ok(store.indexOf('requireAdmin(req, res)') > -1 && store.indexOf("explain && !(await requireAdmin") > -1, 'explain mode is for admins only')
-  assert.match(store, /take_kroger_budget/, 'every Kroger call draws on the shared daily budget')
+  assert.match(store, /take_kroger_calls/, 'every Kroger call draws on the shared daily and per-caller budget')
+  assert.match(store, /createHash\('sha256'\)/, 'callers are stored as a hash, never an IP address')
   assert.match(store, /callerAllowed\(req\)/, 'each caller is limited')
   assert.match(store, /prices\[id\] && !STORE_SEARCH/, 'only foods Savry prices are looked up')
   assert.doesNotMatch(store, /error\?\.message[^\n]*res\.status/, 'upstream error text never reaches the caller')
@@ -351,7 +352,9 @@ test('price pipeline: quota guarded, costs computed on the server, workflow keep
 
   const migration = await source('supabase/migrations/20261005010000_price_pipeline_hardening.sql')
   assert.match(migration, /drop function if exists public\.set_my_recipe_cost/)
-  assert.match(migration, /revoke all on function public\.take_kroger_budget\(text, integer, integer\) from public, anon, authenticated/)
+  const perCaller = await source('supabase/migrations/20261005020000_kroger_budget_per_caller.sql')
+  assert.match(perCaller, /revoke all on function public\.take_kroger_calls\(text, integer, integer, text, integer\) from public, anon, authenticated/)
+  assert.match(perCaller, /revoke all on public\.kroger_caller_usage from public, anon, authenticated/)
 
   const workflow = await source('.github/workflows/bls-prices.yml')
   assert.match(workflow, /persist-credentials: false/)

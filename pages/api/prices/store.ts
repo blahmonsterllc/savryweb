@@ -15,14 +15,15 @@
  * only foods Savry prices are looked up (normalised, deduplicated, capped);
  * store lookups and listings are cached per ZIP and per store and food,
  * including empty answers; each caller is limited per server instance; and
- * every Kroger call draws on a daily budget kept in the database across all
- * instances. When the budget is spent the answer is `partial` and the app
+ * every Kroger call draws on a daily budget and a per-caller hourly budget
+ * kept in the database across all instances (callers are a hash of their IP). When the budget is spent the answer is `partial` and the app
  * keeps its regional prices. The ZIP is used for the store lookup only and is
  * not stored against anyone, though like any URL it appears in request logs.
  *
  * ?explain=1 (admins only) lists what the store returned for one food.
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { createHash } from 'node:crypto'
 import rules from '@/content/nutrition/ingredient-rules.json'
 import priceFile from '@/content/cost/food-prices.json'
 import regional from '@/content/cost/regional-prices.json'
@@ -37,8 +38,10 @@ const LISTING_TTL = 12 * 60 * 60 * 1000
 const STORE_TTL = 24 * 60 * 60 * 1000
 /** Kroger allows about 1,600 location and 10,000 product calls a day; Savry stays well under both. */
 const DAILY_CAP = { locations: 1200, products: 8000 } as const
-/** Per caller, per server instance: plenty for the app (it asks at most a few times a day). */
+/** Per caller, per server instance: a cheap first line before the database is asked. */
 const CALLER_LIMIT = { requests: 20, windowMs: 10 * 60 * 1000 }
+/** Per caller across every instance, in Kroger calls an hour: the app needs about 26 a day. */
+const CALLER_KROGER_CALLS_PER_HOUR = 60
 /** Foods sold by the count; what one weighs so "12 ct" becomes a weight. */
 const GRAMS_PER_COUNT: Record<string, number> = { '171287': 50, '172184': 50 }
 
@@ -50,8 +53,17 @@ const storeCache = new Map<string, { at: number; store: KrogerStore | null }>()
 const listingCache = new Map<string, { at: number; products: KrogerProduct[] }>()
 const callers = new Map<string, { start: number; count: number }>()
 
+function callerIp(req: NextApiRequest): string {
+  return String(req.headers['x-real-ip'] ?? req.headers['x-forwarded-for'] ?? 'unknown').split(',')[0].trim()
+}
+
+/** The caller as the database knows it: a hash of the IP address, never the address. */
+function callerKey(req: NextApiRequest): string {
+  return createHash('sha256').update(`savry-kroger:${callerIp(req)}`).digest('hex')
+}
+
 function callerAllowed(req: NextApiRequest): boolean {
-  const ip = String(req.headers['x-real-ip'] ?? req.headers['x-forwarded-for'] ?? 'unknown').split(',')[0].trim()
+  const ip = callerIp(req)
   const now = Date.now()
   const seen = callers.get(ip)
   if (!seen || now - seen.start > CALLER_LIMIT.windowMs) {
@@ -63,9 +75,9 @@ function callerAllowed(req: NextApiRequest): boolean {
   return seen.count <= CALLER_LIMIT.requests
 }
 
-async function takeBudget(kind: keyof typeof DAILY_CAP, calls: number): Promise<boolean> {
+async function takeBudget(req: NextApiRequest, kind: keyof typeof DAILY_CAP, calls: number): Promise<boolean> {
   if (calls < 1) return true
-  const { data, error } = await getSupabaseAdmin().rpc('take_kroger_budget', { kind, calls, cap: DAILY_CAP[kind] })
+  const { data, error } = await getSupabaseAdmin().rpc('take_kroger_calls', { p_kind: kind, p_calls: calls, p_daily_cap: DAILY_CAP[kind], p_caller: callerKey(req), p_caller_cap: CALLER_KROGER_CALLS_PER_HOUR })
   if (error) { console.error('[prices/store] budget', error.message); return false }
   return data === true
 }
@@ -104,7 +116,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (cachedStore && cachedStore.at > Date.now() - STORE_TTL) {
       store = cachedStore.store
     } else {
-      if (!(await takeBudget('locations', 1))) return res.status(200).setHeader('Cache-Control', 'no-store').json({ store: null, prices: {}, partial: true, asOf: new Date().toISOString() })
+      if (!(await takeBudget(req, 'locations', 1))) return res.status(200).setHeader('Cache-Control', 'no-store').json({ store: null, prices: {}, partial: true, asOf: new Date().toISOString() })
       store = await nearestStore(zip)
       // An empty answer is remembered too, so a ZIP with no store costs one lookup a day.
       if (storeCache.size > 20000) storeCache.clear()
@@ -142,7 +154,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const missing = foods.filter((food) => !fresh(food))
     let partial = false
     let fetchable = missing
-    if (missing.length > 0 && !(await takeBudget('products', missing.length))) {
+    if (missing.length > 0 && !(await takeBudget(req, 'products', missing.length))) {
       partial = true
       fetchable = []
     }

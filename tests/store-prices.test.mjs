@@ -94,6 +94,8 @@ test('curated searches keep the wrong products out of the median', () => {
   assert.equal(searchTerm(169655, rules), 'granulated sugar')
   assert.ok(STORE_SEARCH[169655].exclude.test('Kroger® Light Brown Sugar'))
   assert.ok(STORE_SEARCH[170027].exclude.test('Lay\'s Classic Potato Chips'))
+  assert.equal(storePrice([{ description: 'Fresh Cut In Store Diced Yellow Onions', items: [{ size: '8 oz', price: { regular: 2.99 } }] }], { require: /\bgarlic\b/i }), null, 'a listing that does not name the food is not it')
+  assert.equal(STORE_SEARCH[167747].skip, true, 'lemons are sold by the each: the regional price stands')
   for (const id of Object.keys(STORE_SEARCH)) assert.ok(priceFile.prices[id], `curated search for ${id}, which Savry does not price`)
 })
 

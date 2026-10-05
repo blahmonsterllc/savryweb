@@ -68,11 +68,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (cached && cached.at > Date.now() - PRICE_TTL) {
         price = cached.price
       } else {
-        const term = searchTerm(Number(food), rules as { fdcId?: number; phrases?: string[] }[])
+        const curated = STORE_SEARCH[Number(food)]
+        const term = curated?.skip ? null : searchTerm(Number(food), rules as { fdcId?: number; phrases?: string[] }[])
         const table = (priceFile.prices as Record<string, { perKg: number }>)[food]?.perKg
         const baseline = typeof table === 'number' ? table * multiplier : undefined
         // A wider net (15) leaves enough after the curated exclusions to take a fair median.
-        price = term ? storePrice(await searchProducts(term, store.locationId, 15), { gramsPerCount: GRAMS_PER_COUNT[food], baseline, exclude: STORE_SEARCH[Number(food)]?.exclude }) : null
+        price = term ? storePrice(await searchProducts(term, store.locationId, 15), { gramsPerCount: GRAMS_PER_COUNT[food], baseline, exclude: curated?.exclude, require: curated?.require }) : null
         priceCache.set(key, { at: Date.now(), price })
       }
       if (price) prices[food] = price

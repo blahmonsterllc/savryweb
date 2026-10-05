@@ -149,6 +149,28 @@ async function nutritionFor(servings: number, ingredients: IngredientDraft[]): P
   }
 }
 
+/**
+ * Estimated cost per serving from the same rules and Savry's price table.
+ * Null when too few lines could be priced; the page then shows no cost.
+ */
+async function costFor(servings: number, ingredients: IngredientDraft[]): Promise<{ cost: number; coverage: number } | null> {
+  try {
+    const [{ computeRecipeCost }, { createMatcher }, rules, priceFile] = await Promise.all([
+      import('@/lib/cost/compute.mjs'),
+      import('@/lib/nutrition/compute.mjs'),
+      import('@/content/nutrition/ingredient-rules.json'),
+      import('@/content/cost/food-prices.json'),
+    ])
+    const ruleList = ((rules as { default?: unknown }).default ?? rules) as object[]
+    const prices = (((priceFile as { default?: { prices?: unknown } }).default ?? priceFile) as { prices: Record<string, { perKg: number }> }).prices
+    const result = computeRecipeCost({ servings, ingredients: ingredients.map((i) => ({ name: i.name, amount: i.amount || null, unit: i.unit || null, isOptional: i.isOptional })) }, { rules: ruleList, prices, resolve: createMatcher(ruleList) })
+    if (!result || result.coverage < 0.95) return null
+    return { cost: result.perServing, coverage: result.coverage }
+  } catch {
+    return null
+  }
+}
+
 function base64JPEG(value: string): Blob {
   const binary = window.atob(value)
   const bytes = new Uint8Array(binary.length)
@@ -304,6 +326,12 @@ export default function RecipeComposer() {
       if (publishError) throw publishError
       const published = result as { url?: string; status?: string } | null
       if (!published?.url) throw new Error('Savry could not publish this recipe.')
+      // The cost estimate rides alongside: a miss here must not undo a publish that worked.
+      const slug = published.url.split('/').filter(Boolean).pop()
+      if (slug) {
+        const estimate = await costFor(Math.max(1, toNumber(draft.servings, 1)), validIngredients)
+        await supabase.rpc('set_my_recipe_cost', { recipe_slug: slug, cost: estimate?.cost ?? null, coverage: estimate?.coverage ?? null }).then(() => undefined, () => undefined)
+      }
       window.localStorage.removeItem(DRAFT_KEY)
       setPendingReview(published.status === 'pending_review')
       setPublishedURL(published.url)

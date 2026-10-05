@@ -200,6 +200,8 @@ export interface PublicRecipe {
   ingredients: { name: string; amount: string | null; unit: string | null; section: string | null; isOptional: boolean }[]
   instructions: string[]
   nutritionPerServing: PublishPayload['nutritionPerServing'] | null
+  /** Estimated US dollars per serving from Savry's price table; null when too few ingredients were priced. */
+  costPerServing: number | null
   sourceURL: string | null
   viewCount: number
   madeCount: number

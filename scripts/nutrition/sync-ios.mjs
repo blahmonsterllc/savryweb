@@ -16,6 +16,7 @@ import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import { computeRecipeNutrition, createMatcher, NUTRIENT_KEYS } from '../../lib/nutrition/compute.mjs'
+import { computeRecipeCost } from '../../lib/cost/compute.mjs'
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../..')
 const at = process.argv.indexOf('--ios-dir')
@@ -23,7 +24,8 @@ const iosDir = path.resolve(at > -1 ? process.argv[at + 1] : path.join(root, '..
 
 const rules = JSON.parse(await readFile(path.join(root, 'content/nutrition/ingredient-rules.json'), 'utf8'))
 const { foods } = JSON.parse(await readFile(path.join(root, 'content/nutrition/usda-foods.json'), 'utf8'))
-const reference = { rules, foods, resolve: createMatcher(rules) }
+const { prices } = JSON.parse(await readFile(path.join(root, 'content/cost/food-prices.json'), 'utf8'))
+const reference = { rules, foods, prices, resolve: createMatcher(rules) }
 
 const batchDir = path.join(root, 'content/launch-catalog/batches')
 const recipes = []
@@ -57,7 +59,12 @@ const fixture = {
   nutrientKeys: NUTRIENT_KEYS,
   recipes: recipes.map((recipe) => {
     const result = computeRecipeNutrition(recipe, reference)
-    return { ...recipe, expected: { perServing: result.perServing, servingGrams: result.servingGrams, coverage: result.coverage, counted: result.counted, missed: result.missed, lines: result.lines.map((l) => ({ status: l.status, fdcId: l.fdcId, grams: l.grams })) } }
+    const cost = computeRecipeCost(recipe, reference)
+    return {
+      ...recipe,
+      expected: { perServing: result.perServing, servingGrams: result.servingGrams, coverage: result.coverage, counted: result.counted, missed: result.missed, lines: result.lines.map((l) => ({ status: l.status, fdcId: l.fdcId, grams: l.grams })) },
+      expectedCost: { total: cost.total, perServing: cost.perServing, coverage: cost.coverage, counted: cost.counted, missed: cost.missed, lines: cost.lines.map((l) => ({ status: l.status, boughtGrams: l.boughtGrams, cost: l.cost })) },
+    }
   }),
 }
 
@@ -67,5 +74,6 @@ await mkdir(resources, { recursive: true })
 await mkdir(fixtures, { recursive: true })
 await copyFile(path.join(root, 'content/nutrition/ingredient-rules.json'), path.join(resources, 'ingredient-rules.json'))
 await copyFile(path.join(root, 'content/nutrition/usda-foods.json'), path.join(resources, 'usda-foods.json'))
+await copyFile(path.join(root, 'content/cost/food-prices.json'), path.join(resources, 'food-prices.json'))
 await writeFile(path.join(fixtures, 'usda-parity.json'), JSON.stringify(fixture) + '\n')
 console.log(`Reference copied and fixture written for ${fixture.recipes.length} recipes (${fixture.recipes.reduce((n, r) => n + r.ingredients.length, 0)} ingredient lines) -> ${iosDir}`)

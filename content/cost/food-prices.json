@@ -1,0 +1,1272 @@
+{
+ "currency": "USD",
+ "asOf": "2026-10",
+ "unit": "perKg: US dollars per kilogram as bought (the pack, not the trimmed or drained weight)",
+ "basis": {
+  "bls": "BLS CPI average price series, US city average, 2026",
+  "est": "typical US supermarket shelf price, October 2026: pack price divided by pack weight"
+ },
+ "note": "National averages for an estimate within about 20%. A cook can correct any price in the app.",
+ "prices": {
+  "167723": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Alcoholic beverage, rice (sake)"
+  },
+  "167747": {
+   "perKg": 13,
+   "basis": "est",
+   "description": "Lemon juice, raw"
+  },
+  "167749": {
+   "perKg": 60,
+   "basis": "est",
+   "description": "Lemon peel, raw"
+  },
+  "167763": {
+   "perKg": 12.6,
+   "basis": "est",
+   "description": "Tamarinds, raw"
+  },
+  "167849": {
+   "perKg": 5.5,
+   "basis": "est",
+   "description": "Pork, fresh, shoulder, (Boston butt), blade (steaks), separable lean and fat, raw"
+  },
+  "167976": {
+   "perKg": 11.8,
+   "basis": "est",
+   "description": "Candies, semisweet chocolate"
+  },
+  "168156": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Lime juice, raw"
+  },
+  "168165": {
+   "perKg": 9.4,
+   "basis": "est",
+   "description": "Raisins, dark, seedless"
+  },
+  "168173": {
+   "perKg": 6.6,
+   "basis": "est",
+   "description": "Strawberries, frozen, unsweetened"
+  },
+  "168177": {
+   "perKg": 6.6,
+   "basis": "est",
+   "description": "Pears, asian, raw"
+  },
+  "168242": {
+   "perKg": 9.3,
+   "basis": "bls",
+   "description": "Pork, fresh, loin, center rib (chops or roasts), bone-in, separable lean and fat, raw"
+  },
+  "168269": {
+   "perKg": 40,
+   "basis": "est",
+   "description": "Pork, fresh, variety meats and by-products, jowl, raw"
+  },
+  "168277": {
+   "perKg": 15,
+   "basis": "bls",
+   "description": "Pork, cured, bacon, unprepared"
+  },
+  "168398": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Corn, sweet, yellow, frozen, kernels cut off cob, unprepared"
+  },
+  "168409": {
+   "perKg": 3.75,
+   "basis": "est",
+   "description": "Cucumber, with peel, raw"
+  },
+  "168410": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Edamame, frozen, unprepared"
+  },
+  "168421": {
+   "perKg": 10,
+   "basis": "est",
+   "description": "Kale, raw"
+  },
+  "168429": {
+   "perKg": 12,
+   "basis": "est",
+   "description": "Lettuce, butterhead (includes boston and bibb types), raw"
+  },
+  "168434": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Mushrooms, brown, italian, or crimini, raw"
+  },
+  "168458": {
+   "perKg": 150,
+   "basis": "est",
+   "description": "Seaweed, laver, raw"
+  },
+  "168462": {
+   "perKg": 14,
+   "basis": "est",
+   "description": "Spinach, raw"
+  },
+  "168482": {
+   "perKg": 2.9,
+   "basis": "est",
+   "description": "Sweet potato, raw, unprepared"
+  },
+  "168556": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Catsup"
+  },
+  "168558": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Pickles, cucumber, dill or kosher dill"
+  },
+  "168573": {
+   "perKg": 17,
+   "basis": "est",
+   "description": "Lemon grass (citronella), raw"
+  },
+  "168576": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Peppers, jalapeno, raw"
+  },
+  "168577": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Peppers, chili, green, canned"
+  },
+  "168579": {
+   "perKg": 59,
+   "basis": "est",
+   "description": "Peppers, pasilla, dried"
+  },
+  "168595": {
+   "perKg": 15.4,
+   "basis": "est",
+   "description": "Seeds, sunflower seed butter, with salt added"
+  },
+  "168833": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Sugars, brown"
+  },
+  "168874": {
+   "perKg": 13,
+   "basis": "est",
+   "description": "Quinoa, uncooked"
+  },
+  "168877": {
+   "perKg": 5.5,
+   "basis": "est",
+   "description": "Rice, white, long-grain, regular, raw, enriched"
+  },
+  "168878": {
+   "perKg": 1.5,
+   "basis": "est",
+   "description": "Rice, white, long-grain, regular, enriched, cooked"
+  },
+  "168881": {
+   "perKg": 6.6,
+   "basis": "est",
+   "description": "Rice, white, short-grain, enriched, uncooked"
+  },
+  "168882": {
+   "perKg": 2,
+   "basis": "est",
+   "description": "Rice, white, short-grain, enriched, cooked"
+  },
+  "168894": {
+   "perKg": 1.2,
+   "basis": "bls",
+   "description": "Wheat flour, white, all-purpose, enriched, bleached"
+  },
+  "168896": {
+   "perKg": 1.8,
+   "basis": "est",
+   "description": "Wheat flour, white, bread, enriched"
+  },
+  "168931": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Rice, white, short-grain, raw, unenriched"
+  },
+  "169096": {
+   "perKg": 29,
+   "basis": "est",
+   "description": "Olives, pickled, canned or bottled, green"
+  },
+  "169098": {
+   "perKg": 5,
+   "basis": "est",
+   "description": "Orange juice, raw"
+  },
+  "169124": {
+   "perKg": 2,
+   "basis": "est",
+   "description": "Pineapple, raw, all varieties"
+  },
+  "169228": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Eggplant, raw"
+  },
+  "169230": {
+   "perKg": 8,
+   "basis": "est",
+   "description": "Garlic, raw"
+  },
+  "169231": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Ginger root, raw"
+  },
+  "169242": {
+   "perKg": 26,
+   "basis": "est",
+   "description": "Mushrooms, shiitake, raw"
+  },
+  "169247": {
+   "perKg": 4,
+   "basis": "est",
+   "description": "Lettuce, cos or romaine, raw"
+  },
+  "169248": {
+   "perKg": 2.9,
+   "basis": "est",
+   "description": "Lettuce, iceberg (includes crisphead types), raw"
+  },
+  "169249": {
+   "perKg": 28,
+   "basis": "est",
+   "description": "Lettuce, green leaf, raw"
+  },
+  "169276": {
+   "perKg": 5,
+   "basis": "est",
+   "description": "Radishes, raw"
+  },
+  "169291": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Squash, summer, zucchini, includes skin, raw"
+  },
+  "169295": {
+   "perKg": 2.9,
+   "basis": "est",
+   "description": "Squash, winter, butternut, raw"
+  },
+  "169330": {
+   "perKg": 5.5,
+   "basis": "est",
+   "description": "Broccoli, flower clusters, raw"
+  },
+  "169395": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Peppers, serrano, raw"
+  },
+  "169396": {
+   "perKg": 59,
+   "basis": "est",
+   "description": "Peppers, ancho, dried"
+  },
+  "169414": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Seeds, flaxseed"
+  },
+  "169563": {
+   "perKg": 26,
+   "basis": "est",
+   "description": "Beef, flank, steak, separable lean and fat, trimmed to 0\" fat, all grades, raw"
+  },
+  "169593": {
+   "perKg": 22,
+   "basis": "est",
+   "description": "Cocoa, dry powder, unsweetened"
+  },
+  "169640": {
+   "perKg": 17.6,
+   "basis": "est",
+   "description": "Honey"
+  },
+  "169655": {
+   "perKg": 2.2,
+   "basis": "bls",
+   "description": "Sugars, granulated"
+  },
+  "169656": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Sugars, powdered"
+  },
+  "169661": {
+   "perKg": 27,
+   "basis": "est",
+   "description": "Syrups, maple"
+  },
+  "169698": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Cornstarch"
+  },
+  "169704": {
+   "perKg": 2,
+   "basis": "est",
+   "description": "Rice, brown, long-grain, cooked"
+  },
+  "169706": {
+   "perKg": 5.5,
+   "basis": "est",
+   "description": "Rice, brown, medium-grain, raw"
+  },
+  "169707": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Rice, white, long-grain, parboiled, enriched, dry"
+  },
+  "169727": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Pasta, fresh-refrigerated, plain, as purchased"
+  },
+  "169736": {
+   "perKg": 4,
+   "basis": "est",
+   "description": "Pasta, dry, enriched"
+  },
+  "169742": {
+   "perKg": 7.6,
+   "basis": "est",
+   "description": "Rice noodles, dry"
+  },
+  "169756": {
+   "perKg": 6.6,
+   "basis": "est",
+   "description": "Rice, white, long-grain, regular, raw, unenriched"
+  },
+  "169760": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Rice, white, medium-grain, raw, unenriched"
+  },
+  "169947": {
+   "perKg": 2.2,
+   "basis": "est",
+   "description": "Pineapple juice, canned or bottled, unsweetened, without added ascorbic acid"
+  },
+  "169957": {
+   "perKg": 5.9,
+   "basis": "est",
+   "description": "Mung beans, mature seeds, sprouted, raw"
+  },
+  "169961": {
+   "perKg": 5.5,
+   "basis": "est",
+   "description": "Beans, snap, green, raw"
+  },
+  "169975": {
+   "perKg": 2.2,
+   "basis": "est",
+   "description": "Cabbage, raw"
+  },
+  "169977": {
+   "perKg": 2.9,
+   "basis": "est",
+   "description": "Cabbage, red, raw"
+  },
+  "169986": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Cauliflower, raw"
+  },
+  "169988": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Celery, raw"
+  },
+  "169997": {
+   "perKg": 10,
+   "basis": "est",
+   "description": "Coriander (cilantro) leaves, raw"
+  },
+  "169998": {
+   "perKg": 5,
+   "basis": "est",
+   "description": "Corn, sweet, yellow, raw"
+  },
+  "170000": {
+   "perKg": 2.9,
+   "basis": "bls",
+   "description": "Onions, raw"
+  },
+  "170005": {
+   "perKg": 12.5,
+   "basis": "est",
+   "description": "Onions, spring or scallions (includes tops and bulb), raw"
+  },
+  "170010": {
+   "perKg": 17.6,
+   "basis": "est",
+   "description": "Peas, edible-podded, raw"
+  },
+  "170016": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Peas, green, frozen, unprepared"
+  },
+  "170026": {
+   "perKg": 2.9,
+   "basis": "est",
+   "description": "Potatoes, flesh and skin, raw"
+  },
+  "170027": {
+   "perKg": 2.2,
+   "basis": "bls",
+   "description": "Potatoes, russet, flesh and skin, raw"
+  },
+  "170051": {
+   "perKg": 3.1,
+   "basis": "est",
+   "description": "Tomatoes, red, ripe, canned, packed in tomato juice"
+  },
+  "170054": {
+   "perKg": 2.4,
+   "basis": "est",
+   "description": "Tomato products, canned, sauce"
+  },
+  "170106": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Peppers, hot chili, red, raw"
+  },
+  "170107": {
+   "perKg": 10,
+   "basis": "est",
+   "description": "Peppers, hot chili, red, canned, excluding seeds, solids and liquids"
+  },
+  "170108": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Peppers, sweet, red, raw"
+  },
+  "170148": {
+   "perKg": 26,
+   "basis": "est",
+   "description": "Seeds, hemp seed, hulled"
+  },
+  "170152": {
+   "perKg": 17.6,
+   "basis": "est",
+   "description": "Seeds, sesame seed kernels, toasted, without salt added (decorticated)"
+  },
+  "170170": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Nuts, coconut meat, dried (desiccated), not sweetened"
+  },
+  "170173": {
+   "perKg": 5,
+   "basis": "est",
+   "description": "Nuts, coconut milk, canned (liquid expressed from grated meat and water)"
+  },
+  "170187": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Nuts, walnuts, english"
+  },
+  "170189": {
+   "perKg": 17.6,
+   "basis": "est",
+   "description": "Seeds, sesame butter, tahini, from roasted and toasted kernels (most common type)"
+  },
+  "170272": {
+   "perKg": 35,
+   "basis": "est",
+   "description": "Chocolate, dark, 60-69% cacao solids"
+  },
+  "170379": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Broccoli, raw"
+  },
+  "170393": {
+   "perKg": 2.2,
+   "basis": "est",
+   "description": "Carrots, raw"
+  },
+  "170406": {
+   "perKg": 5.5,
+   "basis": "est",
+   "description": "Collards, raw"
+  },
+  "170412": {
+   "perKg": 7.5,
+   "basis": "est",
+   "description": "Onions, frozen, whole, unprepared"
+  },
+  "170416": {
+   "perKg": 21,
+   "basis": "est",
+   "description": "Parsley, fresh"
+  },
+  "170425": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Peas and carrots, frozen, unprepared"
+  },
+  "170427": {
+   "perKg": 5.9,
+   "basis": "est",
+   "description": "Peppers, sweet, green, raw"
+  },
+  "170457": {
+   "perKg": 6,
+   "basis": "bls",
+   "description": "Tomatoes, red, ripe, raw, year round average"
+  },
+  "170459": {
+   "perKg": 7.4,
+   "basis": "est",
+   "description": "Tomato products, canned, paste, without salt added"
+  },
+  "170499": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Shallots, raw"
+  },
+  "170501": {
+   "perKg": 2.5,
+   "basis": "est",
+   "description": "Tomatoes, crushed, canned"
+  },
+  "170554": {
+   "perKg": 17.6,
+   "basis": "est",
+   "description": "Seeds, chia seeds, dried"
+  },
+  "170556": {
+   "perKg": 15.4,
+   "basis": "est",
+   "description": "Seeds, pumpkin and squash seed kernels, dried"
+  },
+  "170557": {
+   "perKg": 15.4,
+   "basis": "est",
+   "description": "Seeds, pumpkin and squash seed kernels, roasted, without salt"
+  },
+  "170562": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Seeds, sunflower seed kernels, dried"
+  },
+  "170568": {
+   "perKg": 24,
+   "basis": "est",
+   "description": "Nuts, almonds, blanched"
+  },
+  "170674": {
+   "perKg": 5.9,
+   "basis": "est",
+   "description": "Sugar, turbinado"
+  },
+  "170813": {
+   "perKg": 15.4,
+   "basis": "bls",
+   "description": "Beef, chuck, under blade pot roast or steak, boneless, separable lean and fat, trimmed to 0\" fat, all grades, raw"
+  },
+  "170844": {
+   "perKg": 13,
+   "basis": "est",
+   "description": "Cheese, monterey"
+  },
+  "170845": {
+   "perKg": 22,
+   "basis": "est",
+   "description": "Cheese, mozzarella, whole milk"
+  },
+  "170848": {
+   "perKg": 30,
+   "basis": "est",
+   "description": "Cheese, parmesan, hard"
+  },
+  "170853": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Cheese, pasteurized process, American, fortified with vitamin D"
+  },
+  "170859": {
+   "perKg": 6,
+   "basis": "est",
+   "description": "Cream, fluid, heavy whipping"
+  },
+  "170874": {
+   "perKg": 3.2,
+   "basis": "est",
+   "description": "Milk, buttermilk, fluid, cultured, lowfat"
+  },
+  "170917": {
+   "perKg": 400,
+   "basis": "est",
+   "description": "Spices, bay leaf"
+  },
+  "170919": {
+   "perKg": 190,
+   "basis": "est",
+   "description": "Spices, cardamom"
+  },
+  "170922": {
+   "perKg": 94,
+   "basis": "est",
+   "description": "Spices, coriander seed"
+  },
+  "170923": {
+   "perKg": 80,
+   "basis": "est",
+   "description": "Spices, cumin seed"
+  },
+  "170924": {
+   "perKg": 88,
+   "basis": "est",
+   "description": "Spices, curry powder"
+  },
+  "170929": {
+   "perKg": 70,
+   "basis": "est",
+   "description": "Spices, mustard seed, ground"
+  },
+  "170931": {
+   "perKg": 59,
+   "basis": "est",
+   "description": "Spices, pepper, black"
+  },
+  "170932": {
+   "perKg": 70,
+   "basis": "est",
+   "description": "Spices, pepper, red or cayenne"
+  },
+  "170933": {
+   "perKg": 88,
+   "basis": "est",
+   "description": "Spices, pepper, white"
+  },
+  "170934": {
+   "perKg": 15000,
+   "basis": "est",
+   "description": "Spices, saffron"
+  },
+  "170938": {
+   "perKg": 140,
+   "basis": "est",
+   "description": "Spices, thyme, dried"
+  },
+  "171009": {
+   "perKg": 5.9,
+   "basis": "est",
+   "description": "Salad dressing, mayonnaise, regular"
+  },
+  "171016": {
+   "perKg": 27,
+   "basis": "est",
+   "description": "Oil, sesame, salad or cooking"
+  },
+  "171077": {
+   "perKg": 9.3,
+   "basis": "bls",
+   "description": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw"
+  },
+  "171186": {
+   "perKg": 10,
+   "basis": "est",
+   "description": "Sauce, hot chile, sriracha"
+  },
+  "171192": {
+   "perKg": 5.9,
+   "basis": "est",
+   "description": "Sauce, pasta, spaghetti/marinara, ready-to-serve"
+  },
+  "171242": {
+   "perKg": 40,
+   "basis": "est",
+   "description": "Cheese, gruyere"
+  },
+  "171244": {
+   "perKg": 12,
+   "basis": "est",
+   "description": "Cheese, mozzarella, low moisture, part-skim"
+  },
+  "171249": {
+   "perKg": 31,
+   "basis": "est",
+   "description": "Cheese, romano"
+  },
+  "171257": {
+   "perKg": 5.5,
+   "basis": "est",
+   "description": "Cream, sour, cultured"
+  },
+  "171265": {
+   "perKg": 1.06,
+   "basis": "bls",
+   "description": "Milk, whole, 3.25% milkfat, with added vitamin D"
+  },
+  "171275": {
+   "perKg": 6.3,
+   "basis": "est",
+   "description": "Milk, canned, condensed, sweetened"
+  },
+  "171276": {
+   "perKg": 4.2,
+   "basis": "est",
+   "description": "Milk, canned, evaporated, with added vitamin D and without added vitamin A"
+  },
+  "171284": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Yogurt, plain, whole milk"
+  },
+  "171287": {
+   "perKg": 5.8,
+   "basis": "bls",
+   "description": "Egg, whole, raw, fresh"
+  },
+  "171304": {
+   "perKg": 5.5,
+   "basis": "est",
+   "description": "Yogurt, Greek, plain, whole milk"
+  },
+  "171314": {
+   "perKg": 32,
+   "basis": "est",
+   "description": "Butter, Clarified butter (ghee)"
+  },
+  "171315": {
+   "perKg": 94,
+   "basis": "est",
+   "description": "Spices, allspice, ground"
+  },
+  "171319": {
+   "perKg": 56,
+   "basis": "est",
+   "description": "Spices, chili powder"
+  },
+  "171320": {
+   "perKg": 51,
+   "basis": "est",
+   "description": "Spices, cinnamon, ground"
+  },
+  "171325": {
+   "perKg": 47,
+   "basis": "est",
+   "description": "Spices, garlic powder"
+  },
+  "171326": {
+   "perKg": 118,
+   "basis": "est",
+   "description": "Spices, nutmeg, ground"
+  },
+  "171328": {
+   "perKg": 140,
+   "basis": "est",
+   "description": "Spices, oregano, dried"
+  },
+  "171329": {
+   "perKg": 56,
+   "basis": "est",
+   "description": "Spices, paprika"
+  },
+  "171412": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Oil, coconut"
+  },
+  "171413": {
+   "perKg": 17,
+   "basis": "est",
+   "description": "Oil, olive, salad or cooking"
+  },
+  "171447": {
+   "perKg": 4.2,
+   "basis": "bls",
+   "description": "Chicken, broilers or fryers, meat and skin, raw"
+  },
+  "171583": {
+   "perKg": 3.2,
+   "basis": "est",
+   "description": "Soup, vegetable broth, ready to serve"
+  },
+  "171609": {
+   "perKg": 3.2,
+   "basis": "est",
+   "description": "Soup, chicken broth, low sodium, canned"
+  },
+  "171610": {
+   "perKg": 11.8,
+   "basis": "est",
+   "description": "Sauce, worcestershire"
+  },
+  "171631": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Sausage, Italian, pork, mild, raw"
+  },
+  "171688": {
+   "perKg": 3.75,
+   "basis": "bls",
+   "description": "Apples, raw, with skin"
+  },
+  "171689": {
+   "perKg": 3.75,
+   "basis": "bls",
+   "description": "Apples, raw, without skin"
+  },
+  "171706": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Avocados, raw, California"
+  },
+  "171711": {
+   "perKg": 12,
+   "basis": "est",
+   "description": "Blueberries, raw"
+  },
+  "171723": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Cranberries, dried, sweetened"
+  },
+  "171775": {
+   "perKg": 31,
+   "basis": "est",
+   "description": "Beef, loin, top loin steak, boneless, lip-on, separable lean and fat, trimmed to 1/8\" fat, all grades, raw"
+  },
+  "171796": {
+   "perKg": 13.7,
+   "basis": "bls",
+   "description": "Beef, ground, 85% lean meat / 15% fat, raw"
+  },
+  "171942": {
+   "perKg": 2.4,
+   "basis": "est",
+   "description": "Beverages, rice milk, unsweetened"
+  },
+  "171955": {
+   "perKg": 22,
+   "basis": "est",
+   "description": "Fish, cod, Atlantic, raw"
+  },
+  "172158": {
+   "perKg": 29,
+   "basis": "est",
+   "description": "Beef, plate steak, boneless, inside skirt, separable lean and fat, trimmed to 0\" fat, all grades, raw"
+  },
+  "172184": {
+   "perKg": 17,
+   "basis": "est",
+   "description": "Egg, yolk, raw, fresh"
+  },
+  "172224": {
+   "perKg": 31,
+   "basis": "est",
+   "description": "Cheese, white, queso blanco"
+  },
+  "172231": {
+   "perKg": 70,
+   "basis": "est",
+   "description": "Spices, turmeric, ground"
+  },
+  "172232": {
+   "perKg": 90,
+   "basis": "est",
+   "description": "Basil, fresh"
+  },
+  "172233": {
+   "perKg": 40,
+   "basis": "est",
+   "description": "Dill weed, fresh"
+  },
+  "172234": {
+   "perKg": 11.8,
+   "basis": "est",
+   "description": "Mustard, prepared, yellow"
+  },
+  "172237": {
+   "perKg": 2.1,
+   "basis": "est",
+   "description": "Vinegar, distilled"
+  },
+  "172238": {
+   "perKg": 35,
+   "basis": "est",
+   "description": "Capers, canned"
+  },
+  "172240": {
+   "perKg": 9.8,
+   "basis": "est",
+   "description": "Vinegar, red wine"
+  },
+  "172241": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Vinegar, balsamic"
+  },
+  "172336": {
+   "perKg": 3,
+   "basis": "est",
+   "description": "Oil, canola"
+  },
+  "172378": {
+   "perKg": 3.3,
+   "basis": "est",
+   "description": "Chicken, broilers or fryers, leg, meat and skin, raw"
+  },
+  "172385": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Chicken, broilers or fryers, thigh, meat and skin, raw"
+  },
+  "172390": {
+   "perKg": 7.7,
+   "basis": "est",
+   "description": "Chicken, broilers or fryers, wing, meat and skin, raw"
+  },
+  "172420": {
+   "perKg": 4.4,
+   "basis": "est",
+   "description": "Lentils, raw"
+  },
+  "172442": {
+   "perKg": 13,
+   "basis": "est",
+   "description": "Miso"
+  },
+  "172449": {
+   "perKg": 6.3,
+   "basis": "est",
+   "description": "Tofu, soft, prepared with calcium sulfate and magnesium chloride (nigari)"
+  },
+  "172473": {
+   "perKg": 7.8,
+   "basis": "est",
+   "description": "Soy sauce made from soy and wheat (shoyu), low sodium"
+  },
+  "172673": {
+   "perKg": 12,
+   "basis": "est",
+   "description": "Bread, egg"
+  },
+  "172675": {
+   "perKg": 10,
+   "basis": "est",
+   "description": "Bread, french or vienna (includes sourdough)"
+  },
+  "172796": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Rolls, hamburger or hotdog, plain"
+  },
+  "172802": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Wonton wrappers (includes egg roll wrappers)"
+  },
+  "172803": {
+   "perKg": 13,
+   "basis": "est",
+   "description": "Leavening agents, baking powder, double-acting, sodium aluminum sulfate"
+  },
+  "172804": {
+   "perKg": 13,
+   "basis": "est",
+   "description": "Leavening agents, baking powder, double-acting, straight phosphate"
+  },
+  "172850": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Turkey, ground, 93% lean, 7% fat, raw"
+  },
+  "172889": {
+   "perKg": 3.2,
+   "basis": "est",
+   "description": "Soup, beef broth, less/reduced sodium, ready to serve"
+  },
+  "173176": {
+   "perKg": 18,
+   "basis": "est",
+   "description": "Alcoholic beverage, wine, dessert, sweet"
+  },
+  "173190": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Alcoholic beverage, wine, table, red"
+  },
+  "173402": {
+   "perKg": 29,
+   "basis": "bls",
+   "description": "Beef, rib eye steak, boneless, lip off, separable lean and fat, trimmed to 0\" fat, all grades, raw"
+  },
+  "173410": {
+   "perKg": 10.6,
+   "basis": "bls",
+   "description": "Butter, salted"
+  },
+  "173414": {
+   "perKg": 13,
+   "basis": "bls",
+   "description": "Cheese, cheddar"
+  },
+  "173418": {
+   "perKg": 13,
+   "basis": "est",
+   "description": "Cheese, cream"
+  },
+  "173420": {
+   "perKg": 22,
+   "basis": "est",
+   "description": "Cheese, feta"
+  },
+  "173430": {
+   "perKg": 10.6,
+   "basis": "bls",
+   "description": "Butter, without salt"
+  },
+  "173468": {
+   "perKg": 4,
+   "basis": "est",
+   "description": "Salt, table"
+  },
+  "173469": {
+   "perKg": 3.2,
+   "basis": "est",
+   "description": "Vinegar, cider"
+  },
+  "173470": {
+   "perKg": 110,
+   "basis": "est",
+   "description": "Thyme, fresh"
+  },
+  "173471": {
+   "perKg": 100,
+   "basis": "est",
+   "description": "Vanilla extract"
+  },
+  "173473": {
+   "perKg": 110,
+   "basis": "est",
+   "description": "Rosemary, fresh"
+  },
+  "173475": {
+   "perKg": 110,
+   "basis": "est",
+   "description": "Spearmint, fresh"
+  },
+  "173573": {
+   "perKg": 22,
+   "basis": "est",
+   "description": "Oil, avocado"
+  },
+  "173627": {
+   "perKg": 7.7,
+   "basis": "est",
+   "description": "Chicken, broilers or fryers, dark meat, thigh, meat only, raw"
+  },
+  "173709": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Fish, tuna, light, canned in water, drained solids"
+  },
+  "173801": {
+   "perKg": 2.35,
+   "basis": "est",
+   "description": "Chickpeas (garbanzo beans, bengal gram), mature seeds, canned, drained, rinsed in tap water"
+  },
+  "173802": {
+   "perKg": 2.5,
+   "basis": "est",
+   "description": "Lima beans, large, mature seeds, cooked, boiled, with salt"
+  },
+  "173806": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Peanuts, all types, dry-roasted, without salt"
+  },
+  "173904": {
+   "perKg": 4,
+   "basis": "est",
+   "description": "Cereals, oats, regular and quick, not fortified, dry"
+  },
+  "173933": {
+   "perKg": 1.4,
+   "basis": "est",
+   "description": "Apple juice, canned or bottled, unsweetened, without added ascorbic acid"
+  },
+  "173944": {
+   "perKg": 1.4,
+   "basis": "bls",
+   "description": "Bananas, raw"
+  },
+  "173946": {
+   "perKg": 14,
+   "basis": "est",
+   "description": "Blackberries, raw"
+  },
+  "174036": {
+   "perKg": 12.3,
+   "basis": "bls",
+   "description": "Beef, ground, 80% lean meat / 20% fat, raw"
+  },
+  "174066": {
+   "perKg": 11.8,
+   "basis": "est",
+   "description": "Sauce, sweet and sour, ready-to-serve"
+  },
+  "174262": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Peanuts, all types, dry-roasted, with salt"
+  },
+  "174266": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Peanut butter, smooth style, with salt"
+  },
+  "174277": {
+   "perKg": 7.8,
+   "basis": "est",
+   "description": "Soy sauce made from soy and wheat (shoyu)"
+  },
+  "174278": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Soy sauce made from soy (tamari)"
+  },
+  "174284": {
+   "perKg": 6.6,
+   "basis": "est",
+   "description": "Lentils, pink or red, raw"
+  },
+  "174285": {
+   "perKg": 2.35,
+   "basis": "est",
+   "description": "Beans, kidney, red, mature seeds, canned, drained solids"
+  },
+  "174286": {
+   "perKg": 2.35,
+   "basis": "est",
+   "description": "Beans, pinto, canned, drained solids"
+  },
+  "174290": {
+   "perKg": 6.3,
+   "basis": "est",
+   "description": "Tofu, extra firm, prepared with nigari"
+  },
+  "174370": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Lamb, ground, raw"
+  },
+  "174524": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Sauce, salsa, ready-to-serve"
+  },
+  "174527": {
+   "perKg": 8.5,
+   "basis": "est",
+   "description": "Sauce, ready-to-serve, pepper or hot"
+  },
+  "174529": {
+   "perKg": 7.8,
+   "basis": "est",
+   "description": "Sauce, oyster, ready-to-serve"
+  },
+  "174531": {
+   "perKg": 5.9,
+   "basis": "est",
+   "description": "Sauce, fish, ready-to-serve"
+  },
+  "174837": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Alcoholic beverage, wine, table, white"
+  },
+  "174913": {
+   "perKg": 10,
+   "basis": "est",
+   "description": "Bread, Italian"
+  },
+  "174915": {
+   "perKg": 7.5,
+   "basis": "est",
+   "description": "Bread, pita, white, enriched"
+  },
+  "174928": {
+   "perKg": 13,
+   "basis": "est",
+   "description": "Bread, crumbs, dry, grated, plain"
+  },
+  "174957": {
+   "perKg": 9.8,
+   "basis": "est",
+   "description": "Cookies, graham crackers, plain or honey (includes cinnamon)"
+  },
+  "175036": {
+   "perKg": 3.8,
+   "basis": "est",
+   "description": "Tortillas, ready-to-bake or -fry, corn"
+  },
+  "175040": {
+   "perKg": 2.2,
+   "basis": "est",
+   "description": "Leavening agents, baking soda"
+  },
+  "175041": {
+   "perKg": 95,
+   "basis": "est",
+   "description": "Leavening agents, cream of tartar"
+  },
+  "175043": {
+   "perKg": 53,
+   "basis": "est",
+   "description": "Leavening agents, yeast, baker's, active dry"
+  },
+  "175167": {
+   "perKg": 22,
+   "basis": "est",
+   "description": "Fish, salmon, Atlantic, farmed, raw"
+  },
+  "175179": {
+   "perKg": 20,
+   "basis": "est",
+   "description": "Crustaceans, shrimp, raw"
+  },
+  "175215": {
+   "perKg": 1.8,
+   "basis": "est",
+   "description": "Soymilk (all flavors), unsweetened, with added calcium, vitamins A and D"
+  },
+  "175237": {
+   "perKg": 2.35,
+   "basis": "est",
+   "description": "Beans, black, mature seeds, cooked, boiled, with salt"
+  },
+  "175243": {
+   "perKg": 2.35,
+   "basis": "est",
+   "description": "Beans, kidney, red, mature seeds, canned, drained solids, rinsed in tap water"
+  },
+  "175249": {
+   "perKg": 3,
+   "basis": "est",
+   "description": "Beans, white, mature seeds, cooked, boiled, with salt"
+  }
+ }
+}

@@ -22,6 +22,7 @@ type ExplorerRecipe = {
   madeCount: number
   commentCount: number
   version: number
+  costPerServing?: number | null
 }
 
 export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] }) {
@@ -124,7 +125,7 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
                     <p className="recipe-index-card__kicker">{recipe.category || 'Community recipe'}</p>
                     <h2>{recipe.title}</h2>
                     <p className="recipe-index-card__meta">
-                      {[recipe.cuisine, recipe.totalTime ? `${recipe.totalTime} min` : null, recipe.difficulty].filter(Boolean).join(' · ')}
+                      {[recipe.cuisine, recipe.totalTime ? `${recipe.totalTime} min` : null, recipe.difficulty, recipe.costPerServing != null ? `$${recipe.costPerServing.toFixed(2)}/serving` : null].filter(Boolean).join(' · ')}
                     </p>
                     <div className="recipe-index-card__foot">
                       <span>by {recipe.authorName}</span>

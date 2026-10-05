@@ -83,12 +83,18 @@ export default async function RecipePage({ params }: Params) {
             {recipe.version > 1 ? ` · v${recipe.version}` : ''}
           </p>
 
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className={`mt-6 grid grid-cols-2 gap-3 ${recipe.costPerServing != null ? 'sm:grid-cols-5' : 'sm:grid-cols-4'}`}>
             <Stat label="Prep" value={recipe.prepTime ? `${recipe.prepTime} min` : '—'} />
             <Stat label="Cook" value={recipe.cookTime ? `${recipe.cookTime} min` : '—'} />
             <Stat label="Total" value={recipe.totalTime ? `${recipe.totalTime} min` : '—'} />
             <Stat label={recipe.servingType === 'yields' ? 'Makes' : 'Serves'} value={yieldText} />
+            {recipe.costPerServing != null && (
+              <Stat label={`Cost per ${recipe.servingType === 'yields' ? (recipe.yieldUnit?.replace(/s$/, '') ?? 'item') : 'serving'}`} value={`$${recipe.costPerServing.toFixed(2)}`} />
+            )}
           </div>
+          {recipe.costPerServing != null && (
+            <p className="mt-2 text-xs text-gray-500">About ${(recipe.costPerServing * recipe.servings).toFixed(2)} for the whole recipe, estimated from average US grocery prices for the ingredients as listed. Your store will differ.</p>
+          )}
 
           {(recipe.tags.length > 0 || recipe.dietaryTags.length > 0) && (
             <div className="mt-4 flex flex-wrap gap-2">

@@ -36,7 +36,13 @@ async function get<T>(path: string, params: Record<string, string>): Promise<T> 
   const url = new URL(`${API}${path}`)
   for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value)
   const response = await fetch(url, { headers: { Authorization: `Bearer ${await accessToken()}`, Accept: 'application/json' } })
-  if (!response.ok) throw new Error(`Kroger ${path} ${response.status}`)
+  if (!response.ok) {
+    // Kroger's own JSON error or its firewall's HTML page; neither carries the credentials.
+    const body = (await response.text().catch(() => '')).replace(/\s+/g, ' ').slice(0, 200)
+    // A refused token is dropped so the next call asks for a fresh one.
+    if (response.status === 401 || response.status === 403) token = null
+    throw new Error(`Kroger ${path} ${response.status}: ${body}`)
+  }
   return (await response.json()) as T
 }
 

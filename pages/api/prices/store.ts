@@ -3,7 +3,10 @@
  *
  * GET /api/prices/store?zip=43017&foods=171077,170000,168894
  *
- * → 200 { store: { name, chain, city, state } | null, prices: { "<fdcId>": { perKg, promoPerKg, description, size, listings } }, asOf }
+ * → 200 { store: { name, chain, city, state } | null, prices: { "<fdcId>": { perKg, promoPerKg, description, size, listings, storeBrand } }, asOf }
+ *
+ * The store's everyday label (Kroger, Heritage Farm, Smart Way...) sets the
+ * price when the store carries one; storeBrand says whether it did.
  *
  * perKg is the store's regular price (the median across what it carries);
  * a sale price comes back as promoPerKg and is not used for the estimate.
@@ -30,7 +33,7 @@ const STORE_TTL = 24 * 60 * 60 * 1000
 /** Foods sold by the count; what one weighs so "12 ct" becomes a weight. */
 const GRAMS_PER_COUNT: Record<string, number> = { '171287': 50, '172184': 50 }
 
-type StorePriceResult = { perKg: number; promoPerKg: number | null; description: string; size: string; listings: number } | null
+type StorePriceResult = { perKg: number; promoPerKg: number | null; description: string; size: string; listings: number; storeBrand: boolean } | null
 const storeCache = new Map<string, { at: number; store: KrogerStore | null }>()
 const priceCache = new Map<string, { at: number; price: StorePriceResult }>()
 

@@ -54,7 +54,7 @@ export async function nearestStore(zip: string): Promise<KrogerStore | null> {
   return { locationId: store.locationId, name: store.name, chain: store.chain, city: store.address?.city ?? '', state: store.address?.state ?? '' }
 }
 
-export type KrogerProduct = { description?: string; items?: { size?: string; price?: { regular?: number; promo?: number } }[] }
+export type KrogerProduct = { description?: string; brand?: string; items?: { size?: string; price?: { regular?: number; promo?: number } }[] }
 
 /** Up to `limit` products matching the words, with that store's prices. */
 export async function searchProducts(term: string, locationId: string, limit = 8): Promise<KrogerProduct[]> {

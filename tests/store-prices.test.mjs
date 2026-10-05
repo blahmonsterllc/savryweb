@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { STORE_SEARCH, packageGrams, perKgFromItem, searchTerm, storePrice } from '../lib/cost/store-prices.mjs'
+import { STORE_SEARCH, isValueBrand, packageGrams, perKgFromItem, searchTerm, storePrice } from '../lib/cost/store-prices.mjs'
 import { describeMultiplier, regionalPrice } from '../lib/cost/regional.mjs'
 import { computeRecipeCost } from '../lib/cost/compute.mjs'
 import { createMatcher } from '../lib/nutrition/compute.mjs'
@@ -67,7 +67,7 @@ test('a listing becomes a regular price per kilogram; a sale rides along but nev
 
 test('the median regular price across the shelf wins, and a wild match is dropped against the regional figure', () => {
   const products = [
-    { description: 'Kroger Chicken Breast', items: [{ size: 'per lb', price: { regular: 3.99, promo: 1.99 } }] },
+    { description: 'Fresh Chicken Breast', items: [{ size: 'per lb', price: { regular: 3.99, promo: 1.99 } }] },
     { description: 'Organic Chicken Breast', items: [{ size: 'per lb', price: { regular: 8.99 } }] },
     { description: 'Chicken Breast Tenders', items: [{ size: '1 lb', price: { regular: 5.49 } }] },
     { description: 'Mystery', items: [{ size: 'each', price: { regular: 1 } }] },
@@ -97,6 +97,30 @@ test('curated searches keep the wrong products out of the median', () => {
   assert.equal(storePrice([{ description: 'Fresh Cut In Store Diced Yellow Onions', items: [{ size: '8 oz', price: { regular: 2.99 } }] }], { require: /\bgarlic\b/i }), null, 'a listing that does not name the food is not it')
   assert.equal(STORE_SEARCH[167747].skip, true, 'lemons are sold by the each: the regional price stands')
   for (const id of Object.keys(STORE_SEARCH)) assert.ok(priceFile.prices[id], `curated search for ${id}, which Savry does not price`)
+})
+
+test('the store\'s everyday label sets the price when the store carries one', () => {
+  const butter = [
+    { brand: 'Kerrygold', description: 'Kerrygold Grass-fed Pure Irish Unsalted Butter Sticks', items: [{ size: '16 oz', price: { regular: 9.99 } }] },
+    { brand: 'Land O Lakes', description: 'Land O Lakes® Unsalted Butter', items: [{ size: '16 oz', price: { regular: 5.99 } }] },
+    { brand: 'Private Selection', description: 'Private Selection® Unsalted European Style Butter', items: [{ size: '8 oz', price: { regular: 4.49 } }] },
+    { brand: 'Kroger', description: 'Kroger® Unsalted Butter Sticks', items: [{ size: '16 oz', price: { regular: 4.49 } }] },
+    { brand: 'Simple Truth Organic', description: 'Simple Truth Organic® Unsalted Butter', items: [{ size: '16 oz', price: { regular: 6.49 } }] },
+  ]
+  const chosen = storePrice(butter)
+  assert.equal(chosen.storeBrand, true)
+  assert.match(chosen.description, /^Kroger/)
+  assert.equal(chosen.perKg, 9.9)
+  assert.equal(chosen.listings, 5, 'every readable listing still counts toward the record')
+  // With no house label on the shelf, the median of everything stands.
+  const branded = storePrice(butter.filter((p) => p.brand !== 'Kroger'))
+  assert.equal(branded.storeBrand, false)
+  assert.match(branded.description, /Simple Truth|Land O Lakes/)
+  // Brand missing from the listing: the name decides; premium and organic house lines are not the budget label.
+  assert.equal(isValueBrand({ description: 'Kroger® Pure Canola Oil' }), true)
+  assert.equal(isValueBrand({ description: 'Heritage Farm Boneless Skinless Chicken Thighs' }), true)
+  assert.equal(isValueBrand({ brand: 'Private Selection', description: 'Private Selection Butter' }), false)
+  assert.equal(isValueBrand({ brand: 'Simple Truth', description: 'Simple Truth Chicken Broth' }), false)
 })
 
 test('each priced food has words to search a store for', () => {

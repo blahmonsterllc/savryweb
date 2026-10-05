@@ -341,6 +341,9 @@ test('price pipeline: quota guarded, costs computed on the server, workflow keep
   assert.match(store, /createHash\('sha256'\)/, 'callers are stored as a hash, never an IP address')
   assert.match(store, /callerAllowed\(req\)/, 'each caller is limited')
   assert.match(store, /prices\[id\] && !STORE_SEARCH/, 'only foods Savry prices are looked up')
+  assert.ok(store.indexOf("!isSavryPlus(req)") > -1 && store.indexOf("!isSavryPlus(req)") < store.indexOf("nearestStore(zip)"), 'store prices are checked for Savry+ before Kroger is asked')
+  assert.match(store, /readSavryPlusPurchase\(signed\)/, 'membership is proven by Apple\'s signature')
+  assert.doesNotMatch(store, /'public, max-age=3600, s-maxage=3600'\)\s*\n\s*return res\.status\(200\)\.json\(\{ store: \{/, 'member answers are never cached publicly')
   assert.doesNotMatch(store, /error\?\.message[^\n]*res\.status/, 'upstream error text never reaches the caller')
 
   const cost = await source('pages/api/recipes/cost.ts')

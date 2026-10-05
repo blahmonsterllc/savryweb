@@ -20,6 +20,11 @@
  * keeps its regional prices. The ZIP is used for the store lookup only and is
  * not stored against anyone, though like any URL it appears in request logs.
  *
+ * Store prices are a Savry+ feature: the app sends Apple's signed copy of
+ * the member's current Savry+ transaction in X-Savry-Plus, verified here
+ * against Apple's root certificate (no Savry account needed). Without a
+ * live membership the answer is 402 and the app keeps its regional prices.
+ *
  * ?explain=1 (admins only) lists what the store returned for one food.
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -31,6 +36,7 @@ import { krogerConfigured, nearestStore, searchProducts, type KrogerProduct, typ
 import { STORE_SEARCH, isValueBrand, packageGrams, searchTerm, storePrice } from '@/lib/cost/store-prices.mjs'
 import { regionalPrice } from '@/lib/cost/regional.mjs'
 import { requireAdmin } from '@/lib/admin-session'
+import { readSavryPlusPurchase } from '@/lib/app-store-membership'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 const MAX_FOODS = 25
@@ -88,6 +94,16 @@ function foodList(raw: unknown): string[] {
   return [...new Set(ids)].filter((id) => prices[id] && !STORE_SEARCH[Number(id)]?.skip).slice(0, MAX_FOODS)
 }
 
+/** True when the request carries Apple's signature for a live Savry+ membership. */
+function isSavryPlus(req: NextApiRequest): boolean {
+  const signed = req.headers['x-savry-plus']
+  if (typeof signed !== 'string' || signed.length > 20_000) return false
+  const result = readSavryPlusPurchase(signed)
+  if ('rejected' in result) return false
+  const { expiresAt, revoked } = result.purchase
+  return !revoked && Date.parse(expiresAt) > Date.now()
+}
+
 function fail(res: NextApiResponse, status: number, error: string) {
   res.setHeader('Cache-Control', 'no-store')
   return res.status(status).json({ error })
@@ -103,6 +119,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const explain = req.query.explain === '1'
   if (explain && !(await requireAdmin(req, res))) return
   if (!explain && !callerAllowed(req)) return fail(res, 429, 'Too many requests; try again later')
+  if (!explain && !isSavryPlus(req)) return fail(res, 402, 'Store prices come with Savry+')
 
   const zip = String(req.query.zip ?? '').trim()
   const region = regionalPrice(zip, regionalTable)
@@ -123,7 +140,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       storeCache.set(zip, { at: Date.now(), store })
     }
     if (!store) {
-      res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600')
+      res.setHeader('Cache-Control', 'private, max-age=3600')
       return res.status(200).json({ store: null, prices: {}, partial: false, asOf: new Date().toISOString() })
     }
 
@@ -173,7 +190,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const price = storePrice(products, { gramsPerCount: GRAMS_PER_COUNT[food], baseline: prices[food].perKg * region.multiplier, exclude: curated?.exclude, require: curated?.require })
       if (price) result[food] = price
     }
-    res.setHeader('Cache-Control', partial ? 'no-store' : 'public, max-age=3600, s-maxage=3600')
+    res.setHeader('Cache-Control', partial ? 'no-store' : 'private, max-age=3600')
     return res.status(200).json({ store: { name: store.name, chain: store.chain, city: store.city, state: store.state }, prices: result, partial, asOf: new Date().toISOString() })
   } catch (error: any) {
     console.error('[prices/store]', error?.message ?? error)

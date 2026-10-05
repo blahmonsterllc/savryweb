@@ -10,6 +10,11 @@ on:
   schedule:
     - cron: '0 14 16 * *'
   workflow_dispatch:
+    inputs:
+      check_push:
+        description: 'Only check that this workflow can push (creates and deletes a throwaway branch)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -24,13 +29,23 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      - name: Check that this workflow can push
+        if: inputs.check_push
+        run: |
+          branch="bls-push-check-${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/${branch}"
+          git push origin --delete "${branch}"
+          echo "push permission confirmed"
       - run: npm ci
+        if: ${{ !inputs.check_push }}
       - name: Pull the latest BLS average prices
+        if: ${{ !inputs.check_push }}
         run: node scripts/cost/refresh-bls.mjs
         env:
           # Optional: a free key from data.bls.gov/registrationEngine raises the daily limit shared runners can hit.
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
       - name: Anything new?
+        if: ${{ !inputs.check_push }}
         id: diff
         run: |
           if git diff --quiet -- content/cost/food-prices.json; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi

@@ -7,13 +7,14 @@
  * POST /api/admin/recipes { id, editorsPick }  true | false
  * POST /api/admin/recipes { id, edit: { title, description, notes, prepTime, cookTime, servings,
  *                                       ingredientsText, stepsText, allergens, dietaryTags } }
- *      revises the recipe (the version before is kept) and recomputes its nutrition and cost
+ *      revises the recipe (the version before is kept) and recomputes its nutrition and cost;
+ *      "## Section" lines and "[timer mm:ss]" in the text keep sections and step timers
  * DELETE /api/admin/recipes?id=<uuid>         removes the recipe and everything attached to it
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/admin-session'
-import { parseIngredientLines, parseInstructionLines } from '@/lib/ingredient-lines.mjs'
+import { parseIngredientSections, parseStepSections } from '@/lib/ingredient-lines.mjs'
 import { nutritionColumns } from '@/lib/nutrition/recipe-nutrition'
 import { costColumns } from '@/lib/cost/recipe-cost'
 
@@ -81,9 +82,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.body?.edit && typeof req.body.edit === 'object') {
     if (!UUID.test(id)) return res.status(400).json({ success: false, error: 'Bad request' })
     const edit = req.body.edit
-    type Parsed = { amount: string; unit: string; name: string; isOptional: boolean }
-    const ingredients = (parseIngredientLines(text(edit.ingredientsText, 20000)).filter(Boolean) as Parsed[]).map((i) => ({ name: i.name, amount: i.amount || null, unit: i.unit || null, isOptional: i.isOptional }))
-    const steps = parseInstructionLines(text(edit.stepsText, 60000))
+    // "## Section" headers and "[timer mm:ss]" ride through the text, so an edit keeps them.
+    const ingredients = parseIngredientSections(text(edit.ingredientsText, 20000)).map((i) => ({ name: i.name, amount: i.amount || null, unit: i.unit || null, isOptional: i.isOptional, section: i.section }))
+    const steps = parseStepSections(text(edit.stepsText, 60000))
     const payload = {
       title: text(edit.title, 120),
       description: text(edit.description, 600),
@@ -96,15 +97,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ingredients,
       steps,
     }
+    const { data: before } = await supabase.from('recipes').select('nutrition_source').eq('id', id).maybeSingle()
     const { data, error } = await supabase.rpc('admin_update_recipe', { target: id, payload })
     if (error) return res.status(400).json({ success: false, error: error.message })
-    // Nutrition and cost from the new ingredients, the same engines as everywhere else.
-    const columns = { ...nutritionColumns(payload.servings, ingredients), ...costColumns(payload.servings, ingredients.map((i, position) => ({ position, name: i.name, amount: i.amount, unit: i.unit, is_optional: i.isOptional }))) }
+    // Nutrition and cost from the new ingredients, the same engines as everywhere else. A cook's
+    // own package-label figures stay when the USDA engine cannot cover the recipe (below 95%);
+    // a computed label that falls below the bar is cleared, since it no longer matches.
+    const nutrition = nutritionColumns(payload.servings, ingredients)
+    const keepLabel = nutrition.nutrition_per_serving === null && (before as { nutrition_source?: string | null } | null)?.nutrition_source === 'package_label'
+    const columns = { ...(keepLabel ? {} : nutrition), ...costColumns(payload.servings, ingredients.map((i, position) => ({ position, name: i.name, amount: i.amount, unit: i.unit, is_optional: i.isOptional }))) }
     const { error: priceError } = await supabase.from('recipes').update(columns).eq('id', id)
     if (priceError) return res.status(500).json({ success: false, error: 'Saved, but nutrition and cost could not be updated' })
     const slug = (data as { slug?: string } | null)?.slug
     await refreshRecipePages(res, slug)
-    return res.status(200).json({ success: true, version: (data as { version?: number } | null)?.version, costPerServing: columns.cost_per_serving, calories: (columns.nutrition_per_serving as { calories?: number } | null)?.calories ?? null })
+    return res.status(200).json({ success: true, version: (data as { version?: number } | null)?.version, costPerServing: columns.cost_per_serving, calories: (nutrition.nutrition_per_serving as { calories?: number } | null)?.calories ?? null, keptLabelNutrition: keepLabel })
   }
   if (typeof req.body?.editorsPick === 'boolean') {
     if (!UUID.test(id)) return res.status(400).json({ success: false, error: 'Bad request' })

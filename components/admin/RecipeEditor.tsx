@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ingredientRowsToText } from '@/lib/ingredient-lines.mjs'
+import { ingredientRowsToText, stepRowsToText } from '@/lib/ingredient-lines.mjs'
 
 const ALLERGENS = ['milk', 'eggs', 'wheat', 'soy', 'peanuts', 'tree nuts', 'fish', 'shellfish', 'sesame']
 const DIETARY = ['vegan', 'vegetarian', 'gluten-free', 'dairy-free', 'nut-free', 'egg-free']
@@ -16,14 +16,18 @@ type Editable = {
   servings: number | null
   allergens: string[]
   dietaryTags: string[]
-  ingredients: { name: string; amount: string | null; unit: string | null; isOptional: boolean }[]
+  ingredients: { name: string; amount: string | null; unit: string | null; isOptional: boolean; section?: string | null }[]
   steps: string[]
+  /** Sections and timers per step; absent before 20261006030000_admin_edit_keeps_sections.sql is applied. */
+  stepDetails?: { instruction: string; section: string | null; timerSeconds: number | null }[]
 }
 
 /**
  * Revise a recipe in admin: text, times, servings, labels, ingredients (one
- * per line, as a cook writes them) and steps (one per line). Saving keeps the
- * previous version and recomputes nutrition and cost on the server.
+ * per line, as a cook writes them) and steps (one per line). "## Section" lines
+ * and a step's "[timer mm:ss]" carry sections and timers through the text, so
+ * an edit does not flatten them. Saving keeps the previous version and
+ * recomputes nutrition and cost on the server.
  */
 export default function RecipeEditor({ recipe, onSaved, onCancel }: { recipe: Editable; onSaved: (message: string) => void; onCancel: () => void }) {
   const [title, setTitle] = useState(recipe.title)
@@ -33,7 +37,7 @@ export default function RecipeEditor({ recipe, onSaved, onCancel }: { recipe: Ed
   const [cookTime, setCookTime] = useState(String(recipe.cookTime ?? 0))
   const [servings, setServings] = useState(String(recipe.servings ?? 1))
   const [ingredientsText, setIngredientsText] = useState(ingredientRowsToText(recipe.ingredients))
-  const [stepsText, setStepsText] = useState(recipe.steps.join('\n'))
+  const [stepsText, setStepsText] = useState(stepRowsToText(recipe.stepDetails ?? recipe.steps))
   const [allergens, setAllergens] = useState<string[]>(recipe.allergens)
   const [dietaryTags, setDietaryTags] = useState<string[]>(recipe.dietaryTags)
   const [busy, setBusy] = useState(false)
@@ -53,7 +57,8 @@ export default function RecipeEditor({ recipe, onSaved, onCancel }: { recipe: Ed
     setBusy(false)
     if (!res.ok || !body.success) return setError(body.error ?? 'Could not save the recipe')
     const cost = typeof body.costPerServing === 'number' ? `$${body.costPerServing.toFixed(2)} a serving` : 'cost not shown (too few ingredients priced)'
-    onSaved(`Saved as version ${body.version}. ${body.calories != null ? `${body.calories} kcal, ` : ''}${cost}.`)
+    const kept = body.keptLabelNutrition ? 'the cook’s package-label nutrition kept, ' : ''
+    onSaved(`Saved as version ${body.version}. ${body.calories != null ? `${body.calories} kcal, ` : kept}${cost}.`)
   }
 
   const field = 'mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-gray-500 focus:outline-none'
@@ -72,10 +77,10 @@ export default function RecipeEditor({ recipe, onSaved, onCancel }: { recipe: Ed
           <label className={label}>Cook (min)<input className={field} inputMode="numeric" value={cookTime} onChange={(e) => setCookTime(e.target.value)} /></label>
           <label className={label}>Servings<input className={field} inputMode="numeric" value={servings} onChange={(e) => setServings(e.target.value)} /></label>
         </div>
-        <label className={label}>Ingredients <span className="font-normal text-gray-500">one per line, e.g. &ldquo;2 cups all-purpose flour (250 g)&rdquo;; add &ldquo;(optional)&rdquo; where it applies</span>
+        <label className={label}>Ingredients <span className="font-normal text-gray-500">one per line, e.g. &ldquo;2 cups all-purpose flour (250 g)&rdquo;; add &ldquo;(optional)&rdquo; where it applies; a &ldquo;## For the sauce&rdquo; line starts a section</span>
           <textarea className={`${field} font-mono`} rows={Math.min(22, Math.max(8, recipe.ingredients.length + 2))} value={ingredientsText} onChange={(e) => setIngredientsText(e.target.value)} />
         </label>
-        <label className={label}>Method <span className="font-normal text-gray-500">one step per line</span>
+        <label className={label}>Method <span className="font-normal text-gray-500">one step per line; &ldquo;## Section&rdquo; lines group steps; end a step with &ldquo;[timer 10:00]&rdquo; for a countdown</span>
           <textarea className={field} rows={Math.min(20, Math.max(6, recipe.steps.length * 2))} value={stepsText} onChange={(e) => setStepsText(e.target.value)} />
         </label>
         <label className={label}>Notes <span className="font-normal text-gray-500">shown under the method, e.g. &ldquo;Can substitute chocolate chips for the raisins.&rdquo;</span>

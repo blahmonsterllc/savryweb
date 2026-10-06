@@ -34,6 +34,7 @@ type Detail = {
   publishedAt: string | null
   ingredients: Ingredient[]
   steps: string[]
+  stepDetails?: { instruction: string; section: string | null; timerSeconds: number | null }[]
 }
 
 const CHECKLIST = [

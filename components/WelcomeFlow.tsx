@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Bookmark, Check, ChefHat } from 'lucide-react'
 import FollowButton from '@/components/FollowButton'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
+import { orderByTaste } from '@/lib/taste-order.mjs'
 
 const CUISINES = ['Italian', 'Mexican', 'Indian', 'Thai', 'Japanese', 'Chinese', 'Korean', 'Vietnamese', 'Middle Eastern', 'Greek', 'French', 'Spanish', 'American', 'Southern', 'Caribbean', 'West African', 'British', 'Vegetarian comfort']
 const DIETS = [
@@ -14,7 +15,7 @@ const DIETS = [
 ] as const
 
 type Cook = { id: string; username: string | null; displayName: string; chefTitle: string | null; avatarUrl: string | null; recipeCount: number }
-type Recipe = { id: string; slug: string; title: string; imageUrl: string | null; category: string | null; totalTime: number; authorName: string; saved: boolean }
+type Recipe = { id: string; slug: string; title: string; imageUrl: string | null; category: string | null; cuisine: string | null; dietaryTags: string[]; totalTime: number; authorName: string; saved: boolean }
 
 function initials(name: string): string {
   return name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase() ?? '').join('') || 'S'
@@ -44,7 +45,8 @@ export default function WelcomeFlow() {
       const [{ data: profile }, { data: suggested }, { data: browse }] = await Promise.all([
         supabase.rpc('my_profile'),
         supabase.rpc('suggested_cooks', { result_limit: 8 }),
-        supabase.rpc('browse_public_recipes', { sort_by: 'popular', result_limit: 9, result_offset: 0 }),
+        // More than are shown, so the picks from step one can choose which come first.
+        supabase.rpc('browse_public_recipes', { sort_by: 'popular', result_limit: 36, result_offset: 0 }),
       ])
       if (!active) return
       setCuisines((profile?.favoriteCuisines as string[] | undefined) ?? [])
@@ -75,6 +77,9 @@ export default function WelcomeFlow() {
     router.push('/feed')
   }
 
+  // The cuisines and diets picked in step one decide which popular recipes are suggested first.
+  const suggestions = useMemo(() => orderByTaste(recipes, { cuisines, diets }).slice(0, 9), [recipes, cuisines, diets])
+
   if (signedIn === false) {
     return (
       <main className="welcome site-shell">
@@ -91,7 +96,7 @@ export default function WelcomeFlow() {
         <span className="eyebrow">Step {step + 1} of 3</span>
         <h1>{step === 0 ? 'What do you like to cook?' : step === 1 ? 'Cooks worth following.' : 'Save a few to start with.'}</h1>
         <p>
-          {step === 0 && 'Pick as many as you like. This shapes what Savry shows you first; it never limits what you can find.'}
+          {step === 0 && 'Pick as many as you like. Recipes that fit come first in the ones we suggest; it never limits what you can find.'}
           {step === 1 && 'Their recipes, what they make, and the tweaks they get accepted will show up on your table.'}
           {step === 2 && 'Saved recipes live on your account page and in the Savry app, the same list in both.'}
         </p>
@@ -143,7 +148,7 @@ export default function WelcomeFlow() {
       {step === 2 && (
         <section className="welcome__step">
           <ul className="welcome-recipes">
-            {recipes.map((recipe) => (
+            {suggestions.map((recipe) => (
               <li key={recipe.id} className={recipe.saved ? 'is-saved' : ''}>
                 <Link href={`/recipes/${recipe.slug}`} target="_blank" rel="noopener">
                   {recipe.imageUrl

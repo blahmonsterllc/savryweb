@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Bell } from 'lucide-react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
+import { NOTIFICATIONS_READ_EVENT } from '@/components/NotificationBell'
 
 type Cook = { username: string | null; displayName: string; avatarUrl: string | null }
 type Item = {
@@ -67,7 +68,11 @@ export default function NotificationsInbox() {
       const list = ((data as { items?: Item[] } | null)?.items ?? [])
       setItems(list)
       // Opening the inbox is reading it.
-      if (list.some((item) => !item.read)) await supabase.rpc('mark_notifications_read')
+      if (list.some((item) => !item.read)) {
+        await supabase.rpc('mark_notifications_read')
+        // The bell counted before this page marked them read; tell it to look again.
+        window.dispatchEvent(new Event(NOTIFICATIONS_READ_EVENT))
+      }
     }
     load().catch((e) => active && setError(e?.message || 'Could not load notifications.'))
     return () => { active = false }

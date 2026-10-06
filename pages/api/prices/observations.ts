@@ -21,7 +21,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const rows: { fdc_id: number; national_per_kg: number | string; state: string }[] = []
   const supabase = getSupabaseAdmin()
   for (let from = 0; ; from += 1000) {
-    const { data, error } = await supabase.from('kroger_price_samples').select('fdc_id, national_per_kg, state').gte('sampled_on', since).range(from, from + 999)
+    const { data, error } = await supabase.from('kroger_price_samples').select('fdc_id, national_per_kg, state').gte('sampled_on', since)
+      // A stable order (the unique id) so pages neither skip nor repeat rows.
+      .order('id', { ascending: true }).range(from, from + 999)
     if (error) {
       console.error('[prices/observations]', error.message)
       res.setHeader('Cache-Control', 'no-store')

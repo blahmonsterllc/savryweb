@@ -78,3 +78,29 @@ test('cached list pages keep the last good copy when the database fails', async 
   assert.match(card, /'costPerServing', case when r\.cost_coverage >= 0\.95 then r\.cost_per_serving end/, 'the 95% bar stays')
   assert.match(card, /revoke all on function public\.recipe_card\(public\.recipes, uuid\) from public, anon, authenticated/)
 })
+
+test('onboarding picks put fitting recipes first without hiding any', async () => {
+  const { orderByTaste } = await import('../lib/taste-order.mjs')
+  const recipes = [
+    { id: 'a', cuisine: 'American', dietaryTags: [] },
+    { id: 'b', cuisine: 'Thai', dietaryTags: ['vegan', 'gluten-free'] },
+    { id: 'c', cuisine: 'Italian', dietaryTags: ['vegan'] },
+    { id: 'd', cuisine: 'Thai', dietaryTags: [] },
+    { id: 'e', cuisine: null, dietaryTags: ['Vegan'] },
+  ]
+  assert.deepEqual(orderByTaste(recipes, { cuisines: ['Thai'], diets: ['vegan'] }).map((r) => r.id), ['b', 'c', 'e', 'd', 'a'])
+  assert.deepEqual(orderByTaste(recipes, {}).map((r) => r.id), ['a', 'b', 'c', 'd', 'e'], 'no picks, no change')
+  assert.equal(orderByTaste(recipes, { cuisines: ['Korean'] }).length, recipes.length, 'nothing is filtered out')
+
+  const welcome = await source('components/WelcomeFlow.tsx')
+  assert.match(welcome, /orderByTaste\(recipes, \{ cuisines, diets \}\)/)
+})
+
+test('the bell refreshes once the inbox marks things read; price samples page in a stable order', async () => {
+  const inbox = await source('components/NotificationsInbox.tsx')
+  assert.ok(inbox.indexOf("rpc('mark_notifications_read')") < inbox.indexOf('dispatchEvent(new Event(NOTIFICATIONS_READ_EVENT))'))
+  const bell = await source('components/NotificationBell.tsx')
+  assert.match(bell, /addEventListener\(NOTIFICATIONS_READ_EVENT, refresh\)/)
+  const observations = await source('pages/api/prices/observations.ts')
+  assert.match(observations, /\.order\('id', \{ ascending: true \}\)\.range\(/)
+})

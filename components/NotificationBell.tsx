@@ -6,7 +6,10 @@ import { useEffect, useState } from 'react'
 import { Bell } from 'lucide-react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
-/** Unread count in the nav. Refreshes on focus and every minute; no sockets. */
+/** Fired by the inbox once it has marked notifications read. */
+export const NOTIFICATIONS_READ_EVENT = 'savry:notifications-read'
+
+/** Unread count in the nav. Refreshes on focus, every minute, and when the inbox marks things read; no sockets. */
 export default function NotificationBell({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname()
   const [unread, setUnread] = useState(0)
@@ -24,10 +27,12 @@ export default function NotificationBell({ onNavigate }: { onNavigate?: () => vo
     refresh()
     const timer = window.setInterval(refresh, 60_000)
     window.addEventListener('focus', refresh)
+    window.addEventListener(NOTIFICATIONS_READ_EVENT, refresh)
     return () => {
       active = false
       window.clearInterval(timer)
       window.removeEventListener('focus', refresh)
+      window.removeEventListener(NOTIFICATIONS_READ_EVENT, refresh)
     }
   }, [pathname])
 

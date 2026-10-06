@@ -10,28 +10,105 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Indian",
-  "tags": ["budget", "meal prep", "lentils", "one pot", "weeknight"],
-  "dietaryTags": ["vegan", "vegetarian", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+  "tags": [
+   "budget",
+   "meal prep",
+   "lentils",
+   "one pot",
+   "weeknight"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "gluten-free",
+   "dairy-free",
+   "nut-free",
+   "egg-free"
+  ],
   "allergens": [],
-  "equipment": ["large saucepan or Dutch oven", "small skillet"],
+  "equipment": [
+   "large saucepan or Dutch oven",
+   "small skillet"
+  ],
   "ovenTemp": null,
   "notes": "Red lentils cook quickly and break down into a thick, creamy stew; brown or green lentils take 35 to 45 minutes and stay whole, which is also fine. Ghee in place of the oil gives a richer tadka but adds milk and makes the dish no longer vegan or dairy-free. A cup of frozen peas or two handfuls of baby spinach can go in for the last 5 minutes of simmering. The dal thickens as it sits; loosen it with hot water when you reheat. Refrigerate leftovers within 2 hours and keep them up to 4 days, or freeze for up to 3 months. Reheat to 165°F, stirring, before serving.",
   "ingredients": [
-   { "amount": "1 1/2", "unit": "cup", "name": "dried split red lentils (300 g), rinsed until the water runs clear" },
-   { "amount": "5", "unit": "cup", "name": "water" },
-   { "amount": "1/2", "unit": "tsp", "name": "ground turmeric" },
-   { "amount": "1", "unit": "tbsp", "name": "tomato paste" },
-   { "amount": "1 1/4", "unit": "tsp", "name": "kosher salt, divided" },
-   { "amount": "3", "unit": "tbsp", "name": "high-heat neutral oil" },
-   { "amount": "1 1/2", "unit": "tsp", "name": "cumin seeds" },
-   { "amount": "1", "unit": null, "name": "large yellow onion, finely chopped" },
-   { "amount": "4", "unit": "clove", "name": "garlic, thinly sliced" },
-   { "amount": "1", "unit": "tbsp", "name": "fresh ginger, minced" },
-   { "amount": "1", "unit": "tsp", "name": "ground coriander" },
-   { "amount": "1/2", "unit": "tsp", "name": "red pepper flakes" },
-   { "amount": "1", "unit": "tbsp", "name": "fresh lemon juice" },
-   { "amount": "2", "unit": "tbsp", "name": "chopped fresh cilantro, for serving", "isOptional": true },
-   { "amount": "3", "unit": "cup", "name": "cooked brown or white rice, for serving" }
+   {
+    "amount": "1 1/2",
+    "unit": "cup",
+    "name": "dried split red lentils (300 g), rinsed until the water runs clear"
+   },
+   {
+    "amount": "5",
+    "unit": "cup",
+    "name": "water"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "ground turmeric"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "tomato paste"
+   },
+   {
+    "amount": "1 1/4",
+    "unit": "tsp",
+    "name": "kosher salt, divided"
+   },
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "high-heat neutral oil"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "tsp",
+    "name": "cumin seeds"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large yellow onion, finely chopped"
+   },
+   {
+    "amount": "4",
+    "unit": "clove",
+    "name": "garlic, thinly sliced"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "fresh ginger, minced"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "ground coriander"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "red pepper flakes"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "fresh lemon juice"
+   },
+   {
+    "amount": "2",
+    "unit": "tbsp",
+    "name": "chopped fresh cilantro, for serving",
+    "isOptional": true
+   },
+   {
+    "amount": "3",
+    "unit": "cup",
+    "name": "cooked brown or white rice, for serving"
+   }
   ],
   "instructions": [
    "Combine the lentils, water, turmeric, and tomato paste in a large saucepan. Bring to a boil over high heat, skim off any foam, then reduce the heat to medium-low and simmer, partly covered and stirring now and then, for 20 to 25 minutes, until the lentils have collapsed and the pot looks like a thick soup. Stir in 1 teaspoon of the salt.",
@@ -53,29 +130,109 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Indian",
-  "tags": ["budget", "meal prep", "beans", "comfort food", "weeknight"],
-  "dietaryTags": ["vegan", "vegetarian", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+  "tags": [
+   "budget",
+   "meal prep",
+   "beans",
+   "comfort food",
+   "weeknight"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "gluten-free",
+   "dairy-free",
+   "nut-free",
+   "egg-free"
+  ],
   "allergens": [],
-  "equipment": ["Dutch oven or large saucepan", "medium saucepan with lid"],
+  "equipment": [
+   "Dutch oven or large saucepan",
+   "medium saucepan with lid"
+  ],
   "ovenTemp": null,
   "notes": "The deeply golden onion is the whole flavor base, so give it the full 10 to 12 minutes. To cut the cost further, soak 1 cup (200 g) dried kidney beans overnight, then boil them in fresh water for about 1 hour until fully tender before adding them in place of the canned beans; dried kidney beans must be fully cooked, never eaten soaked and raw. A spoonful of plain yogurt on the side is traditional but adds milk. Rajma tastes better the next day as the beans soak up the gravy. Refrigerate within 2 hours; the curry keeps 4 days in the refrigerator and freezes well for 3 months, while the rice is best kept separately and used within 3 days. Reheat everything to 165°F, adding a splash of water to the curry.",
   "ingredients": [
-   { "amount": "1 1/2", "unit": "cup", "name": "basmati rice (300 g), rinsed until the water runs mostly clear" },
-   { "amount": "2 1/4", "unit": "cup", "name": "water, for the rice" },
-   { "amount": "1 1/2", "unit": "tsp", "name": "kosher salt, divided" },
-   { "amount": "3", "unit": "tbsp", "name": "high-heat neutral oil" },
-   { "amount": "1", "unit": "tsp", "name": "cumin seeds" },
-   { "amount": "1", "unit": null, "name": "large yellow onion, finely chopped" },
-   { "amount": "4", "unit": "clove", "name": "garlic, minced" },
-   { "amount": "1", "unit": "tbsp", "name": "fresh ginger, minced" },
-   { "amount": "1 1/2", "unit": "tsp", "name": "ground coriander" },
-   { "amount": "1/2", "unit": "tsp", "name": "ground turmeric" },
-   { "amount": "1/2", "unit": "tsp", "name": "cayenne pepper" },
-   { "amount": "1 1/2", "unit": "cup", "name": "crushed tomatoes" },
-   { "amount": "2", "unit": "can", "name": "kidney beans (15 oz each), drained and rinsed" },
-   { "amount": "1 1/2", "unit": "cup", "name": "water, for the curry" },
-   { "amount": "1", "unit": "tsp", "name": "garam masala" },
-   { "amount": "3", "unit": "tbsp", "name": "chopped fresh cilantro" }
+   {
+    "amount": "1 1/2",
+    "unit": "cup",
+    "name": "basmati rice (300 g), rinsed until the water runs mostly clear"
+   },
+   {
+    "amount": "2 1/4",
+    "unit": "cup",
+    "name": "water, for the rice"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "tsp",
+    "name": "kosher salt, divided"
+   },
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "high-heat neutral oil"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "cumin seeds"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large yellow onion, finely chopped"
+   },
+   {
+    "amount": "4",
+    "unit": "clove",
+    "name": "garlic, minced"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "fresh ginger, minced"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "tsp",
+    "name": "ground coriander"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "ground turmeric"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "cayenne pepper"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "cup",
+    "name": "crushed tomatoes"
+   },
+   {
+    "amount": "2",
+    "unit": "can",
+    "name": "kidney beans (15 oz each), drained and rinsed"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "cup",
+    "name": "water, for the curry"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "garam masala"
+   },
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "chopped fresh cilantro"
+   }
   ],
   "instructions": [
    "Start the rice. Combine the rice, 2 1/4 cups water, and 1/2 teaspoon of the salt in a medium saucepan and bring to a boil over high heat. Cover, reduce the heat to the lowest setting, and cook for 15 minutes. Take it off the heat and leave it covered for 10 minutes, then fluff with a fork.",
@@ -97,29 +254,109 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Indian",
-  "tags": ["budget", "eggs", "weeknight", "comfort food", "gluten-free"],
-  "dietaryTags": ["vegetarian", "gluten-free", "dairy-free", "nut-free"],
-  "allergens": ["eggs"],
-  "equipment": ["medium saucepan with lid", "12-inch skillet with lid"],
+  "tags": [
+   "budget",
+   "eggs",
+   "weeknight",
+   "comfort food",
+   "gluten-free"
+  ],
+  "dietaryTags": [
+   "vegetarian",
+   "gluten-free",
+   "dairy-free",
+   "nut-free"
+  ],
+  "allergens": [
+   "eggs"
+  ],
+  "equipment": [
+   "medium saucepan with lid",
+   "12-inch skillet with lid"
+  ],
   "ovenTemp": null,
   "notes": "Frying the peeled eggs with turmeric gives them blistered golden spots and a skin that holds the gravy; skip it if you are short on time and simply add the eggs at the end. The coconut milk rounds out the heat; leave it out and use an extra 1/2 cup water for a sharper, leaner curry. Ghee in place of the oil is traditional but adds milk. Boiled eggs for later meals keep 1 week in the refrigerator in their shells. Refrigerate the curry within 2 hours and use within 3 days; it does not freeze well because the egg whites turn rubbery. Reheat gently to 165°F, covered, so the eggs warm through without overcooking.",
   "ingredients": [
-   { "amount": "8", "unit": null, "name": "large egg" },
-   { "amount": "3", "unit": "tbsp", "name": "high-heat neutral oil, divided" },
-   { "amount": "1/2", "unit": "tsp", "name": "ground turmeric, divided" },
-   { "amount": "1 1/4", "unit": "tsp", "name": "kosher salt, divided" },
-   { "amount": "1", "unit": null, "name": "large yellow onion, finely chopped" },
-   { "amount": "4", "unit": "clove", "name": "garlic, minced" },
-   { "amount": "1", "unit": "tbsp", "name": "fresh ginger, minced" },
-   { "amount": "1", "unit": "tsp", "name": "ground cumin" },
-   { "amount": "1 1/2", "unit": "tsp", "name": "ground coriander" },
-   { "amount": "1/4", "unit": "tsp", "name": "cayenne pepper" },
-   { "amount": "1 1/4", "unit": "cup", "name": "crushed tomatoes" },
-   { "amount": "1", "unit": "cup", "name": "water" },
-   { "amount": "1/2", "unit": "cup", "name": "full-fat coconut milk" },
-   { "amount": "1/2", "unit": "tsp", "name": "garam masala" },
-   { "amount": "3", "unit": "tbsp", "name": "chopped fresh cilantro" },
-   { "amount": "3", "unit": "cup", "name": "cooked brown or white rice, for serving" }
+   {
+    "amount": "8",
+    "unit": null,
+    "name": "large egg"
+   },
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "high-heat neutral oil, divided"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "ground turmeric, divided"
+   },
+   {
+    "amount": "1 1/4",
+    "unit": "tsp",
+    "name": "kosher salt, divided"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large yellow onion, finely chopped"
+   },
+   {
+    "amount": "4",
+    "unit": "clove",
+    "name": "garlic, minced"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "fresh ginger, minced"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "ground cumin"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "tsp",
+    "name": "ground coriander"
+   },
+   {
+    "amount": "1/4",
+    "unit": "tsp",
+    "name": "cayenne pepper"
+   },
+   {
+    "amount": "1 1/4",
+    "unit": "cup",
+    "name": "crushed tomatoes"
+   },
+   {
+    "amount": "1",
+    "unit": "cup",
+    "name": "water"
+   },
+   {
+    "amount": "1/2",
+    "unit": "cup",
+    "name": "full-fat coconut milk"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "garam masala"
+   },
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "chopped fresh cilantro"
+   },
+   {
+    "amount": "3",
+    "unit": "cup",
+    "name": "cooked brown or white rice, for serving"
+   }
   ],
   "instructions": [
    "Put the eggs in a medium saucepan, cover with cold water by an inch, and bring to a boil over high heat. Cover, take the pan off the heat, and let stand 11 minutes. Move the eggs to a bowl of ice water for 5 minutes, then peel and pat dry.",
@@ -142,20 +379,66 @@
   "difficulty": "Medium",
   "category": "Dinner",
   "cuisine": "Spanish",
-  "tags": ["budget", "eggs", "make ahead", "gluten-free", "skillet"],
-  "dietaryTags": ["vegetarian", "gluten-free", "dairy-free", "nut-free"],
-  "allergens": ["eggs"],
-  "equipment": ["10-inch nonstick skillet", "large flat plate or pot lid wider than the skillet", "colander and large bowl"],
+  "tags": [
+   "budget",
+   "eggs",
+   "make ahead",
+   "gluten-free",
+   "skillet"
+  ],
+  "dietaryTags": [
+   "vegetarian",
+   "gluten-free",
+   "dairy-free",
+   "nut-free"
+  ],
+  "allergens": [
+   "eggs"
+  ],
+  "equipment": [
+   "10-inch nonstick skillet",
+   "large flat plate or pot lid wider than the skillet",
+   "colander and large bowl"
+  ],
   "ovenTemp": null,
   "notes": "The potatoes should poach in the oil at a lazy bubble rather than fry, so lower the heat if they start to brown. Strain and refrigerate the leftover oil; it is good for the next tortilla or for roasting vegetables within 2 weeks. If you are nervous about the flip, cook the first side as directed, then slide the skillet under a broiler for 2 to 3 minutes until the top is set. A spoonful of mayonnaise or a few roasted red peppers on the side are classic. The tortilla is cooked when the center reaches 160°F. Refrigerate within 2 hours and keep up to 3 days; eat cold, at room temperature within 2 hours of taking it out, or reheat to 165°F. It does not freeze well because the potatoes turn grainy.",
   "ingredients": [
-   { "amount": "1 1/2", "unit": "lb", "name": "russet or yukon gold potatoes, peeled, halved lengthwise, and sliced 1/8 inch thick" },
-   { "amount": "1", "unit": null, "name": "large yellow onion, halved and thinly sliced" },
-   { "amount": "2/3", "unit": "cup", "name": "extra-virgin olive oil" },
-   { "amount": "1 1/4", "unit": "tsp", "name": "kosher salt, divided" },
-   { "amount": "8", "unit": null, "name": "large egg" },
-   { "amount": null, "unit": null, "name": "freshly ground black pepper" },
-   { "amount": "3", "unit": "cup", "name": "baby greens, for serving", "isOptional": true }
+   {
+    "amount": "1 1/2",
+    "unit": "lb",
+    "name": "russet or yukon gold potatoes, peeled, halved lengthwise, and sliced 1/8 inch thick"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large yellow onion, halved and thinly sliced"
+   },
+   {
+    "amount": "2/3",
+    "unit": "cup",
+    "name": "extra-virgin olive oil"
+   },
+   {
+    "amount": "1 1/4",
+    "unit": "tsp",
+    "name": "kosher salt, divided"
+   },
+   {
+    "amount": "8",
+    "unit": null,
+    "name": "large egg"
+   },
+   {
+    "amount": null,
+    "unit": null,
+    "name": "freshly ground black pepper"
+   },
+   {
+    "amount": "3",
+    "unit": "cup",
+    "name": "baby greens, for serving",
+    "isOptional": true
+   }
   ],
   "instructions": [
    "Heat the oil in a 10-inch nonstick skillet over medium heat. Add the potatoes, onion, and 3/4 teaspoon of the salt and stir to coat. Cook, stirring every few minutes and adjusting the heat so the oil barely bubbles without browning anything, for 20 to 25 minutes, until the potatoes are tender and break easily when pressed with a spoon.",
@@ -178,30 +461,116 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Cuban",
-  "tags": ["budget", "beans", "meal prep", "gluten-free", "weeknight"],
-  "dietaryTags": ["vegan", "vegetarian", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+  "tags": [
+   "budget",
+   "beans",
+   "meal prep",
+   "gluten-free",
+   "weeknight"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "gluten-free",
+   "dairy-free",
+   "nut-free",
+   "egg-free"
+  ],
   "allergens": [],
-  "equipment": ["Dutch oven or large saucepan", "medium saucepan with lid"],
+  "equipment": [
+   "Dutch oven or large saucepan",
+   "medium saucepan with lid"
+  ],
   "ovenTemp": null,
   "notes": "Using the liquid from the cans gives the beans body; if your cans are heavily salted, drain one and add 1/2 cup more water. For the lowest cost, cook 1 pound of dried black beans from scratch (soak overnight, simmer 1 to 1 1/2 hours until tender), which makes about twice this amount for the same price as the cans. Apple cider vinegar works in place of red wine vinegar. A fried egg on top makes a bigger meal but adds eggs. Refrigerate within 2 hours; the beans keep 4 days and freeze for 3 months, and the rice keeps 3 days. Reheat to 165°F with a splash of water.",
   "ingredients": [
-   { "amount": "2", "unit": "cup", "name": "long grain white rice (370 g), rinsed" },
-   { "amount": "3", "unit": "cup", "name": "water, for the rice" },
-   { "amount": "1 3/4", "unit": "tsp", "name": "kosher salt, divided" },
-   { "amount": "3", "unit": "tbsp", "name": "extra-virgin olive oil" },
-   { "amount": "1", "unit": null, "name": "large yellow onion, finely chopped" },
-   { "amount": "1", "unit": null, "name": "green bell pepper, finely chopped" },
-   { "amount": "5", "unit": "clove", "name": "garlic, minced" },
-   { "amount": "2", "unit": "tsp", "name": "ground cumin" },
-   { "amount": "1 1/2", "unit": "tsp", "name": "dried oregano" },
-   { "amount": "1", "unit": null, "name": "bay leaf" },
-   { "amount": "2", "unit": "can", "name": "black beans (15 oz each), not drained" },
-   { "amount": "1/2", "unit": "cup", "name": "water, for the beans" },
-   { "amount": "1", "unit": "tsp", "name": "granulated sugar" },
-   { "amount": "1", "unit": "tbsp", "name": "red wine vinegar" },
-   { "amount": null, "unit": null, "name": "freshly ground black pepper" },
-   { "amount": "1/4", "unit": "cup", "name": "chopped fresh cilantro, for serving", "isOptional": true },
-   { "amount": "1", "unit": null, "name": "lime, cut into wedges, for serving", "isOptional": true }
+   {
+    "amount": "2",
+    "unit": "cup",
+    "name": "long grain white rice (370 g), rinsed"
+   },
+   {
+    "amount": "3",
+    "unit": "cup",
+    "name": "water, for the rice"
+   },
+   {
+    "amount": "1 3/4",
+    "unit": "tsp",
+    "name": "kosher salt, divided"
+   },
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "extra-virgin olive oil"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large yellow onion, finely chopped"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "green bell pepper, finely chopped"
+   },
+   {
+    "amount": "5",
+    "unit": "clove",
+    "name": "garlic, minced"
+   },
+   {
+    "amount": "2",
+    "unit": "tsp",
+    "name": "ground cumin"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "tsp",
+    "name": "dried oregano"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "bay leaf"
+   },
+   {
+    "amount": "2",
+    "unit": "can",
+    "name": "black beans (15 oz each), not drained"
+   },
+   {
+    "amount": "1/2",
+    "unit": "cup",
+    "name": "water, for the beans"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "granulated sugar"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "red wine vinegar"
+   },
+   {
+    "amount": null,
+    "unit": null,
+    "name": "freshly ground black pepper"
+   },
+   {
+    "amount": "1/4",
+    "unit": "cup",
+    "name": "chopped fresh cilantro, for serving",
+    "isOptional": true
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "lime, cut into wedges, for serving",
+    "isOptional": true
+   }
   ],
   "instructions": [
    "Combine the rice, 3 cups water, and 1/2 teaspoon of the salt in a medium saucepan and bring to a boil over high heat. Cover, reduce the heat to the lowest setting, and cook for 15 minutes. Take it off the heat and leave it covered for 10 minutes, then fluff with a fork.",
@@ -223,28 +592,104 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Ethiopian-inspired",
-  "tags": ["budget", "vegetables", "one pot", "gluten-free", "weeknight"],
-  "dietaryTags": ["vegan", "vegetarian", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+  "tags": [
+   "budget",
+   "vegetables",
+   "one pot",
+   "gluten-free",
+   "weeknight"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "gluten-free",
+   "dairy-free",
+   "nut-free",
+   "egg-free"
+  ],
   "allergens": [],
-  "equipment": ["large Dutch oven with lid"],
+  "equipment": [
+   "large Dutch oven with lid"
+  ],
   "ovenTemp": null,
   "notes": "This is a mild dish by design; the jalapeño adds a gentle warmth and can be left out or doubled. Ethiopian cooks often use niter kibbeh, a spiced clarified butter, in place of the oil, which is delicious but adds milk. The pot will look overfull when the cabbage goes in; it collapses to a third of its volume within minutes. Serve with injera if you can find it, or with rice or flatbread, and pair it with a lentil stew for a fuller plate. Refrigerate within 2 hours and keep up to 4 days; it freezes for 2 months, though the cabbage softens further. Reheat to 165°F in a covered pan with a splash of water.",
   "ingredients": [
-   { "amount": "1/4", "unit": "cup", "name": "extra-virgin olive oil" },
-   { "amount": "1", "unit": null, "name": "large yellow onion, halved and thinly sliced" },
-   { "amount": "1 1/4", "unit": "tsp", "name": "kosher salt, divided" },
-   { "amount": "4", "unit": "clove", "name": "garlic, minced" },
-   { "amount": "1", "unit": "tbsp", "name": "fresh ginger, minced" },
-   { "amount": "1 1/2", "unit": "tsp", "name": "ground turmeric" },
-   { "amount": "1", "unit": "tsp", "name": "ground cumin" },
-   { "amount": "1/4", "unit": "tsp", "name": "ground cardamom" },
-   { "amount": "4", "unit": null, "name": "carrot, peeled and cut into 2-inch sticks (about 3/4 lb)" },
-   { "amount": "1 1/4", "unit": "lb", "name": "russet or yukon gold potatoes, peeled and cut into 1 1/2-inch chunks" },
-   { "amount": "1/2", "unit": "cup", "name": "water" },
-   { "amount": "1 1/2", "unit": "lb", "name": "green cabbage, cored and cut into 1-inch-wide strips (about half a large head)" },
-   { "amount": "1", "unit": null, "name": "jalapeño, halved lengthwise", "isOptional": true },
-   { "amount": null, "unit": null, "name": "freshly ground black pepper" },
-   { "amount": "3", "unit": "cup", "name": "cooked brown or white rice, for serving" }
+   {
+    "amount": "1/4",
+    "unit": "cup",
+    "name": "extra-virgin olive oil"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large yellow onion, halved and thinly sliced"
+   },
+   {
+    "amount": "1 1/4",
+    "unit": "tsp",
+    "name": "kosher salt, divided"
+   },
+   {
+    "amount": "4",
+    "unit": "clove",
+    "name": "garlic, minced"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "fresh ginger, minced"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "tsp",
+    "name": "ground turmeric"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "ground cumin"
+   },
+   {
+    "amount": "1/4",
+    "unit": "tsp",
+    "name": "ground cardamom"
+   },
+   {
+    "amount": "4",
+    "unit": null,
+    "name": "carrot, peeled and cut into 2-inch sticks (about 3/4 lb)"
+   },
+   {
+    "amount": "1 1/4",
+    "unit": "lb",
+    "name": "russet or yukon gold potatoes, peeled and cut into 1 1/2-inch chunks"
+   },
+   {
+    "amount": "1/2",
+    "unit": "cup",
+    "name": "water"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "lb",
+    "name": "green cabbage, cored and cut into 1-inch-wide strips (about half a large head)"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "jalapeño, halved lengthwise",
+    "isOptional": true
+   },
+   {
+    "amount": null,
+    "unit": null,
+    "name": "freshly ground black pepper"
+   },
+   {
+    "amount": "3",
+    "unit": "cup",
+    "name": "cooked brown or white rice, for serving"
+   }
   ],
   "instructions": [
    "Heat the oil in a large Dutch oven over medium heat. Add the onion and 1/4 teaspoon of the salt and cook, stirring often, for 8 minutes, until soft and lightly golden.",
@@ -258,7 +703,7 @@
  {
   "slug": "japanese-tofu-potato-simmer-nikujaga-style",
   "title": "Japanese-Inspired Tofu and Potato Simmer (Nikujaga Style)",
-  "description": "Pan-browned tofu, potatoes, carrots, and onion simmer in a sweet-salty tamari and mirin broth until the potatoes soak it up, the way nikujaga is made with beef. With rice, about $1.50 a bowl.",
+  "description": "Pan-browned tofu, potatoes, carrots, and onion simmer in a sweet-salty tamari and mirin broth until the potatoes soak it up, the way nikujaga is made with beef. With rice, about $2.50 a bowl.",
   "imageURL": null,
   "prepTime": 20,
   "cookTime": 40,
@@ -266,28 +711,107 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Japanese-inspired",
-  "tags": ["budget", "tofu", "one pot", "weeknight", "gluten-free"],
-  "dietaryTags": ["vegan", "vegetarian", "gluten-free", "dairy-free", "nut-free", "egg-free"],
-  "allergens": ["soy"],
-  "equipment": ["wide Dutch oven or 12-inch deep skillet with lid", "medium saucepan with lid"],
+  "tags": [
+   "budget",
+   "tofu",
+   "one pot",
+   "weeknight",
+   "gluten-free"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "gluten-free",
+   "dairy-free",
+   "nut-free",
+   "egg-free"
+  ],
+  "allergens": [
+   "soy"
+  ],
+  "equipment": [
+   "wide Dutch oven or 12-inch deep skillet with lid",
+   "medium saucepan with lid"
+  ],
   "ovenTemp": null,
   "notes": "Pressing the tofu for 15 minutes between paper towels under a heavy plate lets it brown instead of steam; for a crisper edge, toss the cubes in 1 tablespoon cornstarch before frying. Regular low-sodium soy sauce can stand in for the tamari but adds wheat, so the dish would no longer be gluten-free. Frozen green beans or a handful of sliced mushrooms can go in with the potatoes. The broth is meant to be light and plentiful; spoon some over the rice. Refrigerate within 2 hours and keep up to 3 days; it does not freeze well because the potatoes turn grainy. Reheat to 165°F, covered, over low heat.",
   "ingredients": [
-   { "amount": "1 1/2", "unit": "cup", "name": "japanese short-grain rice (300 g), rinsed until the water runs mostly clear" },
-   { "amount": "1 3/4", "unit": "cup", "name": "water, for the rice" },
-   { "amount": "14", "unit": "oz", "name": "extra-firm tofu, drained, pressed 15 minutes, and cut into 1-inch cubes" },
-   { "amount": "1/2", "unit": "tsp", "name": "kosher salt" },
-   { "amount": "2", "unit": "tbsp", "name": "high-heat neutral oil" },
-   { "amount": "1", "unit": null, "name": "large yellow onion, cut into 1/2-inch wedges" },
-   { "amount": "2", "unit": null, "name": "carrot, peeled and cut into 1/2-inch chunks" },
-   { "amount": "1 1/4", "unit": "lb", "name": "russet or yukon gold potatoes, peeled and cut into 1 1/2-inch chunks" },
-   { "amount": "2", "unit": "cup", "name": "low sodium vegetable broth" },
-   { "amount": "3", "unit": "tbsp", "name": "gluten-free tamari" },
-   { "amount": "2", "unit": "tbsp", "name": "mirin" },
-   { "amount": "1", "unit": "tbsp", "name": "granulated sugar" },
-   { "amount": "1", "unit": "tbsp", "name": "fresh ginger, cut into thin matchsticks" },
-   { "amount": "1", "unit": "cup", "name": "frozen peas" },
-   { "amount": "2", "unit": null, "name": "scallion, thinly sliced, for serving", "isOptional": true }
+   {
+    "amount": "1 1/2",
+    "unit": "cup",
+    "name": "japanese short-grain rice (300 g), rinsed until the water runs mostly clear"
+   },
+   {
+    "amount": "1 3/4",
+    "unit": "cup",
+    "name": "water, for the rice"
+   },
+   {
+    "amount": "14",
+    "unit": "oz",
+    "name": "extra-firm tofu, drained, pressed 15 minutes, and cut into 1-inch cubes"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "kosher salt"
+   },
+   {
+    "amount": "2",
+    "unit": "tbsp",
+    "name": "high-heat neutral oil"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large yellow onion, cut into 1/2-inch wedges"
+   },
+   {
+    "amount": "2",
+    "unit": null,
+    "name": "carrot, peeled and cut into 1/2-inch chunks"
+   },
+   {
+    "amount": "1 1/4",
+    "unit": "lb",
+    "name": "russet or yukon gold potatoes, peeled and cut into 1 1/2-inch chunks"
+   },
+   {
+    "amount": "2",
+    "unit": "cup",
+    "name": "low sodium vegetable broth"
+   },
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "gluten-free tamari"
+   },
+   {
+    "amount": "2",
+    "unit": "tbsp",
+    "name": "mirin"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "granulated sugar"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "fresh ginger, cut into thin matchsticks"
+   },
+   {
+    "amount": "1",
+    "unit": "cup",
+    "name": "frozen peas"
+   },
+   {
+    "amount": "2",
+    "unit": null,
+    "name": "scallion, thinly sliced, for serving",
+    "isOptional": true
+   }
   ],
   "instructions": [
    "Put the rice and 1 3/4 cups water in a medium saucepan and let it soak for 20 minutes while you prepare the vegetables. Bring to a boil over high heat, cover, reduce the heat to the lowest setting, and cook for 13 minutes. Take it off the heat and leave it covered for 10 minutes.",
@@ -309,27 +833,102 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Mexican",
-  "tags": ["budget", "beans", "gluten-free", "weeknight", "40-minute"],
-  "dietaryTags": ["vegan", "vegetarian", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+  "tags": [
+   "budget",
+   "beans",
+   "gluten-free",
+   "weeknight",
+   "40-minute"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "gluten-free",
+   "dairy-free",
+   "nut-free",
+   "egg-free"
+  ],
   "allergens": [],
-  "equipment": ["medium saucepan", "blender or immersion blender", "10-inch skillet", "tongs"],
+  "equipment": [
+   "medium saucepan",
+   "blender or immersion blender",
+   "10-inch skillet",
+   "tongs"
+  ],
   "ovenTemp": null,
   "notes": "Black beans work just as well as pinto. One chipotle gives a mild, smoky heat; use two for a spicier sauce or leave it out for children and add 1/2 teaspoon smoked paprika instead. Crumbled feta or queso fresco on top is traditional but adds milk, and a fried egg on top adds eggs. The sauce should be the thickness of thin pancake batter so it coats the tortillas without soaking through them. Store leftover sauce separately; it keeps 4 days refrigerated and freezes for 3 months, and it doubles as a soup thinned with broth. Assembled enfrijoladas soften as they sit, so refrigerate within 2 hours, eat within 2 days, and reheat to 165°F covered in a skillet with a spoonful of sauce.",
   "ingredients": [
-   { "amount": "2", "unit": "tbsp", "name": "high-heat neutral oil, divided" },
-   { "amount": "1", "unit": null, "name": "yellow onion, chopped" },
-   { "amount": "3", "unit": "clove", "name": "garlic, smashed" },
-   { "amount": "1", "unit": "tsp", "name": "ground cumin" },
-   { "amount": "1/2", "unit": "tsp", "name": "dried oregano" },
-   { "amount": "2", "unit": "can", "name": "pinto beans (15 oz each), drained and rinsed" },
-   { "amount": "1", "unit": null, "name": "chipotle peppers in adobo, plus 2 teaspoons of the sauce" },
-   { "amount": "1 1/2", "unit": "cup", "name": "low sodium vegetable broth" },
-   { "amount": "3/4", "unit": "tsp", "name": "kosher salt" },
-   { "amount": "12", "unit": null, "name": "corn tortillas" },
-   { "amount": "1/2", "unit": null, "name": "medium red onions, thinly sliced, for serving" },
-   { "amount": "1/3", "unit": "cup", "name": "chopped fresh cilantro, for serving" },
-   { "amount": "1", "unit": null, "name": "lime, cut into wedges, for serving" },
-   { "amount": "1", "unit": null, "name": "ripe avocado, sliced, for serving", "isOptional": true }
+   {
+    "amount": "2",
+    "unit": "tbsp",
+    "name": "high-heat neutral oil, divided"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "yellow onion, chopped"
+   },
+   {
+    "amount": "3",
+    "unit": "clove",
+    "name": "garlic, smashed"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "ground cumin"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "dried oregano"
+   },
+   {
+    "amount": "2",
+    "unit": "can",
+    "name": "pinto beans (15 oz each), drained and rinsed"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "chipotle peppers in adobo, plus 2 teaspoons of the sauce"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "cup",
+    "name": "low sodium vegetable broth"
+   },
+   {
+    "amount": "3/4",
+    "unit": "tsp",
+    "name": "kosher salt"
+   },
+   {
+    "amount": "12",
+    "unit": null,
+    "name": "corn tortillas"
+   },
+   {
+    "amount": "1/2",
+    "unit": null,
+    "name": "medium red onions, thinly sliced, for serving"
+   },
+   {
+    "amount": "1/3",
+    "unit": "cup",
+    "name": "chopped fresh cilantro, for serving"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "lime, cut into wedges, for serving"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "ripe avocado, sliced, for serving",
+    "isOptional": true
+   }
   ],
   "instructions": [
    "Heat 1 tablespoon of the oil in a medium saucepan over medium heat. Add the yellow onion and cook, stirring, for 5 minutes, until soft. Stir in the garlic, cumin, and oregano and cook 1 minute, until fragrant.",
@@ -343,7 +942,7 @@
  {
   "slug": "tuscan-style-white-beans-kale-garlic-toast",
   "title": "Tuscan-Style White Beans and Kale on Garlic Toast",
-  "description": "Cannellini beans and kale stewed with garlic, rosemary, and olive oil until brothy and soft, ladled over thick garlic-rubbed toast. Two cans of beans and a bunch of kale make four bowls for about $1.50 each.",
+  "description": "Cannellini beans and kale stewed with garlic, rosemary, and olive oil until brothy and soft, ladled over thick garlic-rubbed toast. Two cans of beans and a bunch of kale make four bowls for about $2.50 each.",
   "imageURL": null,
   "prepTime": 15,
   "cookTime": 30,
@@ -351,25 +950,90 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Italian",
-  "tags": ["budget", "beans", "greens", "weeknight", "one pot"],
-  "dietaryTags": ["vegan", "vegetarian", "dairy-free", "nut-free", "egg-free"],
-  "allergens": ["wheat"],
-  "equipment": ["Dutch oven or large saucepan", "broiler pan or 12-inch skillet"],
+  "tags": [
+   "budget",
+   "beans",
+   "greens",
+   "weeknight",
+   "one pot"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "dairy-free",
+   "nut-free",
+   "egg-free"
+  ],
+  "allergens": [
+   "wheat"
+  ],
+  "equipment": [
+   "Dutch oven or large saucepan",
+   "broiler pan or 12-inch skillet"
+  ],
   "ovenTemp": null,
   "notes": "Collard greens, Swiss chard, or green cabbage can replace the kale; collards need about 10 minutes more simmering. A shower of grated parmesan on top is classic but adds milk. Use a gluten-free loaf, or skip the toast and serve over rice, to make the dish gluten-free. The bean liquid from the cans gives the broth body; if you prefer, drain the beans and use 1/2 cup more vegetable broth. Day-old bread toasts better than fresh. Refrigerate the beans within 2 hours and keep up to 4 days, or freeze for 3 months; make the toast fresh each time. Reheat the beans to 165°F with a splash of broth or water.",
   "ingredients": [
-   { "amount": "1/4", "unit": "cup", "name": "extra-virgin olive oil, plus more for drizzling" },
-   { "amount": "6", "unit": "clove", "name": "garlic, 5 thinly sliced and 1 left whole" },
-   { "amount": "1/2", "unit": "tsp", "name": "red pepper flakes" },
-   { "amount": "1", "unit": null, "name": "large yellow onion, finely chopped" },
-   { "amount": "1", "unit": "sprig", "name": "fresh rosemary" },
-   { "amount": "1", "unit": "tsp", "name": "kosher salt, divided" },
-   { "amount": "1", "unit": "bunch", "name": "lacinato or curly kale (about 10 oz), stems removed, leaves torn into 2-inch pieces" },
-   { "amount": "2", "unit": "can", "name": "cannellini beans (15 oz each), not drained" },
-   { "amount": "1 1/2", "unit": "cup", "name": "low sodium vegetable broth" },
-   { "amount": "1", "unit": "tbsp", "name": "fresh lemon juice" },
-   { "amount": null, "unit": null, "name": "freshly ground black pepper" },
-   { "amount": "4", "unit": "slice", "name": "stale crusty country bread, cut 1 inch thick" }
+   {
+    "amount": "1/4",
+    "unit": "cup",
+    "name": "extra-virgin olive oil, plus more for drizzling"
+   },
+   {
+    "amount": "6",
+    "unit": "clove",
+    "name": "garlic, 5 thinly sliced and 1 left whole"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "red pepper flakes"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large yellow onion, finely chopped"
+   },
+   {
+    "amount": "1",
+    "unit": "sprig",
+    "name": "fresh rosemary"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "kosher salt, divided"
+   },
+   {
+    "amount": "1",
+    "unit": "bunch",
+    "name": "lacinato or curly kale (about 10 oz), stems removed, leaves torn into 2-inch pieces"
+   },
+   {
+    "amount": "2",
+    "unit": "can",
+    "name": "cannellini beans (15 oz each), not drained"
+   },
+   {
+    "amount": "1 1/2",
+    "unit": "cup",
+    "name": "low sodium vegetable broth"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "fresh lemon juice"
+   },
+   {
+    "amount": null,
+    "unit": null,
+    "name": "freshly ground black pepper"
+   },
+   {
+    "amount": "4",
+    "unit": "slice",
+    "name": "stale crusty country bread, cut 1 inch thick"
+   }
   ],
   "instructions": [
    "Heat the oil in a Dutch oven over medium-low heat. Add the sliced garlic and red pepper flakes and cook, stirring, for 2 to 3 minutes, until the garlic is barely golden and fragrant; do not let it brown.",
@@ -391,29 +1055,115 @@
   "difficulty": "Easy",
   "category": "Dinner",
   "cuisine": "Korean-inspired",
-  "tags": ["budget", "vegetables", "skillet", "weeknight", "meatless"],
-  "dietaryTags": ["vegan", "vegetarian", "dairy-free", "nut-free", "egg-free"],
-  "allergens": ["wheat", "soy", "sesame"],
-  "equipment": ["10-inch nonstick or cast-iron skillet", "large bowl", "wide spatula", "wire rack"],
+  "tags": [
+   "budget",
+   "vegetables",
+   "skillet",
+   "weeknight",
+   "meatless"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "dairy-free",
+   "nut-free",
+   "egg-free"
+  ],
+  "allergens": [
+   "wheat",
+   "soy",
+   "sesame"
+  ],
+  "equipment": [
+   "10-inch nonstick or cast-iron skillet",
+   "large bowl",
+   "wide spatula",
+   "wire rack"
+  ],
   "ovenTemp": null,
   "notes": "The batter should be thin, like heavy cream, and ice-cold water keeps the pancakes crisp rather than bready; mix just until smooth. Any firm vegetable cut thin works: zucchini, frozen corn, thinly sliced mushrooms, or a handful of chopped kimchi in place of the cabbage. For a gluten-free version, use a gluten-free flour blend and gluten-free tamari in the sauce. Leftover pancakes keep 3 days in the refrigerator and 2 months in the freezer layered between parchment; reheat them in a dry skillet over medium heat so they crisp again, since the microwave makes them soft. Refrigerate within 2 hours and reheat to 165°F. Serve two pancakes as a main with rice and a quick cucumber salad, or cut them small as an appetizer.",
   "ingredients": [
-   { "amount": "3", "unit": "tbsp", "name": "low-sodium soy sauce" },
-   { "amount": "1", "unit": "tbsp", "name": "unseasoned rice vinegar" },
-   { "amount": "1", "unit": "tsp", "name": "toasted sesame oil" },
-   { "amount": "1", "unit": "tsp", "name": "toasted sesame seed" },
-   { "amount": "1/2", "unit": "tsp", "name": "granulated sugar" },
-   { "amount": "1/4", "unit": "tsp", "name": "red pepper flakes", "isOptional": true },
-   { "amount": "1", "unit": null, "name": "scallion, thinly sliced, for the sauce" },
-   { "amount": "1", "unit": "cup", "name": "all-purpose flour (125 g)" },
-   { "amount": "3", "unit": "tbsp", "name": "cornstarch" },
-   { "amount": "3/4", "unit": "tsp", "name": "kosher salt" },
-   { "amount": "1", "unit": "cup", "name": "water, ice cold" },
-   { "amount": "1", "unit": "bunch", "name": "scallion, cut into 2-inch lengths, thick white parts halved lengthwise" },
-   { "amount": "1", "unit": null, "name": "large carrot, cut into thin matchsticks" },
-   { "amount": "2", "unit": "cup", "name": "green cabbage, very thinly sliced (about 1/4 small head)" },
-   { "amount": "1/2", "unit": null, "name": "yellow onion, thinly sliced" },
-   { "amount": "1/4", "unit": "cup", "name": "high-heat neutral oil, for frying" }
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "low-sodium soy sauce"
+   },
+   {
+    "amount": "1",
+    "unit": "tbsp",
+    "name": "unseasoned rice vinegar"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "toasted sesame oil"
+   },
+   {
+    "amount": "1",
+    "unit": "tsp",
+    "name": "toasted sesame seed"
+   },
+   {
+    "amount": "1/2",
+    "unit": "tsp",
+    "name": "granulated sugar"
+   },
+   {
+    "amount": "1/4",
+    "unit": "tsp",
+    "name": "red pepper flakes",
+    "isOptional": true
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "scallion, thinly sliced, for the sauce"
+   },
+   {
+    "amount": "1",
+    "unit": "cup",
+    "name": "all-purpose flour (125 g)"
+   },
+   {
+    "amount": "3",
+    "unit": "tbsp",
+    "name": "cornstarch"
+   },
+   {
+    "amount": "3/4",
+    "unit": "tsp",
+    "name": "kosher salt"
+   },
+   {
+    "amount": "1",
+    "unit": "cup",
+    "name": "water, ice cold"
+   },
+   {
+    "amount": "1",
+    "unit": "bunch",
+    "name": "scallion, cut into 2-inch lengths, thick white parts halved lengthwise"
+   },
+   {
+    "amount": "1",
+    "unit": null,
+    "name": "large carrot, cut into thin matchsticks"
+   },
+   {
+    "amount": "2",
+    "unit": "cup",
+    "name": "green cabbage, very thinly sliced (about 1/4 small head)"
+   },
+   {
+    "amount": "1/2",
+    "unit": null,
+    "name": "yellow onion, thinly sliced"
+   },
+   {
+    "amount": "1/4",
+    "unit": "cup",
+    "name": "high-heat neutral oil, for frying"
+   }
   ],
   "instructions": [
    "Make the dipping sauce by stirring together the soy sauce, rice vinegar, sesame oil, sesame seeds, sugar, red pepper flakes, and the sliced scallion in a small bowl. Set aside.",

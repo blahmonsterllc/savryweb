@@ -3567,5 +3567,35 @@
     "fdcId": 170918,
     "cupGrams": 107,
     "basis": "USDA \"Spices, caraway seed\": 1 tsp = 2.1 g, 1 tbsp = 6.7 g (107 g per cup)"
+  },
+  {
+    "phrases": [
+      "bone-in, skin-on turkey thigh",
+      "bone-in skin-on turkey thigh",
+      "turkey thighs",
+      "turkey thigh"
+    ],
+    "fdcId": 171533,
+    "eachGrams": 554,
+    "edible": 0.82,
+    "basis": "USDA portion: 1 thigh with skin = 454 g edible; bone is about 18% of a bone-in thigh (as for chicken), so about 554 g as bought and 0.82 edible"
+  },
+  {
+    "phrases": [
+      "fava beans",
+      "fava bean",
+      "broad beans",
+      "foul medames"
+    ],
+    "fdcId": 173754,
+    "cupGrams": 256,
+    "unitGrams": {
+      "can": 425
+    },
+    "drainedCan": {
+      "grams": 255,
+      "ofOz": 15
+    },
+    "basis": "USDA \"Broadbeans (fava beans), mature seeds, canned\" (solids and liquid): 1 cup = 256 g; a 15 oz can holds about 425 g and drains to about 255 g"
   }
 ]

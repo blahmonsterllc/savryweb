@@ -839,6 +839,11 @@
    "blsSeries": "APU0000706111",
    "blsPeriod": "2026-08"
   },
+  "171533": {
+   "perKg": 6.6,
+   "basis": "est",
+   "description": "Turkey, retail parts, thigh, meat and skin, raw"
+  },
   "171583": {
    "perKg": 3.2,
    "basis": "est",
@@ -1141,6 +1146,11 @@
    "perKg": 11,
    "basis": "est",
    "description": "Fish, tuna, light, canned in water, drained solids"
+  },
+  "173754": {
+   "perKg": 3.9,
+   "basis": "est",
+   "description": "Broadbeans (fava beans), mature seeds, canned"
   },
   "173758": {
    "perKg": 3.95,

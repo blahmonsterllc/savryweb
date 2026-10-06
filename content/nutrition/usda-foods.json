@@ -2220,6 +2220,20 @@
     "sugar": 0
    }
   },
+  "171533": {
+   "description": "Turkey, retail parts, thigh, meat and skin, raw",
+   "per100g": {
+    "protein": 19.54,
+    "fiber": 0,
+    "sodium": 75,
+    "cholesterol": 83,
+    "saturatedFat": 2.386,
+    "fat": 9.16,
+    "carbohydrates": 0,
+    "calories": 161,
+    "sugar": 0
+   }
+  },
   "171583": {
    "description": "Soup, vegetable broth, ready to serve",
    "per100g": {
@@ -3033,6 +3047,19 @@
     "sodium": 247,
     "fiber": 0,
     "carbohydrates": 0
+   }
+  },
+  "173754": {
+   "description": "Broadbeans (fava beans), mature seeds, canned",
+   "per100g": {
+    "fiber": 3.7,
+    "cholesterol": 0,
+    "protein": 5.47,
+    "saturatedFat": 0.037,
+    "sodium": 453,
+    "fat": 0.22,
+    "carbohydrates": 12.41,
+    "calories": 71
    }
   },
   "173758": {

@@ -380,3 +380,13 @@ test('the Kroger sampler is a protected cron and its samples are readable only i
   const migration = await source('supabase/migrations/20261005030000_kroger_price_samples.sql')
   assert.match(migration, /revoke all on public\.kroger_price_samples from public, anon, authenticated/)
 })
+
+test('recipe edits in admin are admin-only, server-priced, and keep the previous version', async () => {
+  const api = await source('pages/api/admin/recipes.ts')
+  assert.ok(api.indexOf('requireAdmin(req, res)') < api.indexOf("rpc('admin_update_recipe'"), 'the admin session is checked before any edit')
+  assert.match(api, /nutritionColumns\(/)
+  assert.match(api, /costColumns\(/)
+  const migration = await source('supabase/migrations/20261005040000_admin_edit_recipe.sql')
+  assert.match(migration, /insert into public\.recipe_versions/, 'the version before the edit is kept')
+  assert.match(migration, /revoke all on function public\.admin_update_recipe\(uuid, jsonb\) from public, anon, authenticated/)
+})

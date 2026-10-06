@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
+import RecipeEditor from '@/components/admin/RecipeEditor'
 
 type Ingredient = { section: string | null; name: string; amount: string | null; unit: string | null; isOptional: boolean }
 type Detail = {
@@ -53,6 +54,8 @@ export default function AdminRecipeReviewPage() {
   const [busy, setBusy] = useState(false)
   const [confirmingDelete, setConfirmingDelete] = useState(false)
   const [checked, setChecked] = useState<Set<number>>(new Set())
+  const [editing, setEditing] = useState(false)
+  const [saved, setSaved] = useState<string | null>(null)
 
   const load = useCallback(async () => {
     if (!id) return
@@ -114,8 +117,20 @@ export default function AdminRecipeReviewPage() {
           <h1 className="mt-2 text-3xl font-bold text-gray-900">{recipe.title}</h1>
           <p className="mt-1 text-sm text-gray-500">by {recipe.authorName} · {[recipe.category, recipe.cuisine, recipe.difficulty].filter(Boolean).join(' · ')}</p>
         </div>
-        {recipe.visibility === 'public' && <a href={`/recipes/${recipe.slug}`} target="_blank" rel="noreferrer" className="text-sm font-semibold text-gray-700 hover:underline">View live ↗</a>}
+        <div className="flex items-center gap-4">
+          {!editing && <button type="button" onClick={() => { setEditing(true); setSaved(null) }} className="rounded-full px-4 py-1.5 text-sm font-semibold text-gray-800 ring-1 ring-gray-300 hover:bg-gray-50">Edit</button>}
+          {recipe.visibility === 'public' && <a href={`/recipes/${recipe.slug}`} target="_blank" rel="noreferrer" className="text-sm font-semibold text-gray-700 hover:underline">View live ↗</a>}
+        </div>
       </div>
+
+      {saved && <p className="mt-4 rounded-xl bg-green-50 p-3 text-sm text-green-900">{saved}</p>}
+      {editing && (
+        <RecipeEditor
+          recipe={recipe}
+          onCancel={() => setEditing(false)}
+          onSaved={(message) => { setEditing(false); setSaved(message); load() }}
+        />
+      )}
 
       {recipe.description && <p className="mt-4 text-lg text-gray-700">{recipe.description}</p>}
 

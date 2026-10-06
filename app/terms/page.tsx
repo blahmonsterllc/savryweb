@@ -87,7 +87,7 @@ export default function TermsOfService() {
           <li>The yearly plan may begin with a free trial where Apple offers one. If you do not cancel at least 24 hours before the trial ends, the yearly price is charged when it ends. A free trial is available once per Apple ID.</li>
           <li>Your membership renews automatically each month or year at the then-current price unless you cancel at least 24 hours before the end of the current period. Manage or cancel it in your App Store subscription settings; deleting the app does not cancel a subscription.</li>
           <li>Refunds are handled by Apple under App Store policies; Savry cannot issue App Store refunds directly.</li>
-          <li>Member features include weekly meal plans built around a grocery budget and your pantry, prices scaled to where you shop, unlimited imports in the app, and expanded on-device recipe help. Recipe costs are estimates from average and store prices; actual prices vary by store and week. Your membership follows your Savry account.</li>
+          <li>Member features include weekly meal plans built around a grocery budget and your pantry, prices scaled to your area, unlimited imports in the app, and expanded on-device recipe help. Recipe costs are estimates from average and store prices; actual prices vary by store and week. Your membership follows your Savry account.</li>
           <li>If we change the price, Apple will notify you and ask for your agreement before the change applies to you.</li>
         </ul>
       </section>

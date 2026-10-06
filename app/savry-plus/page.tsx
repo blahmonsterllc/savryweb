@@ -6,14 +6,14 @@ import PlusCallToAction from '@/components/PlusCallToAction'
 
 export const metadata: Metadata = {
   title: 'Savry+ Membership',
-  description: 'Savry+ plans your week of meals under a grocery budget, using what is already in your kitchen and prices where you shop. $4.99 a month or $29.99 a year, with a free week to start.',
+  description: 'Savry+ plans your week of meals under a grocery budget, using what is already in your kitchen and prices for your area. $4.99 a month or $29.99 a year, with a free week to start.',
   alternates: { canonical: `${SITE_URL}/savry-plus` },
 }
 
 const plusFeatures = [
   'Plan the week under a grocery budget: meal plans built from your own recipes that stay within what you want to spend',
   'Cook from what you already have: plans lean on your pantry first, so the shopping list is shorter',
-  'Prices where you shop: costs scaled to your state, with shelf prices from your nearest Kroger-family store where there is one',
+  'Priced to your area: costs scaled to your state, with shelf prices from your nearest Kroger-family store where there is one',
   'Unlimited recipe imports from websites and social posts, and on-device recipe help that never sends your data anywhere',
 ]
 
@@ -30,7 +30,7 @@ export default function SavryPlusPage() {
         <div className="plus-hero__copy">
           <span className="eyebrow">Savry+ membership</span>
           <h1>Plan the week. Know what it costs.</h1>
-          <p>Set what you want to spend on groceries, tell Savry what is already in the kitchen, and get a week of meals from your own recipes that fits. Every recipe shows its cost per serving, priced where you shop. Prices are estimates, so your store will differ a little; the plan still keeps you close. Food restrictions stay in your control and are never guessed.</p>
+          <p>Set what you want to spend on groceries, tell Savry what is already in the kitchen, and get a week of meals from your own recipes that fits. Every recipe shows its cost per serving, priced to your area. Prices are estimates, so your store will differ a little. Food restrictions stay in your control and are never guessed.</p>
           <div className="plus-hero__actions">
             <span className="plus-price"><strong>$29.99</strong><span>per year</span></span>
             <span className="plus-badge">First 7 days free</span>

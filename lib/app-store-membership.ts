@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { AppStoreSignatureError, membershipFromTransaction, verifyAppStoreJWS } from '@/lib/app-store-jws.mjs'
+import { AppStoreSignatureError, OTHER_ACCOUNT, claimableFromFormerAccount, membershipFromTransaction, verifyAppStoreJWS } from '@/lib/app-store-jws.mjs'
 
 /** The products that make someone a Savry+ member, as sold by the iOS app (one subscription group). */
 export const SAVRY_PLUS_PURCHASE = {
@@ -29,4 +29,21 @@ export function readSavryPlusPurchase(signedTransaction: unknown, userId?: strin
     if (error instanceof AppStoreSignatureError) return { rejected: error.message }
     throw error
   }
+}
+
+/**
+ * For a purchase refused because it was bought under another Savry account:
+ * the purchase, when that account has since been deleted (see
+ * claimableFromFormerAccount for why this is safe), or the same refusal when
+ * it still exists or cannot be checked.
+ */
+export async function readPurchaseFromDeletedAccount(
+  signedTransaction: unknown,
+  accountExists: (userId: string) => Promise<boolean>,
+): Promise<{ purchase: VerifiedPurchase } | { rejected: string }> {
+  const read = readSavryPlusPurchase(signedTransaction)
+  if ('rejected' in read) return read
+  const token = read.purchase.appAccountToken
+  const exists = token ? await accountExists(token).catch(() => null) : null
+  return claimableFromFormerAccount(read.purchase, exists) ? read : { rejected: OTHER_ACCOUNT }
 }

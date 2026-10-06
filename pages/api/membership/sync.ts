@@ -8,7 +8,8 @@
  *
  * The transaction is trusted only because Apple signed it: the signature and
  * certificate chain are checked here before anything is stored. A purchase
- * already linked to another Savry account is refused.
+ * already linked to another Savry account is refused, and so is one bought
+ * under another account id unless that account has been deleted.
  *
  * → 200 { member, status, currentPeriodEnd }
  *   400 { member: false, error }   not a valid Savry+ purchase
@@ -16,7 +17,8 @@
  *   409 { member: false, error }   purchase belongs to another Savry account
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { readSavryPlusPurchase } from '@/lib/app-store-membership'
+import { readPurchaseFromDeletedAccount, readSavryPlusPurchase } from '@/lib/app-store-membership'
+import { OTHER_ACCOUNT } from '@/lib/app-store-jws.mjs'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -35,7 +37,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // The app attaches the buyer's Savry account id to the purchase; a transaction
   // carrying a different id is refused here. One purchase links to one account.
-  const result = readSavryPlusPurchase(req.body?.signedTransaction, userData.user.id)
+  let result = readSavryPlusPurchase(req.body?.signedTransaction, userData.user.id)
+  // Except when that account has been deleted: then the subscription it still
+  // pays for may move to the account asking (lib/app-store-jws.mjs explains why
+  // that is safe). An account that still exists keeps its purchase.
+  if ('rejected' in result && result.rejected === OTHER_ACCOUNT) {
+    result = await readPurchaseFromDeletedAccount(req.body?.signedTransaction, async (formerId) => {
+      const { data: profile, error } = await supabase.from('profiles').select('id').eq('id', formerId).maybeSingle()
+      if (error) throw error
+      if (profile) return true
+      const { data: auth, error: authError } = await supabase.auth.admin.getUserById(formerId)
+      if (auth?.user) return true
+      // Only a definite "no such user" counts as gone; any other failure refuses.
+      if (authError && (authError as { status?: number }).status !== 404) throw authError
+      return false
+    })
+  }
   if ('rejected' in result) return res.status(400).json({ member: false, error: result.rejected })
 
   const { data, error } = await supabase.rpc('record_app_store_membership', { target_user: userData.user.id, purchase: result.purchase })

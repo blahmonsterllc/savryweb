@@ -109,3 +109,24 @@ test('only a live Savry+ purchase for this app and this member becomes a members
   assert.equal(refunded.revoked, true)
   assert.ok(Date.parse(refunded.expiresAt) < Date.now(), 'a refunded purchase is over')
 })
+
+test('a purchase bought under a deleted account can move to a new account; one whose account exists never can', async () => {
+  const { claimableFromFormerAccount, OTHER_ACCOUNT } = await import('../lib/app-store-jws.mjs')
+  const former = { appAccountToken: '11111111-2222-3333-4444-555555555555' }
+  assert.equal(claimableFromFormerAccount(former, false), true, 'the old account is gone')
+  assert.equal(claimableFromFormerAccount(former, true), false, 'the old account still exists')
+  assert.equal(claimableFromFormerAccount(former, null), false, 'a lookup that failed refuses')
+  assert.equal(claimableFromFormerAccount(former, undefined), false)
+  assert.equal(claimableFromFormerAccount({ appAccountToken: 'not-a-uuid' }, false), false)
+  assert.equal(claimableFromFormerAccount({ appAccountToken: null }, false), false)
+
+  const { readFile } = await import('node:fs/promises')
+  const sync = await readFile(new URL('../pages/api/membership/sync.ts', import.meta.url), 'utf8')
+  assert.match(sync, /result\.rejected === OTHER_ACCOUNT/, 'only the other-account refusal is reconsidered')
+  assert.match(sync, /from\('profiles'\)\.select\('id'\)\.eq\('id', formerId\)/, 'the old profile is checked')
+  assert.match(sync, /auth\.admin\.getUserById\(formerId\)/, 'and the old sign-in account')
+  assert.match(sync, /target_user: userData\.user\.id/, 'still only ever linked to the caller')
+  const membership = await readFile(new URL('../lib/app-store-membership.ts', import.meta.url), 'utf8')
+  assert.match(membership, /\.catch\(\(\) => null\)/, 'a failed lookup counts as "exists"')
+  assert.equal(OTHER_ACCOUNT, 'This purchase was made for a different Savry account')
+})

@@ -687,6 +687,7 @@ function AccountSection({ profile, onSignOut }: { profile: Profile; onSignOut: (
       <div className="settings-danger">
         <h3>Delete your account</h3>
         <p>Removes your Savry account, every recipe you published, and your comments, tweaks, and photos. Recipes saved in the Savry app on your phone are not affected. This cannot be undone.</p>
+        <p>Savry+ is billed by Apple and is not cancelled by this; cancel it in your iPhone&rsquo;s Subscriptions if you want it to stop. If you keep it, sign in to a new Savry account in the app and the subscription links to that account.</p>
         {confirming ? (
           <div className="settings-danger__confirm">
             <label>

@@ -26,6 +26,17 @@ const labels = (value: unknown) =>
     : []
 const whole = (value: unknown) => Math.max(0, Math.round(Number(value) || 0))
 
+/** Recipe pages are cached; a hidden or deleted recipe must leave them now, not in 5 minutes. */
+async function refreshRecipePages(res: NextApiResponse, slug: string | null | undefined) {
+  const paths = ['/recipes', '/', ...(slug ? [`/recipes/${slug}`] : [])]
+  await Promise.all(paths.map((path) => res.revalidate(path).catch(() => undefined)))
+}
+
+async function slugFor(supabase: ReturnType<typeof getSupabaseAdmin>, id: string): Promise<string | null> {
+  const { data } = await supabase.from('recipes').select('slug').eq('id', id).maybeSingle()
+  return (data as { slug?: string } | null)?.slug ?? null
+}
+
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -52,10 +63,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'DELETE') {
     const id = typeof req.query.id === 'string' ? req.query.id : ''
     if (!UUID.test(id)) return res.status(400).json({ success: false, error: 'Bad request' })
+    const slug = await slugFor(supabase, id)
     const { data, error } = await supabase.rpc('admin_delete_recipe', { target: id })
     if (error) return res.status(400).json({ success: false, error: error.message })
     const imagePath = (data as { imagePath?: string | null } | null)?.imagePath
     if (imagePath) await supabase.storage.from('recipe-images').remove([imagePath]).catch(() => undefined)
+    await refreshRecipePages(res, slug)
     return res.status(200).json({ success: true, deleted: (data as { deleted?: boolean } | null)?.deleted === true })
   }
 
@@ -90,7 +103,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { error: priceError } = await supabase.from('recipes').update(columns).eq('id', id)
     if (priceError) return res.status(500).json({ success: false, error: 'Saved, but nutrition and cost could not be updated' })
     const slug = (data as { slug?: string } | null)?.slug
-    if (slug) await res.revalidate(`/recipes/${slug}`).catch(() => undefined)
+    await refreshRecipePages(res, slug)
     return res.status(200).json({ success: true, version: (data as { version?: number } | null)?.version, costPerServing: columns.cost_per_serving, calories: (columns.nutrition_per_serving as { calories?: number } | null)?.calories ?? null })
   }
   if (typeof req.body?.editorsPick === 'boolean') {
@@ -103,5 +116,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!UUID.test(id) || !['public', 'unlisted', 'private'].includes(visibility)) return res.status(400).json({ success: false, error: 'Bad request' })
   const { error } = await supabase.rpc('admin_set_recipe_visibility', { target: id, new_visibility: visibility })
   if (error) return res.status(400).json({ success: false, error: error.message })
+  await refreshRecipePages(res, await slugFor(supabase, id))
   return res.status(200).json({ success: true })
 }

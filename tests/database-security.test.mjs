@@ -258,3 +258,23 @@ test('members cannot read other members\' tier, email preference or terms date',
     assert.match(source, /rpc\('my_profile'\)/)
   }
 })
+
+test('counts are taken back down when rows are deleted, by triggers clients cannot call', async () => {
+  const migration = await readFile(new URL('../supabase/migrations/20261006000000_counts_on_delete.sql', import.meta.url), 'utf8')
+  for (const [table, fn] of [['profile_follows', 'recount_follows_on_delete'], ['recipe_saves', 'recount_saves_on_delete'], ['contribution_likes', 'recount_likes_on_delete'], ['collection_items', 'recount_collection_on_delete'], ['contributions', 'uncount_contribution_on_delete']]) {
+    assert.match(migration, new RegExp(`after delete on public\\.${table}\\s+for each row execute function public\\.${fn}\\(\\)`), `${table} deletes keep counts right`)
+    assert.match(migration, new RegExp(`revoke all on function public\\.${fn}\\(\\) from public, anon, authenticated`))
+    const body = migration.slice(migration.indexOf(`function public.${fn}()`))
+    assert.match(body.slice(0, body.indexOf('$$')), /security definer set search_path = ''/)
+  }
+  assert.match(migration, /greatest\(made_count - 1, 0\)/, 'additive counts never go below zero')
+  assert.doesNotMatch(migration, /raise exception/, 'a count trigger must never block a deletion cascade')
+})
+
+test('the feed dates accepted tweaks by when they were accepted, never by updated_at', async () => {
+  const migration = await readFile(new URL('../supabase/migrations/20261006010000_feed_stable_tweak_time.sql', import.meta.url), 'utf8')
+  const tweaks = migration.slice(migration.indexOf('-- A suggested tweak the author accepted'), migration.indexOf('), page as'))
+  assert.doesNotMatch(tweaks, /c\.updated_at/)
+  assert.match(tweaks, /v\.contribution_id = c\.id\), c\.created_at\)/)
+  assert.match(migration, /grant execute on function public\.home_feed\(text, integer, integer\) to anon, authenticated, service_role/)
+})

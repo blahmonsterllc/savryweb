@@ -22,6 +22,7 @@ test('a recipe change refreshes its page, the lists, and its cook\'s page', () =
   assert.deepEqual(recipePagePaths({ slug: 'lemon-bars', username: 'ann.cooks' }), ['/recipes/lemon-bars', '/recipes', '/', '/cooks/ann.cooks'])
   assert.deepEqual(recipePagePaths({ slug: null, username: null }), ['/recipes', '/'])
   assert.deepEqual(recipePagePaths({ slug: '../admin', username: 'a/b' }), ['/recipes', '/'], 'nothing odd is revalidated')
+  assert.deepEqual(recipePagePaths({ slug: 'lemon-bars', username: 'ann.cooks' }, { lists: false }), ['/recipes/lemon-bars', '/cooks/ann.cooks'], 'member-called refreshes skip the list pages')
 })
 
 test('member delete and refresh routes verify the caller and touch only what is theirs', async () => {

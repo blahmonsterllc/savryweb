@@ -74,6 +74,6 @@ export async function removeOwnPhotos(userId: string, paths: Iterable<unknown>):
 }
 
 /** Refreshes the cached pages that show a recipe, so a change shows at once rather than in five minutes. */
-export async function refreshRecipePages(res: NextApiResponse, recipe: { slug?: string | null; username?: string | null }) {
-  await Promise.all(recipePagePaths(recipe).map((path) => res.revalidate(path).catch(() => undefined)))
+export async function refreshRecipePages(res: NextApiResponse, recipe: { slug?: string | null; username?: string | null }, options: { lists?: boolean } = {}) {
+  await Promise.all(recipePagePaths(recipe, options).map((path) => res.revalidate(path).catch(() => undefined)))
 }

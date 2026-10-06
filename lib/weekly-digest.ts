@@ -126,48 +126,75 @@ async function sendBatch(messages: { to: string; subject: string; html: string; 
 }
 
 /**
- * Sends this week's email to everyone who has not had it. Idempotent: each
- * cook gets at most one per week, quiet weeks are recorded as skipped.
+ * Sends this week's email to everyone who has not had it, a page of
+ * recipients at a time, until nobody is left or `deadline` (a Date.now()
+ * value) is near. Each cook gets at most one per week: a cook is marked as
+ * sent before their message goes out (and re-marked failed if Resend refuses
+ * the batch), so a run that is cut off mid-batch can miss a message but never
+ * send one twice. The next run picks up whoever is left; `complete` says
+ * whether anyone is. Quiet weeks are recorded as skipped.
+ *
+ * A dry run reads one page and sends and records nothing.
  */
-export async function sendWeeklyDigests(options: { dryRun?: boolean; limit?: number } = {}): Promise<{ configured: boolean; week: string; sent: number; skipped: number; failed: number; errors: string[] }> {
+export async function sendWeeklyDigests(options: { dryRun?: boolean; pageSize?: number; deadline?: number } = {}): Promise<{ configured: boolean; week: string; sent: number; skipped: number; failed: number; errors: string[]; complete: boolean }> {
   const week = weekStart()
-  const result = { configured: isEmailConfigured(), week, sent: 0, skipped: 0, failed: 0, errors: [] as string[] }
+  const result = { configured: isEmailConfigured(), week, sent: 0, skipped: 0, failed: 0, errors: [] as string[], complete: false }
   if (!result.configured && !options.dryRun) return result
 
   const supabase = getSupabaseAdmin()
   const since = new Date(Date.now() - 7 * 86_400_000)
-  const { data, error } = await supabase.rpc('digest_recipients', { week_start: week, batch_size: options.limit ?? 100 })
-  if (error) throw new Error(error.message)
-  const recipients = (data as Recipient[] | null) ?? []
+  const pageSize = Math.min(Math.max(options.pageSize ?? 100, 1), 500)
+  const deadline = options.deadline ?? Number.POSITIVE_INFINITY
+  const seen = new Set<string>()
 
-  const outgoing: { userId: string; to: string; subject: string; html: string; text: string; unsubscribe: string }[] = []
-  for (const recipient of recipients) {
-    const digest = await buildDigest(recipient.userId, since)
-    if (!digest || !hasContent(digest)) {
-      result.skipped += 1
-      if (!options.dryRun) await supabase.rpc('record_digest_send', { target: recipient.userId, week_start: week, send_status: 'skipped' })
-      continue
+  while (Date.now() < deadline) {
+    // Everyone recorded this week (sent, skipped or failed) drops out of the
+    // next page, so each page is new people and the loop ends.
+    const { data, error } = await supabase.rpc('digest_recipients', { week_start: week, batch_size: pageSize })
+    if (error) throw new Error(error.message)
+    const recipients = ((data as Recipient[] | null) ?? []).filter((r) => !seen.has(r.userId))
+    if (!recipients.length) {
+      // Nobody new: everyone is done (or a record did not stick, and the next run tries again).
+      result.complete = !(data as Recipient[] | null)?.length
+      break
     }
-    const unsubscribe = unsubscribeLink(recipient.emailToken)
-    outgoing.push({ userId: recipient.userId, to: recipient.email, unsubscribe, ...renderDigest(digest, unsubscribe) })
-  }
+    recipients.forEach((r) => seen.add(r.userId))
 
-  if (options.dryRun) {
-    result.sent = outgoing.length
-    return result
-  }
-
-  // Resend takes up to 100 messages per batch call.
-  for (let i = 0; i < outgoing.length; i += 100) {
-    const chunk = outgoing.slice(i, i + 100)
-    const sent = await sendBatch(chunk)
-    for (const message of chunk) {
-      await supabase.rpc('record_digest_send', { target: message.userId, week_start: week, send_status: sent.ok ? 'sent' : 'failed' })
+    const outgoing: { userId: string; to: string; subject: string; html: string; text: string; unsubscribe: string }[] = []
+    for (const recipient of recipients) {
+      const digest = await buildDigest(recipient.userId, since)
+      if (!digest || !hasContent(digest)) {
+        result.skipped += 1
+        if (!options.dryRun) {
+          const { error: skipError } = await supabase.rpc('record_digest_send', { target: recipient.userId, week_start: week, send_status: 'skipped' })
+          if (skipError) throw new Error(`Could not record a skip: ${skipError.message}`)
+        }
+        continue
+      }
+      const unsubscribe = unsubscribeLink(recipient.emailToken)
+      outgoing.push({ userId: recipient.userId, to: recipient.email, unsubscribe, ...renderDigest(digest, unsubscribe) })
     }
-    if (sent.ok) result.sent += chunk.length
-    else {
-      result.failed += chunk.length
-      result.errors.push(sent.error ?? 'send failed')
+
+    if (options.dryRun) {
+      result.sent += outgoing.length
+      result.complete = recipients.length < pageSize
+      break
+    }
+
+    // Resend takes up to 100 messages per batch call.
+    for (let i = 0; i < outgoing.length; i += 100) {
+      const chunk = outgoing.slice(i, i + 100)
+      // Marked first: a run that dies after Resend accepts the batch must not send it again.
+      const marked = await Promise.all(chunk.map((message) => supabase.rpc('record_digest_send', { target: message.userId, week_start: week, send_status: 'sent' })))
+      const markError = marked.find((m) => m.error)?.error
+      if (markError) throw new Error(`Could not record sends: ${markError.message}`)
+      const sent = await sendBatch(chunk)
+      if (sent.ok) result.sent += chunk.length
+      else {
+        for (const message of chunk) await supabase.rpc('record_digest_send', { target: message.userId, week_start: week, send_status: 'failed' })
+        result.failed += chunk.length
+        result.errors.push(sent.error ?? 'send failed')
+      }
     }
   }
   return result

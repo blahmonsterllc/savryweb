@@ -10,7 +10,7 @@
     },
     {
       "path": "/api/cron/weekly-email",
-      "schedule": "0 15 * * 0"
+      "schedule": "0 15,17,19 * * 0"
     },
     {
       "path": "/api/cron/recost",

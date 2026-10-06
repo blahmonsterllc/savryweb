@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const token = (profile?.email_token as string | undefined) ?? '00000000-0000-0000-0000-000000000000'
 
   if (req.method === 'GET') {
-    if (req.query.dry === '1') return res.status(200).json(await sendWeeklyDigests({ dryRun: true, limit: 500 }))
+    if (req.query.dry === '1') return res.status(200).json(await sendWeeklyDigests({ dryRun: true, pageSize: 500 }))
     const digest = await buildDigest(adminId, new Date(Date.now() - 7 * 86_400_000))
     if (!digest) return res.status(404).json({ error: 'No profile' })
     const message = renderDigest(digest, unsubscribeLink(token))

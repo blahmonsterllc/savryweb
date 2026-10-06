@@ -1,0 +1,617 @@
+[
+ {
+  "slug": "classic-pumpkin-pie-with-all-butter-crust",
+  "title": "Classic Pumpkin Pie with an All-Butter Crust",
+  "description": "A smooth, gently spiced pumpkin custard in a flaky crust made by hand with butter, flour and ice water. Canned pumpkin and evaporated milk keep it cheap and dependable for a holiday table of eight.",
+  "imageURL": null,
+  "prepTime": 30,
+  "cookTime": 75,
+  "servings": 8,
+  "difficulty": "Medium",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "thanksgiving",
+   "pie",
+   "pumpkin",
+   "make ahead",
+   "budget"
+  ],
+  "dietaryTags": [
+   "vegetarian",
+   "nut-free"
+  ],
+  "allergens": [
+   "milk",
+   "eggs",
+   "wheat"
+  ],
+  "equipment": [
+   "9-inch pie plate (not deep-dish)",
+   "rolling pin",
+   "pastry blender or fork",
+   "large mixing bowl",
+   "whisk",
+   "rimmed baking sheet"
+  ],
+  "ovenTemp": 425,
+  "notes": "The pie is done when the edges are set and the center still wobbles slightly, like set gelatin, when you nudge the plate; an instant-read thermometer in the center reads about 175°F. Overbaking causes cracks, so pull it at the wobble stage and let it finish setting as it cools. Use plain canned pumpkin puree, not pumpkin pie filling, which is already sweetened and spiced. Whole milk can stand in for the evaporated milk for a softer, slightly less rich custard; both contain milk. Because this is an egg custard, refrigerate it within 2 hours of cooling and keep it covered for up to 4 days. The crust dough keeps in the refrigerator for 2 days or the freezer for 3 months, and the baked pie can be wrapped and frozen for up to 1 month and thawed overnight in the refrigerator.",
+  "ingredients": [
+   { "amount": "1 1/4", "unit": "cup", "name": "all-purpose flour (160 g), plus more for rolling" },
+   { "amount": "1", "unit": "tsp", "name": "granulated sugar" },
+   { "amount": "1/2", "unit": "tsp", "name": "kosher salt, for the crust" },
+   { "amount": "1/2", "unit": "cup", "name": "cold unsalted butter (113 g), cut into 1/2-inch cubes" },
+   { "amount": "4", "unit": "tbsp", "name": "water, ice cold" },
+   { "amount": "1", "unit": "can", "name": "canned pumpkin puree (15 oz)" },
+   { "amount": "3/4", "unit": "cup", "name": "light brown sugar (150 g), packed" },
+   { "amount": "2", "unit": null, "name": "large eggs, at room temperature" },
+   { "amount": "1", "unit": null, "name": "large egg yolk" },
+   { "amount": "1", "unit": "can", "name": "evaporated milk (12 oz)" },
+   { "amount": "1 1/2", "unit": "tsp", "name": "ground cinnamon" },
+   { "amount": "1", "unit": "tsp", "name": "ground ginger" },
+   { "amount": "1/4", "unit": "tsp", "name": "ground nutmeg" },
+   { "amount": "1/8", "unit": "tsp", "name": "ground cloves" },
+   { "amount": "1/2", "unit": "tsp", "name": "fine sea salt, for the filling" },
+   { "amount": "1", "unit": "tsp", "name": "vanilla extract" }
+  ],
+  "instructions": [
+   "Whisk the flour, granulated sugar and kosher salt in a large bowl. Add the cold butter and cut it in with a pastry blender or your fingertips until most of the butter is the size of peas, with a few larger flat pieces left.",
+   "Sprinkle 3 tbsp of the ice water over the mixture and toss with a fork until it holds together when squeezed, adding the last tablespoon only if dry patches remain. Press the dough into a disk, wrap it, and refrigerate at least 1 hour or up to 2 days.",
+   "On a lightly floured counter, roll the dough into a 12-inch circle, turning it often so it does not stick. Ease it into the pie plate without stretching, trim the overhang to 1/2 inch, fold it under, and crimp the edge. Chill the shell for 20 minutes while the oven heats to 425°F with a rack in the lower third.",
+   "Whisk the pumpkin, brown sugar, eggs, egg yolk, evaporated milk, cinnamon, ginger, nutmeg, cloves, fine sea salt and vanilla until completely smooth, about 1 minute. Set the chilled shell on a rimmed baking sheet and pour in the filling.",
+   "Bake for 15 minutes at 425°F, then lower the oven to 350°F and bake 40 to 50 minutes more, until the edges are set and the center 2 inches still jiggle slightly. If the crust edge browns too fast, cover it loosely with strips of foil.",
+   "Cool the pie on a rack for at least 2 hours so the custard sets before slicing. Serve at room temperature or cold, then cover and refrigerate the rest."
+  ]
+ },
+ {
+  "slug": "soft-molasses-gingerbread-cake-egg-free-dairy-free",
+  "title": "Soft Molasses Gingerbread Cake (Egg-Free and Dairy-Free)",
+  "description": "A dark, moist snacking gingerbread leavened with baking soda and vinegar, so it needs no eggs, butter or milk. One bowl, pantry spices, and it stays soft for days.",
+  "imageURL": null,
+  "prepTime": 15,
+  "cookTime": 40,
+  "servings": 9,
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "holiday",
+   "gingerbread",
+   "one bowl",
+   "allergy-friendly",
+   "budget"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "dairy-free",
+   "egg-free",
+   "nut-free"
+  ],
+  "allergens": [
+   "wheat"
+  ],
+  "equipment": [
+   "8x8-inch baking pan",
+   "parchment paper",
+   "large mixing bowl",
+   "whisk",
+   "kettle or small saucepan"
+  ],
+  "ovenTemp": 350,
+  "notes": "Use regular unsulphured molasses; blackstrap is bitter and will overpower the cake. The batter is thin, which is what makes the crumb soft, and the cake is done when a toothpick in the center comes out with a few moist crumbs and the top springs back. Any neutral oil works, and melted coconut oil gives a slightly firmer crumb; neither adds an allergen. Some cane sugar is filtered with bone char, so strict vegans may want a brand labeled vegan. Wrapped at room temperature it keeps 4 days and gets stickier and more flavorful by day two. Freeze individual squares for up to 3 months and thaw on the counter, or warm a square for 15 seconds in the microwave.",
+  "ingredients": [
+   { "amount": "2", "unit": "cup", "name": "all-purpose flour (250 g)" },
+   { "amount": "1 1/2", "unit": "tsp", "name": "baking soda" },
+   { "amount": "1", "unit": "tbsp", "name": "ground ginger" },
+   { "amount": "1 1/2", "unit": "tsp", "name": "ground cinnamon" },
+   { "amount": "1/4", "unit": "tsp", "name": "ground cloves" },
+   { "amount": "1/4", "unit": "tsp", "name": "ground allspice" },
+   { "amount": "1/2", "unit": "tsp", "name": "kosher salt" },
+   { "amount": "1/2", "unit": "cup", "name": "light brown sugar (100 g), packed" },
+   { "amount": "2/3", "unit": "cup", "name": "molasses (unsulphured, not blackstrap)" },
+   { "amount": "1/2", "unit": "cup", "name": "high-heat neutral oil, such as canola" },
+   { "amount": "1", "unit": "cup", "name": "water, hot" },
+   { "amount": "1", "unit": "tbsp", "name": "apple cider vinegar" },
+   { "amount": "1", "unit": "tbsp", "name": "fresh ginger, finely grated", "isOptional": true },
+   { "amount": "1", "unit": "tbsp", "name": "powdered sugar, for dusting", "isOptional": true }
+  ],
+  "instructions": [
+   "Heat the oven to 350°F with a rack in the middle. Line the 8x8-inch pan with a sling of parchment paper that hangs over two sides, and lightly oil the exposed sides.",
+   "Whisk the flour, baking soda, ground ginger, cinnamon, cloves, allspice and salt in a medium bowl, breaking up any lumps of baking soda.",
+   "In a large bowl, whisk the brown sugar, molasses, oil and fresh ginger, if using, until glossy. Whisk in the hot water until the molasses dissolves completely.",
+   "Add the dry ingredients and whisk just until no dry flour remains; a few small lumps are fine. Stir in the vinegar last, which will make the batter foam slightly, and pour it into the pan right away.",
+   "Bake 35 to 40 minutes, until the top springs back when pressed and a toothpick in the center comes out with only moist crumbs. Cool in the pan on a rack for at least 30 minutes.",
+   "Lift the cake out by the parchment, dust with powdered sugar if you like, and cut into 9 squares. Serve warm or at room temperature."
+  ]
+ },
+ {
+  "slug": "cranberry-orange-crumble-bars",
+  "title": "Cranberry Orange Crumble Bars",
+  "description": "One buttery oat dough is the base and the topping, with a tart jam of fresh cranberries and orange juice cooked in between. A single 12-ounce bag makes two dozen bars for a cookie tray or bake sale.",
+  "imageURL": null,
+  "prepTime": 25,
+  "cookTime": 50,
+  "servings": 24,
+  "servingType": "yields",
+  "yieldUnit": "bars",
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "cranberry",
+   "bar cookies",
+   "holiday baking",
+   "make ahead",
+   "budget"
+  ],
+  "dietaryTags": [
+   "vegetarian",
+   "egg-free",
+   "nut-free"
+  ],
+  "allergens": [
+   "milk",
+   "wheat"
+  ],
+  "equipment": [
+   "9x13-inch baking pan",
+   "parchment paper",
+   "medium saucepan",
+   "large mixing bowl",
+   "silicone spatula"
+  ],
+  "ovenTemp": 350,
+  "notes": "The filling is ready when most berries have popped and it coats the spoon thickly; it firms more as it cools. Frozen cranberries work without thawing, adding 2 or 3 minutes to the simmer. For dairy-free bars, use melted coconut oil in place of the butter, which removes milk; the crumb will be a little more crisp. Cut the bars only after they have chilled, or the filling will smear. Store them covered in the refrigerator for up to 5 days, or freeze cut bars between sheets of parchment for up to 3 months and thaw at room temperature for 30 minutes.",
+  "ingredients": [
+   { "amount": "3", "unit": "cup", "name": "fresh cranberries (one 12 oz bag, 340 g), rinsed and picked over" },
+   { "amount": "2/3", "unit": "cup", "name": "granulated sugar (135 g)" },
+   { "amount": "1/2", "unit": "cup", "name": "fresh orange juice (from about 2 oranges)" },
+   { "amount": "2", "unit": "tbsp", "name": "cornstarch" },
+   { "amount": "1", "unit": "tsp", "name": "vanilla extract" },
+   { "amount": "1 3/4", "unit": "cup", "name": "all-purpose flour (220 g)" },
+   { "amount": "1 1/2", "unit": "cup", "name": "old-fashioned rolled oats (135 g)" },
+   { "amount": "1", "unit": "cup", "name": "light brown sugar (200 g), packed" },
+   { "amount": "1/2", "unit": "tsp", "name": "baking soda" },
+   { "amount": "1/2", "unit": "tsp", "name": "ground cinnamon" },
+   { "amount": "1/2", "unit": "tsp", "name": "kosher salt" },
+   { "amount": "1", "unit": "cup", "name": "melted butter, unsalted (226 g)" }
+  ],
+  "instructions": [
+   "Combine the cranberries, granulated sugar and 6 tbsp of the orange juice in a medium saucepan over medium heat. Cook, stirring often, until most berries burst and the juices run red, 6 to 8 minutes.",
+   "Stir the cornstarch into the remaining 2 tbsp orange juice until smooth, then stir it into the berries. Simmer 1 minute more, until thick and glossy. Take the pan off the heat, stir in the vanilla, and let it cool while you make the crumb.",
+   "Heat the oven to 350°F. Line the 9x13-inch pan with parchment paper, leaving an overhang on the long sides. In a large bowl, mix the flour, oats, brown sugar, baking soda, cinnamon and salt, then stir in the melted butter until the mixture forms moist clumps.",
+   "Press about two-thirds of the crumb firmly and evenly into the pan, using the bottom of a measuring cup to flatten it. Bake 15 minutes, until the edges are just turning golden.",
+   "Spread the cranberry filling over the warm base, leaving a 1/4-inch border. Scatter the remaining crumb over the top in small clumps, letting some filling show through.",
+   "Bake 25 to 30 minutes more, until the topping is golden and the filling bubbles at the edges. Cool completely in the pan, about 2 hours, then refrigerate 1 hour before lifting out and cutting into 24 bars."
+  ]
+ },
+ {
+  "slug": "vegan-gluten-free-oat-chocolate-chip-cookies",
+  "title": "Vegan Gluten-Free Oat Chocolate Chip Cookies",
+  "description": "Chewy chocolate chip cookies made from certified gluten-free oats, half blended into flour and half left whole, with a flaxseed binder and coconut oil. No eggs, dairy, wheat or nuts, and no specialty flour blend to buy.",
+  "imageURL": null,
+  "prepTime": 20,
+  "cookTime": 12,
+  "servings": 20,
+  "servingType": "yields",
+  "yieldUnit": "cookies",
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "cookies",
+   "allergy-friendly",
+   "chocolate chip",
+   "school safe",
+   "budget"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "dairy-free",
+   "egg-free",
+   "gluten-free",
+   "nut-free"
+  ],
+  "allergens": [],
+  "equipment": [
+   "blender or food processor",
+   "2 rimmed baking sheets",
+   "parchment paper",
+   "large mixing bowl",
+   "cookie scoop or tablespoon"
+  ],
+  "ovenTemp": 350,
+  "notes": "Oats are only safe for a gluten-free diet when the package says certified gluten-free; regular oats are often cross-contaminated with wheat, and a few people with celiac disease also react to oats themselves. Read the chocolate chip label too: many contain milk or soy lecithin, or are made on lines shared with tree nuts, so pick a brand marked dairy-free and allergen-safe for the people you are baking for. Coconut is not treated as a tree nut on U.S. labels, but if your eater avoids it, use melted vegetable shortening. Resting the dough for 30 minutes lets the oat flour absorb moisture so the cookies hold their shape; they look underdone when you pull them and firm as they cool. Keep them airtight at room temperature for 4 days, or freeze baked cookies or scooped dough balls for up to 3 months and bake the dough from frozen, adding 2 minutes.",
+  "ingredients": [
+   { "amount": "2", "unit": "cup", "name": "certified gluten-free old-fashioned rolled oats (180 g), for blending" },
+   { "amount": "1", "unit": "cup", "name": "certified gluten-free old-fashioned rolled oats (90 g), left whole" },
+   { "amount": "2", "unit": "tbsp", "name": "ground flaxseed" },
+   { "amount": "5", "unit": "tbsp", "name": "water" },
+   { "amount": "1", "unit": "tbsp", "name": "cornstarch" },
+   { "amount": "3/4", "unit": "tsp", "name": "baking soda" },
+   { "amount": "3/4", "unit": "tsp", "name": "fine sea salt" },
+   { "amount": "1/2", "unit": "cup", "name": "coconut oil (105 g), melted and slightly cooled" },
+   { "amount": "3/4", "unit": "cup", "name": "light brown sugar (150 g), packed" },
+   { "amount": "1/4", "unit": "cup", "name": "granulated sugar (50 g)" },
+   { "amount": "2", "unit": "tsp", "name": "vanilla extract" },
+   { "amount": "3/4", "unit": "cup", "name": "dairy-free semisweet chocolate chips (130 g), gluten-free and nut-free" }
+  ],
+  "instructions": [
+   "Blend 2 cups of the oats in a blender or food processor until they become a fine, powdery flour, about 1 minute, stopping to scrape the corners. Stir the ground flaxseed into the water in a small bowl and let it stand 5 minutes until thick and gel-like.",
+   "Whisk the oat flour, whole oats, cornstarch, baking soda and salt in a medium bowl.",
+   "In a large bowl, whisk the melted coconut oil, brown sugar and granulated sugar until smooth, then whisk in the flax mixture and vanilla until glossy, about 30 seconds.",
+   "Stir the dry ingredients into the wet ones with a spatula until a soft, thick dough forms, then fold in the chocolate chips. Cover the bowl and let the dough rest 30 minutes at room temperature, or refrigerate it up to 2 days.",
+   "Heat the oven to 350°F with racks in the upper and lower thirds, and line two baking sheets with parchment paper. Scoop the dough into 20 balls, about 2 tablespoons each, set them 2 inches apart, and press each one to about 1/2 inch thick.",
+   "Bake 10 to 12 minutes, switching the pans halfway, until the edges are golden and the centers look set but soft. Cool on the pans for 10 minutes, then move to a rack to cool completely."
+  ]
+ },
+ {
+  "slug": "vegan-apple-cinnamon-snack-cake",
+  "title": "Vegan Apple Cinnamon Snack Cake",
+  "description": "A tender, egg-free and dairy-free cake packed with chopped apples and finished with a crackly cinnamon-sugar top. Made with oil and plant milk in one bowl, it uses two apples and pantry staples.",
+  "imageURL": null,
+  "prepTime": 20,
+  "cookTime": 40,
+  "servings": 9,
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "apple",
+   "snack cake",
+   "one bowl",
+   "allergy-friendly",
+   "budget"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "dairy-free",
+   "egg-free",
+   "nut-free"
+  ],
+  "allergens": [
+   "wheat"
+  ],
+  "equipment": [
+   "8x8-inch baking pan",
+   "parchment paper",
+   "large mixing bowl",
+   "whisk",
+   "chef's knife and cutting board"
+  ],
+  "ovenTemp": 350,
+  "notes": "Vinegar reacting with baking soda gives this cake its lift in place of eggs, so get it into the oven soon after mixing. Firm, tart-sweet apples such as Gala, Honeycrisp or Granny Smith hold their shape; soft apples melt into wet pockets. Pea, oat or rice milk keeps the cake nut-free and soy-free; soy milk works the same but adds soy, and almond milk adds tree nuts. The cake is done when a toothpick comes out clean of raw batter, though it may be damp from the fruit. Cover and keep at room temperature for 2 days, then refrigerate up to 5 days total because of the fresh fruit. Squares freeze well for up to 3 months.",
+  "ingredients": [
+   { "amount": "1 1/2", "unit": "cup", "name": "all-purpose flour (190 g)" },
+   { "amount": "3/4", "unit": "cup", "name": "light brown sugar (150 g), packed" },
+   { "amount": "1", "unit": "tsp", "name": "baking soda" },
+   { "amount": "2", "unit": "tsp", "name": "ground cinnamon, divided" },
+   { "amount": "1/4", "unit": "tsp", "name": "ground nutmeg" },
+   { "amount": "1/2", "unit": "tsp", "name": "kosher salt" },
+   { "amount": "1", "unit": "cup", "name": "unsweetened nut-free plant milk, such as pea or oat milk" },
+   { "amount": "1/3", "unit": "cup", "name": "high-heat neutral oil, such as canola" },
+   { "amount": "1", "unit": "tbsp", "name": "apple cider vinegar" },
+   { "amount": "1", "unit": "tsp", "name": "vanilla extract" },
+   { "amount": "2", "unit": null, "name": "medium apples (about 1 lb), peeled, cored and cut into 1/2-inch pieces" },
+   { "amount": "2", "unit": "tbsp", "name": "granulated sugar, for the topping" }
+  ],
+  "instructions": [
+   "Heat the oven to 350°F with a rack in the middle. Line the 8x8-inch pan with parchment paper and lightly oil any exposed sides.",
+   "Whisk the flour, brown sugar, baking soda, 1 1/2 tsp of the cinnamon, the nutmeg and the salt in a large bowl, pressing out any lumps of sugar.",
+   "Whisk the plant milk, oil, vinegar and vanilla in a measuring cup, pour it into the dry ingredients, and stir with a spatula until just combined. Fold in the apples; the batter will be thick and chunky.",
+   "Spread the batter evenly in the pan. Stir the granulated sugar with the remaining 1/2 tsp cinnamon and sprinkle it evenly over the top.",
+   "Bake 38 to 42 minutes, until the top is golden and crackled and a toothpick in the center comes out without wet batter. Cool in the pan at least 30 minutes before cutting into 9 squares."
+  ]
+ },
+ {
+  "slug": "egg-free-pumpkin-spice-oatmeal-cookies",
+  "title": "Egg-Free Pumpkin Spice Oatmeal Cookies",
+  "description": "Soft, cakey oatmeal cookies where half a cup of canned pumpkin does the work of an egg. Warm spices and raisins, no dairy or eggs, and a good use for the pumpkin left over from pie day.",
+  "imageURL": null,
+  "prepTime": 20,
+  "cookTime": 14,
+  "servings": 24,
+  "servingType": "yields",
+  "yieldUnit": "cookies",
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "cookies",
+   "pumpkin",
+   "oatmeal",
+   "use it up",
+   "budget"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "dairy-free",
+   "egg-free",
+   "nut-free"
+  ],
+  "allergens": [
+   "wheat"
+  ],
+  "equipment": [
+   "2 rimmed baking sheets",
+   "parchment paper",
+   "large mixing bowl",
+   "whisk",
+   "cookie scoop or tablespoon"
+  ],
+  "ovenTemp": 350,
+  "notes": "Pumpkin makes these soft and cake-like rather than crisp, and they barely spread, so flatten the dough balls before baking. Blot the pumpkin on a paper towel if it looks watery, which keeps the cookies from turning puffy. Dried cranberries or dairy-free chocolate chips can replace the raisins without changing the allergens. Leftover pumpkin from the can keeps 5 days in the refrigerator or 3 months frozen in 1/2-cup portions. Because of their moisture, store the cookies in a single layer or between sheets of parchment in an airtight container for 3 days at room temperature, or freeze them for up to 3 months.",
+  "ingredients": [
+   { "amount": "1", "unit": "cup", "name": "all-purpose flour (125 g)" },
+   { "amount": "1 1/2", "unit": "cup", "name": "old-fashioned rolled oats (135 g)" },
+   { "amount": "1/2", "unit": "tsp", "name": "baking soda" },
+   { "amount": "1/2", "unit": "tsp", "name": "baking powder" },
+   { "amount": "1 1/2", "unit": "tsp", "name": "ground cinnamon" },
+   { "amount": "1/2", "unit": "tsp", "name": "ground ginger" },
+   { "amount": "1/4", "unit": "tsp", "name": "ground nutmeg" },
+   { "amount": "1", "unit": "pinch", "name": "ground cloves" },
+   { "amount": "1/2", "unit": "tsp", "name": "kosher salt" },
+   { "amount": "1/2", "unit": "cup", "name": "canned pumpkin puree (120 g)" },
+   { "amount": "1/3", "unit": "cup", "name": "coconut oil (70 g), melted and slightly cooled" },
+   { "amount": "2/3", "unit": "cup", "name": "light brown sugar (135 g), packed" },
+   { "amount": "2", "unit": "tbsp", "name": "granulated sugar" },
+   { "amount": "1", "unit": "tsp", "name": "vanilla extract" },
+   { "amount": "1/2", "unit": "cup", "name": "raisins (75 g)" }
+  ],
+  "instructions": [
+   "Heat the oven to 350°F with racks in the upper and lower thirds, and line two baking sheets with parchment paper.",
+   "Whisk the flour, oats, baking soda, baking powder, cinnamon, ginger, nutmeg, cloves and salt in a medium bowl.",
+   "In a large bowl, whisk the pumpkin, melted coconut oil, brown sugar, granulated sugar and vanilla until smooth and glossy, about 1 minute.",
+   "Stir the dry ingredients into the pumpkin mixture until no dry flour remains, then fold in the raisins. The dough will be soft and sticky; chill it for 15 minutes if it is too loose to scoop.",
+   "Scoop rounded tablespoons of dough 2 inches apart onto the sheets and flatten each to about 1/2 inch thick with damp fingers, since they will not spread much on their own.",
+   "Bake 12 to 14 minutes, switching the pans halfway, until the edges are lightly browned and the tops feel set when touched. Cool 5 minutes on the pans, then move to a rack."
+  ]
+ },
+ {
+  "slug": "nut-free-sunflower-butter-blondies",
+  "title": "School-Safe Sunflower Butter Blondies (Peanut-Free, Nut-Free)",
+  "description": "Fudgy, brown-sugar blondies built on sunflower seed butter instead of peanut butter, with oat flour from certified gluten-free oats. Made for nut-free classrooms and lunchboxes, and gluten-free as written.",
+  "imageURL": null,
+  "prepTime": 15,
+  "cookTime": 25,
+  "servings": 16,
+  "servingType": "yields",
+  "yieldUnit": "bars",
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "school safe",
+   "lunchbox",
+   "bar cookies",
+   "allergy-friendly",
+   "one bowl"
+  ],
+  "dietaryTags": [
+   "vegetarian",
+   "gluten-free",
+   "nut-free"
+  ],
+  "allergens": [
+   "milk",
+   "eggs"
+  ],
+  "equipment": [
+   "8x8-inch baking pan",
+   "parchment paper",
+   "blender or food processor",
+   "large mixing bowl",
+   "silicone spatula"
+  ],
+  "ovenTemp": 350,
+  "notes": "Sunflower seeds contain chlorophyll that can turn green where it meets baking soda, so cut blondies may show green flecks after a few hours; it is harmless, and the lemon juice keeps it to a minimum. For a nut-free or school setting, check that the sunflower butter and chocolate chips are made in a peanut- and tree-nut-free facility, and that the oats are certified gluten-free if anyone needs that. Coconut oil can replace the butter to make the bars dairy-free if your chips are dairy-free too. Pull the pan when the center still looks slightly soft; overbaked blondies turn dry. Keep them covered at room temperature for 3 days or freeze individually wrapped bars for up to 3 months, which makes them easy to drop into lunchboxes.",
+  "ingredients": [
+   { "amount": "1", "unit": "cup", "name": "certified gluten-free old-fashioned rolled oats (90 g)" },
+   { "amount": "1/2", "unit": "tsp", "name": "baking soda" },
+   { "amount": "1/4", "unit": "tsp", "name": "kosher salt" },
+   { "amount": "1", "unit": "cup", "name": "unsweetened sunflower seed butter (250 g), well stirred" },
+   { "amount": "3/4", "unit": "cup", "name": "light brown sugar (150 g), packed" },
+   { "amount": "4", "unit": "tbsp", "name": "melted butter, unsalted (56 g)" },
+   { "amount": "1", "unit": null, "name": "large egg, at room temperature" },
+   { "amount": "1", "unit": "tsp", "name": "vanilla extract" },
+   { "amount": "1", "unit": "tsp", "name": "fresh lemon juice" },
+   { "amount": "1/2", "unit": "cup", "name": "semisweet chocolate chips (85 g), nut-free and gluten-free" }
+  ],
+  "instructions": [
+   "Heat the oven to 350°F with a rack in the middle, and line the 8x8-inch pan with a parchment sling that overhangs two sides.",
+   "Blend the oats in a blender or food processor until finely ground, about 1 minute. Whisk the oat flour with the baking soda and salt in a small bowl.",
+   "In a large bowl, stir the sunflower seed butter, brown sugar and melted butter until smooth. Beat in the egg, vanilla and lemon juice until the batter is glossy and thick.",
+   "Fold in the oat flour mixture until no dry streaks remain, then fold in all but 2 tbsp of the chocolate chips. Spread the batter evenly in the pan and scatter the remaining chips on top.",
+   "Bake 22 to 26 minutes, until the edges are golden and pulling away from the pan and a toothpick in the center comes out with moist crumbs but no wet batter.",
+   "Cool completely in the pan on a rack, about 1 1/2 hours, so the blondies set. Lift them out by the parchment and cut into 16 squares."
+  ]
+ },
+ {
+  "slug": "gingered-apple-cranberry-crisp-pumpkin-seed-oat-topping",
+  "title": "Gingered Apple-Cranberry Crisp with Pumpkin Seed Oat Topping",
+  "description": "Apples and fresh cranberries baked with fresh ginger under a crunchy topping of certified gluten-free oats, pumpkin seeds and maple. Vegan, gluten-free and nut-free, so one dessert works for the whole holiday table.",
+  "imageURL": null,
+  "prepTime": 25,
+  "cookTime": 45,
+  "servings": 8,
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "fruit crisp",
+   "thanksgiving",
+   "allergy-friendly",
+   "apple",
+   "cranberry"
+  ],
+  "dietaryTags": [
+   "vegan",
+   "vegetarian",
+   "dairy-free",
+   "egg-free",
+   "gluten-free",
+   "nut-free"
+  ],
+  "allergens": [],
+  "equipment": [
+   "8x8-inch or 2-quart baking dish",
+   "rimmed baking sheet",
+   "blender or food processor",
+   "large mixing bowl",
+   "microplane or fine grater"
+  ],
+  "ovenTemp": 375,
+  "notes": "Grinding a small part of the oats gives the topping enough binding to form clusters without any wheat flour. Use oats labeled certified gluten-free if anyone at the table avoids gluten. Pumpkin seeds keep the crunch of a nut topping while staying nut-free; sunflower seeds work the same way. The crisp is done when the fruit bubbles thickly at the edges and a knife slides through the apples with no resistance. Frozen cranberries can go in straight from the freezer. Cover and refrigerate leftovers within 2 hours for up to 4 days, and rewarm portions in a 350°F oven for 10 to 15 minutes to re-crisp the top, or in the microwave if you do not mind it softer.",
+  "ingredients": [
+   { "amount": "5", "unit": null, "name": "medium apples (about 2 1/4 lb), such as Gala or Braeburn, peeled, cored and sliced 1/4 inch thick" },
+   { "amount": "1", "unit": "cup", "name": "fresh cranberries (100 g)" },
+   { "amount": "1", "unit": "tbsp", "name": "fresh ginger, finely grated" },
+   { "amount": "1/3", "unit": "cup", "name": "light brown sugar (65 g), for the filling" },
+   { "amount": "1", "unit": "tbsp", "name": "cornstarch" },
+   { "amount": "1", "unit": "tbsp", "name": "fresh lemon juice" },
+   { "amount": "1", "unit": "tsp", "name": "ground cinnamon" },
+   { "amount": "1", "unit": "pinch", "name": "kosher salt, for the filling" },
+   { "amount": "1 1/2", "unit": "cup", "name": "certified gluten-free old-fashioned rolled oats (135 g), divided" },
+   { "amount": "1/2", "unit": "cup", "name": "light brown sugar (100 g), for the topping" },
+   { "amount": "1/2", "unit": "cup", "name": "raw pumpkin seeds (65 g)" },
+   { "amount": "1", "unit": "tsp", "name": "ground ginger" },
+   { "amount": "1/4", "unit": "tsp", "name": "kosher salt, for the topping" },
+   { "amount": "1/2", "unit": "cup", "name": "coconut oil (100 g), melted" },
+   { "amount": "2", "unit": "tbsp", "name": "pure maple syrup" }
+  ],
+  "instructions": [
+   "Heat the oven to 375°F with a rack in the middle. Set the baking dish on a rimmed baking sheet to catch any drips.",
+   "Toss the apples, cranberries, fresh ginger, 1/3 cup brown sugar, cornstarch, lemon juice, cinnamon and a pinch of salt in a large bowl until the fruit is evenly coated. Spread it in the baking dish and press it into an even layer.",
+   "Blend 1/2 cup of the oats in a blender until powdery. In the same large bowl, mix the oat flour with the remaining 1 cup whole oats, 1/2 cup brown sugar, pumpkin seeds, ground ginger and 1/4 tsp salt.",
+   "Pour in the melted coconut oil and maple syrup and stir until everything is moistened and holds together in clumps when squeezed. Scatter the topping evenly over the fruit, leaving some larger clusters.",
+   "Bake 40 to 45 minutes, until the topping is deep golden, the juices bubble thickly around the edges, and a paring knife slides easily into the apples. If the top browns before the fruit is tender, cover loosely with foil for the last 10 minutes.",
+   "Let the crisp cool at least 20 minutes so the juices thicken before serving warm."
+  ]
+ },
+ {
+  "slug": "chocolate-zucchini-muffins",
+  "title": "Chocolate Zucchini Muffins",
+  "description": "Moist cocoa muffins that hide a whole zucchini, made with oil and dairy-free chocolate chips so they are dairy-free and nut-free. A good way to use the last garden squash or a cheap one from the store.",
+  "imageURL": null,
+  "prepTime": 20,
+  "cookTime": 20,
+  "servings": 12,
+  "servingType": "yields",
+  "yieldUnit": "muffins",
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "muffins",
+   "chocolate",
+   "zucchini",
+   "lunchbox",
+   "freezer friendly"
+  ],
+  "dietaryTags": [
+   "vegetarian",
+   "dairy-free",
+   "nut-free"
+  ],
+  "allergens": [
+   "eggs",
+   "wheat"
+  ],
+  "equipment": [
+   "12-cup muffin tin",
+   "paper liners",
+   "box grater",
+   "large mixing bowl",
+   "whisk"
+  ],
+  "ovenTemp": 375,
+  "notes": "Do not squeeze the grated zucchini; its moisture is part of the batter. A medium zucchini of about 7 ounces gives roughly 1 1/2 cups grated, and there is no need to peel it. Natural cocoa reacts with the baking soda for lift, so if you use Dutch-process cocoa, the muffins will be a little flatter. Regular semisweet chips usually contain milk, so use chips labeled dairy-free to keep the muffins dairy-free. To make them egg-free, replace the eggs with 2 tbsp ground flaxseed stirred into 6 tbsp water and rested 5 minutes; the muffins will be denser. Store them airtight at room temperature for 2 days or in the refrigerator for 5, and freeze for up to 3 months, thawing overnight or warming 20 seconds in the microwave.",
+  "ingredients": [
+   { "amount": "1 1/2", "unit": "cup", "name": "all-purpose flour (190 g)" },
+   { "amount": "1/3", "unit": "cup", "name": "unsweetened natural cocoa powder (28 g)" },
+   { "amount": "1", "unit": "tsp", "name": "baking soda" },
+   { "amount": "1/2", "unit": "tsp", "name": "baking powder" },
+   { "amount": "1/2", "unit": "tsp", "name": "kosher salt" },
+   { "amount": "1/2", "unit": "tsp", "name": "ground cinnamon" },
+   { "amount": "2", "unit": null, "name": "large eggs, at room temperature" },
+   { "amount": "2/3", "unit": "cup", "name": "light brown sugar (135 g), packed" },
+   { "amount": "1/2", "unit": "cup", "name": "high-heat neutral oil, such as canola" },
+   { "amount": "1", "unit": "tsp", "name": "vanilla extract" },
+   { "amount": "1 1/2", "unit": "cup", "name": "zucchini, coarsely grated (about 1 medium, 200 g), not squeezed" },
+   { "amount": "1/2", "unit": "cup", "name": "dairy-free semisweet chocolate chips (85 g)" }
+  ],
+  "instructions": [
+   "Heat the oven to 375°F with a rack in the middle, and line the 12-cup muffin tin with paper liners.",
+   "Whisk the flour, cocoa powder, baking soda, baking powder, salt and cinnamon in a medium bowl, pressing out any lumps of cocoa.",
+   "In a large bowl, whisk the eggs and brown sugar until smooth, then whisk in the oil and vanilla. Stir in the grated zucchini with its juices.",
+   "Fold the dry ingredients into the zucchini mixture with a spatula until just combined, then fold in all but 2 tbsp of the chocolate chips. The batter will be thick.",
+   "Divide the batter among the cups, filling each about three-quarters full, and scatter the remaining chips on top.",
+   "Bake 18 to 21 minutes, until the tops spring back when pressed and a toothpick in the center of a muffin comes out with moist crumbs but no wet batter. Cool 5 minutes in the tin, then move the muffins to a rack."
+  ]
+ },
+ {
+  "slug": "chewy-molasses-spice-cookies-rolled-in-sugar",
+  "title": "Chewy Molasses Spice Cookies Rolled in Sugar",
+  "description": "Crackle-topped cookies with chewy centers, deep molasses flavor and plenty of ginger, cinnamon and cloves. Rolled in sugar before baking, they keep well for a holiday cookie tin.",
+  "imageURL": null,
+  "prepTime": 20,
+  "cookTime": 11,
+  "servings": 30,
+  "servingType": "yields",
+  "yieldUnit": "cookies",
+  "difficulty": "Easy",
+  "category": "Dessert",
+  "cuisine": "American",
+  "tags": [
+   "cookies",
+   "molasses",
+   "holiday baking",
+   "cookie swap",
+   "freezer friendly"
+  ],
+  "dietaryTags": [
+   "vegetarian",
+   "nut-free"
+  ],
+  "allergens": [
+   "milk",
+   "eggs",
+   "wheat"
+  ],
+  "equipment": [
+   "stand or hand mixer",
+   "2 rimmed baking sheets",
+   "parchment paper",
+   "large mixing bowl",
+   "small shallow bowl"
+  ],
+  "ovenTemp": 350,
+  "notes": "Take the cookies out when the edges are set and the cracked tops still look slightly wet in the cracks; they finish setting on the pan and stay chewy. Chilling the dough keeps them thick, and a longer chill of up to 2 days deepens the spice flavor. Use regular unsulphured molasses, not blackstrap. For a dairy-free version, use vegetable shortening in place of butter, which removes milk; the cookies will be a little puffier. Store them airtight at room temperature for up to 1 week, and add a slice of bread to the container to keep them soft. Freeze rolled dough balls for up to 3 months and bake from frozen, rolling them in sugar first and adding 1 to 2 minutes.",
+  "ingredients": [
+   { "amount": "2 1/4", "unit": "cup", "name": "all-purpose flour (280 g)" },
+   { "amount": "2", "unit": "tsp", "name": "baking soda" },
+   { "amount": "2", "unit": "tsp", "name": "ground ginger" },
+   { "amount": "1 1/2", "unit": "tsp", "name": "ground cinnamon" },
+   { "amount": "1/2", "unit": "tsp", "name": "ground cloves" },
+   { "amount": "1/2", "unit": "tsp", "name": "kosher salt" },
+   { "amount": "3/4", "unit": "cup", "name": "unsalted butter (170 g), softened" },
+   { "amount": "1", "unit": "cup", "name": "light brown sugar (200 g), packed" },
+   { "amount": "1", "unit": null, "name": "large egg, at room temperature" },
+   { "amount": "1/4", "unit": "cup", "name": "molasses (unsulphured, not blackstrap)" },
+   { "amount": "1", "unit": "tsp", "name": "vanilla extract" },
+   { "amount": "1/3", "unit": "cup", "name": "granulated sugar (65 g), for rolling" }
+  ],
+  "instructions": [
+   "Whisk the flour, baking soda, ginger, cinnamon, cloves and salt in a medium bowl.",
+   "Beat the butter and brown sugar in a large bowl with a mixer on medium speed until light and fluffy, about 3 minutes. Beat in the egg, molasses and vanilla until smooth, scraping down the bowl; it may look a little curdled, which is fine.",
+   "Add the dry ingredients and mix on low speed just until no streaks of flour remain. Cover and refrigerate the dough for at least 1 hour, or up to 2 days.",
+   "Heat the oven to 350°F with racks in the upper and lower thirds, and line two baking sheets with parchment paper. Put the granulated sugar in a shallow bowl.",
+   "Roll the dough into 1 1/4-inch balls, about 1 tablespoon each, roll each ball in the sugar to coat, and set them 2 1/2 inches apart on the sheets.",
+   "Bake 9 to 11 minutes, switching the pans halfway, until the cookies have spread, the tops are crackled, and the edges are set. Cool on the pans for 5 minutes, then move to a rack. Bake the rest of the dough on cooled sheets."
+  ]
+ }
+]

@@ -114,6 +114,11 @@
    "basis": "est",
    "description": "Mushrooms, brown, italian, or crimini, raw"
   },
+  "168450": {
+   "perKg": 4.7,
+   "basis": "est",
+   "description": "Pumpkin, canned, without salt"
+  },
   "168458": {
    "perKg": 150,
    "basis": "est",
@@ -163,6 +168,11 @@
    "perKg": 15.4,
    "basis": "est",
    "description": "Seeds, sunflower seed butter, with salt added"
+  },
+  "168820": {
+   "perKg": 8.8,
+   "basis": "est",
+   "description": "Molasses"
   },
   "168833": {
    "perKg": 3.3,
@@ -356,6 +366,11 @@
    "perKg": 3.3,
    "basis": "est",
    "description": "Rice, white, long-grain, parboiled, enriched, dry"
+  },
+  "169717": {
+   "perKg": 11,
+   "basis": "est",
+   "description": "Tapioca, pearl, dry"
   },
   "169727": {
    "perKg": 8.8,
@@ -671,6 +686,11 @@
    "basis": "est",
    "description": "Spices, curry powder"
   },
+  "170926": {
+   "perKg": 88,
+   "basis": "est",
+   "description": "Spices, ginger, ground"
+  },
   "170929": {
    "perKg": 70,
    "basis": "est",
@@ -802,6 +822,11 @@
    "basis": "est",
    "description": "Spices, cinnamon, ground"
   },
+  "171321": {
+   "perKg": 150,
+   "basis": "est",
+   "description": "Spices, cloves, ground"
+  },
   "171325": {
    "perKg": 47,
    "basis": "est",
@@ -883,6 +908,11 @@
    "perKg": 12,
    "basis": "est",
    "description": "Blueberries, raw"
+  },
+  "171722": {
+   "perKg": 6.6,
+   "basis": "est",
+   "description": "Cranberries, raw"
   },
   "171723": {
    "perKg": 20,

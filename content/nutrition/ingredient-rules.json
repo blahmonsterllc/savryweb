@@ -1,6 +1,14 @@
 [
   {
     "phrases": [
+      "ground ginger"
+    ],
+    "fdcId": 170926,
+    "cupGrams": 83,
+    "basis": "USDA portion: 1 tsp = 1.8 g, 1 tbsp = 5.2 g (83 g per cup)"
+  },
+  {
+    "phrases": [
       "deli turkey breast",
       "sliced deli turkey",
       "deli turkey",
@@ -3597,5 +3605,59 @@
       "ofOz": 15
     },
     "basis": "USDA \"Broadbeans (fava beans), mature seeds, canned\" (solids and liquid): 1 cup = 256 g; a 15 oz can holds about 425 g and drains to about 255 g"
+  },
+  {
+    "phrases": [
+      "canned pumpkin puree",
+      "pumpkin puree",
+      "canned pumpkin",
+      "pure pumpkin"
+    ],
+    "fdcId": 168450,
+    "cupGrams": 245,
+    "unitGrams": {
+      "can": 425
+    },
+    "basis": "USDA portion: 1 cup = 245 g; a 15 oz can = 425 g"
+  },
+  {
+    "phrases": [
+      "molasses",
+      "unsulphured molasses"
+    ],
+    "fdcId": 168820,
+    "cupGrams": 337,
+    "basis": "USDA portion: 1 cup = 337 g (1 tbsp = 20 g)"
+  },
+  {
+    "phrases": [
+      "small pearl tapioca",
+      "pearl tapioca",
+      "tapioca pearls",
+      "tapioca"
+    ],
+    "fdcId": 169717,
+    "cupGrams": 152,
+    "basis": "USDA portion: 1 cup = 152 g"
+  },
+  {
+    "phrases": [
+      "fresh cranberries",
+      "frozen cranberries",
+      "fresh or frozen cranberries",
+      "cranberries"
+    ],
+    "fdcId": 171722,
+    "cupGrams": 100,
+    "basis": "USDA portion: 1 cup whole = 100 g"
+  },
+  {
+    "phrases": [
+      "ground cloves",
+      "whole cloves"
+    ],
+    "fdcId": 171321,
+    "cupGrams": 104,
+    "basis": "USDA portion: 1 tsp = 2.1 g, 1 tbsp = 6.5 g (104 g per cup)"
   }
 ]

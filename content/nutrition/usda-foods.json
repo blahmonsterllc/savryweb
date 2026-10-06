@@ -280,6 +280,20 @@
     "fat": 0.1
    }
   },
+  "168450": {
+   "description": "Pumpkin, canned, without salt",
+   "per100g": {
+    "fiber": 2.9,
+    "carbohydrates": 8.09,
+    "calories": 34,
+    "protein": 1.1,
+    "fat": 0.28,
+    "saturatedFat": 0.146,
+    "cholesterol": 0,
+    "sodium": 5,
+    "sugar": 3.3
+   }
+  },
   "168458": {
    "description": "Seaweed, laver, raw",
    "per100g": {
@@ -413,6 +427,20 @@
     "sugar": 10.54,
     "carbohydrates": 23.32,
     "calories": 617
+   }
+  },
+  "168820": {
+   "description": "Molasses",
+   "per100g": {
+    "saturatedFat": 0.018,
+    "carbohydrates": 74.73,
+    "calories": 290,
+    "sodium": 37,
+    "fat": 0.1,
+    "sugar": 74.72,
+    "cholesterol": 0,
+    "fiber": 0,
+    "protein": 0
    }
   },
   "168833": {
@@ -921,6 +949,20 @@
     "protein": 7.51,
     "fiber": 1.8,
     "sodium": 2
+   }
+  },
+  "169717": {
+   "description": "Tapioca, pearl, dry",
+   "per100g": {
+    "saturatedFat": 0.005,
+    "protein": 0.19,
+    "fiber": 0.9,
+    "sodium": 1,
+    "cholesterol": 0,
+    "fat": 0.02,
+    "carbohydrates": 88.69,
+    "calories": 358,
+    "sugar": 3.35
    }
   },
   "169727": {
@@ -1777,6 +1819,20 @@
     "carbohydrates": 55.83
    }
   },
+  "170926": {
+   "description": "Spices, ginger, ground",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 3.39,
+    "saturatedFat": 2.599,
+    "protein": 8.98,
+    "fiber": 14.1,
+    "sodium": 27,
+    "fat": 4.24,
+    "carbohydrates": 71.62,
+    "calories": 335
+   }
+  },
   "170929": {
    "description": "Spices, mustard seed, ground",
    "per100g": {
@@ -2122,6 +2178,20 @@
     "calories": 247
    }
   },
+  "171321": {
+   "description": "Spices, cloves, ground",
+   "per100g": {
+    "cholesterol": 0,
+    "sugar": 2.38,
+    "fat": 13,
+    "carbohydrates": 65.53,
+    "calories": 274,
+    "fiber": 33.9,
+    "sodium": 277,
+    "saturatedFat": 3.952,
+    "protein": 5.97
+   }
+  },
   "171325": {
    "description": "Spices, garlic powder",
    "per100g": {
@@ -2344,6 +2414,20 @@
     "saturatedFat": 0.028,
     "fiber": 2.4,
     "protein": 0.74
+   }
+  },
+  "171722": {
+   "description": "Cranberries, raw",
+   "per100g": {
+    "calories": 46,
+    "fiber": 3.6,
+    "protein": 0.46,
+    "cholesterol": 0,
+    "saturatedFat": 0.008,
+    "carbohydrates": 11.97,
+    "sugar": 4.27,
+    "fat": 0.13,
+    "sodium": 2
    }
   },
   "171723": {

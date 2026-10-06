@@ -26,7 +26,7 @@ const UNITS = ['cup', 'tbsp', 'tsp', 'oz', 'lb', 'g', 'ml', 'clove', 'can', 'pin
 const NEGATIONS = [
   /dairy-free [a-z ]+/g, /vegan [a-z ]+/g, /gluten-free [a-z -]+/g, /nut-free [a-z ]+/g, /egg-free [a-z ]+/g,
   /coconut (milk|cream|yogurt|oil|sugar|aminos|flakes|water)/g, /(oat|almond|soy|rice|cashew|plant|plant-based|non-dairy|unsweetened plant) (milk|yogurt|cream|butter)/g,
-  /(peanut|almond|cashew|sunflower seed|sunflower|seed|cocoa|apple|pumpkin|nut) butter/g, /butter(nut| beans?| lettuce)/g, /cream of tartar/g,
+  /butter(nut| beans?| lettuce)/g, /cream of tartar/g,
   /eggplants?/g, /nutmeg/g, /water chestnuts?/g, /buckwheat/g, /nutritional yeast/g, /fish-free/g, /(vegetable|mushroom|chicken|beef) (broth|stock)/g,
 ]
 const SIGNALS = {
@@ -45,6 +45,9 @@ const HONEY = /\bhoney\b/
 
 function clean(name) {
   let text = ` ${name.toLowerCase()} `
+  // "peanut butter" is not dairy, but it is peanuts: drop only the word "butter"
+  // so the nut is still seen ("almond butter" stays tree nuts, "sunflower seed butter" stays nothing).
+  text = text.replace(/\b(peanut|almond|cashew|sunflower seed|sunflower|seed|cocoa|apple|pumpkin|nut) butter\b/g, '$1 spread')
   for (const pattern of NEGATIONS) text = text.replace(pattern, ' ')
   // A bare "egg-free" / "dairy-free" qualifier is a negation, not the allergen.
   return text.replace(/\b(egg|dairy|gluten|nut|soy|fish|wheat|sesame)-free\b/g, ' ')

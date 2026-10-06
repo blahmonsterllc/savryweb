@@ -1,11 +1,13 @@
 import type { MetadataRoute } from 'next'
 import { listPublicRecipes } from '@/lib/community-recipes'
 import { SITE_URL } from '@/lib/site-url'
+import { failOrFallback } from '@/lib/last-good-page'
 
 export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const recipes = await listPublicRecipes(2000).catch(() => [])
+  // A failed read throws (outside the build), so the last good sitemap stays up rather than one without recipes.
+  const recipes = await listPublicRecipes(2000).catch((error) => failOrFallback('sitemap', error, []))
   const staticPages: MetadataRoute.Sitemap = [
     ['', 'daily', 1],
     ['/cooks', 'daily', 0.6],

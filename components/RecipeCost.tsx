@@ -6,9 +6,11 @@ const PRICE_KEY = 'savry.recipePrice'
 
 /**
  * A recipe's estimated cost, per serving or for the whole recipe, as the
- * reader chooses. The choice is remembered in this browser only.
+ * reader chooses. `total` is the engine's own whole-recipe sum, not the
+ * rounded per-serving figure multiplied back up. The choice is remembered in
+ * this browser only.
  */
-export default function RecipeCost({ perServing, servings, unit }: { perServing: number; servings: number; unit: string }) {
+export default function RecipeCost({ perServing, total, unit, wholeLabel }: { perServing: number; total: number; unit: string; wholeLabel: string }) {
   const [mode, setMode] = useState<'serving' | 'recipe'>('serving')
 
   useEffect(() => {
@@ -22,13 +24,12 @@ export default function RecipeCost({ perServing, servings, unit }: { perServing:
     try { window.localStorage.setItem(PRICE_KEY, next) } catch {}
   }
 
-  const whole = perServing * Math.max(1, servings)
   return (
     <div className="recipe-cost">
       <div className="recipe-cost__figure">
         <span className="recipe-cost__label">Estimated cost</span>
-        <strong>${(mode === 'serving' ? perServing : whole).toFixed(2)}</strong>
-        <span className="recipe-cost__per">{mode === 'serving' ? `per ${unit}` : `for the whole recipe (${servings} ${unit}${servings === 1 ? '' : 's'})`}</span>
+        <strong>${(mode === 'serving' ? perServing : total).toFixed(2)}</strong>
+        <span className="recipe-cost__per">{mode === 'serving' ? `per ${unit}` : `for the whole recipe (${wholeLabel})`}</span>
       </div>
       <div className="recipe-cost__switch" role="group" aria-label="Show cost">
         <button type="button" aria-pressed={mode === 'serving'} onClick={() => choose('serving')}>Per {unit}</button>

@@ -26,3 +26,17 @@ export function costColumns(servings: number, ingredients: IngredientRow[]) {
   }
   return { cost_per_serving: result.perServing, cost_coverage: result.coverage, cost_source: 'savry_price_table' as const }
 }
+
+type RecipeIngredient = { name: string; amount: string | null; unit: string | null; isOptional: boolean }
+
+/**
+ * A recipe's cost from the same engine and price table as costColumns: the
+ * whole-recipe total (summed from each ingredient's unrounded cost, so it is
+ * not the rounded per-serving figure times the servings) and the cost per
+ * serving. Null below the coverage bar, where no cost is shown.
+ */
+export function recipeCost(servings: number, ingredients: RecipeIngredient[]): { total: number; perServing: number } | null {
+  const result = computeRecipeCost({ servings, ingredients }, reference)
+  if (result.coverage < MIN_COST_COVERAGE || !Number.isFinite(result.perServing) || !Number.isFinite(result.total)) return null
+  return { total: result.total, perServing: result.perServing }
+}

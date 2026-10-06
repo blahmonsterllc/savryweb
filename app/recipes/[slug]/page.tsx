@@ -9,6 +9,9 @@ import RecipeIngredients from '@/components/RecipeIngredients'
 import RecipeCost from '@/components/RecipeCost'
 import RecipeDiscussion from '@/components/RecipeDiscussion'
 import { detectAllergens } from '@/lib/allergens.mjs'
+import { failOrFallback } from '@/lib/last-good-page'
+import { recipeCost } from '@/lib/cost/recipe-cost'
+import { singularUnit } from '@/lib/scale-ingredients.mjs'
 
 export const revalidate = 300
 
@@ -56,13 +59,18 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 export default async function RecipePage({ params }: Params) {
-  const recipe = await getPublicRecipeBySlug(params.slug).catch(() => null)
+  // A failed read throws, so the last good page stays up instead of a cached "not found".
+  const recipe = await getPublicRecipeBySlug(params.slug).catch((error) => failOrFallback('recipe page', error, null))
   if (!recipe) notFound()
 
   const jsonLd = recipeJsonLd(recipe)
-  const yieldText = recipe.servingType === 'yields' ? `${recipe.servings} ${recipe.yieldUnit ?? 'items'}` : `${recipe.servings} servings`
+  const yieldWord = recipe.servingType === 'yields' ? (recipe.yieldUnit ?? 'items') : 'servings'
+  const yieldText = `${recipe.servings} ${recipe.servings === 1 ? singularUnit(yieldWord) : yieldWord}`
   const n = recipe.nutritionPerServing
   const allergens = detectAllergens(recipe.ingredients, recipe.allergens)
+  // Shown when the stored cost is (at least 95% priced). Both figures come from one run of the
+  // cost engine, so the whole-recipe total is the true sum, not the rounded per-serving × servings.
+  const cost = recipe.costPerServing != null ? recipeCost(recipe.servings, recipe.ingredients) : null
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-10">
@@ -98,11 +106,12 @@ export default async function RecipePage({ params }: Params) {
             <Stat label="Total" value={recipe.totalTime ? `${recipe.totalTime} min` : '—'} />
             <Stat label={recipe.servingType === 'yields' ? 'Makes' : 'Serves'} value={yieldText} />
           </div>
-          {recipe.costPerServing != null && (
+          {cost && (
             <RecipeCost
-              perServing={recipe.costPerServing}
-              servings={recipe.servings}
-              unit={recipe.servingType === 'yields' ? (recipe.yieldUnit?.replace(/s$/, '') ?? 'item') : 'serving'}
+              perServing={cost.perServing}
+              total={cost.total}
+              unit={recipe.servingType === 'yields' ? (singularUnit(recipe.yieldUnit) || 'item') : 'serving'}
+              wholeLabel={yieldText}
             />
           )}
 
@@ -168,7 +177,7 @@ export default async function RecipePage({ params }: Params) {
 
       {n && (
         <section className="mt-10 rounded-2xl bg-white p-6 shadow">
-          <h2 className="text-lg font-bold text-gray-900">Nutrition per {recipe.servingType === 'yields' ? (recipe.yieldUnit?.replace(/s$/, '') ?? 'item') : 'serving'}</h2>
+          <h2 className="text-lg font-bold text-gray-900">Nutrition per {recipe.servingType === 'yields' ? (singularUnit(recipe.yieldUnit) || 'item') : 'serving'}</h2>
           <dl className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
             {[
               ['Energy', `${n.calories} kcal · ${Math.round(n.calories * 4.184)} kJ`],

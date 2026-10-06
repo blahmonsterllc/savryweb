@@ -5,6 +5,8 @@ import RecipeExplorer from '@/components/RecipeExplorer'
 import Image from 'next/image'
 import Link from 'next/link'
 import { safeJsonLd } from '@/lib/security-policy.mjs'
+import { explorerRecipe } from '@/lib/explorer-recipes.mjs'
+import { failOrFallback } from '@/lib/last-good-page'
 
 export const revalidate = 120
 
@@ -15,12 +17,8 @@ export const metadata: Metadata = {
 }
 
 export default async function RecipesIndexPage() {
-  let recipes: Awaited<ReturnType<typeof listPublicRecipes>> = []
-  try {
-    recipes = await listPublicRecipes(1000)
-  } catch (error) {
-    console.error('recipes index: failed to load', error)
-  }
+  // A failed read throws (outside the build), so the last good page stays up rather than an empty one.
+  const recipes = await listPublicRecipes(1000).catch((error) => failOrFallback('recipes index', error, []))
 
   const itemListJsonLd = {
     '@context': 'https://schema.org',
@@ -70,7 +68,8 @@ export default async function RecipesIndexPage() {
           </div>
         </div>
       ) : (
-        <RecipeExplorer recipes={recipes} />
+        // Only what the explorer uses goes to the browser, not whole recipes.
+        <RecipeExplorer recipes={recipes.map(explorerRecipe)} />
       )}
     </main>
   )

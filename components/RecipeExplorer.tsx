@@ -3,30 +3,9 @@
 import Link from 'next/link'
 import { LayoutGrid, List, Search } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import { compareCheapest, type ExplorerRecipe } from '@/lib/explorer-recipes.mjs'
 
 const VIEW_KEY = 'savry.recipeView'
-
-type ExplorerRecipe = {
-  id: string
-  slug: string
-  title: string
-  description: string | null
-  imageUrl: string | null
-  authorName: string
-  publishedAt: string
-  totalTime: number
-  difficulty: string
-  category: string
-  cuisine: string | null
-  tags: string[]
-  dietaryTags: string[]
-  ingredients: Array<{ name: string }>
-  madeCount: number
-  commentCount: number
-  version: number
-  costPerServing?: number | null
-  servings?: number
-}
 
 export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] }) {
   const [query, setQuery] = useState('')
@@ -74,14 +53,16 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
           recipe.cuisine,
           ...recipe.tags,
           ...recipe.dietaryTags,
-          ...recipe.ingredients.map((ingredient) => ingredient.name),
+          ...recipe.ingredientNames,
         ].some((value) => String(value ?? '').toLowerCase().includes(needle))
       })
       .sort((a, b) => {
         if (sort === 'newest') return Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
         if (sort === 'quick') return (a.totalTime || Number.MAX_SAFE_INTEGER) - (b.totalTime || Number.MAX_SAFE_INTEGER)
         // Prices are shown on each recipe, not in the list; the order still helps a cook on a budget.
-        if (sort === 'cheapest') return (a.costPerServing ?? Number.MAX_SAFE_INTEGER) - (b.costPerServing ?? Number.MAX_SAFE_INTEGER)
+        // Recipes that make items (cookies, slices) have a per-item cost, not a per-meal one, so they
+        // are not ranked against meals and follow them (see compareCheapest).
+        if (sort === 'cheapest') return compareCheapest(a, b)
         return b.madeCount * 5 + b.version - (a.madeCount * 5 + a.version)
       })
   }, [category, diet, maxTime, query, recipes, sort])

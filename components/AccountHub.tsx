@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { ArrowRight, BookOpen, Camera, Check, ExternalLink, LogOut, Plus, Trash2 } from 'lucide-react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
+import { memberPost } from '@/lib/member-fetch'
 import { SOCIAL_NETWORKS, socialLinkURL } from '@/lib/social-links'
 import { SITE_URL } from '@/lib/site-url'
 import RecipeShareBar from '@/components/RecipeShareBar'
@@ -396,21 +397,25 @@ function RecipesSection({ recipes: initial }: { recipes: RecipeRow[] }) {
     setBusy(recipe.slug)
     setMessage(null)
     const { error } = await getSupabaseBrowserClient().rpc('unpublish_recipe', { target_slug: recipe.slug })
+    if (error) {
+      setBusy(null)
+      return setMessage(error.message)
+    }
+    // The recipe's cached pages would show it for a few more minutes; refresh them now. Best effort.
+    await memberPost('/api/recipes/refresh', { slug: recipe.slug }).catch(() => undefined)
     setBusy(null)
-    if (error) return setMessage(error.message)
     setRecipes((current) => current.map((r) => (r.slug === recipe.slug ? { ...r, visibility: 'private', review_hold: false } : r)))
   }
 
   async function remove(recipe: RecipeRow) {
     setBusy(recipe.slug)
     setMessage(null)
-    const supabase = getSupabaseBrowserClient()
-    const { error } = await supabase.rpc('delete_my_recipe', { target_slug: recipe.slug })
+    // The server deletes the recipe as this cook, removes its photos (the browser
+    // cannot list or delete storage objects), and refreshes its cached pages.
+    const result = await memberPost('/api/recipes/delete', { slug: recipe.slug }).catch(() => null)
     setBusy(null)
     setConfirming(null)
-    if (error) return setMessage(error.message)
-    // The photo is the cook's own upload; removing it is allowed and best effort.
-    if (recipe.image_path) await supabase.storage.from('recipe-images').remove([recipe.image_path]).catch(() => undefined)
+    if (!result?.ok) return setMessage(result?.data.error || 'Could not delete the recipe. Please try again.')
     setRecipes((current) => current.filter((r) => r.slug !== recipe.slug))
   }
 
@@ -663,10 +668,11 @@ function AccountSection({ profile, onSignOut }: { profile: Profile; onSignOut: (
   async function deleteAccount() {
     setBusy(true)
     setError(null)
-    const { error: rpcError } = await getSupabaseBrowserClient().rpc('delete_my_account')
-    if (rpcError) {
+    // The server removes every photo in this cook's folder along with the account.
+    const result = await memberPost('/api/account/delete').catch(() => null)
+    if (!result?.ok) {
       setBusy(false)
-      setError(friendly(rpcError))
+      setError(friendly({ message: result?.data.error }))
       return
     }
     await getSupabaseBrowserClient().auth.signOut()

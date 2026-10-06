@@ -159,7 +159,10 @@ test('cooks can take down or delete only their own recipes; admins can delete an
   assert.match(lockdown, /function public\.delete_my_recipe\(target_slug text\)[\s\S]*?delete from public\.recipes where slug = target_slug and author_id = actor/, 'delete touches only the caller\'s own recipe')
   const hub = await readFile(new URL('../components/AccountHub.tsx', import.meta.url), 'utf8')
   assert.match(hub, /rpc\('unpublish_recipe'/)
-  assert.match(hub, /rpc\('delete_my_recipe'/)
+  // The delete runs on the server as the member, so the photos can go with it.
+  assert.match(hub, /memberPost\('\/api\/recipes\/delete'/)
+  const route = await readFile(new URL('../pages/api/recipes/delete.ts', import.meta.url), 'utf8')
+  assert.match(route, /memberClient\(member\.token\)\.rpc\('delete_my_recipe'/)
   assert.match(hub, /confirming === recipe\.slug/, 'deleting asks first')
 })
 

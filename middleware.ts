@@ -54,6 +54,11 @@ function isPublicApiRoute(pathname: string): boolean {
     pathname === '/api/cron/recost' ||
     // Members price their own recipe with their Supabase token; the handler verifies it and computes the cost itself.
     pathname === '/api/recipes/cost' ||
+    // Members delete their own recipe or account, or refresh their own recipe's cached pages, with their
+    // Supabase token; the handlers verify it and only ever touch the caller's own recipes and photo folder.
+    pathname === '/api/recipes/delete' ||
+    pathname === '/api/recipes/refresh' ||
+    pathname === '/api/account/delete' ||
     // Vercel Cron, with the CRON_SECRET bearer token; and the public summary of what it sampled.
     pathname === '/api/cron/kroger-sample' ||
     pathname === '/api/prices/observations'

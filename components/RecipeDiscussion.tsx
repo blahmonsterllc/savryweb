@@ -5,6 +5,7 @@ import { Check, ChevronDown, Heart, MessageCircle, Reply, Sparkles, X } from 'lu
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
+import { memberPost } from '@/lib/member-fetch'
 import { newPhotoPath, photoToJPEG } from '@/lib/photo-upload'
 
 type Topic = 'addition' | 'revision' | 'substitution' | 'technique' | 'question'
@@ -215,11 +216,13 @@ export default function RecipeDiscussion({ slug, initialCount = 0 }: { slug: str
     const { error: decisionError } = await supabase.rpc('moderate_recipe_suggestion', {
       payload: { contributionId: post.id, decision },
     })
-    if (decisionError) setError(decisionError.message)
-    else setData((current) => current ? {
+    if (decisionError) return setError(decisionError.message)
+    setData((current) => current ? {
       ...current,
       posts: current.posts.map((item) => item.id === post.id ? { ...item, status: decision } : item),
     } : current)
+    // An accepted tweak changes the recipe; refresh its cached pages now. Best effort.
+    if (decision === 'accepted') memberPost('/api/recipes/refresh', { slug }).catch(() => undefined)
   }
 
   async function report(post: DiscussionPost, reason: string) {

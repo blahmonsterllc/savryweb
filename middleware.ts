@@ -53,7 +53,10 @@ function isPublicApiRoute(pathname: string): boolean {
     pathname === '/api/prices/table' ||
     pathname === '/api/cron/recost' ||
     // Members price their own recipe with their Supabase token; the handler verifies it and computes the cost itself.
-    pathname === '/api/recipes/cost'
+    pathname === '/api/recipes/cost' ||
+    // Vercel Cron, with the CRON_SECRET bearer token; and the public summary of what it sampled.
+    pathname === '/api/cron/kroger-sample' ||
+    pathname === '/api/prices/observations'
   )
 }
 

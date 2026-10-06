@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const plusFeatures = [
   'Plan the week under a grocery budget: meal plans built from your own recipes that stay within what you want to spend',
   'Cook from what you already have: plans lean on your pantry first, so the shopping list is shorter',
-  'Priced to your area: costs scaled to your state, with shelf prices from your nearest Kroger-family store where there is one',
+  'Priced to your area: every cost scaled to grocery prices where you live',
   'Unlimited recipe imports from websites and social posts, and on-device recipe help that never sends your data anywhere',
 ]
 

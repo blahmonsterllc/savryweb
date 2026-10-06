@@ -74,3 +74,17 @@ test('money is shown with two decimals', () => {
   assert.equal(roundCents(0.125), 0.13)
   assert.equal(roundCents(2.1 + 0.2), 2.3)
 })
+
+test('store samples calibrate the table gently: national equivalent, median, and at most a 25% step', async () => {
+  const { blendTowardObserved, median, nationalEquivalent, SAMPLE_ZIPS } = await import('../lib/cost/calibrate.mjs')
+  assert.equal(nationalEquivalent(11.2, 1.12), 10, 'a Hawaii price at 1.12 is $10 at the US average')
+  assert.equal(nationalEquivalent(9.4, 0.94), 10)
+  assert.equal(median([3, 1, 2]), 2)
+  assert.equal(median([1, 2, 3, 4]), 2.5)
+  assert.equal(median([]), null)
+  assert.equal(blendTowardObserved(10, 11), 11, 'a small gap closes in one month')
+  assert.equal(blendTowardObserved(10, 30), 12.5, 'a big gap moves 25% at most')
+  assert.equal(blendTowardObserved(10, 2), 7.5)
+  assert.equal(blendTowardObserved(10, null), 10)
+  assert.ok(SAMPLE_ZIPS.every((zip) => /^\d{5}$/.test(zip)) && new Set(SAMPLE_ZIPS).size === SAMPLE_ZIPS.length)
+})

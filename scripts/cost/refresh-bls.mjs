@@ -18,10 +18,17 @@
  * and $500 a kilogram; and a move of more than 40% from the price already in
  * the table stops the run (the workflow then fails and emails the owner).
  * Pass --accept-large-moves after checking a real jump by hand.
+ *
+ * Then Kroger-family shelf prices sampled across regions (savry.io
+ * /api/prices/observations, already brought to the US average by each
+ * state's price level) calibrate the foods BLS does not track: each moves
+ * at most 25% a month toward the median, and only when it was seen in at
+ * least three states. BLS foods are only cross-checked against them.
  */
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
+import { MIN_STATES, blendTowardObserved } from '../../lib/cost/calibrate.mjs'
 
 const LB = 0.45359
 
@@ -104,11 +111,38 @@ async function main() {
       table.prices[id] = { perKg: price.perKg, basis: 'est', description: price.description }
     }
   }
+  // Kroger-family samples as a gauge for the shelf estimates.
+  const observationsUrl = process.env.OBSERVATIONS_URL || 'https://www.savry.io/api/prices/observations'
+  let observed = null
+  try {
+    const response = await fetch(observationsUrl)
+    if (response.ok) observed = (await response.json()).foods ?? null
+    else console.log(`  store observations unavailable (${response.status}); shelf estimates left as they are`)
+  } catch (error) {
+    console.log(`  store observations unavailable (${error.message}); shelf estimates left as they are`)
+  }
+  let calibrated = 0
+  for (const [id, seen] of Object.entries(observed ?? {})) {
+    const price = table.prices[id]
+    if (!price || !(seen.medianPerKg > 0) || seen.states < MIN_STATES) continue
+    if (price.basis === 'bls') {
+      const gap = seen.medianPerKg / price.perKg
+      if (gap > 1.5 || gap < 0.67) console.log(`  note: ${id} ${price.description}: BLS $${price.perKg}/kg, stores $${seen.medianPerKg}/kg (${seen.states} states)`)
+      continue
+    }
+    const next = blendTowardObserved(price.perKg, seen.medianPerKg)
+    if (next === price.perKg) continue
+    changes.push({ id, item: `${price.description} (stores, ${seen.states} states)`, before: price.perKg, after: next, period: 'stores' })
+    table.prices[id] = { ...price, perKg: next, storeMedianPerKg: seen.medianPerKg, storeStates: seen.states }
+    calibrated += 1
+  }
+  if (observed) console.log(`  ${calibrated} shelf estimates moved toward store prices`)
+
   if (problems.length > 0) {
     for (const problem of problems) console.error(`  REFUSED ${problem}`)
     throw new Error(`${problems.length} price(s) failed the plausibility check; nothing written. Check them on data.bls.gov, then rerun with --accept-large-moves if they are real.`)
   }
-  const periods = [...new Set(changes.map((c) => c.period))].sort()
+  const periods = [...new Set(changes.map((c) => c.period).filter((p) => p !== 'stores'))].sort()
   table.asOf = periods.at(-1) ?? table.asOf
   table.basis.bls = 'BLS average retail price, US city average, latest month (series and month on each food)'
 

@@ -297,7 +297,7 @@ test('the weekly email sends only to opted-in, confirmed cooks, through a protec
   assert.match(middleware, /pathname === '\/api\/cron\/weekly-email'/)
   assert.match(middleware, /pathname === '\/api\/email\/unsubscribe'/)
   const cronConfig = JSON.parse(await source('vercel.json'))
-  assert.deepEqual(cronConfig.crons.map((entry) => entry.path), ['/api/cron/patrol', '/api/cron/memberships', '/api/cron/weekly-email', '/api/cron/recost'])
+  assert.deepEqual(cronConfig.crons.map((entry) => entry.path), ['/api/cron/patrol', '/api/cron/memberships', '/api/cron/weekly-email', '/api/cron/recost', '/api/cron/kroger-sample'])
 
   const preview = await source('pages/api/admin/digest-preview.ts')
   assert.ok(preview.indexOf('requireAdmin(req, res)') < preview.indexOf('getSupabaseAdmin()'), 'admin check comes first')
@@ -367,4 +367,16 @@ test('price pipeline: quota guarded, costs computed on the server, workflow keep
 
   const refresh = await source('scripts/cost/refresh-bls.mjs')
   assert.match(refresh, /accept-large-moves/, 'a large month-on-month move stops the run')
+})
+
+test('the Kroger sampler is a protected cron and its samples are readable only in aggregate', async () => {
+  const cron = await source('pages/api/cron/kroger-sample.ts')
+  assert.match(cron, /timingSafeEqual/)
+  assert.ok(cron.indexOf('return res.status(401)') < cron.indexOf('getSupabaseAdmin()') && cron.indexOf('return res.status(401)') < cron.indexOf('nearestStore('), 'the secret is checked before the database or Kroger is touched')
+  assert.match(cron, /take_kroger_calls/, 'the sampler draws on the shared daily Kroger budget')
+  const observations = await source('pages/api/prices/observations.ts')
+  assert.match(observations, /select\('fdc_id, national_per_kg, state'\)/, 'only the columns the summary needs')
+  assert.doesNotMatch(observations, /location_id|zip/, 'the summary names no store or ZIP')
+  const migration = await source('supabase/migrations/20261005030000_kroger_price_samples.sql')
+  assert.match(migration, /revoke all on public\.kroger_price_samples from public, anon, authenticated/)
 })

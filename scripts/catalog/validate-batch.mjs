@@ -35,7 +35,7 @@ const SIGNALS = {
   wheat: /\b(flour|bread|breadcrumbs?|panko|pasta|spaghetti|penne|rigatoni|noodles?|tortillas?|pita|soy sauce|couscous|bulgur|farro|seitan|orzo|buns?|baguette|crackers?|semolina|udon|ramen|wonton|naan|hoisin|teriyaki)\b/,
   soy: /\b(soy sauce|tamari|tofu|miso|edamame|tempeh|soy|soybean|hoisin|teriyaki|gochujang|doubanjiang)\b/,
   peanuts: /\b(peanuts?|peanut butter|peanut oil)\b/,
-  'tree nuts': /\b(almonds?|walnuts?|pecans?|cashews?|pistachios?|hazelnuts?|pine nuts?|macadamias?|almond flour|almond butter|almond milk|cashew butter|pesto)\b/,
+  'tree nuts': /\b(almonds?|walnuts?|pecans?|cashews?|pistachios?|hazelnuts?|filberts?|pine nuts?|macadamias?|brazil nuts?|(?<!water )chestnuts?|almond flour|almond butter|almond milk|almond extract|cashew butter|pesto|nutella|gianduja|pralines?|marzipan|nougat|frangelico|amaretto|amaretti|baklava|mixed nuts)\b/,
   fish: /\b(salmon|cod|tuna|anchov(y|ies)|fish sauce|fish|halibut|tilapia|sardines?|trout|worcestershire|bonito|dashi|mahi|snapper|haddock)\b/,
   shellfish: /\b(shrimp|prawns?|crab|lobster|mussels?|clams?|scallops?|oyster sauce|oysters?)\b/,
   sesame: /\b(sesame|tahini)\b/,

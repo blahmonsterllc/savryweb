@@ -25,6 +25,7 @@ language sql stable security definer set search_path = '' as $$
     'servings', r.servings, 'servingType', r.serving_type, 'yieldUnit', r.yield_unit,
     'dietaryTags', to_jsonb(r.dietary_tags), 'allergens', to_jsonb(r.allergens),
     'calories', (r.nutrition_per_serving ->> 'calories')::integer,
+    'nutrition', r.nutrition_per_serving, 'nutritionSource', r.nutrition_source, 'nutritionCoverage', r.nutrition_coverage,
     'costPerServing', case when r.cost_coverage >= 0.95 then r.cost_per_serving end,
     'notes', r.notes, 'ovenTemp', r.oven_temp_f,
     'ingredients', coalesce((

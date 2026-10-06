@@ -55,7 +55,7 @@ export default function SavryPlusPage() {
           <div>
             <span className="eyebrow">The community stays open</span>
             <h2>Free still means useful.</h2>
-            <p>Savry+ funds the product, but the recipe community should be welcoming whether or not someone subscribes.</p>
+            <p>Savry+ funds the site, but the recipe community should be welcoming whether or not someone subscribes.</p>
           </div>
           <ul>
             {freeFeatures.map((feature) => <li key={feature}><Check size={18} /> <span>{feature}</span></li>)}

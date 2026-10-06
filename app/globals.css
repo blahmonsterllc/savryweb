@@ -4561,7 +4561,8 @@ html {
   gap: 8px;
 }
 
-.account-library__saved > a {
+.account-library__saved > a,
+.account-library__saved > .account-library__unlinked {
   flex: 1 1 auto;
   min-width: 0;
 }

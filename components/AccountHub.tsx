@@ -424,11 +424,17 @@ function RecipesSection({ recipes: initial }: { recipes: RecipeRow[] }) {
         <ul className="account-library__list">
           {recipes.map((recipe) => (
             <li key={recipe.id} className="account-library__saved">
-              <Link href={`/recipes/${recipe.slug}`}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                {recipe.image_url ? <img src={recipe.image_url} alt="" /> : <span className="account-library__initial">{recipe.title.charAt(0)}</span>}
-                <div><strong>{recipe.title}</strong><span>{standing(recipe)}</span></div>
-              </Link>
+              {(() => {
+                const body = (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {recipe.image_url ? <img src={recipe.image_url} alt="" /> : <span className="account-library__initial">{recipe.title.charAt(0)}</span>}
+                    <div><strong>{recipe.title}</strong><span>{standing(recipe)}</span></div>
+                  </>
+                )
+                // Only public recipes have a page; in-review and private ones would 404.
+                return recipe.visibility === 'public' ? <Link href={`/recipes/${recipe.slug}`}>{body}</Link> : <div className="account-library__unlinked">{body}</div>
+              })()}
               {confirming === recipe.slug ? (
                 <span className="account-library__confirm">
                   <button type="button" className="account-library__remove account-library__remove--danger" disabled={busy === recipe.slug} onClick={() => remove(recipe)}>{busy === recipe.slug ? 'Deleting…' : 'Yes, delete it'}</button>

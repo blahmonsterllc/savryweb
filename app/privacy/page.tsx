@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-url'
 
-const LAST_UPDATED = 'October 1, 2026'
+const LAST_UPDATED = 'October 6, 2026'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -56,7 +56,6 @@ export default function PrivacyPolicy() {
           <li>To answer support requests and send account or service notices.</li>
           <li>To send product news only if you opt in, with an unsubscribe link in every email.</li>
           <li>To keep the service safe: preventing spam, abuse, fraud, and unauthorized access, and enforcing our <Link href="/terms">Terms</Link>. This includes automated review of what you publish to the community and of your public profile, to check that it is suitable for a family site. Flagged items are reviewed by a person.</li>
-          <li>To show clearly labeled advertising on the website when you consent (see below).</li>
         </ul>
       </section>
 
@@ -96,7 +95,7 @@ export default function PrivacyPolicy() {
 
       <section id="do-not-sell">
         <h2>Do Not Sell or Share (California and other US states)</h2>
-        <p>Savry does not sell your personal information for money. Serving personalized advertising through Google may count as “sharing” personal information for cross-context behavioral advertising under the California Privacy Rights Act (CPRA) and similar state laws. You can opt out by using the <strong>Privacy choices</strong> link in the footer and declining advertising cookies. We honor Global Privacy Control signals sent by your browser as an opt-out where required. We do not knowingly sell or share the personal information of anyone under 16.</p>
+        <p>Savry does not sell or share your personal information, for money or for advertising, under the California Privacy Rights Act (CPRA) or similar state laws. Savry shows no advertising and uses no advertising or tracking cookies, so there is nothing to opt out of. We honor Global Privacy Control signals sent by your browser. We do not knowingly sell or share the personal information of anyone, including anyone under 16.</p>
       </section>
 
       <section id="retention">

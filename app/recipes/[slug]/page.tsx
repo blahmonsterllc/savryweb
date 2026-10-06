@@ -8,8 +8,15 @@ import RecipeQuickActions from '@/components/RecipeQuickActions'
 import RecipeIngredients from '@/components/RecipeIngredients'
 import RecipeCost from '@/components/RecipeCost'
 import RecipeDiscussion from '@/components/RecipeDiscussion'
+import { detectAllergens } from '@/lib/allergens.mjs'
 
 export const revalidate = 300
+
+// No pages are built ahead; each recipe page is rendered on its first visit and
+// then served from the cache (refreshed every 5 minutes) instead of on every view.
+export async function generateStaticParams() {
+  return []
+}
 
 type Params = { params: { slug: string } }
 
@@ -55,6 +62,7 @@ export default async function RecipePage({ params }: Params) {
   const jsonLd = recipeJsonLd(recipe)
   const yieldText = recipe.servingType === 'yields' ? `${recipe.servings} ${recipe.yieldUnit ?? 'items'}` : `${recipe.servings} servings`
   const n = recipe.nutritionPerServing
+  const allergens = detectAllergens(recipe.ingredients, recipe.allergens)
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-10">
@@ -117,6 +125,20 @@ export default async function RecipePage({ params }: Params) {
           <h2 className="text-xl font-bold text-gray-900">Ingredients</h2>
           <p className="mt-1 text-sm text-gray-500">Tap each item as you gather it.</p>
           <RecipeIngredients ingredients={recipe.ingredients} servings={recipe.servings} servingType={recipe.servingType} yieldUnit={recipe.yieldUnit ?? null} />
+          {allergens.length > 0 && (
+            <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950" role="note">
+              <p className="font-semibold">Contains or may contain</p>
+              <ul className="mt-1 space-y-0.5">
+                {allergens.map((a) => (
+                  <li key={a.allergen}>
+                    <span className="font-medium">{a.allergen}</span>
+                    {a.lines.length > 0 && <span className="text-amber-900">: {Array.from(new Set(a.lines)).join(', ')}</span>}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 text-xs text-amber-900">Checked from the ingredient names. Always read the labels on what you buy; brands and kitchens differ.</p>
+            </div>
+          )}
           {recipe.equipment.length > 0 && (
             <div className="mt-6">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-primary-700">Equipment</h3>
@@ -192,9 +214,18 @@ export default async function RecipePage({ params }: Params) {
 
       {recipe.sourceURL && (
         <p className="mt-6 text-sm text-gray-500">
-          Originally from <a href={recipe.sourceURL} rel="nofollow noopener" className="underline">{new URL(recipe.sourceURL).hostname}</a>
+          Originally from <a href={recipe.sourceURL} rel="nofollow noopener" className="underline">{sourceHost(recipe.sourceURL)}</a>
         </p>
       )}
     </article>
   )
+}
+
+/** The link's site name; a malformed link shows as written instead of breaking the page. */
+function sourceHost(url: string): string {
+  try {
+    return new URL(url).hostname
+  } catch {
+    return url
+  }
 }

@@ -142,7 +142,8 @@ export async function getSupabasePublicCook(username: string): Promise<PublicCoo
     .eq('author_id', profile.id)
     .eq('visibility', 'public')
     .order('published_at', { ascending: false })
-    .limit(60)
+    // Every public recipe: the page's count and "cooked by others" add these up.
+    .limit(1000)
   if (recipesError) throw recipesError
   const storageBase = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/recipe-images`
   const links = profile.social_links && typeof profile.social_links === 'object' ? profile.social_links : {}

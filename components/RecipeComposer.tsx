@@ -332,7 +332,7 @@ export default function RecipeComposer() {
           {pendingReview ? (
             <>
               <h1>Your recipe is in for review.</h1>
-              <p>A Savry editor reads each cook&rsquo;s first recipes before they join the shared table, usually within a day. You can see and edit it from your account meanwhile.</p>
+              <p>A Savry editor reads each cook&rsquo;s first recipes before they join the shared table, usually within a day. It is listed in your account meanwhile, and gets its public page once it is approved.</p>
             </>
           ) : (
             <>
@@ -341,7 +341,8 @@ export default function RecipeComposer() {
             </>
           )}
           <div>
-            <a href={publishedURL} className="button button--coral">{pendingReview ? 'See your recipe' : 'View your recipe'}</a>
+            {/* A held recipe has no public page yet; its link would 404. */}
+            <a href={pendingReview ? '/account#recipes' : publishedURL} className="button button--coral">{pendingReview ? 'See it in your account' : 'View your recipe'}</a>
             <button
               type="button"
               className="button button--light"

@@ -17,9 +17,13 @@ import { parseIngredientLines, parseInstructionLines } from '@/lib/ingredient-li
 import { nutritionColumns } from '@/lib/nutrition/recipe-nutrition'
 import { costColumns } from '@/lib/cost/recipe-cost'
 
-const ALLERGENS = ['milk', 'eggs', 'wheat', 'soy', 'peanuts', 'tree nuts', 'fish', 'shellfish', 'sesame']
-const DIETARY = ['vegan', 'vegetarian', 'gluten-free', 'dairy-free', 'nut-free', 'egg-free']
-const text = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '')
+const text = (value: unknown, max: number): string => (typeof value === 'string' ? value.trim().slice(0, max) : '')
+// Labels are kept as written: a recipe published with "dairy" or "hazelnuts"
+// must not lose them because the editor's checkboxes use other words.
+const labels = (value: unknown) =>
+  Array.isArray(value)
+    ? Array.from(new Set(value.map((v) => text(v, 40)).filter(Boolean))).slice(0, 20)
+    : []
 const whole = (value: unknown) => Math.max(0, Math.round(Number(value) || 0))
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
@@ -70,12 +74,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const payload = {
       title: text(edit.title, 120),
       description: text(edit.description, 600),
-      notes: text(edit.notes, 4000),
+      notes: text(edit.notes, 2000),
       prepTime: whole(edit.prepTime),
       cookTime: whole(edit.cookTime),
-      servings: whole(edit.servings),
-      allergens: Array.isArray(edit.allergens) ? edit.allergens.filter((a: unknown) => ALLERGENS.includes(String(a))) : [],
-      dietaryTags: Array.isArray(edit.dietaryTags) ? edit.dietaryTags.filter((d: unknown) => DIETARY.includes(String(d))) : [],
+      servings: Math.max(1, whole(edit.servings)),
+      allergens: labels(edit.allergens),
+      dietaryTags: labels(edit.dietaryTags),
       ingredients,
       steps,
     }

@@ -79,12 +79,12 @@ export default function RecipeEditor({ recipe, onSaved, onCancel }: { recipe: Ed
           <textarea className={field} rows={Math.min(20, Math.max(6, recipe.steps.length * 2))} value={stepsText} onChange={(e) => setStepsText(e.target.value)} />
         </label>
         <label className={label}>Notes <span className="font-normal text-gray-500">shown under the method, e.g. &ldquo;Can substitute chocolate chips for the raisins.&rdquo;</span>
-          <textarea className={field} rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} maxLength={4000} />
+          <textarea className={field} rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} maxLength={2000} />
         </label>
         <fieldset>
           <legend className={label}>Contains</legend>
           <div className="mt-2 flex flex-wrap gap-2">
-            {ALLERGENS.map((a) => (
+            {[...ALLERGENS, ...recipe.allergens.filter((a) => !ALLERGENS.includes(a))].map((a) => (
               <label key={a} className="flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-sm text-amber-900">
                 <input type="checkbox" checked={allergens.includes(a)} onChange={() => toggle(allergens, setAllergens, a)} /> {a}
               </label>
@@ -94,7 +94,7 @@ export default function RecipeEditor({ recipe, onSaved, onCancel }: { recipe: Ed
         <fieldset>
           <legend className={label}>Diet</legend>
           <div className="mt-2 flex flex-wrap gap-2">
-            {DIETARY.map((d) => (
+            {[...DIETARY, ...recipe.dietaryTags.filter((d) => !DIETARY.includes(d))].map((d) => (
               <label key={d} className="flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1 text-sm text-green-900">
                 <input type="checkbox" checked={dietaryTags.includes(d)} onChange={() => toggle(dietaryTags, setDietaryTags, d)} /> {d}
               </label>

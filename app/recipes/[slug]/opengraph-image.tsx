@@ -7,6 +7,8 @@ import { getPublicRecipeBySlug } from '@/lib/community-recipes'
  * from the public recipe only; a missing recipe gets a plain Savry card.
  */
 export const runtime = 'nodejs'
+// Rebuilt hourly, so an edited, renamed or removed recipe's card catches up.
+export const revalidate = 3600
 export const alt = 'A Savry recipe card'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'

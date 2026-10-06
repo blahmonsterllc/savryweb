@@ -9,7 +9,7 @@ const allowedPublicBots = [
   /googlebot/i, /bingbot/i, /duckduckbot/i, /applebot/i, /yandexbot/i, /baiduspider/i,
   /adsbot-google/i, /storebot-google/i, /mediapartners-google/i,
   /facebookexternalhit/i, /meta-externalagent/i, /twitterbot/i, /linkedinbot/i, /whatsapp/i,
-  /slackbot/i, /discordbot/i, /telegrambot/i, /pinterest/i,
+  /slackbot/i, /discordbot/i, /telegrambot/i, /pinterest/i, /redditbot/i, /embedly/i, /iframely/i,
 ]
 
 // Simple, edge-compatible bot detection

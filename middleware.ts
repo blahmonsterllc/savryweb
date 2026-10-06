@@ -31,6 +31,7 @@ function shouldBlockBot(userAgent: string, path: string): boolean {
 }
 
 const APP_STORE_NOTIFICATIONS_PATH = '/api/app-store/notifications'
+const UNSUBSCRIBE_PATH = '/api/email/unsubscribe'
 
 // Public API routes that are reachable without an admin session.
 function isPublicApiRoute(pathname: string): boolean {
@@ -140,7 +141,9 @@ export async function middleware(req: NextRequest) {
 
   // Check if bot should be blocked (scrapers everywhere, every bot on /api).
   // Apple's notification servers are not a browser; their signature is the check.
-  if (pathname !== APP_STORE_NOTIFICATIONS_PATH && shouldBlockBot(userAgent, pathname)) {
+  // Mail providers send the one-click unsubscribe POST (RFC 8058) from their own
+  // servers; the token is the check there, and a GET changes nothing.
+  if (pathname !== APP_STORE_NOTIFICATIONS_PATH && pathname !== UNSUBSCRIBE_PATH && shouldBlockBot(userAgent, pathname)) {
     {
       return NextResponse.json(
         {

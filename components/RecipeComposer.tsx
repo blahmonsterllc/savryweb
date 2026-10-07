@@ -478,7 +478,12 @@ export default function RecipeComposer() {
               </details>
               <label className="recipe-rights">
                 <input type="checkbox" checked={draft.rightsAttested} onChange={(event) => update('rightsAttested', event.target.checked)} />
-                <span>I created this recipe or have permission to publish it, including its photo. I understand it will be visible to the Savry community.</span>
+                {draft.sourceURL.trim() ? (
+                  // Ingredient lists are facts anyone may share; another cook's writing and photos are theirs.
+                  <span>I wrote the description and steps in my own words and the photo is mine; the recipe is adapted from the source above, which Savry credits. Ingredient lists are fine to share, someone else&rsquo;s writing and photos aren&rsquo;t.</span>
+                ) : (
+                  <span>I created this recipe or have permission to publish it, including its photo. I understand it will be visible to the Savry community.</span>
+                )}
               </label>
               <p className="recipe-review__fineprint">Your recipe will be public and shareable. Community comments and structured improvements are coming later in the preview. See the <Link href="/terms">community terms</Link>.</p>
               <button type="button" className="recipe-publish-button" onClick={publish} disabled={busy || !draft.rightsAttested}><Send size={19} /> {busy ? 'Publishing…' : 'Publish to Savry'}</button>

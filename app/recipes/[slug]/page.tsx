@@ -223,7 +223,7 @@ export default async function RecipePage({ params }: Params) {
 
       {recipe.sourceURL && (
         <p className="mt-6 text-sm text-gray-500">
-          Originally from <a href={recipe.sourceURL} rel="nofollow noopener" className="underline">{sourceHost(recipe.sourceURL)}</a>
+          Adapted from <a href={recipe.sourceURL} rel="nofollow noopener" className="underline">{sourceHost(recipe.sourceURL)}</a>
         </p>
       )}
     </article>

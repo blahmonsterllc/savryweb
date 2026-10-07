@@ -38,13 +38,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       url: recipe.url,
       siteName: 'Savry',
       // The branded share card (app/recipes/[slug]/opengraph-image.tsx).
-      images: [{ url: `${recipe.url}/opengraph-image`, width: 1200, height: 630, alt: recipe.title }],
+      images: [{ url: `${recipe.url}/card?v=${recipe.version}`, width: 1200, height: 630, alt: recipe.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: recipe.title,
       description,
-      images: [`${recipe.url}/opengraph-image`],
+      images: [`${recipe.url}/card?v=${recipe.version}`],
     },
   }
 }

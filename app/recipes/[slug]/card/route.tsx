@@ -6,14 +6,12 @@ import { getPublicRecipeBySlug } from '@/lib/community-recipes'
  * Messages, Instagram, Slack or X, and what "Share as image" sends. Built
  * from the public recipe only; a missing recipe gets a plain Savry card.
  */
+// A plain route rather than Next's opengraph-image file, which is always sent
+// "immutable" for a year. Here the CDN keeps a card for an hour, and the page
+// links it with the recipe's version (?v=), so an edited recipe gets a new card.
 export const runtime = 'nodejs'
-// Drawn on request and cached by the CDN for an hour (see the headers below):
-// a statically generated card would be served "immutable" for a year, so an
-// edited, renamed or removed recipe's card would never catch up.
 export const dynamic = 'force-dynamic'
-export const alt = 'A Savry recipe card'
-export const size = { width: 1200, height: 630 }
-export const contentType = 'image/png'
+const size = { width: 1200, height: 630 }
 
 const INK = '#101d2f'
 const PAPER = '#f7f2e8'
@@ -35,7 +33,7 @@ async function serif(): Promise<ArrayBuffer | null> {
   }
 }
 
-export default async function RecipeShareCard({ params }: { params: { slug: string } }) {
+export async function GET(_request: Request, { params }: { params: { slug: string } }) {
   const [recipe, font] = await Promise.all([getPublicRecipeBySlug(params.slug).catch(() => null), serif()])
   const fonts = font ? [{ name: 'Serif', data: font, style: 'normal' as const, weight: 500 as const }] : []
   const titleFont = font ? 'Serif' : 'serif'

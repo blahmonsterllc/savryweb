@@ -304,12 +304,12 @@ test('the weekly email sends only to opted-in, confirmed cooks, through a protec
 })
 
 test('the recipe share card is built from public recipe data only', async () => {
-  const card = await source('app/recipes/[slug]/opengraph-image.tsx')
+  const card = await source('app/recipes/[slug]/card/route.tsx')
   assert.match(card, /getPublicRecipeBySlug\(params\.slug\)/, 'the same public loader as the page')
   assert.doesNotMatch(card, /getSupabaseAdmin|SUPABASE_SECRET_KEY|service_role/, 'no privileged access')
   assert.match(card, /fonts\.googleapis\.com|fonts\.gstatic\.com/, 'fonts come only from Google Fonts')
   const page = await source('app/recipes/[slug]/page.tsx')
-  assert.match(page, /opengraph-image/, 'social previews use the branded card')
+  assert.match(page, /\/card\?v=\$\{recipe\.version\}/, 'social previews use the branded card, versioned so edits show')
 })
 
 test('a recipe published on the web gets nutrition from the same USDA engine, or none', async () => {

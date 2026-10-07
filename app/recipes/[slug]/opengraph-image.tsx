@@ -7,8 +7,10 @@ import { getPublicRecipeBySlug } from '@/lib/community-recipes'
  * from the public recipe only; a missing recipe gets a plain Savry card.
  */
 export const runtime = 'nodejs'
-// Rebuilt hourly, so an edited, renamed or removed recipe's card catches up.
-export const revalidate = 3600
+// Drawn on request and cached by the CDN for an hour (see the headers below):
+// a statically generated card would be served "immutable" for a year, so an
+// edited, renamed or removed recipe's card would never catch up.
+export const dynamic = 'force-dynamic'
 export const alt = 'A Savry recipe card'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
@@ -71,6 +73,6 @@ export default async function RecipeShareCard({ params }: { params: { slug: stri
         </div>
       </div>
     ),
-    { ...size, fonts },
+    { ...size, fonts, headers: { 'Cache-Control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' } },
   )
 }

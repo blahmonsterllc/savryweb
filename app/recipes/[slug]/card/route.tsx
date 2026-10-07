@@ -6,9 +6,9 @@ import { getPublicRecipeBySlug } from '@/lib/community-recipes'
  * Messages, Instagram, Slack or X, and what "Share as image" sends. Built
  * from the public recipe only; a missing recipe gets a plain Savry card.
  */
-// A plain route rather than Next's opengraph-image file, which is always sent
-// "immutable" for a year. Here the CDN keeps a card for an hour, and the page
-// links it with the recipe's version (?v=), so an edited recipe gets a new card.
+// The page links the card with the recipe's version (?v=), so the year-long
+// "immutable" caching ImageResponse always sends is right: an edited recipe
+// gets a new link, and with it a new card.
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 const size = { width: 1200, height: 630 }
@@ -71,6 +71,6 @@ export async function GET(_request: Request, { params }: { params: { slug: strin
         </div>
       </div>
     ),
-    { ...size, fonts, headers: { 'Cache-Control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' } },
+    { ...size, fonts },
   )
 }

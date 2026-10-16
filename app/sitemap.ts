@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ['/cooks', 'daily', 0.6],
     ['/recipes', 'daily', 0.9],
     ['/savry-plus', 'monthly', 0.5],
+    ['/moving-from-mealime', 'weekly', 0.6],
     ['/privacy', 'yearly', 0.2],
     ['/terms', 'yearly', 0.2],
   ].map(([path, changeFrequency, priority]) => ({

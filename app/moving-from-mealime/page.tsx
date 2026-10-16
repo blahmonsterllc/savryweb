@@ -80,14 +80,18 @@ export default function MovingFromMealimePage() {
               <a href={MEALIME_NOTICE} rel="nofollow noopener" className="underline">Read Mealime&rsquo;s notice <ExternalLink size={14} className="inline" /></a>
             </p>
           </div>
-          <ol className="space-y-4">
+          {/* The section lays each item out as a narrow marker column and the text. */}
+          <ul>
             {steps.map((step, index) => (
               <li key={step.title}>
-                <strong>{index + 1}. {step.title}</strong>
-                <p className="mt-1 text-gray-600">{step.body}</p>
+                <strong aria-hidden="true">{index + 1}</strong>
+                <div>
+                  <strong>{step.title}</strong>
+                  <p className="mt-1">{step.body}</p>
+                </div>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       </section>
 

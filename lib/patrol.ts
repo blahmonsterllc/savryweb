@@ -85,10 +85,16 @@ export function isPatrolConfigured(): boolean {
 }
 
 /** Only photos in Savry's own bucket are fetched; nothing a member links to elsewhere. */
+// Photos Savry publishes itself, from the site's own image folder (committed
+// to the repo). Matched exactly, so the patrol never fetches an arbitrary URL.
+const SITE_RECIPE_IMAGE = /^https:\/\/(?:www\.)?savry\.io\/images\/recipes\/[a-z0-9-]+\.(?:webp|jpe?g|png)$/
+
 function imageURLFor(item: PatrolItem): string | null {
   const base = `${requireSupabaseURL()}/storage/v1/object/public/recipe-images/`
   if (item.imagePath && !item.imagePath.includes('..')) return base + item.imagePath.split('/').map(encodeURIComponent).join('/')
   if (item.imageUrl && item.imageUrl.startsWith(base)) return item.imageUrl
+  // savry.io redirects to www; ask www directly.
+  if (item.imageUrl && SITE_RECIPE_IMAGE.test(item.imageUrl)) return item.imageUrl.replace('https://savry.io/', 'https://www.savry.io/')
   return null
 }
 

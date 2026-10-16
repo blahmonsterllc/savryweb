@@ -193,6 +193,12 @@ test('content patrol only flags, is service-role only, and its schedule needs a 
   assert.match(patrol, /import 'server-only'/)
   assert.doesNotMatch(patrol, /NEXT_PUBLIC_ANTHROPIC/)
   assert.match(patrol, /startsWith\(base\)/, 'only photos in the Savry bucket are fetched')
+  // Besides the bucket, only Savry's own published photos, matched exactly.
+  const siteImage = new RegExp(patrol.match(/const SITE_RECIPE_IMAGE = \/(.+)\/\n/)[1])
+  assert.ok(siteImage.test('https://savry.io/images/recipes/chewy-oatmeal-raisin-cookies.webp'))
+  for (const url of ['https://savry.io.evil.com/images/recipes/a.webp', 'https://savry.io/images/recipes/../a.webp', 'http://savry.io/images/recipes/a.webp', 'https://savry.io/images/recipes/a.svg', 'https://evil.com/?https://savry.io/images/recipes/a.webp']) {
+    assert.ok(!siteImage.test(url), `not fetched: ${url}`)
+  }
 
   const cron = await source('pages/api/cron/patrol.ts')
   assert.match(cron, /timingSafeEqual/)

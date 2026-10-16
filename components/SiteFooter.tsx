@@ -14,6 +14,7 @@ export default function SiteFooter() {
           <Link href="/savry-plus">Savry+</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
+          <Link href="/support">Support</Link>
         </nav>
         <span>© {new Date().getFullYear()} Savry</span>
       </div>

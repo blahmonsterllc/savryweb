@@ -52,7 +52,7 @@ export default function MovingFromMealimePage() {
           </p>
           <div className="plus-hero__actions">
             <Link href="/recipes" className="button button--coral">Browse recipes</Link>
-            <Link href="/app-login?returnTo=/welcome" className="button button--light">Create a free account</Link>
+            <Link href="/app-login?returnTo=/welcome" className="button--ghost-dark">Create a free account</Link>
           </div>
           <p className="plus-hero__note">
             The Savry iPhone app is in its final round of testing. Create a free account and we&rsquo;ll email you the day it&rsquo;s in the App Store.

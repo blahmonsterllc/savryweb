@@ -64,7 +64,8 @@ export default function MovingFromMealimePage() {
           <ul>
             {whatYouGet.map((item) => <li key={item}><Check size={18} /> <span>{item}</span></li>)}
           </ul>
-          <span className="plus-card__fine">Free to use. <Link href="/savry-plus" className="underline">Savry+</Link> adds planning under a weekly grocery budget, a scan of your fridge and pantry, and unlimited AI help.</span>
+          {/* One child: the fine-print line is laid out as icon + text. */}
+          <span className="plus-card__fine"><span>Free to use. <Link href="/savry-plus" className="underline">Savry+</Link> adds planning under a weekly grocery budget, a scan of your fridge and pantry, and unlimited AI help.</span></span>
         </aside>
       </section>
 

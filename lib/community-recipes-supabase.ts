@@ -5,12 +5,13 @@ import { recipePageURL } from '@/lib/site-url'
 import { getSupabasePublic } from '@/lib/supabase/public'
 
 const PUBLIC_RECIPE_SELECT = `
-  id, slug, title, description, image_url, published_at,
+  id, slug, title, description, image_url, image_is_illustration, image_credit_name, image_credit_url, image_license, published_at,
   prep_time_minutes, cook_time_minutes, servings, serving_type, yield_unit,
   difficulty, category, cuisine, tags, dietary_tags, allergens, equipment,
   oven_temp_f, notes, source_url, nutrition_per_serving, nutrition_source,
   nutrition_coverage, cost_per_serving, cost_coverage, view_count, made_count, comment_count, version, editors_pick_at,
   author:profiles!recipes_author_id_fkey(display_name, username),
+  image_credit:profiles!recipes_image_credit_user_fkey(display_name, username),
   ingredients:recipe_ingredients(position, section, name, amount, unit, is_optional),
   steps:recipe_steps(position, instruction)
 `
@@ -48,6 +49,13 @@ export function fromSupabaseRecipe(row: any): PublicRecipe {
     title: row.title,
     description: row.description ?? null,
     imageUrl: row.image_url ?? null,
+    imageIsIllustration: Boolean(row.image_is_illustration),
+    imageCredit: firstRelation(row.image_credit)
+      ? { name: firstRelation(row.image_credit).display_name ?? 'a Savry cook', username: firstRelation(row.image_credit).username ?? null }
+      : null,
+    imageSource: !firstRelation(row.image_credit) && row.image_credit_name && row.image_license
+      ? { name: row.image_credit_name, url: row.image_credit_url ?? null, license: row.image_license }
+      : null,
     authorName: firstRelation(row.author)?.display_name ?? 'Savry cook',
     authorUsername: firstRelation(row.author)?.username ?? null,
     publishedAt: row.published_at ?? new Date().toISOString(),

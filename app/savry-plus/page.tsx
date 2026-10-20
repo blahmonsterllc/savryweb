@@ -14,7 +14,7 @@ const plusFeatures = [
   'Plan the week under a grocery budget: meal plans built from your own recipes that stay within what you want to spend',
   'Cook from what you already have: plans lean on your pantry first, so the shopping list is shorter',
   'Priced to your area: every cost scaled to grocery prices where you live',
-  'Unlimited recipe imports from websites and social posts, and unlimited recipe help: on your iPhone with Apple Intelligence, or from Savry’s recipe service on iPhones without it',
+  'Unlimited recipe imports from websites and social posts, and unlimited recipe help from Savry Chef',
 ]
 
 const freeFeatures = [

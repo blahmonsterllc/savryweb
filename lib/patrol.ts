@@ -48,6 +48,8 @@ Verdicts:
 
 Most content is ordinary cooking and is ok. Do not flag spelling, poor cooking, strong opinions about a dish, unfamiliar cuisines, or unusual ingredients.
 
+For a Made It (content type "made") with a photo, also answer showsTheDish: true only if the photo clearly shows the finished dish named in recipeTitle, in focus and well lit enough to be that recipe's main picture on the site. A blurry photo, a photo of ingredients or a different dish, a screenshot, or a photo that is mostly a person is false. This does not change the verdict.
+
 Call record_review exactly once. The reason is one plain sentence for the site admin that quotes the few words that caused the flag. Leave the reason empty when the verdict is ok.`
 
 const REVIEW_TOOL = {
@@ -59,6 +61,7 @@ const REVIEW_TOOL = {
       verdict: { type: 'string', enum: ['ok', 'review', 'severe'] },
       categories: { type: 'array', items: { type: 'string', enum: PATROL_CATEGORIES.filter((c) => c !== 'image_unchecked' && c !== 'unreadable') } },
       reason: { type: 'string' },
+      showsTheDish: { type: 'boolean', description: 'Made It photos only: the photo clearly shows the finished dish and could be its main picture.' },
     },
     required: ['verdict', 'categories', 'reason'],
   },
@@ -75,7 +78,7 @@ type PatrolItem = {
   imageUrl: string | null
   imagePath: string | null
 }
-type Review = { verdict: Verdict; categories: string[]; reason: string }
+type Review = { verdict: Verdict; categories: string[]; reason: string; showsDish?: boolean }
 export type PatrolResult = { configured: boolean; reviewed: number; flagged: number; errors: number; note?: string }
 
 class PatrolStop extends Error {}
@@ -156,7 +159,11 @@ async function askModel(item: PatrolItem, image: { type: string; data: string } 
   }
   const known = new Set<string>(PATROL_CATEGORIES)
   const categories = Array.isArray(input?.categories) ? input.categories.filter((c): c is string => typeof c === 'string' && known.has(c)).slice(0, 8) : []
-  return { verdict, categories, reason: typeof input?.reason === 'string' ? input.reason.slice(0, 480) : '' }
+  return {
+    verdict, categories, reason: typeof input?.reason === 'string' ? input.reason.slice(0, 480) : '',
+    // Asked only of Made It photos; a cook photo replaces an illustration only when true.
+    showsDish: input?.showsTheDish === true,
+  }
 }
 
 async function reviewItem(item: PatrolItem): Promise<Review> {
@@ -170,9 +177,10 @@ async function reviewItem(item: PatrolItem): Promise<Review> {
       verdict: review.verdict === 'ok' ? 'review' : review.verdict,
       categories: [...new Set([...review.categories, 'image_unchecked'])],
       reason: [review.reason, 'The photo could not be checked automatically.'].filter(Boolean).join(' '),
+      showsDish: false,
     }
   }
-  return { verdict: review.verdict, categories: review.categories, reason: review.reason }
+  return { verdict: review.verdict, categories: review.categories, reason: review.reason, showsDish: hasImage && review.showsDish === true }
 }
 
 /**

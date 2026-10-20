@@ -81,8 +81,30 @@ export default async function RecipePage({ params }: Params) {
       {/* Not overflow-hidden: the Share menu opens below its button and must be able to leave the box. */}
       <header className="mt-4 rounded-3xl bg-white shadow-xl">
         {recipe.imageUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={recipe.imageUrl} alt={recipe.title} className="max-h-[420px] w-full rounded-t-3xl object-cover" />
+          <figure className="recipe-picture">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={recipe.imageUrl} alt={recipe.title} className="max-h-[420px] w-full rounded-t-3xl object-cover" />
+            {recipe.imageIsIllustration && !recipe.imageSource && (
+              <figcaption className="recipe-picture__note">Illustration. Cooked it? Your Made It photo can take its place.</figcaption>
+            )}
+            {recipe.imageSource && (
+              <figcaption className="recipe-picture__note">
+                Photo:{' '}
+                {recipe.imageSource.url
+                  ? <a href={recipe.imageSource.url} target="_blank" rel="noopener noreferrer nofollow">{recipe.imageSource.name}</a>
+                  : recipe.imageSource.name}
+                {' '}({recipe.imageSource.license}). Cooked it? Your Made It photo can take its place.
+              </figcaption>
+            )}
+            {recipe.imageCredit && (
+              <figcaption className="recipe-picture__note">
+                Photo by{' '}
+                {recipe.imageCredit.username
+                  ? <Link href={`/cooks/${recipe.imageCredit.username}`}>{recipe.imageCredit.name}</Link>
+                  : recipe.imageCredit.name}
+              </figcaption>
+            )}
+          </figure>
         )}
         <div className="p-6 sm:p-8">
           {recipe.editorsPick && <span className="table-week__badge table-week__badge--page">Editor&rsquo;s pick</span>}

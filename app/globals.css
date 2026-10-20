@@ -5162,3 +5162,328 @@ html {
 .recipe-more .recipe-field-grid { padding-bottom: 12px; }
 .lines-editor__dictate { display: none; margin: 0 0 8px; color: var(--savry-ink-soft); font-size: 0.85rem; }
 @media (pointer: coarse) { .lines-editor__dictate { display: block; } }
+
+/* Home page, October 2026 -------------------------------------------------
+   Plain masthead, a cookbook-style index of every recipe, and the app.
+   Square-cornered buttons and ruled lines, after printed cookbooks. */
+
+.home-masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding-block: clamp(36px, 6vw, 72px) clamp(32px, 5vw, 56px);
+  border-bottom: 1px solid rgba(16, 29, 47, 0.14);
+}
+
+.home-masthead__text {
+  min-width: 0;
+}
+
+.home-masthead h1 {
+  margin: 0 0 18px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.home-masthead p {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--savry-ink-soft);
+  font-size: 1.06rem;
+}
+
+.home-masthead__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 36px;
+  margin: 26px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(16, 29, 47, 0.14);
+}
+
+.home-masthead__facts div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.home-masthead__facts dt {
+  color: var(--savry-ink-soft);
+  font-size: 0.82rem;
+}
+
+.home-masthead__facts dd {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.9rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.home-masthead__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  margin-top: 28px;
+}
+
+.home-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 4px;
+  background: var(--savry-ink);
+  color: var(--savry-white);
+  font-weight: 700;
+}
+
+.home-button:hover {
+  background: var(--savry-coral-dark);
+}
+
+.home-link {
+  color: var(--savry-coral-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.home-link:hover {
+  color: var(--savry-ink);
+}
+
+.home-masthead__cover {
+  min-width: 0;
+  margin: 0;
+}
+
+.home-masthead__photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--savry-paper-deep);
+}
+
+.home-masthead__photo img {
+  object-fit: cover;
+}
+
+.home-masthead__cover figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--savry-ink-soft);
+}
+
+.home-masthead__cover figcaption a {
+  color: var(--savry-ink);
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.98rem;
+}
+
+.home-masthead__cover figcaption a:hover {
+  text-decoration: underline;
+}
+
+.home-index {
+  padding-block: clamp(40px, 6vw, 72px);
+  border-top: 1px solid rgba(16, 29, 47, 0.14);
+}
+
+.home-index__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 24px;
+  margin-bottom: 28px;
+}
+
+.home-index__header h2 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  font-weight: 400;
+}
+
+.home-index__header p {
+  margin: 0;
+  color: var(--savry-ink-soft);
+}
+
+.home-index__shelves {
+  columns: 2 26rem;
+  column-gap: clamp(32px, 5vw, 64px);
+}
+
+.home-index__shelf {
+  break-inside: avoid;
+  margin-bottom: 34px;
+}
+
+.home-index__shelf h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--savry-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.home-index__shelf h3 small {
+  color: var(--savry-ink-soft);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.home-index__shelf ul {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.home-index__shelf li a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(16, 29, 47, 0.08);
+  font-size: 0.96rem;
+}
+
+.home-index__shelf li a:hover .home-index__title {
+  color: var(--savry-coral-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.home-index__title {
+  min-width: 0;
+}
+
+.home-index__leader {
+  flex: 1 1 24px;
+  min-width: 24px;
+  border-bottom: 1px dotted rgba(16, 29, 47, 0.35);
+  transform: translateY(-4px);
+}
+
+.home-index__facts {
+  flex: none;
+  color: var(--savry-ink-soft);
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.home-index__shelf .home-link {
+  font-size: 0.9rem;
+}
+
+.home-app {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 5vw, 64px);
+  margin-bottom: clamp(40px, 6vw, 72px);
+  padding: clamp(28px, 4vw, 44px) 0 0;
+  border-top: 2px solid var(--savry-ink);
+}
+
+.home-app h2 {
+  margin: 0 0 12px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  font-weight: 400;
+}
+
+.home-app p {
+  margin: 0 0 16px;
+  color: var(--savry-ink-soft);
+}
+
+.home-app__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-app__list li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(16, 29, 47, 0.12);
+  color: var(--savry-ink-soft);
+}
+
+.home-app__list li:first-child {
+  padding-top: 0;
+}
+
+.home-app__list strong {
+  color: var(--savry-ink);
+}
+
+@media (max-width: 860px) {
+  .home-masthead,
+  .home-app {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-masthead__cover {
+    order: -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .home-index__shelf li a {
+    flex-wrap: wrap;
+    gap: 0 8px;
+  }
+
+  .home-index__leader {
+    display: none;
+  }
+
+  .home-index__facts {
+    width: 100%;
+    font-size: 0.82rem;
+  }
+}
+
+/* Recipe picture: an illustration label, or the credit for a cook's photo. */
+.recipe-picture {
+  position: relative;
+  margin: 0;
+}
+
+.recipe-picture__note {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  max-width: calc(100% - 24px);
+  padding: 4px 10px;
+  border-radius: 3px;
+  background: rgba(16, 29, 47, 0.72);
+  color: var(--savry-white);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.recipe-picture__note a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

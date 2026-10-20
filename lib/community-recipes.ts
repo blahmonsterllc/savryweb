@@ -179,6 +179,12 @@ export interface PublicRecipe {
   title: string
   description: string | null
   imageUrl: string | null
+  /** Savry Kitchen's picture made with an image model; a cook's Made It photo replaces it. */
+  imageIsIllustration?: boolean
+  /** The cook whose Made It photo is the recipe's picture. */
+  imageCredit?: { name: string; username: string | null } | null
+  /** A licensed stand-in photo: its photographer, source and license. */
+  imageSource?: { name: string; url: string | null; license: string } | null
   authorName: string
   authorUsername: string | null
   publishedAt: string // ISO

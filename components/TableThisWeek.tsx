@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { ArrowRight, Flame, Star } from 'lucide-react'
 import { getSupabasePublic } from '@/lib/supabase/public'
 
 type Card = { id: string; slug: string; title: string; imageUrl: string | null; category: string | null; totalTime: number; madeCount: number; saveCount: number; authorName: string; authorUsername: string | null; editorsPick: boolean; score?: number }
@@ -37,15 +36,18 @@ function RecipeTile({ recipe, badge }: { recipe: Card; badge?: string }) {
  * is not rendered at all.
  */
 export default async function TableThisWeek() {
-  const [trending, picks] = await Promise.all([fetchCards('trending_recipes', 6), fetchCards('editors_picks', 6)])
+  const [hot, chosen] = await Promise.all([fetchCards('trending_recipes', 6), fetchCards('editors_picks', 6)])
+  // A row of one or two looks unfinished; each row waits until it has three.
+  const trending = hot.length >= 3 ? hot : []
+  const picks = chosen.length >= 3 ? chosen : []
   if (!trending.length && !picks.length) return null
   return (
     <section className="table-week site-shell" aria-labelledby="table-week-title">
       {trending.length > 0 && (
         <div className="table-week__group">
           <div className="section-heading section-heading--row">
-            <div><span className="eyebrow"><Flame size={13} /> On the table this week</span><h2 id="table-week-title">What everyone is cooking.</h2></div>
-            <Link href="/feed" className="text-link">See the table <ArrowRight size={17} /></Link>
+            <div><h2 id="table-week-title">Cooked most this week</h2></div>
+            <Link href="/feed" className="home-link">What cooks are making</Link>
           </div>
           <ul className="table-week__grid">
             {trending.map((recipe) => <RecipeTile key={recipe.id} recipe={recipe} badge={recipe.editorsPick ? "Editor's pick" : undefined} />)}
@@ -55,8 +57,8 @@ export default async function TableThisWeek() {
       {picks.length > 0 && (
         <div className="table-week__group">
           <div className="section-heading section-heading--row">
-            <div><span className="eyebrow"><Star size={13} /> Editor&rsquo;s picks</span><h2>Chosen by the Savry Kitchen.</h2></div>
-            <Link href="/recipes" className="text-link">All recipes <ArrowRight size={17} /></Link>
+            <div><h2>Editor&rsquo;s picks</h2></div>
+            <Link href="/recipes" className="home-link">All recipes</Link>
           </div>
           <ul className="table-week__grid">
             {picks.map((recipe) => <RecipeTile key={recipe.id} recipe={recipe} />)}

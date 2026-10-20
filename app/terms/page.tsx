@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-url'
 
-const LAST_UPDATED = 'October 1, 2026'
+const LAST_UPDATED = 'October 20, 2026'
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -77,7 +77,7 @@ export default function TermsOfService() {
 
       <section id="food-safety">
         <h2>7. Food safety and health disclaimer</h2>
-        <p>Recipes, nutrition estimates, substitutions, and AI recipe help (on your device, or from Savry’s recipe service on iPhones without Apple Intelligence) are provided for general information only and are not medical, nutritional, or food-safety advice. Community recipes are written by other cooks and are not tested by Savry. Nutrition figures are estimates. You are responsible for checking ingredients for allergens and dietary needs, cooking food to safe temperatures, and following safe handling, storage, canning, and fermentation practices. Consult a qualified professional about any health condition, allergy, or dietary restriction.</p>
+        <p>Recipes, nutrition estimates, substitutions, and AI recipe help (from Savry’s recipe service, or on your device) are provided for general information only and are not medical, nutritional, or food-safety advice. Community recipes are written by other cooks and are not tested by Savry. Nutrition figures are estimates. You are responsible for checking ingredients for allergens and dietary needs, cooking food to safe temperatures, and following safe handling, storage, canning, and fermentation practices. Consult a qualified professional about any health condition, allergy, or dietary restriction.</p>
       </section>
 
       <section id="savry-plus">

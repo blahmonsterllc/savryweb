@@ -22,6 +22,12 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
     } catch {}
   }, [])
 
+  // The home page index links here as /recipes?category=Dinner.
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search).get('category')
+    if (wanted && recipes.some((recipe) => recipe.category === wanted)) setCategory(wanted)
+  }, [recipes])
+
   function chooseView(next: 'cards' | 'list') {
     setView(next)
     try { window.localStorage.setItem(VIEW_KEY, next) } catch {}

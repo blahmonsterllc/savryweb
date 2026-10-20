@@ -94,7 +94,7 @@ export default function WelcomeFlow() {
     <main className="welcome site-shell">
       <header className="welcome__header">
         <span className="eyebrow">Step {step + 1} of 3</span>
-        <h1>{step === 0 ? 'What do you like to cook?' : step === 1 ? 'Cooks worth following.' : 'Save a few to start with.'}</h1>
+        <h1>{step === 0 ? 'What do you like to cook?' : step === 1 ? 'Cooks to follow' : 'Save a few recipes to start'}</h1>
         <p>
           {step === 0 && 'Pick as many as you like. Recipes that fit come first in the ones we suggest; it never limits what you can find.'}
           {step === 1 && 'Their recipes, what they make, and the tweaks they get accepted will show up on your table.'}

@@ -14,7 +14,7 @@ export default function AccountPage() {
     <main className="account-page site-shell">
       <header>
         <span className="eyebrow">Your community account</span>
-        <h1>Your Savry settings.</h1>
+        <h1>Your account</h1>
         <p>Your name and username, the recipes you share, social links, email, membership, and your account. The same account signs you in to the Savry app.</p>
       </header>
       <AccountHub />

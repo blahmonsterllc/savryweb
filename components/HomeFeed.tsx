@@ -138,7 +138,7 @@ export default function HomeFeed() {
       <header className="feed__header">
         <div>
           <span className="eyebrow">Your table</span>
-          <h1>{signedIn ? 'What your cooks are making.' : 'What the Savry community is making.'}</h1>
+          <h1>{signedIn ? 'From cooks you follow' : 'Latest on Savry'}</h1>
         </div>
         {signedIn && (
           <div className="feed__scope" role="tablist" aria-label="Whose cooking to show">
@@ -214,14 +214,14 @@ export default function HomeFeed() {
         <aside className="feed__side">
           {needsSetup && (
             <div className="feed-card feed-card--setup">
-              <h2>Set your table.</h2>
+              <h2>Find cooks to follow</h2>
               <p>Three quick steps: what you like to cook, a few cooks to follow, a few recipes to save.</p>
               <Link href="/welcome" className="button button--coral">Start</Link>
             </div>
           )}
           {!signedIn && signedIn !== null && (
             <div className="feed-card">
-              <h2>Pull up a chair.</h2>
+              <h2>Join Savry</h2>
               <p>Follow cooks, save recipes, and post what you made. Free, no ads.</p>
               <Link href="/app-login?returnTo=/feed" className="button button--coral">Join the community</Link>
             </div>

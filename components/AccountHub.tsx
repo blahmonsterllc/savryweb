@@ -116,7 +116,7 @@ export default function AccountHub() {
     return (
       <div className="account-state account-state--signin">
         <BookOpen size={34} />
-        <h2>Join the first cooks at the table.</h2>
+        <h2>Create your account</h2>
         <p>Create one community account with Apple or email. Use it to publish recipes, join the discussion, and connect the Savry app.</p>
         <Link className="button button--coral" href="/app-login?returnTo=/account">Create an account or sign in <ArrowRight size={18} /></Link>
       </div>

@@ -45,7 +45,7 @@ export default function MovingFromMealimePage() {
       <section className="plus-hero site-shell">
         <div className="plus-hero__copy">
           <span className="eyebrow">Moving from Mealime</span>
-          <h1>Keep planning the week. Now with what it costs.</h1>
+          <h1>Moving from Mealime</h1>
           <p>
             Mealime closes on October 21, 2026. If it was how you planned dinners and made your grocery list, Savry does the same job and adds
             the price: every recipe shows its cost per serving, and a planned week shows what the groceries should come to.
@@ -73,7 +73,7 @@ export default function MovingFromMealimePage() {
         <div className="site-shell plus-free__inner">
           <div>
             <span className="eyebrow">Switching in three steps</span>
-            <h2>Bring your favorites along.</h2>
+            <h2>Bring your favorites along</h2>
             <p>
               What Mealime says about closing, as of October 16, 2026: the app is discontinued on October 21, Pro recipes and features are free to
               everyone until then, subscriptions won&rsquo;t renew, and personal data is deleted when it closes. Its owner, Albertsons Companies,

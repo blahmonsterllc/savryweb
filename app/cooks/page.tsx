@@ -31,7 +31,7 @@ export default async function CooksPage() {
     <main className="cook-page cooks-directory site-shell">
       <header className="cooks-directory__header">
         <span className="eyebrow">The people at the table</span>
-        <h1>Cooks on Savry.</h1>
+        <h1>Cooks</h1>
         <p>Everyone here has put at least one recipe on the shared table. Follow a few and <Link href="/feed">your table</Link> fills with what they cook.</p>
       </header>
       {cooks.length ? (

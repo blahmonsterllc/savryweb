@@ -47,7 +47,7 @@ export default function RecipeIngredients({ ingredients, servings, servingType, 
 
       {[...sections.entries()].map(([section, items]) => (
         <div key={section} className="mt-4">
-          {section && <h3 className="mb-1 text-sm font-semibold uppercase tracking-wide text-primary-700">{section}</h3>}
+          {section && <h3 className="mb-1 recipe-sheet__h3">{section}</h3>}
           <ul className="space-y-2">
             {items.map((ingredient, index) => (
               <li key={index} className="recipe-ingredient">

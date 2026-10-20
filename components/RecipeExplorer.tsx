@@ -113,7 +113,7 @@ export default function RecipeExplorer({ recipes }: { recipes: ExplorerRecipe[] 
       </div>
 
       <div className="recipe-explorer__summary">
-        <p className="recipe-explorer__count">{visible.length} recipe{visible.length === 1 ? '' : 's'} at the table</p>
+        <p className="recipe-explorer__count">{visible.length} recipe{visible.length === 1 ? '' : 's'}</p>
         {hasFilters && <button type="button" onClick={clearFilters}>Clear filters</button>}
         <div className="recipe-explorer__view" role="group" aria-label="Show recipes as">
           <button type="button" aria-pressed={view === 'cards'} onClick={() => chooseView('cards')}><LayoutGrid size={16} aria-hidden="true" /> Cards</button>

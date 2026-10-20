@@ -5167,6 +5167,10 @@ html {
    Plain masthead, a cookbook-style index of every recipe, and the app.
    Square-cornered buttons and ruled lines, after printed cookbooks. */
 
+.savry-home {
+  overflow-x: clip;
+}
+
 .home-masthead {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
@@ -5260,17 +5264,35 @@ html {
 }
 
 .home-masthead__cover {
+  position: relative;
+  z-index: 0;
   min-width: 0;
   margin: 0;
+  /* Reach left under the type and right to the window edge. */
+  margin-left: clamp(-180px, -12vw, -40px);
+  margin-right: calc(-1 * max(20px, (100vw - 1240px) / 2));
+}
+
+.home-masthead__text {
+  position: relative;
+  z-index: 1;
 }
 
 .home-masthead__photo {
   position: relative;
   aspect-ratio: 4 / 3;
-  max-width: 100%;
+  max-width: none;
   overflow: hidden;
-  border-radius: 3px;
-  background: var(--savry-paper-deep);
+  background: transparent;
+  /* The illustration fades into the paper as it reaches the type. */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, transparent 4%, rgba(0, 0, 0, 0.35) 18%, rgba(0, 0, 0, 0.85) 33%, #000 46%),
+    linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, transparent 4%, rgba(0, 0, 0, 0.35) 18%, rgba(0, 0, 0, 0.85) 33%, #000 46%),
+    linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%);
+  mask-composite: intersect;
 }
 
 .home-masthead__photo img {
@@ -5278,6 +5300,10 @@ html {
 }
 
 .home-masthead__cover figcaption {
+  margin-top: -14px;
+  position: relative;
+  padding-left: 40%;
+  padding-right: max(0px, calc((100vw - 1240px) / 2 - 20px));
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -5443,8 +5469,27 @@ html {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .home-masthead {
+    padding-top: 0;
+  }
+
   .home-masthead__cover {
     order: -1;
+    margin: 0 calc((100% - 100vw) / 2);
+  }
+
+  /* Stacked: the picture sits above the headline and fades down into it. */
+  .home-masthead__photo {
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    -webkit-mask-composite: source-over;
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    mask-composite: add;
+  }
+
+  .home-masthead__cover figcaption {
+    margin-top: -28px;
+    padding: 0 calc((100vw - 100%) / 2 + 15px);
+    position: relative;
   }
 }
 
@@ -5486,4 +5531,278 @@ html {
 .recipe-picture__note a {
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+/* House style, October 2026 ----------------------------------------------
+   One look across the site, matching the home page: serif headings at
+   regular weight, square-cornered buttons in ink, flat cards with a thin
+   rule instead of offset shadows and big rounded corners, and no all-caps
+   kicker labels. Later rules here override the earlier page styles. */
+
+.eyebrow {
+  display: none;
+}
+
+.button,
+.savry-nav__download {
+  border-radius: 4px;
+}
+
+.button--coral,
+.button--glow {
+  background: var(--savry-ink);
+  color: var(--savry-white);
+  box-shadow: none;
+}
+
+.button--coral:hover,
+.button--glow:hover {
+  background: var(--savry-coral-dark);
+  box-shadow: none;
+  transform: none;
+}
+
+.button--paper {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+/* Flat cards: a hairline border, small corners, no offset or drop shadow. */
+.activity-note,
+.app-bridge__card,
+.plus-card,
+.community-login__card,
+.cook-tile,
+.cook-tile--featured,
+.recipe-card,
+.recipe-list,
+.recipe-explorer__none,
+.recipe-index-card,
+.recipe-index__empty,
+.recipe-composer__panel,
+.recipe-photo-field,
+.recipe-published,
+.settings-card,
+.feed-item,
+.feed-card,
+.made-composer,
+.collection-grid a,
+.table-week__tile a,
+.assistant-input {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.cook-tile--featured {
+  border-color: rgb(16 29 47 / 22%);
+}
+
+.plus-card {
+  border: 1px solid rgb(16 29 47 / 14%);
+}
+
+/* No soft colour blobs behind headlines. */
+.plus-hero__copy::before {
+  display: none;
+}
+
+/* Headings in the same serif as the home page. */
+.savry-home h2,
+main h1,
+.legal-page h1,
+.recipe-index__header h1,
+.plus-hero h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 860px) {
+  .plus-card {
+    box-shadow: none;
+  }
+
+  .community-login__card {
+    margin-right: 0;
+    box-shadow: none;
+  }
+}
+
+/* Recipes page: a plain header, and cards whose missing photo is a quiet
+   paper panel instead of a blue gradient. */
+.recipe-index__header {
+  overflow: visible;
+  margin-bottom: 32px;
+  border: 0;
+  border-bottom: 1px solid rgb(16 29 47 / 14%);
+  border-radius: 0;
+  background: transparent;
+  padding: clamp(32px, 5vw, 56px) 0 28px;
+}
+
+.recipe-index__header h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.recipe-index__header p {
+  max-width: 36rem;
+  color: var(--savry-ink-soft);
+}
+
+.recipe-index-card__placeholder {
+  aspect-ratio: 2.4;
+  background: var(--savry-paper-deep);
+}
+
+.recipe-index-card__placeholder span {
+  color: rgb(16 29 47 / 35%);
+  font-size: 3rem;
+}
+
+.recipe-index-card__kicker {
+  color: var(--savry-ink-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.recipe-index-card h2 {
+  font-weight: 400;
+}
+
+/* Recipe page in the house style: one flat sheet, a serif title, plain labels. */
+.recipe-sheet {
+  border: 1px solid rgb(16 29 47 / 12%);
+  border-radius: 4px;
+  background: var(--savry-white);
+}
+
+.recipe-sheet__title {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--savry-ink);
+  text-wrap: balance;
+}
+
+.recipe-sheet__h2 {
+  margin: 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--savry-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: var(--savry-ink);
+}
+
+.recipe-sheet__h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.02rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--savry-ink);
+}
+
+.recipe-stat {
+  border-top: 1px solid rgb(16 29 47 / 14%);
+  padding: 10px 0 0;
+}
+
+.recipe-stat__label {
+  color: var(--savry-ink-soft);
+  font-size: 0.82rem;
+}
+
+.recipe-tag {
+  border: 1px solid rgb(16 29 47 / 16%);
+  border-radius: 3px;
+  padding: 2px 8px;
+  color: var(--savry-ink-soft);
+  font-size: 0.8rem;
+}
+
+.recipe-step-number {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--savry-ink);
+  border-radius: 50%;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.95rem;
+  color: var(--savry-ink);
+}
+
+.recipe-cost {
+  border-radius: 4px;
+}
+
+.recipe-cost__label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.recipe-cost__switch,
+.recipe-cost__switch button {
+  border-radius: 4px;
+}
+
+.recipe-quick-actions {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.recipe-picture__note {
+  border-radius: 2px;
+}
+
+/* Savry+ page in the house style. */
+.plus-hero h1 {
+  font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.plus-card .button--coral,
+.app-bridge .button--coral,
+.plus-card .button--glow {
+  background: var(--savry-paper);
+  color: var(--savry-ink);
+}
+
+.plus-card .button--coral:hover,
+.plus-card .button--glow:hover {
+  background: var(--savry-white);
+  color: var(--savry-coral-dark);
+}
+
+.plus-card h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+}
+
+.plus-badge,
+.plus-card__mark {
+  border-radius: 3px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.recipe-explorer__count {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.button--ghost,
+.button--ghost-dark,
+.button--light,
+.button--danger {
+  border-radius: 4px;
 }

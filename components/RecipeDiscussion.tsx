@@ -346,7 +346,7 @@ export default function RecipeDiscussion({ slug, initialCount = 0 }: { slug: str
           <div className="recipe-discussion__intro">
             <div>
               <span className="eyebrow">A living recipe</span>
-              <h2>Talk it through with other cooks.</h2>
+              <h2>Comments and tweaks</h2>
               <p>Share results, ask a focused question, or suggest a change for the author to review.</p>
             </div>
             <Sparkles size={24} aria-hidden="true" />
@@ -357,7 +357,7 @@ export default function RecipeDiscussion({ slug, initialCount = 0 }: { slug: str
           {notice && <p className="discussion-state" role="status">{notice}</p>}
           {!loading && loaded && roots.length === 0 && (
             <div className="discussion-empty">
-              <strong>Be the first cook at the table.</strong>
+              <strong>No comments yet.</strong>
               <p>Leave a useful note or suggest an improvement—the recipe author can respond here.</p>
             </div>
           )}

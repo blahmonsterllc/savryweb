@@ -14,7 +14,7 @@ export default function ResetPasswordPage() {
     <main className="community-login site-shell">
       <div className="community-login__intro">
         <span className="eyebrow">Password reset</span>
-        <h1>Choose a new password.</h1>
+        <h1>Choose a new password</h1>
         <p>Pick something with at least 10 characters. You will stay signed in on this device once it is saved.</p>
       </div>
       <ResetPasswordForm />

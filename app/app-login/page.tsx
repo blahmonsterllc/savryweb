@@ -15,7 +15,7 @@ export default function AppLoginPage() {
     <main className="community-login site-shell">
       <div className="community-login__intro">
         <span className="eyebrow">Join the community</span>
-        <h1>Your place at the shared table.</h1>
+        <h1>Sign in to Savry</h1>
         <p>One Savry account for the community website and the Savry app.</p>
       </div>
       <Suspense fallback={<div className="community-login__card">Opening sign in…</div>}><LoginForm /></Suspense>

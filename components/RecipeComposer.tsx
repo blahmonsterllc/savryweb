@@ -331,12 +331,12 @@ export default function RecipeComposer() {
           <span className="eyebrow">Fresh from your kitchen</span>
           {pendingReview ? (
             <>
-              <h1>Your recipe is in for review.</h1>
+              <h1>Your recipe is in for review</h1>
               <p>A Savry editor reads each cook&rsquo;s first recipes before they join the shared table, usually within a day. It is listed in your account meanwhile, and gets its public page once it is approved.</p>
             </>
           ) : (
             <>
-              <h1>Your recipe is on the shared table.</h1>
+              <h1>Your recipe is published</h1>
               <p>It is now public, shareable, and credited to your Savry community account.</p>
             </>
           )}
@@ -363,7 +363,7 @@ export default function RecipeComposer() {
       <header className="recipe-composer__header">
         <div>
           <span className="eyebrow">From your kitchen to the community</span>
-          <h1>Add a recipe.</h1>
+          <h1>Add a recipe</h1>
           <p>Write it the way you cook it. Savry keeps a draft on this device until you are ready to publish.</p>
         </div>
         <div className="recipe-composer__app-note"><ChefHat size={20} /><span>The Apple apps are coming soon.<b>Your web account and recipes are being built to connect with them.</b></span></div>
@@ -453,7 +453,7 @@ export default function RecipeComposer() {
 
           {step === 3 && (
             <div className="recipe-form-section recipe-review">
-              <div className="recipe-form-section__title"><Send /><div><span>04</span><h2>Ready for the shared table?</h2></div></div>
+              <div className="recipe-form-section__title"><Send /><div><span>04</span><h2>Publish</h2></div></div>
               <div className="recipe-review__stats">
                 <span><Clock3 /> <b>{totalTime}</b> minutes</span>
                 <span><Users /> <b>{draft.servings}</b> servings</span>

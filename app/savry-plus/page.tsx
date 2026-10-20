@@ -29,7 +29,7 @@ export default function SavryPlusPage() {
       <section className="plus-hero site-shell">
         <div className="plus-hero__copy">
           <span className="eyebrow">Savry+ membership</span>
-          <h1>Plan the week. Know what it costs.</h1>
+          <h1>Savry+ membership</h1>
           <p>Set what you want to spend on groceries, tell Savry what is already in the kitchen, and get a week of meals from your own recipes that fits. Every recipe shows its cost per serving, priced to your area. Prices are estimates, so your store will differ a little. Food restrictions stay in your control and are never guessed.</p>
           <div className="plus-hero__actions">
             <span className="plus-price"><strong>$29.99</strong><span>per year</span></span>
@@ -41,7 +41,7 @@ export default function SavryPlusPage() {
 
         <aside className="plus-card" aria-label="Savry Plus membership benefits">
           <div className="plus-card__mark"><Sparkles size={20} /> Savry+</div>
-          <h2>Cook with less friction.</h2>
+          <h2>What Savry+ adds</h2>
           <ul>
             {plusFeatures.map((feature) => <li key={feature}><Check size={18} /> <span>{feature}</span></li>)}
           </ul>
@@ -54,7 +54,7 @@ export default function SavryPlusPage() {
         <div className="site-shell plus-free__inner">
           <div>
             <span className="eyebrow">The community stays open</span>
-            <h2>Free still means useful.</h2>
+            <h2>Free for everyone</h2>
             <p>Savry+ funds the site, but the recipe community should be welcoming whether or not someone subscribes.</p>
           </div>
           <ul>

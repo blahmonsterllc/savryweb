@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { listPublicRecipes } from '@/lib/community-recipes'
 import { SITE_URL } from '@/lib/site-url'
 import RecipeExplorer from '@/components/RecipeExplorer'
-import Image from 'next/image'
 import Link from 'next/link'
 import { safeJsonLd } from '@/lib/security-policy.mjs'
 import { explorerRecipe } from '@/lib/explorer-recipes.mjs'
@@ -37,19 +36,11 @@ export default async function RecipesIndexPage() {
     <main className="recipe-index site-shell">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(itemListJsonLd) }} />
       <header className="recipe-index__header">
-        <div className="recipe-index__art" aria-hidden="true">
-          <Image src="/images/shared-table-vegetables.webp" alt="" fill priority sizes="(max-width: 760px) 100vw, 720px" />
-        </div>
-        <span className="eyebrow">The shared table</span>
-        <h1>Recipes for the<br />shared table.</h1>
-        <p>Start with recipes from Savry Kitchen, then help fill the shared table with dishes from your own kitchen.</p>
-        <div className="recipe-index__legend">
-          <span><i className="legend-dot legend-dot--coral" /> New recipes</span>
-          <span><i className="legend-dot legend-dot--mint" /> Community publishing is open</span>
-        </div>
+        <h1>Recipes</h1>
+        <p>{recipes.length} recipes from Savry Kitchen and the cooks who have joined. Search by ingredient, or narrow it by meal, time and diet.</p>
         <div className="recipe-index__actions">
           <Link href="/recipes/new" className="button button--coral">Add your recipe</Link>
-          <span>Free community account required to publish.</span>
+          <span>Free account needed to publish.</span>
         </div>
       </header>
 
@@ -59,7 +50,7 @@ export default async function RecipesIndexPage() {
           <img src="/images/roasted-tomato-white-bean-skillet.webp" alt="Roasted tomato and white bean skillet" />
           <div>
             <span className="eyebrow">The first plate is yours</span>
-            <h2>Share the recipe people always ask you for.</h2>
+            <h2>Add a recipe of your own</h2>
             <p>Create a community account and add it on the web. Your original stays yours, with clear credit whenever you share it.</p>
             <div className="recipe-index__empty-actions">
               <Link href="/recipes/new" className="button button--coral">Add on the web</Link>

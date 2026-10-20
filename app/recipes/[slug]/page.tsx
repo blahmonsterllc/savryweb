@@ -51,8 +51,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-primary-50 px-4 py-3 text-center">
-      <div className="text-xs uppercase tracking-wide text-primary-700">{label}</div>
+    <div className="recipe-stat">
+      <div className="recipe-stat__label">{label}</div>
       <div className="text-lg font-semibold text-gray-900">{value}</div>
     </div>
   )
@@ -79,11 +79,11 @@ export default async function RecipePage({ params }: Params) {
       <Link href="/recipes" className="text-sm text-primary-700 hover:underline">← All community recipes</Link>
 
       {/* Not overflow-hidden: the Share menu opens below its button and must be able to leave the box. */}
-      <header className="mt-4 rounded-3xl bg-white shadow-xl">
+      <header className="mt-4 recipe-sheet">
         {recipe.imageUrl && (
           <figure className="recipe-picture">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={recipe.imageUrl} alt={recipe.title} className="max-h-[420px] w-full rounded-t-3xl object-cover" />
+            <img src={recipe.imageUrl} alt={recipe.title} className="max-h-[420px] w-full rounded-t object-cover" />
             {recipe.imageIsIllustration && !recipe.imageSource && (
               <figcaption className="recipe-picture__note">Illustration. Cooked it? Your Made It photo can take its place.</figcaption>
             )}
@@ -108,7 +108,7 @@ export default async function RecipePage({ params }: Params) {
         )}
         <div className="p-6 sm:p-8">
           {recipe.editorsPick && <span className="table-week__badge table-week__badge--page">Editor&rsquo;s pick</span>}
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{recipe.title}</h1>
+          <h1 className="recipe-sheet__title">{recipe.title}</h1>
           {recipe.description && <p className="mt-3 text-lg text-gray-600">{recipe.description}</p>}
           <p className="mt-3 text-sm text-gray-500">
             Shared by{' '}
@@ -139,8 +139,8 @@ export default async function RecipePage({ params }: Params) {
 
           {(recipe.tags.length > 0 || recipe.dietaryTags.length > 0) && (
             <div className="mt-4 flex flex-wrap gap-2">
-              {[...recipe.dietaryTags, ...recipe.tags].map((t) => (
-                <span key={t} className="rounded-full bg-secondary-100 px-3 py-1 text-xs font-medium text-secondary-800">{t}</span>
+              {[...new Map([...recipe.dietaryTags, ...recipe.tags].map((t) => [t.toLowerCase(), t] as const)).values()].map((t) => (
+                <span key={t} className="recipe-tag">{t}</span>
               ))}
             </div>
           )}
@@ -153,11 +153,11 @@ export default async function RecipePage({ params }: Params) {
 
       <div className="mt-8 grid gap-8 md:grid-cols-5">
         <section id="ingredients" className="recipe-anchor md:col-span-2">
-          <h2 className="text-xl font-bold text-gray-900">Ingredients</h2>
+          <h2 className="recipe-sheet__h2">Ingredients</h2>
           <p className="mt-1 text-sm text-gray-500">Tap each item as you gather it.</p>
           <RecipeIngredients ingredients={recipe.ingredients} servings={recipe.servings} servingType={recipe.servingType} yieldUnit={recipe.yieldUnit ?? null} />
           {allergens.length > 0 && (
-            <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950" role="note">
+            <div className="mt-5 rounded border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950" role="note">
               <p className="font-semibold">Contains or may contain</p>
               <ul className="mt-1 space-y-0.5">
                 {allergens.map((a) => (
@@ -172,7 +172,7 @@ export default async function RecipePage({ params }: Params) {
           )}
           {recipe.equipment.length > 0 && (
             <div className="mt-6">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-primary-700">Equipment</h3>
+              <h3 className="recipe-sheet__h3">Equipment</h3>
               <p className="mt-1 text-gray-700">{recipe.equipment.join(', ')}</p>
             </div>
           )}
@@ -180,17 +180,17 @@ export default async function RecipePage({ params }: Params) {
         </section>
 
         <section id="instructions" className="recipe-anchor md:col-span-3">
-          <h2 className="text-xl font-bold text-gray-900">Instructions</h2>
+          <h2 className="recipe-sheet__h2">Instructions</h2>
           <ol className="mt-4 space-y-4">
             {recipe.instructions.map((step, idx) => (
               <li key={idx} className="flex gap-4">
-                <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-gradient-to-r from-primary-600 to-secondary-600 text-sm font-bold text-white">{idx + 1}</span>
+                <span className="recipe-step-number">{idx + 1}</span>
                 <p className="pt-1 text-gray-800">{step}</p>
               </li>
             ))}
           </ol>
           {recipe.notes && (
-            <div className="mt-6 rounded-xl bg-yellow-50 p-4 text-sm text-yellow-900">
+            <div className="mt-6 rounded bg-yellow-50 p-4 text-sm text-yellow-900">
               <span className="font-semibold">Notes: </span>{recipe.notes}
             </div>
           )}
@@ -198,8 +198,8 @@ export default async function RecipePage({ params }: Params) {
       </div>
 
       {n && (
-        <section className="mt-10 rounded-2xl bg-white p-6 shadow">
-          <h2 className="text-lg font-bold text-gray-900">Nutrition per {recipe.servingType === 'yields' ? (singularUnit(recipe.yieldUnit) || 'item') : 'serving'}</h2>
+        <section className="mt-10 recipe-sheet p-6">
+          <h2 className="recipe-sheet__h2">Nutrition per {recipe.servingType === 'yields' ? (singularUnit(recipe.yieldUnit) || 'item') : 'serving'}</h2>
           <dl className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
             {[
               ['Energy', `${n.calories} kcal · ${Math.round(n.calories * 4.184)} kJ`],
@@ -233,9 +233,9 @@ export default async function RecipePage({ params }: Params) {
 
       <RecipeDiscussion slug={recipe.slug} initialCount={recipe.commentCount} />
 
-      <section className="mt-10 rounded-3xl bg-white p-6 shadow sm:p-8">
+      <section className="mt-10 recipe-sheet p-6 sm:p-8">
         <span className="eyebrow">Add to the shared table</span>
-        <h2 className="mt-2 text-2xl font-bold text-gray-900">Have a recipe of your own?</h2>
+        <h2 className="mt-2 recipe-sheet__h2">Have a recipe of your own?</h2>
         <p className="mt-2 max-w-2xl text-gray-600">Create a free Savry community account, publish a recipe you own, and learn from focused feedback from other home cooks and bakers.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link href="/recipes/new" className="button button--coral">Share a recipe</Link>

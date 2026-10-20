@@ -90,7 +90,7 @@ export default function NotificationsInbox() {
     <main className="inbox site-shell">
       <header className="inbox__header">
         <span className="eyebrow">Notifications</span>
-        <h1>What&rsquo;s happening with your cooking.</h1>
+        <h1>Notifications</h1>
       </header>
       {error && <p className="settings-note" role="alert">{error}</p>}
       {items && items.length === 0 && (

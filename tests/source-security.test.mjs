@@ -396,3 +396,22 @@ test('recipe edits in admin are admin-only, server-priced, and keep the previous
   assert.match(migration, /insert into public\.recipe_versions/, 'the version before the edit is kept')
   assert.match(migration, /revoke all on function public\.admin_update_recipe\(uuid, jsonb\) from public, anon, authenticated/)
 })
+
+test('server recipe help checks the member and counts the use before calling the model', async () => {
+  const route = await source('pages/api/ai/recipe.ts')
+  const member = route.indexOf('requireMember(req, res)')
+  const take = route.indexOf("rpc('take_ai_recipe'")
+  const model = route.indexOf('writeRecipe(request)')
+  assert.ok(member > 0 && member < take && take < model, 'sign-in, then the allowance, then the model')
+  assert.match(route, /readSavryPlusPurchase\(signed, userId\)/, 'Savry+ must be this member\'s own purchase')
+  assert.match(route, /MAX_REQUEST/, 'request size is capped')
+  const lib = await source('lib/ai-recipes.ts')
+  assert.match(lib, /import 'server-only'/)
+  assert.match(lib, /zodOutputFormat\(GeneratedRecipeSchema\)/, 'answers are always recipe-shaped')
+  assert.doesNotMatch(lib, /NEXT_PUBLIC_ANTHROPIC/)
+  const migration = await source('supabase/migrations/20261020000000_ai_recipe_usage.sql')
+  for (const fn of ['take_ai_recipe(uuid, boolean)', 'return_ai_recipe(uuid)']) {
+    assert.match(migration, new RegExp(`revoke all on function public\\.${fn.replace(/[()]/g, '\\$&')} from public, anon, authenticated`), `${fn} is server-only`)
+  }
+  assert.match(migration, /pg_advisory_xact_lock/, 'two quick requests cannot both slip under the limit')
+})

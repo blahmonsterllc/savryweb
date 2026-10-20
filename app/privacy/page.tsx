@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-url'
 
-const LAST_UPDATED = 'October 6, 2026'
+const LAST_UPDATED = 'October 20, 2026'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
         <h2>The short version</h2>
         <ul>
           <li>Your private recipes, meal plans, and grocery lists in the iOS app stay on your device and, if you enable it, in your own iCloud (CloudKit) account. Savry cannot read them.</li>
-          <li>Recipe AI in the iOS app runs on your device with Apple Intelligence. Your recipes are not sent to Savry or to a third-party AI service for that.</li>
+          <li>Recipe AI in the iOS app runs on your device with Apple Intelligence when your iPhone has it. On iPhones without it, recipe requests you make (and the recipe you ask to change) are sent to Savry and to Anthropic’s Claude to write the recipe; Savry keeps only a count of your requests, not what you asked.</li>
           <li>Your Savry account and everything you publish to the community are stored in Supabase (Postgres and Storage) in the United States.</li>
           <li>Savry shows no advertising and uses no advertising cookies, on the website or in the app.</li>
           <li>You can access, correct, or delete your data at any time.</li>
@@ -76,6 +76,7 @@ export default function PrivacyPolicy() {
           <li><strong>Supabase</strong> (Postgres database, file storage, and authentication), hosted in the United States, for accounts, memberships, and all community content.</li>
           <li><strong>Apple iCloud / CloudKit</strong>, for private recipe sync in the iOS app, under your Apple ID.</li>
           <li><strong>Apple Intelligence</strong> on-device models, for recipe help in the iOS app. Processing happens on your device.</li>
+          <li><strong>Anthropic</strong>, for recipe help on iPhones without Apple Intelligence: the request you type (ingredients, the dish you want, your allergy list, or the recipe you ask to change) is sent to Claude to write the recipe. Savry stores only how many requests your account has made, to apply the free and Savry+ limits.</li>
           <li><strong>Apple App Store</strong>, for Savry+ purchases and subscription management.</li>
           <li><strong>Vercel</strong>, which hosts the website and its short-lived server logs.</li>
           <li><strong>Anthropic</strong>, whose Claude model reviews community content for us. The recipes, comments, suggestions, and photos you publish, and your profile name, username, bio, links, and photo, are sent to it to be checked against our community guidelines. Private recipes in the app are never sent.</li>

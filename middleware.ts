@@ -62,7 +62,9 @@ function isPublicApiRoute(pathname: string): boolean {
     pathname === '/api/account/delete' ||
     // Vercel Cron, with the CRON_SECRET bearer token; and the public summary of what it sampled.
     pathname === '/api/cron/kroger-sample' ||
-    pathname === '/api/prices/observations'
+    pathname === '/api/prices/observations' ||
+    // Recipe help for iPhones without Apple Intelligence; the handler verifies the member's token and counts each use.
+    pathname === '/api/ai/recipe'
   )
 }
 

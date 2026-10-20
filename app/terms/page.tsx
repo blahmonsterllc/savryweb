@@ -77,7 +77,7 @@ export default function TermsOfService() {
 
       <section id="food-safety">
         <h2>7. Food safety and health disclaimer</h2>
-        <p>Recipes, nutrition estimates, substitutions, and on-device recipe help are provided for general information only and are not medical, nutritional, or food-safety advice. Community recipes are written by other cooks and are not tested by Savry. Nutrition figures are estimates. You are responsible for checking ingredients for allergens and dietary needs, cooking food to safe temperatures, and following safe handling, storage, canning, and fermentation practices. Consult a qualified professional about any health condition, allergy, or dietary restriction.</p>
+        <p>Recipes, nutrition estimates, substitutions, and AI recipe help (on your device, or from Savry’s recipe service on iPhones without Apple Intelligence) are provided for general information only and are not medical, nutritional, or food-safety advice. Community recipes are written by other cooks and are not tested by Savry. Nutrition figures are estimates. You are responsible for checking ingredients for allergens and dietary needs, cooking food to safe temperatures, and following safe handling, storage, canning, and fermentation practices. Consult a qualified professional about any health condition, allergy, or dietary restriction.</p>
       </section>
 
       <section id="savry-plus">
@@ -109,7 +109,7 @@ export default function TermsOfService() {
 
       <section id="third-parties">
         <h2>12. Third-party services</h2>
-        <p>Savry relies on Apple (App Store, iCloud, Apple Intelligence, Sign in with Apple), Supabase, Vercel, and Google. Their terms and privacy policies apply to their services. Links posted by other users or to recipe sources lead to sites we do not control.</p>
+        <p>Savry relies on Apple (App Store, iCloud, Apple Intelligence, Sign in with Apple), Anthropic (Claude), Supabase, Vercel, and Google. Their terms and privacy policies apply to their services. Links posted by other users or to recipe sources lead to sites we do not control.</p>
       </section>
 
       <section id="termination">

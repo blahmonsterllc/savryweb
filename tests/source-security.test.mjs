@@ -415,3 +415,23 @@ test('server recipe help checks the member and counts the use before calling the
   }
   assert.match(migration, /pg_advisory_xact_lock/, 'two quick requests cannot both slip under the limit')
 })
+
+test('kitchen scan checks the member and Savry+, and counts photos before calling the model', async () => {
+  const route = await source('pages/api/ai/pantry.ts')
+  const member = route.indexOf('requireMember(req, res)')
+  const plus = route.indexOf('isSavryPlus(req, member.user.id)')
+  const take = route.indexOf("rpc('take_ai_pantry'")
+  const model = route.indexOf('seeFoods(photos')
+  assert.ok(member > 0 && member < plus && plus < take && take < model, 'sign-in, membership, allowance, then the model')
+  assert.match(route, /readSavryPlusPurchase\(signed, userId\)/)
+  assert.match(route, /MAX_PHOTOS = 3/)
+  assert.match(route, /startsWith\('\/9j\/'\)/, 'only real JPEG or PNG data reaches the model')
+  const lib = await source('lib/ai-pantry.ts')
+  assert.match(lib, /import 'server-only'/)
+  assert.match(lib, /zodOutputFormat\(SeenFoodsSchema\)/)
+  const migration = await source('supabase/migrations/20261026000000_ai_pantry_usage.sql')
+  for (const fn of ['take_ai_pantry(uuid, integer)', 'return_ai_pantry(uuid)']) {
+    assert.match(migration, new RegExp(`revoke all on function public\\.${fn.replace(/[()]/g, '\\$&')} from public, anon, authenticated`), `${fn} is server-only`)
+  }
+  assert.match(migration, /pg_advisory_xact_lock/)
+})

@@ -64,7 +64,9 @@ function isPublicApiRoute(pathname: string): boolean {
     pathname === '/api/cron/kroger-sample' ||
     pathname === '/api/prices/observations' ||
     // Recipe help for iPhones without Apple Intelligence; the handler verifies the member's token and counts each use.
-    pathname === '/api/ai/recipe'
+    pathname === '/api/ai/recipe' ||
+    // Kitchen scan for Savry+; the handler verifies the member's token and membership, and counts each photo.
+    pathname === '/api/ai/pantry'
   )
 }
 

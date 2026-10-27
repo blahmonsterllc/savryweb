@@ -59,7 +59,8 @@ export class AIRecipeError extends Error {
 }
 
 let client: Anthropic | null = null
-function anthropic(): Anthropic {
+/** The shared Claude client; also used by the kitchen scan (lib/ai-pantry.ts). */
+export function anthropic(): Anthropic {
   if (!process.env.ANTHROPIC_API_KEY?.trim()) throw new AIRecipeError('Recipe help is not configured', 503)
   client ??= new Anthropic({ timeout: 60_000, maxRetries: 1 })
   return client

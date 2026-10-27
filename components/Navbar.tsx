@@ -55,7 +55,7 @@ export default function Navbar() {
     <nav className="savry-nav">
       <div className="site-shell savry-nav__inner">
         <Link href="/" className="savry-nav__brand" onClick={close}>
-          <Image src="/savry-logo.svg" alt="Savry" width={42} height={40} priority />
+          <Image src="/savry-logo.svg" unoptimized alt="Savry" width={42} height={40} priority />
           <span>Savry</span>
         </Link>
 

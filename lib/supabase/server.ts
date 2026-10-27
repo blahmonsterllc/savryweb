@@ -4,8 +4,9 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { requireSupabasePublishableKey, requireSupabaseURL } from './config'
 
-export function getSupabaseServerClient() {
-  const cookieStore = cookies()
+export async function getSupabaseServerClient() {
+  // Next 15: request cookies are read asynchronously.
+  const cookieStore = await cookies()
 
   return createServerClient(requireSupabaseURL(), requireSupabasePublishableKey(), {
     cookies: {

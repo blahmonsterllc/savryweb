@@ -33,7 +33,8 @@ async function serif(): Promise<ArrayBuffer | null> {
   }
 }
 
-export async function GET(_request: Request, { params }: { params: { slug: string } }) {
+export async function GET(_request: Request, props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params
   const [recipe, font] = await Promise.all([getPublicRecipeBySlug(params.slug).catch(() => null), serif()])
   const fonts = font ? [{ name: 'Serif', data: font, style: 'normal' as const, weight: 500 as const }] : []
   const titleFont = font ? 'Serif' : 'serif'

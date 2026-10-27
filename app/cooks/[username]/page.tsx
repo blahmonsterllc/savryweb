@@ -20,7 +20,8 @@ function since(iso: string): string {
   return new Date(iso).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
 }
 
-export async function generateMetadata({ params }: { params: { username: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ username: string }> }): Promise<Metadata> {
+  const params = await props.params
   const cook = await getSupabasePublicCook(params.username).catch(() => null)
   if (!cook) return { title: 'Cook not found', robots: { index: false } }
   const title = `${cook.displayName} (@${cook.username})`
@@ -35,7 +36,8 @@ export async function generateMetadata({ params }: { params: { username: string 
   }
 }
 
-export default async function CookPage({ params }: { params: { username: string } }) {
+export default async function CookPage(props: { params: Promise<{ username: string }> }) {
+  const params = await props.params
   const cook = await getSupabasePublicCook(params.username).catch(() => null)
   if (!cook) notFound()
   const url = `${SITE_URL}/cooks/${cook.username}`

@@ -15,7 +15,7 @@ const MEMBER_TIERS = new Set(['plus', 'pro'])
 export async function getViewerMembership(): Promise<ViewerMembership> {
   if (!isSupabaseConfigured()) return { isMember: false, tier: null }
   try {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data: { session } } = await supabase.auth.getSession()
     if (!session?.user) return { isMember: false, tier: null }
 

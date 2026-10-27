@@ -5,7 +5,7 @@ export default function SiteFooter() {
   return (
     <footer className="savry-footer">
       <div className="site-shell savry-footer__inner">
-        <div className="savry-footer__brand"><Image className="savry-footer__logo" src="/savry-logo.svg" alt="Savry" width={43} height={41} /><span>Savry</span></div>
+        <div className="savry-footer__brand"><Image className="savry-footer__logo" src="/savry-logo.svg" unoptimized alt="Savry" width={43} height={41} /><span>Savry</span></div>
         <p>Recipes worth keeping—and improving.</p>
         <nav aria-label="Footer">
           <Link href="/recipes">Recipes</Link>

@@ -12,7 +12,8 @@ async function load(username: string, slug: string): Promise<CollectionDetail | 
   return (data as CollectionDetail | null) ?? null
 }
 
-export async function generateMetadata({ params }: { params: { username: string; slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ username: string; slug: string }> }): Promise<Metadata> {
+  const params = await props.params
   const detail = await load(params.username, params.slug).catch(() => null)
   if (!detail) return { title: 'Collection', robots: { index: false } }
   const title = `${detail.title} by ${detail.owner.displayName}`
@@ -21,7 +22,8 @@ export async function generateMetadata({ params }: { params: { username: string;
   return { title, description, alternates: { canonical: url }, openGraph: { title, description, url, images: detail.recipes[0]?.imageUrl ? [{ url: detail.recipes[0].imageUrl }] : undefined } }
 }
 
-export default async function CollectionPage({ params }: { params: { username: string; slug: string } }) {
+export default async function CollectionPage(props: { params: Promise<{ username: string; slug: string }> }) {
+  const params = await props.params
   // A database error throws, so the last good cached page stays up.
   const detail = await load(params.username, params.slug)
   // The cached render is anonymous, so a private collection is not found here.

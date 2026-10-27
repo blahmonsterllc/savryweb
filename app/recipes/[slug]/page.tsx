@@ -21,9 +21,11 @@ export async function generateStaticParams() {
   return []
 }
 
-type Params = { params: { slug: string } }
+// Next 15: route params arrive as a promise.
+type Params = { params: Promise<{ slug: string }> }
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
+export async function generateMetadata(props: Params): Promise<Metadata> {
+  const params = await props.params
   const recipe = await getPublicRecipeBySlug(params.slug).catch(() => null)
   if (!recipe) return { title: 'Recipe not found' }
   const description = recipe.description ?? `${recipe.title}: ${recipe.ingredients.length} ingredients, ${recipe.instructions.length} steps.`
@@ -58,7 +60,8 @@ function Stat({ label, value }: { label: string; value: string }) {
   )
 }
 
-export default async function RecipePage({ params }: Params) {
+export default async function RecipePage(props: Params) {
+  const params = await props.params
   // A failed read throws, so the last good page stays up instead of a cached "not found".
   const recipe = await getPublicRecipeBySlug(params.slug).catch((error) => failOrFallback('recipe page', error, null))
   if (!recipe) notFound()

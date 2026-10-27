@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   const destination = isRecovery ? RESET_PATH : safeReturnPath(next ?? returnTo)
 
   if (code || (tokenHash && type && OTP_TYPES.has(type))) {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { error } = code
       ? await supabase.auth.exchangeCodeForSession(code)
       : await supabase.auth.verifyOtp({ token_hash: tokenHash as string, type: type as EmailOtpType })

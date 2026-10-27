@@ -17,49 +17,49 @@ export default function AnimatedBackground() {
       
       {/* Top Row */}
       <div className="absolute top-10 left-[5%] w-28 h-28 animate-float animate-fade-in-out" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/carrot.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/carrot.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       <div className="absolute top-16 left-[25%] w-32 h-32 animate-float-slow animate-fade-in-out-slow" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/avacado.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/avacado.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       <div className="absolute top-20 right-[28%] w-30 h-30 animate-float animate-fade-in-out-slower" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/tomato.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/tomato.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       <div className="absolute top-12 right-[8%] w-34 h-34 animate-float-slower animate-fade-in-out" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/pepper.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/pepper.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       {/* Middle Row */}
       <div className="absolute top-[35%] left-[8%] w-36 h-36 animate-float-slow animate-fade-in-out-slower" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/broccoli.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/broccoli.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       <div className="absolute top-[40%] left-[40%] w-32 h-32 animate-float animate-fade-in-out" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/mushroom.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/mushroom.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       <div className="absolute top-[38%] right-[15%] w-34 h-34 animate-float-slow animate-fade-in-out-slow" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/lettuce.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/lettuce.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       {/* Bottom Row */}
       <div className="absolute bottom-[30%] left-[18%] w-32 h-32 animate-float-slower animate-fade-in-out-slow" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/onion.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/onion.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       <div className="absolute bottom-[25%] right-[25%] w-30 h-30 animate-float animate-fade-in-out-slower" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/mushroom.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/mushroom.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       <div className="absolute bottom-20 left-[35%] w-28 h-28 animate-float-slow animate-fade-in-out" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/carrot.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/carrot.svg" unoptimized alt="" fill className="object-contain" />
       </div>
       
       <div className="absolute bottom-24 right-[10%] w-32 h-32 animate-float-slower animate-fade-in-out-slower" style={{ filter: 'brightness(0) saturate(100%) invert(57%) sepia(61%) saturate(437%) hue-rotate(124deg) brightness(95%) contrast(93%)' }}>
-        <Image src="/vegetables/avacado.svg" alt="" fill className="object-contain" />
+        <Image src="/vegetables/avacado.svg" unoptimized alt="" fill className="object-contain" />
       </div>
     </div>
   )

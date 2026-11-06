@@ -72,12 +72,12 @@ export default async function HomeExperience() {
           <div className="home-hero__text">
             <h1 id="home-title">Home recipes, priced per serving.</h1>
             <p>
-              Savry Kitchen wrote and tested the first {recipes.length || 'few hundred'} recipes, and home cooks add theirs as they join.
-              Each one lists what it costs at average US grocery prices, its nutrition from USDA data, and the common allergens it contains.
+              Recipes are meant to be shared. On Savry, home cooks post the dishes they love, and the cooks who make them
+              add photos and tweaks that make each recipe better for everyone. Every one shows what it costs per serving,
+              its nutrition, and the allergens it contains.
             </p>
             {recipes.length > 0 && (
               <dl className="home-hero__facts">
-                <div><dt>Recipes</dt><dd>{recipes.length}</dd></div>
                 {typical != null && <div><dt>Typical serving</dt><dd>{price(typical)}</dd></div>}
                 {quick > 0 && <div><dt>Ready in 30 min or less</dt><dd>{quick}</dd></div>}
               </dl>

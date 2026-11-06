@@ -56,42 +56,44 @@ export default async function HomeExperience() {
 
   return (
     <div className="savry-home">
-      <section className="home-masthead site-shell" aria-labelledby="home-title">
-        <div className="home-masthead__text">
-          <h1 id="home-title">Home recipes, priced per serving.</h1>
-          <p>
-            Savry Kitchen wrote and tested the first {recipes.length || 'few hundred'} recipes, and home cooks add theirs as they join.
-            Each one lists what it costs at average US grocery prices, its nutrition from USDA data, and the common allergens it contains.
-          </p>
-          {recipes.length > 0 && (
-            <dl className="home-masthead__facts">
-              <div><dt>Recipes</dt><dd>{recipes.length}</dd></div>
-              {typical != null && <div><dt>Typical serving</dt><dd>{price(typical)}</dd></div>}
-              {quick > 0 && <div><dt>Ready in 30 min or less</dt><dd>{quick}</dd></div>}
-            </dl>
-          )}
-          <div className="home-masthead__actions">
-            <Link href="/recipes" className="home-button">Browse the recipes</Link>
-            <Link href="/recipes/new" className="home-link">Add one of yours</Link>
-          </div>
-        </div>
-        <figure className="home-masthead__cover">
-          <div className="home-masthead__photo">
-            <Image
-              src="/images/savry-editorial-hero-natural.webp"
-              alt="Roasted tomatoes and white beans in a cast-iron skillet beside a recipe notebook"
-              fill
-              priority
-              sizes="(max-width: 900px) 100vw, 46vw"
-            />
+      {/* The illustration was made with empty marble on the left for type:
+          the headline sits over it, on a soft dark fade. */}
+      <section className="home-hero" aria-labelledby="home-title">
+        <Image
+          src="/images/savry-editorial-hero-natural.webp"
+          alt="Roasted tomatoes and white beans in a cast-iron skillet beside a recipe notebook"
+          fill
+          priority
+          sizes="100vw"
+          className="home-hero__image"
+        />
+        <div className="home-hero__veil" aria-hidden="true" />
+        <div className="site-shell home-hero__inner">
+          <div className="home-hero__text">
+            <h1 id="home-title">Home recipes, priced per serving.</h1>
+            <p>
+              Savry Kitchen wrote and tested the first {recipes.length || 'few hundred'} recipes, and home cooks add theirs as they join.
+              Each one lists what it costs at average US grocery prices, its nutrition from USDA data, and the common allergens it contains.
+            </p>
+            {recipes.length > 0 && (
+              <dl className="home-hero__facts">
+                <div><dt>Recipes</dt><dd>{recipes.length}</dd></div>
+                {typical != null && <div><dt>Typical serving</dt><dd>{price(typical)}</dd></div>}
+                {quick > 0 && <div><dt>Ready in 30 min or less</dt><dd>{quick}</dd></div>}
+              </dl>
+            )}
+            <div className="home-hero__actions">
+              <Link href="/recipes" className="home-button home-button--light">Browse the recipes</Link>
+              <Link href="/recipes/new" className="home-link home-link--light">Add one of yours</Link>
+            </div>
           </div>
           {cover && (
-            <figcaption>
+            <p className="home-hero__caption">
               <Link href={`/recipes/${cover.slug}`}>{cover.title}</Link>
               <span>{[cover.totalTime ? `${cover.totalTime} min` : null, price(cover.costPerServing) ? `${price(cover.costPerServing)} a serving` : null, 'illustration'].filter(Boolean).join(' · ')}</span>
-            </figcaption>
+            </p>
           )}
-        </figure>
+        </div>
       </section>
 
       <TableThisWeek />

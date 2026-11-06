@@ -1,6 +1,6 @@
 /**
  * Ends Savry+ memberships whose paid period ran out without a renewal.
- * Vercel Cron calls this hourly (vercel.json) with
+ * Vercel Cron calls this once a day (vercel.json; the Hobby plan allows daily jobs only) with
  * `Authorization: Bearer <CRON_SECRET>`; nothing else may trigger it.
  *
  * GET /api/cron/memberships → { ended }

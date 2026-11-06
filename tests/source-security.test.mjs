@@ -435,3 +435,12 @@ test('kitchen scan checks the member and Savry+, and counts photos before callin
   }
   assert.match(migration, /pg_advisory_xact_lock/)
 })
+
+test('every scheduled job runs at most once a day (Vercel Hobby refuses the deploy otherwise)', async () => {
+  const { crons } = JSON.parse(await source('vercel.json'))
+  for (const { path, schedule } of crons) {
+    const [minute, hour] = schedule.split(/\s+/)
+    assert.match(minute, /^\d+$/, `${path}: one fixed minute`)
+    assert.match(hour, /^\d+$/, `${path}: one fixed hour`)
+  }
+})

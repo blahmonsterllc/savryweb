@@ -1,5 +1,5 @@
 /**
- * Scheduled patrol run. Vercel Cron calls this every 10 minutes (vercel.json)
+ * Scheduled patrol run. Vercel Cron calls this once a day (vercel.json; Hobby plan)
  * with `Authorization: Bearer <CRON_SECRET>`; nothing else may trigger it.
  *
  * GET /api/cron/patrol → { configured, reviewed, flagged, errors, note? }

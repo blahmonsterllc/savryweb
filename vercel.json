@@ -2,15 +2,15 @@
   "crons": [
     {
       "path": "/api/cron/patrol",
-      "schedule": "*/10 * * * *"
+      "schedule": "40 5 * * *"
     },
     {
       "path": "/api/cron/memberships",
-      "schedule": "17 * * * *"
+      "schedule": "17 6 * * *"
     },
     {
       "path": "/api/cron/weekly-email",
-      "schedule": "0 15,17,19 * * 0"
+      "schedule": "0 15 * * 0"
     },
     {
       "path": "/api/cron/recost",

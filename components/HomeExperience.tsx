@@ -70,11 +70,11 @@ export default async function HomeExperience() {
         <div className="home-hero__veil" aria-hidden="true" />
         <div className="site-shell home-hero__inner">
           <div className="home-hero__text">
-            <h1 id="home-title">Home recipes, priced per serving.</h1>
+            <h1 id="home-title">Recipes are better shared.</h1>
             <p>
-              Recipes are meant to be shared. On Savry, home cooks post the dishes they love, and the cooks who make them
-              add photos and tweaks that make each recipe better for everyone. Every one shows what it costs per serving,
-              its nutrition, and the allergens it contains.
+              On Savry, home cooks post the dishes they love, and the cooks who make them add photos and tweaks that
+              make each recipe better for everyone. Every recipe shows what it costs per serving, its nutrition, and the
+              allergens it contains.
             </p>
             {recipes.length > 0 && (
               <dl className="home-hero__facts">

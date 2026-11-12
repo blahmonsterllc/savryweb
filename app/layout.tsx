@@ -13,7 +13,7 @@ const description = 'Discover recipes, join the Savry cooking community, and sha
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Savry — recipes worth sharing',
+    default: 'Savry — Recipes are better shared',
     template: '%s | Savry',
   },
   description,
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'Savry',
-    title: 'Savry — recipes worth sharing',
+    title: 'Savry — Recipes are better shared',
     description: 'A recipe workshop for home cooks and bakers to create, share, discuss, and improve recipes together.',
     images: [{ url: '/images/savry-editorial-hero.webp', width: 1600, height: 1000, alt: 'A shared table of Savry recipes' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Savry — recipes worth sharing',
+    title: 'Savry — Recipes are better shared',
     description,
     images: ['/images/savry-editorial-hero.webp'],
   },

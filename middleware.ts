@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { requireSupabasePublishableKey, requireSupabaseURL } from '@/lib/supabase/config'
+import { ACCESS_HEADER, checkAccess, clientIp, isAdminArea } from '@/lib/cloudflare-access.mjs'
+import { SITE_URL } from '@/lib/site-url'
 
 // Crawlers that may read every public (non-/api) page: search engines, the
 // Google ads/verification crawlers, and the link-preview fetchers used by
@@ -70,15 +72,20 @@ function isPublicApiRoute(pathname: string): boolean {
   )
 }
 
-type AdminGate = { standing: 'admin' | 'member' | 'anonymous'; response: NextResponse }
+type AdminGate = { standing: 'admin' | 'second-factor' | 'member' | 'anonymous'; response: NextResponse }
+
+const TWO_FACTOR_PATH = '/admin/two-factor'
 
 /**
  * Admin access uses the member's own Savry session (Apple or email sign-in).
  * The session is verified with Supabase Auth, then the database says whether
- * that user is on the admin list. A refreshed session cookie is carried on
- * `response` and passed on to the page or handler.
+ * that user is on the admin list AND signed in with a second factor
+ * (is_admin() requires an aal2 session). A listed admin without the second
+ * factor yet is 'second-factor' and goes to /admin/two-factor. A signed-in
+ * member who is not an admin is noted in the admin activity log.
+ * A refreshed session cookie is carried on `response` and passed on to the page or handler.
  */
-async function checkAdmin(req: NextRequest): Promise<AdminGate> {
+async function checkAdmin(req: NextRequest, viaCloudflare: boolean): Promise<AdminGate> {
   let response = NextResponse.next({ request: req })
   try {
     const supabase = createServerClient(requireSupabaseURL(), requireSupabasePublishableKey(), {
@@ -94,12 +101,49 @@ async function checkAdmin(req: NextRequest): Promise<AdminGate> {
     const { data, error } = await supabase.auth.getUser()
     if (error || !data.user) return { standing: 'anonymous', response }
     const { data: isAdmin, error: adminError } = await supabase.rpc('is_admin')
-    if (adminError || isAdmin !== true) return { standing: 'member', response }
+    if (adminError || isAdmin !== true) {
+      // Anything but an explicit true is not an admin.
+      const { data: needsSecondFactor } = await supabase.rpc('needs_admin_second_factor')
+      if (needsSecondFactor === true) return { standing: 'second-factor', response }
+      if (isAdminArea(req.nextUrl.pathname)) {
+        await supabase
+          .rpc('note_admin_denied', {
+            p_path: req.nextUrl.pathname,
+            p_ip: clientIp((name) => req.headers.get(name), viaCloudflare),
+            p_user_agent: (req.headers.get('user-agent') ?? '').slice(0, 300),
+          })
+          .then(() => undefined, () => undefined)
+      }
+      return { standing: 'member', response }
+    }
     return { standing: 'admin', response }
   } catch (error) {
     console.error('Admin check error:', error)
     return { standing: 'anonymous', response }
   }
+}
+
+/**
+ * Cloudflare Access is configured but this request has no valid Access token.
+ * On another address (the *.vercel.app one) a page is sent to www.savry.io,
+ * where Cloudflare asks for its sign-in; anything else is refused.
+ */
+function cloudflareAccessRequired(req: NextRequest): NextResponse {
+  if (!req.nextUrl.pathname.startsWith('/api')) {
+    const canonical = new URL(SITE_URL)
+    if (req.nextUrl.host !== canonical.host) {
+      return NextResponse.redirect(new URL(req.nextUrl.pathname + req.nextUrl.search, canonical))
+    }
+  }
+  return NextResponse.json({ message: 'Cloudflare Access sign-in required' }, { status: 403, headers: { 'Cache-Control': 'no-store' } })
+}
+
+function redirectToTwoFactor(req: NextRequest): NextResponse {
+  const url = req.nextUrl.clone()
+  url.pathname = TWO_FACTOR_PATH
+  url.search = ''
+  url.searchParams.set('next', req.nextUrl.pathname + req.nextUrl.search)
+  return NextResponse.redirect(url)
 }
 
 /** Keeps a refreshed session cookie when the answer is a redirect or an error. */
@@ -177,6 +221,17 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
+  // Cloudflare Access: its own sign-in in front of the whole admin area (the
+  // login and two-factor pages included), checked before the Savry sign-in.
+  // Until CLOUDFLARE_ACCESS_TEAM_DOMAIN and CLOUDFLARE_ACCESS_AUD are set this
+  // is skipped, and /admin/security flags it.
+  let viaCloudflare = false
+  if (isAdminArea(pathname)) {
+    const access = await checkAccess(req.headers.get(ACCESS_HEADER))
+    if (access.status === 'denied') return cloudflareAccessRequired(req)
+    viaCloudflare = access.status === 'allowed'
+  }
+
   // Only protect admin and health pages - everything else is public
   const needsAdmin =
     pathname === '/health' ||
@@ -194,13 +249,22 @@ export async function middleware(req: NextRequest) {
   }
 
   // Admin check
-  const gate = await checkAdmin(req)
+  const gate = await checkAdmin(req, viaCloudflare)
+
+  // The two-factor page is for listed admins who still need their second factor.
+  if (pathname === TWO_FACTOR_PATH) {
+    if (gate.standing === 'admin' || gate.standing === 'second-factor') return gate.response
+    return withSessionCookies(gate.standing === 'member' ? redirectToAdminDenied(req) : redirectToSignIn(req), gate)
+  }
+
   if (gate.standing !== 'admin') {
     // For API routes, return JSON instead of a redirect
     if (pathname.startsWith('/api')) {
-      const status = gate.standing === 'member' ? 403 : 401
-      return withSessionCookies(NextResponse.json({ message: 'Admin authorization required' }, { status }), gate)
+      const status = gate.standing === 'anonymous' ? 401 : 403
+      const message = gate.standing === 'second-factor' ? 'Two-factor sign-in required' : 'Admin authorization required'
+      return withSessionCookies(NextResponse.json({ message }, { status }), gate)
     }
+    if (gate.standing === 'second-factor') return withSessionCookies(redirectToTwoFactor(req), gate)
     return withSessionCookies(gate.standing === 'member' ? redirectToAdminDenied(req) : redirectToSignIn(req), gate)
   }
 

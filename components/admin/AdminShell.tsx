@@ -12,13 +12,14 @@ const NAV = [
   { href: '/admin/reports', label: 'Reports' },
   { href: '/admin/members', label: 'Members' },
   { href: '/admin/recipes', label: 'Recipes' },
+  { href: '/admin/activity', label: 'Activity' },
   { href: '/admin/security', label: 'Health & security' },
 ]
 
-/** Frame for every admin page. The login page renders without it. */
+/** Frame for every admin page. The login and two-factor pages render without it. */
 export default function AdminShell({ children }: { children: ReactNode }) {
   const pathname = usePathname() ?? ''
-  if (pathname === '/admin/login') return <>{children}</>
+  if (pathname === '/admin/login' || pathname === '/admin/two-factor') return <>{children}</>
 
   async function signOut() {
     await getSupabaseBrowserClient().auth.signOut()

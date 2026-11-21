@@ -8,6 +8,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/admin-session'
+import { logAdminAction } from '@/lib/admin-activity'
 import { isPatrolConfigured, runPatrol } from '@/lib/patrol'
 
 export const config = { maxDuration: 60 }
@@ -33,6 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const action = req.body?.action
   if (action === 'run') {
     const result = await runPatrol({ limit: 30, budgetMs: 45_000 })
+    await logAdminAction(req, adminId, 'patrol.run_now', { detail: { reviewed: result.reviewed, flagged: result.flagged } })
     return res.status(200).json({ success: true, result })
   }
 
@@ -40,5 +42,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!UUID.test(id) || !['dismiss', 'remove', 'ban'].includes(action)) return res.status(400).json({ success: false, error: 'Bad request' })
   const { error } = await supabase.rpc('admin_patrol_resolve', { flag: id, action, admin_id: adminId })
   if (error) return res.status(400).json({ success: false, error: error.message })
+  await logAdminAction(req, adminId, `patrol.${action}`, { targetType: 'patrol_flag', targetId: id })
   return res.status(200).json({ success: true })
 }

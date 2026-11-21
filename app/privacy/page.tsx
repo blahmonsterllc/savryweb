@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-url'
 
-const LAST_UPDATED = 'October 26, 2026'
+const LAST_UPDATED = 'November 21, 2026'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -79,6 +79,7 @@ export default function PrivacyPolicy() {
           <li><strong>Anthropic</strong>, for Savry Chef recipes and Savry+ kitchen scans in the iOS app: kitchen photos you scan, and the request you type (ingredients, the dish you want, your allergy list, or the recipe you ask to change) is sent to Claude to write the recipe. Savry stores only how many requests your account has made, to apply the free and Savry+ limits.</li>
           <li><strong>Apple App Store</strong>, for Savry+ purchases and subscription management.</li>
           <li><strong>Vercel</strong>, which hosts the website and its short-lived server logs.</li>
+          <li><strong>Cloudflare</strong>, which carries the website&rsquo;s traffic and handles inbound email, and counts visits to public pages with Cloudflare Web Analytics: the page, the site that linked to it, your country, and your browser and device type. It sets no cookies, does not track you across other sites, and does not build a profile of you.</li>
           <li><strong>Anthropic</strong>, whose Claude model reviews community content for us. The recipes, comments, suggestions, and photos you publish, and your profile name, username, bio, links, and photo, are sent to it to be checked against our community guidelines. Private recipes in the app are never sent.</li>
         </ul>
         <p>If you are outside the United States, your account and community data are transferred to and stored in the United States. Where required, we rely on standard contractual clauses and the safeguards offered by these providers. Data in transit is encrypted with TLS, and access to the database is restricted with row-level security so that only you can change your own content.</p>

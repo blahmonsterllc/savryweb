@@ -50,7 +50,9 @@ test('the site carries no advertising, ad scripts, or advertising cookies', asyn
     assert.doesNotMatch(text, /components\/AdSlot|components\/AdConsent|lib\/ads'/, `${file} imports a removed ad component`)
   }
   const policy = await source('lib/security-policy.mjs')
-  assert.match(policy, /"script-src 'self' 'unsafe-inline'" \+ devEval \+ "",/, 'no third-party scripts')
+  // No third-party scripts, with one exception: Cloudflare's cookie-free visit counter, and only while its token is set
+  // (tests/security-policy.test.mjs checks both ways).
+  assert.match(policy, /"script-src 'self' 'unsafe-inline'" \+ devEval \+ \(analytics \? ' https:\/\/static\.cloudflareinsights\.com' : ''\),/, 'no third-party scripts but the visit counter')
   assert.match(policy, /frame-src 'none'/)
   const terms = await source('app/terms/page.tsx')
   assert.match(terms, /does not show advertisements/)
@@ -152,12 +154,18 @@ test('admin access is a verified Savry session on the admin list, checked twice'
   const guard = await source('lib/admin-session.ts')
   assert.match(guard, /supabase\.auth\.getUser\(\)/)
   assert.match(guard, /rpc\('admin_is_admin', \{ target: user\.id \}\)/)
-  for (const name of ['health', 'members', 'moderation', 'recipes', 'reports', 'stats']) {
+  const { readdir } = await import('node:fs/promises')
+  const handlers = (await readdir(new URL('../pages/api/admin/', import.meta.url))).filter((f) => f.endsWith('.ts')).map((f) => f.replace(/\.ts$/, ''))
+  for (const name of ['activity', 'digest-preview', 'health', 'members', 'moderation', 'patrol', 'recipes', 'reports', 'stats', 'traffic']) {
+    assert.ok(handlers.includes(name), `${name} is still an admin handler`)
+  }
+  for (const name of handlers) {
     const handler = await source(`pages/api/admin/${name}.ts`)
-    const guardAt = handler.indexOf('if (!(await requireAdmin(req, res))) return')
-    const firstUse = handler.indexOf('getSupabaseAdmin()', handler.indexOf('export default async function handler'))
-    assert.ok(guardAt > 0, `${name} must check the admin itself`)
-    assert.ok(firstUse === -1 || guardAt < firstUse, `${name} must check the admin before using the service role`)
+    const body = handler.slice(handler.indexOf('export default async function handler'))
+    const guard = body.match(/if \(!\(await requireAdmin\(req, res\)\)\) return|const adminId = await requireAdmin\(req, res\)\n\s*if \(!adminId\) return/)
+    const firstUse = body.indexOf('getSupabaseAdmin()')
+    assert.ok(guard, `${name} must check the admin itself`)
+    assert.ok(firstUse === -1 || guard.index < firstUse, `${name} must check the admin before using the service role`)
   }
 
   const migration = await source('supabase/migrations/20261001020000_admin_users.sql')
@@ -443,4 +451,115 @@ test('every scheduled job runs at most once a day (Vercel Hobby refuses the depl
     assert.match(minute, /^\d+$/, `${path}: one fixed minute`)
     assert.match(hour, /^\d+$/, `${path}: one fixed hour`)
   }
+})
+
+test('admin area: Cloudflare Access first, then a verified two-factor admin session, checked twice', async () => {
+  const middleware = await source('middleware.ts')
+  const accessAt = middleware.indexOf('await checkAccess(req.headers.get(ACCESS_HEADER))')
+  const gateAt = middleware.indexOf('await checkAdmin(req, viaCloudflare)')
+  assert.ok(accessAt > 0 && gateAt > accessAt, 'Cloudflare Access is checked before the Savry session')
+  assert.match(middleware, /if \(isAdminArea\(pathname\)\) \{\n\s*const access = await checkAccess/, 'Access covers the whole admin area, login and two-factor pages included')
+  assert.match(middleware, /access\.status === 'denied'\) return cloudflareAccessRequired\(req\)/)
+  assert.match(middleware, /supabase\.rpc\('needs_admin_second_factor'\)/, 'a listed admin without the second factor goes to the two-factor page')
+  assert.match(middleware, /'Two-factor sign-in required'/)
+  const allowlist = middleware.slice(middleware.indexOf('function isPublicApiRoute'), middleware.indexOf('type AdminGate'))
+  assert.doesNotMatch(allowlist, /two-factor|activity|traffic/, 'no admin route is public')
+
+  const guard = await source('lib/admin-session.ts')
+  const accessCheck = guard.indexOf('await checkAccess(header(req, ACCESS_HEADER))')
+  const sessionAdmin = guard.indexOf("await supabase.rpc('is_admin')")
+  const serviceRole = guard.indexOf('getSupabaseAdmin()', guard.indexOf('export async function requireAdmin'))
+  assert.ok(accessCheck > 0 && sessionAdmin > accessCheck && serviceRole > sessionAdmin, 'Access, then the two-factor admin session, then the service role')
+  assert.match(guard, /twoFactorAdmin !== true/)
+  assert.match(guard, /rpc\('note_admin_session'/, 'each admin session is logged')
+
+  const access = await source('lib/cloudflare-access.mjs')
+  assert.match(access, /\\\.cloudflareaccess\\\.com\$\//, 'keys are fetched only from a cloudflareaccess.com team')
+  assert.match(access, /header\?\.alg !== 'RS256'/, 'only RS256 tokens are accepted')
+})
+
+test('two-factor is enforced by the database, and the admin activity log is append-only and server-only', async () => {
+  const migration = await source('supabase/migrations/20261121000000_admin_sign_in_security.sql')
+  const isAdmin = migration.slice(migration.indexOf('function public.is_admin()'), migration.indexOf('revoke all on function public.is_admin()'))
+  assert.match(isAdmin, /coalesce\(\(select auth\.jwt\(\) ->> 'aal'\), ''\) = 'aal2'/, 'is_admin() needs a two-factor session')
+  assert.match(migration, /revoke all on function public\.is_admin\(\) from public, anon;/)
+
+  assert.match(migration, /alter table public\.admin_activity enable row level security/)
+  assert.match(migration, /revoke all on public\.admin_activity from public, anon, authenticated, service_role;/)
+  assert.match(migration, /grant select on public\.admin_activity to service_role;/, 'the server may read the log, not change it')
+  assert.doesNotMatch(migration, /create policy/, 'no browser session can read or write the log')
+  assert.match(migration, /before update or delete on public\.admin_activity/)
+  assert.match(migration, /before truncate on public\.admin_activity/)
+  assert.doesNotMatch(migration, /actor_id uuid references/, 'entries outlive deleted accounts')
+  assert.doesNotMatch(migration, /insert into public\.admin_users/, 'admins are added by hand')
+
+  for (const fn of ['admin_two_factor_coverage()', 'admin_log_action(uuid, text, text, text, jsonb, text, text)', 'admin_activity_log(integer, timestamptz)', 'admin_activity_summary()']) {
+    const escaped = fn.replace(/[()]/g, (m) => '\\' + m)
+    assert.match(migration, new RegExp(`revoke all on function public\\.${escaped} from public, anon, authenticated;`), `${fn} is server-only`)
+    assert.match(migration, new RegExp(`grant execute on function public\\.${escaped} to service_role;`))
+  }
+  // Callable with a member's own session, so their names must not start with admin_ (the live audit flags those).
+  for (const fn of ['needs_admin_second_factor()', 'note_admin_session(text, text)', 'note_admin_denied(text, text, text)']) {
+    const escaped = fn.replace(/[()]/g, (m) => '\\' + m)
+    assert.match(migration, new RegExp(`revoke all on function public\\.${escaped} from public, anon;`), `${fn} is never anonymous`)
+  }
+  const logAction = migration.slice(migration.indexOf('function public.admin_log_action'), migration.indexOf('function public.note_admin_session'))
+  assert.match(logAction, /not public\.admin_is_admin\(p_actor\)/, 'only admins are logged as acting')
+  const denied = migration.slice(migration.indexOf('function public.note_admin_denied'), migration.indexOf('function public.admin_activity_log'))
+  assert.match(denied, /interval '10 minutes'/, 'turned-away notes are rate limited')
+})
+
+test('every change made in admin is logged, and nothing writes the log directly', async () => {
+  const expected = {
+    members: ["'members.searched'", "'member.banned'", "'member.unbanned'"],
+    moderation: ['`moderation.${action}`'],
+    patrol: ["'patrol.run_now'", '`patrol.${action}`'],
+    recipes: ["'recipe.deleted'", "'recipe.edited'", "'recipe.editors_pick'", "'recipe.visibility'"],
+    'digest-preview': ["'email.test_sent'"],
+  }
+  for (const [name, actions] of Object.entries(expected)) {
+    const handler = await source(`pages/api/admin/${name}.ts`)
+    assert.match(handler, /logAdminAction\(req, adminId, /, `${name} logs its changes`)
+    for (const action of actions) assert.ok(handler.includes(action), `${name} logs ${action}`)
+  }
+  const { readdir } = await import('node:fs/promises')
+  for (const file of await readdir(new URL('../pages/api/admin/', import.meta.url))) {
+    const handler = await source(`pages/api/admin/${file}`)
+    assert.doesNotMatch(handler, /from\('admin_activity'\)/, `${file} must not touch the log table directly`)
+  }
+  const activity = await source('pages/api/admin/activity.ts')
+  assert.match(activity, /req\.method !== 'GET'/, 'the activity API only reads')
+  const logger = await source('lib/admin-activity.ts')
+  assert.match(logger, /import 'server-only'/)
+  assert.match(logger, /rpc\('admin_log_action'/)
+})
+
+test('visit counts are cookie-free, off admin pages, and the analytics token stays on the server', async () => {
+  const component = await source('components/WebAnalytics.tsx')
+  assert.match(component, /pathname\.startsWith\('\/admin\/'\)/, 'never loaded on admin pages')
+  const traffic = await source('lib/cloudflare-traffic.ts')
+  assert.match(traffic, /import 'server-only'/)
+  assert.doesNotMatch(traffic, /NEXT_PUBLIC_CLOUDFLARE_API_TOKEN/)
+  const { readdir } = await import('node:fs/promises')
+  for (const dir of ['app', 'components']) {
+    for (const entry of await readdir(new URL(`../${dir}/`, import.meta.url), { recursive: true })) {
+      if (!/\.(tsx?|mjs)$/.test(entry)) continue
+      assert.doesNotMatch(await source(`${dir}/${entry}`), /env\.CLOUDFLARE_API_TOKEN|env\[['"]CLOUDFLARE_API_TOKEN/, `${dir}/${entry} must not read the analytics API token`)
+    }
+  }
+  const privacy = await source('app/privacy/page.tsx')
+  assert.match(privacy, /Cloudflare Web Analytics/, 'the privacy policy names the visit counter')
+})
+
+test('health checks match a once-a-day patrol and a required Anthropic key', async () => {
+  const health = await source('pages/api/admin/health.ts')
+  assert.match(health, /const PATROL_STALE_MINUTES = 25 \* 60/)
+  assert.doesNotMatch(health, /35 minutes|every 10 minutes/)
+  const patrolKey = health.slice(health.indexOf("id: 'patrol-key'"), health.indexOf("id: 'resend-key'"))
+  assert.doesNotMatch(patrolKey, /pending:/, 'Savry Chef cannot work without the key, so it is never just pending')
+  assert.match(health, /id: 'cloudflare-access'/)
+  assert.match(health, /id: 'two-factor'/)
+  const env = await source('.env.example')
+  assert.match(env, /^NEXT_PUBLIC_SITE_URL=https:\/\/www\.savry\.io$/m, 'the example matches the canonical URL the health check expects')
+  assert.doesNotMatch(env, /^(?!#)[A-Z_]+=(sk-ant-|sb_secret_[A-Za-z0-9]{20,}|re_[A-Za-z0-9]{10,})/m, 'no real secrets in the example')
 })

@@ -9,9 +9,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/admin-session'
+import { logAdminAction } from '@/lib/admin-activity'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (!(await requireAdmin(req, res))) return
+  const adminId = await requireAdmin(req, res)
+  if (!adminId) return
   const supabase = getSupabaseAdmin()
 
   if (req.method === 'GET') {
@@ -31,5 +33,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const { error } = await supabase.rpc('admin_moderate', { payload: { id, action } })
   if (error) return res.status(400).json({ success: false, error: error.message })
+  await logAdminAction(req, adminId, `moderation.${action}`, { targetType: 'moderation_item', targetId: id })
   return res.status(200).json({ success: true })
 }

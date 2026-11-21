@@ -8,6 +8,7 @@
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { requireAdmin } from '@/lib/admin-session'
+import { logAdminAction } from '@/lib/admin-activity'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { buildDigest, hasContent, isEmailConfigured, renderDigest, sendTestDigest, sendWeeklyDigests, unsubscribeLink } from '@/lib/weekly-digest'
 
@@ -39,5 +40,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const to = user?.user?.email
   if (!to) return res.status(400).json({ ok: false, error: 'Your account has no email address' })
   const sent = await sendTestDigest(adminId, to, token)
+  if (sent.ok) await logAdminAction(req, adminId, 'email.test_sent')
   return res.status(sent.ok ? 200 : 502).json(sent)
 }

@@ -24,9 +24,37 @@ function formatBytes(bytes: number): string {
   return `${(bytes / 1024 / 1024).toFixed(1)} MB`
 }
 
+type TrafficRow = { name: string; pageViews: number }
+type Traffic =
+  | { configured: false }
+  | { configured: true; error?: string; days: { date: string; pageViews: number; visits: number }[]; totals: { pageViews: number; visits: number }; topPages: TrafficRow[]; topReferrers: TrafficRow[]; topCountries: TrafficRow[] }
+type ActivitySummary = { signInsLast7Days: number; actionsLast7Days: number; deniedLast7Days: number; lastSignInAt: string | null }
+
+function TopList({ title, rows }: { title: string; rows: TrafficRow[] }) {
+  return (
+    <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <p className="text-xs font-bold uppercase tracking-wide text-gray-500">{title}</p>
+      {rows.length === 0 ? (
+        <p className="mt-2 text-sm text-gray-500">Nothing yet</p>
+      ) : (
+        <ol className="mt-2 space-y-1 text-sm">
+          {rows.map((r) => (
+            <li key={r.name} className="flex justify-between gap-3">
+              <span className="truncate text-gray-800">{r.name}</span>
+              <span className="tabular-nums text-gray-500">{r.pageViews.toLocaleString()}</span>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  )
+}
+
 export default function AdminOverviewPage() {
   const [stats, setStats] = useState<Stats | null>(null)
   const [health, setHealth] = useState<Health | null>(null)
+  const [traffic, setTraffic] = useState<Traffic | null>(null)
+  const [activity, setActivity] = useState<ActivitySummary | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -38,7 +66,18 @@ export default function AdminOverviewPage() {
       .then(async (r) => (r.ok ? r.json() : Promise.reject(new Error('Could not run health checks'))))
       .then(setHealth)
       .catch(() => setHealth(null))
+    fetch('/api/admin/traffic', { cache: 'no-store' })
+      .then(async (r) => (r.ok ? r.json() : Promise.reject(new Error('Could not load traffic'))))
+      .then(setTraffic)
+      .catch(() => setTraffic(null))
+    fetch('/api/admin/activity?limit=1', { cache: 'no-store' })
+      .then(async (r) => (r.ok ? (await r.json()).summary : Promise.reject(new Error('Could not load activity'))))
+      .then(setActivity)
+      .catch(() => setActivity(null))
   }, [])
+
+  const twoFactor = health?.groups.find((g) => g.id === 'database')?.checks.find((c) => c.id === 'two-factor')
+  const cloudflareAccess = health?.groups.find((g) => g.id === 'config')?.checks.find((c) => c.id === 'cloudflare-access')
 
   const n = (key: string) => Number(stats?.[key] ?? 0)
   const failing = health?.groups.flatMap((g) => g.checks.filter((c) => !c.ok && !c.pending)) ?? []
@@ -77,6 +116,42 @@ export default function AdminOverviewPage() {
         <Tile label="Cooked this week" value={n('madeItsLast7Days')} hint={`${n('commentsLast7Days')} comments, ${n('pendingTweaks')} tweaks waiting on authors`} />
       </div>
 
+      <h2 className="mt-10 text-sm font-bold uppercase tracking-wide text-gray-500">Traffic, last 7 days</h2>
+      {!traffic && <p className="mt-3 text-sm text-gray-500">Loading…</p>}
+      {traffic && !traffic.configured && (
+        <p className="mt-3 rounded-2xl border border-gray-200 bg-white p-5 text-sm text-gray-600 shadow-sm">
+          Visit counts are off. Turn on Cloudflare Web Analytics and add <code>NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN</code>, <code>CLOUDFLARE_ACCOUNT_ID</code> and <code>CLOUDFLARE_API_TOKEN</code> in Vercel (see docs/admin-security.md).
+        </p>
+      )}
+      {traffic && traffic.configured && (
+        <>
+          {traffic.error && <p className="mt-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">Cloudflare: {traffic.error}</p>}
+          <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <Tile label="Visits" value={traffic.totals.visits.toLocaleString()} hint="Cookie-free, public pages only" />
+            <Tile label="Page views" value={traffic.totals.pageViews.toLocaleString()} hint={traffic.days.length ? `Busiest: ${[...traffic.days].sort((a, b) => b.pageViews - a.pageViews)[0].date}` : undefined} />
+            <TopList title="Top pages" rows={traffic.topPages} />
+            <TopList title="Where visitors came from" rows={traffic.topReferrers} />
+          </div>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <TopList title="Countries" rows={traffic.topCountries} />
+          </div>
+        </>
+      )}
+
+      <h2 className="mt-10 text-sm font-bold uppercase tracking-wide text-gray-500">Admin security</h2>
+      <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Tile label="Admin sign-ins" value={activity?.signInsLast7Days ?? '–'} hint={activity?.lastSignInAt ? `Last ${new Date(activity.lastSignInAt).toLocaleString()}` : 'This week'} href="/admin/activity" />
+        <Tile label="Changes by admins" value={activity?.actionsLast7Days ?? '–'} hint="This week, all logged" href="/admin/activity" />
+        <Tile label="Turned away" value={activity?.deniedLast7Days ?? '–'} hint="Signed-in non-admins, this week" href="/admin/activity" tone={activity?.deniedLast7Days ? 'warn' : undefined} />
+        <Tile
+          label="Sign-in protection"
+          value={cloudflareAccess?.ok && twoFactor?.ok ? 'On' : 'Check'}
+          hint={`Cloudflare ${cloudflareAccess?.ok ? 'on' : 'off'} · two-factor ${twoFactor?.detail ?? '…'}`}
+          href="/admin/security"
+          tone={cloudflareAccess?.ok && twoFactor?.ok ? undefined : 'warn'}
+        />
+      </div>
+
       <h2 className="mt-10 text-sm font-bold uppercase tracking-wide text-gray-500">Safety</h2>
       <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Tile label="Moderation queue" value={n('moderationOpen')} hint={n('moderationStale') ? `${n('moderationStale')} waiting over 48 h` : 'Nothing overdue'} href="/admin/moderation" tone={n('moderationOpen') ? 'warn' : undefined} />
@@ -103,7 +178,8 @@ export default function AdminOverviewPage() {
           ['https://supabase.com/dashboard/project/qnpekzrchqftdoaebzuf', 'Supabase', 'Database, auth users, storage, logs'],
           ['https://vercel.com', 'Vercel', 'Deployments and environment variables'],
           ['https://resend.com/emails', 'Resend', 'Auth email delivery log'],
-          ['https://dash.cloudflare.com', 'Cloudflare', 'DNS and inbound email routing'],
+          ['https://dash.cloudflare.com', 'Cloudflare', 'DNS, email routing, Web Analytics'],
+          ['https://one.dash.cloudflare.com', 'Cloudflare Zero Trust', 'Who can open admin; its sign-in log'],
           ['https://appstoreconnect.apple.com', 'App Store Connect', 'Savry+ subscriptions and TestFlight'],
           ['https://search.google.com/search-console', 'Search Console', 'Indexing and search traffic'],
           ['https://github.com/blahmonsterllc/savryweb/actions', 'GitHub Actions', 'Automated tests on every push'],

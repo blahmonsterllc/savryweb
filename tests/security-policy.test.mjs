@@ -33,3 +33,17 @@ test('security headers include a CSP and HSTS', () => {
   assert.match(csp, /frame-ancestors 'none'/)
   assert.match(csp, /object-src 'none'/)
 })
+
+test('Cloudflare Web Analytics is allowed by the CSP only while its token is set', async () => {
+  const { contentSecurityPolicy, webAnalyticsToken } = await import('../lib/security-policy.mjs')
+  const off = contentSecurityPolicy({ NODE_ENV: 'production' })
+  assert.doesNotMatch(off, /cloudflareinsights/)
+  const token = '0123456789abcdef0123456789abcdef'
+  const on = contentSecurityPolicy({ NODE_ENV: 'production', NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: token })
+  assert.match(on, /script-src [^;]*https:\/\/static\.cloudflareinsights\.com/)
+  assert.match(on, /connect-src [^;]*https:\/\/cloudflareinsights\.com/)
+  assert.equal(webAnalyticsToken({ NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: token }), token)
+  for (const bad of ['', 'short', '"><script>', 'a'.repeat(65)]) {
+    assert.equal(webAnalyticsToken({ NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: bad }), null, bad)
+  }
+})

@@ -14,6 +14,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/admin-session'
+import { logAdminAction } from '@/lib/admin-activity'
 import { parseIngredientSections, parseStepSections } from '@/lib/ingredient-lines.mjs'
 import { nutritionColumns } from '@/lib/nutrition/recipe-nutrition'
 import { costColumns } from '@/lib/cost/recipe-cost'
@@ -41,7 +42,8 @@ async function slugFor(supabase: ReturnType<typeof getSupabaseAdmin>, id: string
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (!(await requireAdmin(req, res))) return
+  const adminId = await requireAdmin(req, res)
+  if (!adminId) return
   const supabase = getSupabaseAdmin()
   res.setHeader('Cache-Control', 'no-store, max-age=0')
 
@@ -70,6 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const imagePath = (data as { imagePath?: string | null } | null)?.imagePath
     if (imagePath) await supabase.storage.from('recipe-images').remove([imagePath]).catch(() => undefined)
     await refreshRecipePages(res, slug)
+    await logAdminAction(req, adminId, 'recipe.deleted', { targetType: 'recipe', targetId: id, detail: { slug } })
     return res.status(200).json({ success: true, deleted: (data as { deleted?: boolean } | null)?.deleted === true })
   }
 
@@ -110,18 +113,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (priceError) return res.status(500).json({ success: false, error: 'Saved, but nutrition and cost could not be updated' })
     const slug = (data as { slug?: string } | null)?.slug
     await refreshRecipePages(res, slug)
+    await logAdminAction(req, adminId, 'recipe.edited', { targetType: 'recipe', targetId: id, detail: { slug: slug ?? null, title: payload.title, version: (data as { version?: number } | null)?.version ?? null } })
     return res.status(200).json({ success: true, version: (data as { version?: number } | null)?.version, costPerServing: columns.cost_per_serving, calories: (nutrition.nutrition_per_serving as { calories?: number } | null)?.calories ?? null, keptLabelNutrition: keepLabel })
   }
   if (typeof req.body?.editorsPick === 'boolean') {
     if (!UUID.test(id)) return res.status(400).json({ success: false, error: 'Bad request' })
     const { error } = await supabase.rpc('admin_set_editors_pick', { target: id, pick: req.body.editorsPick })
     if (error) return res.status(400).json({ success: false, error: error.message })
+    await logAdminAction(req, adminId, 'recipe.editors_pick', { targetType: 'recipe', targetId: id, detail: { pick: req.body.editorsPick } })
     return res.status(200).json({ success: true })
   }
   const visibility = req.body?.visibility
   if (!UUID.test(id) || !['public', 'unlisted', 'private'].includes(visibility)) return res.status(400).json({ success: false, error: 'Bad request' })
   const { error } = await supabase.rpc('admin_set_recipe_visibility', { target: id, new_visibility: visibility })
   if (error) return res.status(400).json({ success: false, error: error.message })
-  await refreshRecipePages(res, await slugFor(supabase, id))
+  const slug = await slugFor(supabase, id)
+  await refreshRecipePages(res, slug)
+  await logAdminAction(req, adminId, 'recipe.visibility', { targetType: 'recipe', targetId: id, detail: { slug, visibility } })
   return res.status(200).json({ success: true })
 }

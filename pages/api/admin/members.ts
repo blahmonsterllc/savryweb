@@ -7,11 +7,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/admin-session'
+import { logAdminAction } from '@/lib/admin-activity'
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (!(await requireAdmin(req, res))) return
+  const adminId = await requireAdmin(req, res)
+  if (!adminId) return
   const supabase = getSupabaseAdmin()
   res.setHeader('Cache-Control', 'no-store, max-age=0')
 
@@ -20,6 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const limit = Math.min(Math.max(Number(req.query.limit) || 50, 1), 200)
     const { data, error } = await supabase.rpc('admin_members', { query, page_limit: limit })
     if (error) return res.status(500).json({ success: false, error: error.message })
+    // Member searches show email addresses, so who looked for whom is kept.
+    if (query) await logAdminAction(req, adminId, 'members.searched', { detail: { query } })
     return res.status(200).json({ success: true, members: data ?? [] })
   }
 
@@ -33,5 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!UUID.test(id) || typeof banned !== 'boolean') return res.status(400).json({ success: false, error: 'Bad request' })
   const { error } = await supabase.rpc('admin_set_ban', { target: id, banned })
   if (error) return res.status(400).json({ success: false, error: error.message })
+  await logAdminAction(req, adminId, banned ? 'member.banned' : 'member.unbanned', { targetType: 'member', targetId: id })
   return res.status(200).json({ success: true })
 }

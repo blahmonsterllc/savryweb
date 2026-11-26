@@ -10,6 +10,12 @@ import { resolveMx, resolveTxt } from 'node:dns/promises'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { SITE_URL } from '@/lib/site-url'
 import { requireAdmin } from '@/lib/admin-session'
+import { accessConfig } from '@/lib/cloudflare-access.mjs'
+import { webAnalyticsToken } from '@/lib/security-policy.mjs'
+import { trafficConfig } from '@/lib/cloudflare-traffic'
+
+/** vercel.json runs the patrol once a day; a day plus an hour of slack before it counts as stuck. */
+const PATROL_STALE_MINUTES = 25 * 60
 
 type Check = { id: string; label: string; ok: boolean; detail?: string; pending?: boolean }
 type Group = { id: string; label: string; checks: Check[] }
@@ -35,9 +41,23 @@ async function configuration(): Promise<Group> {
       { id: 'supabase-secret', label: 'Supabase secret key (server only)', ok: Boolean(env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY) },
       { id: 'site-url', label: 'Canonical site URL is savry.io', ok: SITE_URL === 'https://www.savry.io', detail: SITE_URL },
       { id: 'apple-revoke', label: 'Apple token revocation on account deletion', ok: Boolean(env.APPLE_TEAM_ID && env.APPLE_KEY_ID && env.APPLE_PRIVATE_KEY), detail: env.APPLE_PRIVATE_KEY ? 'Configured' : 'Add APPLE_TEAM_ID, APPLE_KEY_ID, and APPLE_PRIVATE_KEY in Vercel' },
-      { id: 'patrol-key', label: 'Content patrol has a model key', ok: Boolean(env.ANTHROPIC_API_KEY), detail: env.ANTHROPIC_API_KEY ? 'Configured' : 'Add ANTHROPIC_API_KEY in Vercel to switch the patrol on', pending: !env.ANTHROPIC_API_KEY },
+      // Required: without it Savry Chef and the kitchen scan in the app answer 503, and the patrol is off.
+      { id: 'patrol-key', label: 'Savry Chef, kitchen scan and content patrol have a model key (Anthropic)', ok: Boolean(env.ANTHROPIC_API_KEY), detail: env.ANTHROPIC_API_KEY ? 'Configured' : 'Add ANTHROPIC_API_KEY in Vercel: Savry Chef and the kitchen scan in the app do not work without it' },
       { id: 'resend-key', label: 'Weekly email can send (Resend API key)', ok: Boolean(env.RESEND_API_KEY), detail: env.RESEND_API_KEY ? 'Configured; goes out Sundays 15:00 UTC' : 'Add RESEND_API_KEY in Vercel to switch the weekly email on', pending: !env.RESEND_API_KEY },
-      { id: 'patrol-schedule', label: 'Content patrol schedule is protected', ok: Boolean(env.CRON_SECRET), detail: env.CRON_SECRET ? 'Runs every 10 minutes' : 'Add CRON_SECRET in Vercel' },
+      { id: 'patrol-schedule', label: 'Content patrol schedule is protected', ok: Boolean(env.CRON_SECRET), detail: env.CRON_SECRET ? 'Runs once a day (05:40 UTC); run more batches from Patrol' : 'Add CRON_SECRET in Vercel' },
+      {
+        id: 'cloudflare-access',
+        label: 'Cloudflare Access sign-in protects the admin area',
+        ok: accessConfig() !== null,
+        detail: accessConfig() ? `Team ${accessConfig()?.teamDomain}; every admin request must carry its token` : 'Add CLOUDFLARE_ACCESS_TEAM_DOMAIN and CLOUDFLARE_ACCESS_AUD in Vercel (docs/admin-security.md)',
+      },
+      {
+        id: 'web-analytics',
+        label: 'Visit counts (Cloudflare Web Analytics)',
+        ok: Boolean(webAnalyticsToken() && trafficConfig()),
+        detail: webAnalyticsToken() ? (trafficConfig() ? 'Counting, and shown on the overview' : 'Counting; add CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN to show it here') : 'Add NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN in Vercel to start counting',
+        pending: !(webAnalyticsToken() && trafficConfig()),
+      },
       {
         id: 'retired-env',
         label: 'No retired secrets in the environment',
@@ -63,9 +83,19 @@ async function database(): Promise<Group> {
       const { data: patrol } = await supabase.rpc('admin_patrol_summary')
       const finished = patrol?.lastRun?.finishedAt ? new Date(patrol.lastRun.finishedAt).getTime() : 0
       const minutes = finished ? Math.round((Date.now() - finished) / 60000) : null
-      checks.push({ id: 'patrol-running', label: 'Content patrol ran in the last 35 minutes', ok: minutes !== null && minutes <= 35 && !patrol?.lastRun?.note, detail: minutes === null ? 'No run recorded yet' : `${minutes} min ago${patrol?.lastRun?.note ? `: ${patrol.lastRun.note}` : ''}` })
+      const ago = minutes === null ? '' : minutes < 120 ? `${minutes} min ago` : `${Math.round(minutes / 60)} h ago`
+      checks.push({ id: 'patrol-running', label: 'Content patrol ran in the last 25 hours', ok: minutes !== null && minutes <= PATROL_STALE_MINUTES && !patrol?.lastRun?.note, detail: minutes === null ? 'No run recorded yet' : `${ago}${patrol?.lastRun?.note ? `: ${patrol.lastRun.note}` : ''}` })
     }
     checks.push({ id: 'admin-list', label: 'Admin list is short and not empty', ok: (adminCount ?? 0) >= 1 && (adminCount ?? 0) <= 5, detail: `${adminCount ?? 0} account(s)` })
+    const { data: coverage, error: coverageError } = await supabase.rpc('admin_two_factor_coverage')
+    const admins = Number(coverage?.admins ?? 0)
+    const withTwoFactor = Number(coverage?.withTwoFactor ?? 0)
+    checks.push({
+      id: 'two-factor',
+      label: 'Every admin has two-factor sign-in set up',
+      ok: !coverageError && admins > 0 && withTwoFactor === admins,
+      detail: coverageError ? coverageError.message : `${withTwoFactor} of ${admins}`,
+    })
     for (const check of (audit?.checks ?? []) as Check[]) checks.push({ id: `db-${check.id}`, label: check.label, ok: check.ok, detail: check.detail })
     return { id: 'database', label: 'Database security audit (live)', checks }
   } catch (error) {

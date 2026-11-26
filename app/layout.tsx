@@ -3,8 +3,10 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import SiteFooter from '@/components/SiteFooter'
+import WebAnalytics from '@/components/WebAnalytics'
 import { Providers } from './providers'
 import { SITE_URL } from '@/lib/site-url'
+import { webAnalyticsToken } from '@/lib/security-policy.mjs'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -53,6 +55,7 @@ export default function RootLayout({
           </main>
           <SiteFooter />
         </Providers>
+        <WebAnalytics token={webAnalyticsToken()} />
       </body>
     </html>
   )
